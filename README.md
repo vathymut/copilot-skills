@@ -2,8 +2,8 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-30-blue?style=flat-square)](./.github/skills/)
-[![Agents](https://img.shields.io/badge/agents-9-purple?style=flat-square)](./.github/agents/)
+[![Skills](https://img.shields.io/badge/skills-29-blue?style=flat-square)](./.github/skills/)
+[![Agents](https://img.shields.io/badge/agents-6-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
 
@@ -13,12 +13,12 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **30 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **29 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
 | **Code Quality & Security** | `code-review`, `quality-playbook`, `pytest-coverage`, `refactor`, `ruff-recursive-fix`, `sql-code-review` |
-| **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-llms`, `create-readme`, `create-specification`, `docs-sync`, `documentation-writer`, `prd` |
+| **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-readme`, `create-specification`, `docs-sync`, `documentation-writer`, `prd` |
 | **Development Workflow** | `acquire-codebase-knowledge`, `git-commit`, `github-copilot-starter`, `grill-me`, `remember`, `repo-story-time`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **Frontend & Creative** | `frontend-design`, `mermaid-diagram-specialist`, `theme-factory` |
@@ -26,7 +26,7 @@ Skills are reusable instruction sets that extend Copilot Chat with specialized d
 
 ### Agents
 
-Agents are autonomous task runners with defined roles, tools, and personas. This catalog contains **9 agents**:
+Agents are autonomous task runners with defined roles, tools, and personas. This catalog contains **6 agents**:
 
 | Agent | Purpose |
 |---|---|
@@ -34,11 +34,8 @@ Agents are autonomous task runners with defined roles, tools, and personas. This
 | `context-architect` | Plan and execute multi-file changes |
 | `debug` | Find and fix bugs in your application |
 | `janitor` | Cleanup, simplification, and tech debt remediation |
-| `principal-software-engineer` | Engineering excellence and technical leadership |
-| `specification` | Generate or update specification documents |
 | `swe-subagent` | Senior engineer subagent for implementation tasks |
 | `Thinking-Beast-Mode` | Transcendent coding agent with quantum cognitive architecture and adversarial intelligence |
-| `Ultimate-Transparent-Thinking-Beast-Mode` | Ultimate fusion of transparent thinking, creative overclocking, and maximum autonomous persistence |
 
 ## Repository Structure
 
