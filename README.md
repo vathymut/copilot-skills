@@ -2,24 +2,24 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-29-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-30-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-6-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
 
-`README.md` is the source of truth for the live catalog inventory. Use `SKILL-OVERLAP-REPORT.md` for pruning status and historical round summaries.
+`README.md` is the source of truth for the live catalog inventory.
 
 ## What's Inside
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **29 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **30 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
 | **Code Quality & Security** | `code-review`, `quality-playbook`, `pytest-coverage`, `refactor`, `ruff-recursive-fix`, `sql-code-review` |
-| **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-readme`, `create-specification`, `docs-sync`, `documentation-writer`, `prd` |
-| **Development Workflow** | `acquire-codebase-knowledge`, `git-commit`, `github-copilot-starter`, `grill-me`, `remember`, `repo-story-time`, `skill-creator`, `web-design-reviewer` |
+| **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-readme`, `create-specification`, `documentation-writer`, `prd` |
+| **Development Workflow** | `acquire-codebase-knowledge`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `repo-story-time`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **Frontend & Creative** | `frontend-design`, `mermaid-diagram-specialist`, `theme-factory` |
 | **Communication** | `internal-comms`, `meeting-minutes` |
@@ -50,7 +50,6 @@ Agents are autonomous task runners with defined roles, tools, and personas. This
   agents/
     *.agent.md
 README.md
-SKILL-OVERLAP-REPORT.md
 ```
 
 ## Quick Start
@@ -73,6 +72,9 @@ Install from common sources:
 gh skill install github/awesome-copilot <skill-name>
 gh skill install anthropics/skills <skill-name>
 ```
+
+> [!TIP]
+> For parent-repository discovery, enable the `chat.useCustomizationsInParentRepositories` setting to also discover customizations from the parent repository. See: <https://code.visualstudio.com/docs/copilot/customization/overview#_parent-repository-discovery>.
 
 > [!NOTE]
 > Some source repos use non-standard paths (not top-level `skills/`). For those, fetch the source subpath and copy manually into `.github/skills/<skill-name>/`.
@@ -125,13 +127,13 @@ When removing skills from the local catalog:
 1. Delete the skill directory under `.github/skills/`.
 2. Recount the catalog and update the skills badge and headline count in `README.md`.
 3. Remove the deleted skill from the relevant domain row in `README.md`.
-4. Update totals and add a new round summary in `SKILL-OVERLAP-REPORT.md`.
+4. Update totals and domain rows in `README.md`.
 
 > [!IMPORTANT]
 > If a skill exists in multiple upstream sources, compare content before overwriting any local customizations.
 
 > [!TIP]
-> Prefer a smaller, focused catalog. Regularly audit and remove skills you no longer use — see [`SKILL-OVERLAP-REPORT.md`](./SKILL-OVERLAP-REPORT.md) for the current pruning status and deletion history.
+> Prefer a smaller, focused catalog. Regularly audit and remove skills you no longer use, then sync counts and domain rows in `README.md`.
 
 ## Upstream Sources
 
