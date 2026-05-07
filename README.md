@@ -2,7 +2,7 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-34-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-41-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-6-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,7 +13,7 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **34 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **41 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
@@ -21,9 +21,10 @@ Skills are reusable instruction sets that extend Copilot Chat with specialized d
 | **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-readme`, `create-specification`, `documentation-writer`, `prd` |
 | **Development Workflow** | `acquire-codebase-knowledge`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `repo-story-time`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
+| **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
 | **Frontend & Creative** | `frontend-design`, `mermaid-diagram-specialist`, `theme-factory` |
 | **Communication** | `internal-comms`, `meeting-minutes` |
-| **Document Formats** | `docx`, `pdf`, `xlsx`, `pptx` |
+| **Document Formats** | `pdf`, `xlsx` |
 
 ### Agents
 
@@ -149,3 +150,4 @@ When removing skills from the local catalog:
 | `agno-agi/agno` | Agno framework skills |
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
 | `vercel/next.js` | Frontend and full-stack patterns |
+| `duckdb/duckdb-skills` | DuckDB-powered data skills |
