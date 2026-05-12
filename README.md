@@ -2,7 +2,7 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-41-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-40-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-6-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,11 +13,11 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **41 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **40 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
-| **Code Quality & Security** | `code-review`, `quality-playbook`, `pytest-coverage`, `refactor`, `ruff-recursive-fix`, `sql-code-review` |
+| **Code Quality & Security** | `quality-playbook`, `pytest-coverage`, `refactor`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-agentsmd`, `create-architectural-decision-record`, `create-implementation-plan`, `create-readme`, `create-specification`, `documentation-writer`, `prd` |
 | **Development Workflow** | `acquire-codebase-knowledge`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `repo-story-time`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
