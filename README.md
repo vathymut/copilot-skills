@@ -154,15 +154,16 @@ When removing skills from the local catalog:
 
 ## Global Installation for All VS Code Sessions
 
-To make your custom skills, agents, and instructions available to all GitHub Copilot agents across every VS Code workspace on your machine, you can create symbolic links from this repo's `.github/skills`, `.github/agents`, and `.github/instructions` directories to your global user prompts directory.
+Recommended: use the personal Copilot folder (`~/.copilot`) as the canonical global location for skills, agents, and instructions.
 
 ### macOS/Linux
 
 ```bash
-mkdir -p "$HOME/Library/Application Support/Code/User/prompts/.github"
-ln -sfn "$PWD/.github/skills" "$HOME/Library/Application Support/Code/User/prompts/.github/skills"
-ln -sfn "$PWD/.github/agents" "$HOME/Library/Application Support/Code/User/prompts/.github/agents"
-ln -sfn "$PWD/.github/instructions" "$HOME/Library/Application Support/Code/User/prompts/.github/instructions"
+mkdir -p "$HOME/.copilot"
+rm -rf "$HOME/.copilot/skills" "$HOME/.copilot/agents" "$HOME/.copilot/instructions"
+ln -s "$PWD/.github/skills" "$HOME/.copilot/skills"
+ln -s "$PWD/.github/agents" "$HOME/.copilot/agents"
+ln -s "$PWD/.github/instructions" "$HOME/.copilot/instructions"
 ```
 
 ### Windows
@@ -171,12 +172,17 @@ ln -sfn "$PWD/.github/instructions" "$HOME/Library/Application Support/Code/User
 2. Run the following commands (replace `<repo-path>` with the absolute path to your repo):
 
 ```cmd
-mklink /D "%APPDATA%\Code\User\prompts\.github\skills" "<repo-path>\.github\skills"
-mklink /D "%APPDATA%\Code\User\prompts\.github\agents" "<repo-path>\.github\agents"
-mklink /D "%APPDATA%\Code\User\prompts\.github\instructions" "<repo-path>\.github\instructions"
+if not exist "%USERPROFILE%\.copilot" mkdir "%USERPROFILE%\.copilot"
+rmdir /S /Q "%USERPROFILE%\.copilot\skills"
+rmdir /S /Q "%USERPROFILE%\.copilot\agents"
+rmdir /S /Q "%USERPROFILE%\.copilot\instructions"
+mklink /D "%USERPROFILE%\.copilot\skills" "<repo-path>\.github\skills"
+mklink /D "%USERPROFILE%\.copilot\agents" "<repo-path>\.github\agents"
+mklink /D "%USERPROFILE%\.copilot\instructions" "<repo-path>\.github\instructions"
 ```
 
 > **Note:**
-> - These symbolic links ensure that any changes you make in your repo are instantly reflected globally for Copilot agents and instructions.
-> - If the target directories already exist, the commands above will replace them with symlinks.
-> - After setup, all Copilot agents in any VS Code session will automatically discover and use your custom skills, agents, and instructions.
+> - These symlinks keep this repo as the single source of truth while making customizations global.
+> - If a destination already exists, remove it first (as shown above) before creating the link.
+> - VS Code can also discover user-profile customizations from its profile user-data location. If you use that path too, keep `~/.copilot/*` as the canonical source and point profile-specific paths to it.
+> - After setup, custom skills, agents, and instructions are available across VS Code sessions for your user profile.
