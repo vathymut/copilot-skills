@@ -151,3 +151,32 @@ When removing skills from the local catalog:
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
+
+## Global Installation for All VS Code Sessions
+
+To make your custom skills, agents, and instructions available to all GitHub Copilot agents across every VS Code workspace on your machine, you can create symbolic links from this repo's `.github/skills`, `.github/agents`, and `.github/instructions` directories to your global user prompts directory.
+
+### macOS/Linux
+
+```bash
+mkdir -p "$HOME/Library/Application Support/Code/User/prompts/.github"
+ln -sfn "$PWD/.github/skills" "$HOME/Library/Application Support/Code/User/prompts/.github/skills"
+ln -sfn "$PWD/.github/agents" "$HOME/Library/Application Support/Code/User/prompts/.github/agents"
+ln -sfn "$PWD/.github/instructions" "$HOME/Library/Application Support/Code/User/prompts/.github/instructions"
+```
+
+### Windows
+
+1. Open Command Prompt as Administrator.
+2. Run the following commands (replace `<repo-path>` with the absolute path to your repo):
+
+```cmd
+mklink /D "%APPDATA%\Code\User\prompts\.github\skills" "<repo-path>\.github\skills"
+mklink /D "%APPDATA%\Code\User\prompts\.github\agents" "<repo-path>\.github\agents"
+mklink /D "%APPDATA%\Code\User\prompts\.github\instructions" "<repo-path>\.github\instructions"
+```
+
+> **Note:**
+> - These symbolic links ensure that any changes you make in your repo are instantly reflected globally for Copilot agents and instructions.
+> - If the target directories already exist, the commands above will replace them with symlinks.
+> - After setup, all Copilot agents in any VS Code session will automatically discover and use your custom skills, agents, and instructions.
