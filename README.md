@@ -3,7 +3,7 @@
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
 [![Skills](https://img.shields.io/badge/skills-42-blue?style=flat-square)](./.github/skills/)
-[![Agents](https://img.shields.io/badge/agents-6-purple?style=flat-square)](./.github/agents/)
+[![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
 
@@ -29,16 +29,13 @@ Skills are reusable instruction sets that extend Copilot Chat with specialized d
 
 ### Agents
 
-Agents are autonomous task runners with defined roles, tools, and personas. This catalog contains **6 agents**:
+Agents are autonomous task runners with defined roles, tools, and personas. This catalog contains **3 agents**:
 
 | Agent | Purpose |
 |---|---|
-| `address-comments` | Address pull request review comments |
-| `context-architect` | Plan and execute multi-file changes |
 | `debug` | Find and fix bugs in your application |
 | `janitor` | Cleanup, simplification, and tech debt remediation |
 | `swe-subagent` | Senior engineer subagent for implementation tasks |
-| `Thinking-Beast-Mode` | Transcendent coding agent with quantum cognitive architecture and adversarial intelligence |
 
 ## Repository Structure
 
