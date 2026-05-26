@@ -13,11 +13,11 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **45 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **44 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
-| **Code Quality & Security** | `quality-playbook`, `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
+| **Code Quality & Security** | `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `create-implementation-plan`, `create-specification`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming-research-ideas`, `exam-ready`, `ml-paper-writing` |
 | **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
