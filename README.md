@@ -2,7 +2,7 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-45-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-56-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,13 +13,14 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **44 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **56 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
 | **Code Quality & Security** | `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `create-implementation-plan`, `create-specification`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming-research-ideas`, `exam-ready`, `ml-paper-writing` |
+| **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-from-skore`, `iterate-from-user`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
 | **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
@@ -71,6 +72,7 @@ Install from common sources:
 ```bash
 gh skill install github/awesome-copilot <skill-name>
 gh skill install anthropics/skills <skill-name>
+gh skill install probabl-ai/skills <skill-name>
 ```
 
 > [!TIP]
@@ -147,6 +149,7 @@ When removing skills from the local catalog:
 | `Shubhamsaboo/awesome-llm-apps` | LLM application patterns |
 | `agno-agi/agno` | Agno framework skills |
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
+| `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
 
