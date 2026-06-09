@@ -187,3 +187,72 @@ mklink /D "%USERPROFILE%\.copilot\instructions" "<repo-path>\.github\instruction
 > - If a destination already exists, remove it first (as shown above) before creating the link.
 > - VS Code can also discover user-profile customizations from its profile user-data location. If you use that path too, keep `~/.copilot/*` as the canonical source and point profile-specific paths to it.
 > - After setup, custom skills, agents, and instructions are available across VS Code sessions for your user profile.
+
+## Global Installation for OpenCode
+
+[OpenCode](https://opencode.ai) discovers agents and skills from `~/.config/opencode/`, `.opencode/`, `.claude/`, and `.agents/` directories. These symlinks make the repo your single source of truth.
+
+### Skills
+
+OpenCode reads `skills/<name>/SKILL.md` from the same locations as Claude. Symlink the skills directory:
+
+```bash
+mkdir -p "$HOME/.config/opencode"
+ln -sfn "$PWD/.github/skills" "$HOME/.config/opencode/skills"
+```
+
+Verify the skills are discovered:
+
+```bash
+opencode debug skill | rg '"name":'
+```
+
+> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 58 skills in this catalog load successfully in OpenCode 1.16.2.
+
+### Agents
+
+> [!CAUTION]
+> **Do not symlink `.github/agents/` into OpenCode's config.** Copilot `.agent.md` files use a frontmatter schema (`tools`, `name`) that OpenCode cannot parse and will error on. Create agents individually in OpenCode format instead.
+
+Use the interactive `opencode agent create` command to create OpenCode-compatible agents:
+
+```bash
+opencode agent create
+```
+
+This will ask:
+1. Where to save (select **global** for `~/.config/opencode/agents/`)
+2. A description for the agent
+3. Permissions (which tools the agent may use)
+
+It then generates an appropriate system prompt and identifier automatically.
+
+To use the repository's agent prompts as a starting point, read the `.github/agents/*.agent.md` file content when prompted and convert to OpenCode format. The key differences:
+
+| Field | Copilot `.agent.md` | OpenCode `agents/*.md` |
+|---|---|---|
+| Schema | `name`, `description`, `tools` array | `description`, `mode`, `model`, `permission`, `prompt` |
+| Tools | `tools: [string]` | `permission: { <tool>: "allow" \| "ask" \| "deny" }` |
+| Mode | Implicit | Explicit `mode: primary \| subagent` |
+
+> [!TIP]
+> See the [OpenCode agents documentation](https://opencode.ai/docs/agents) for the full schema reference.
+
+### Instructions
+
+To make this repo's global instructions available to OpenCode, reference them in `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["/path/to/this/repo/.github/instructions/*.md"]
+}
+```
+
+Or symlink the instructions directory:
+
+```bash
+ln -sfn "$PWD/.github/instructions" "$HOME/.config/opencode/instructions"
+```
+
+> **Note:** OpenCode also discovers skills, agents, and instructions from `.opencode/` directories in your project tree — so you can also reference this repo from a project-local `.opencode/` if you prefer per-project scoping. See the [OpenCode config docs](https://opencode.ai/docs/config) for details.
