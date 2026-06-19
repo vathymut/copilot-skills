@@ -1,8 +1,8 @@
 # copilot-skills
-
+/
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-61-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-68-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,18 +13,18 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **61 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **68 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
-| **Code Quality & Security** | `ponytail`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-review`, `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
+| **Code Quality & Security** | `deslop`, `ponytail`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-review`, `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `create-implementation-plan`, `create-specification`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming-research-ideas`, `exam-ready`, `ml-paper-writing` |
 | **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-from-skore`, `iterate-from-user`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
-| **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
+| **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `fix-merge-conflicts`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
-| **Frontend & Creative** | `frontend-design`, `mermaid-diagram-specialist`, `theme-factory` |
+| **Frontend & Creative** | `frontend-design`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `theme-factory`, `ui-screenshots` |
 | **Communication** | `brag-sheet`, `internal-comms`, `meeting-minutes`, `performance-review-writer` |
 | **Document Formats** | `pdf`, `xlsx` |
 
@@ -208,7 +208,7 @@ Verify the skills are discovered:
 opencode debug skill | rg '"name":'
 ```
 
-> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 58 skills in this catalog load successfully in OpenCode 1.16.2.
+> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 68 skills in this catalog load successfully in OpenCode.
 
 ### Agents
 
