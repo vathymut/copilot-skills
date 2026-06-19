@@ -2,7 +2,7 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-56-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-58-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,11 +13,11 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **56 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **58 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
-| **Code Quality & Security** | `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
+| **Code Quality & Security** | `ponytail`, `ponytail-review`, `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `create-implementation-plan`, `create-specification`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming-research-ideas`, `exam-ready`, `ml-paper-writing` |
 | **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-from-skore`, `iterate-from-user`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
@@ -151,6 +151,7 @@ When removing skills from the local catalog:
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
 | `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
+| `DietrichGebert/ponytail` | YAGNI-first lazy senior dev philosophy and over-engineering review |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
 
 ## Global Installation for All VS Code Sessions
