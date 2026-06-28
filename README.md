@@ -2,7 +2,7 @@
 /
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-68-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-70-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,7 +13,7 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **68 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **70 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
@@ -24,7 +24,7 @@ Skills are reusable instruction sets that extend Copilot Chat with specialized d
 | **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `fix-merge-conflicts`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
-| **Frontend & Creative** | `frontend-design`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `theme-factory`, `ui-screenshots` |
+| **Frontend & Creative** | `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `theme-factory`, `tufte-data-viz`, `ui-screenshots` |
 | **Communication** | `brag-sheet`, `internal-comms`, `meeting-minutes`, `performance-review-writer` |
 | **Document Formats** | `pdf`, `xlsx` |
 
@@ -153,6 +153,8 @@ When removing skills from the local catalog:
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `DietrichGebert/ponytail` | YAGNI-first lazy senior dev philosophy and over-engineering review |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
+| `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
+| `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
 
 ## Global Installation for All VS Code Sessions
 
