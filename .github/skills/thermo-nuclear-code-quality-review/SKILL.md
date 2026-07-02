@@ -1,7 +1,6 @@
 ---
 name: thermo-nuclear-code-quality-review
-description: Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth. Use for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, or especially harsh maintainability review.
-user-invocable: true
+description: 'Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth.'
 ---
 
 # Thermo-Nuclear Code Quality Review
@@ -9,13 +8,6 @@ user-invocable: true
 Use this skill for an unusually strict review focused on implementation quality, maintainability, abstraction quality, and codebase health.
 
 Above all, this skill should push the reviewer to be **ambitious** about code structure. Do not merely identify local cleanup opportunities. Actively search for "code judo" moves: restructurings that preserve behavior while making the implementation dramatically simpler, smaller, more direct, and more elegant.
-
-## When to Use
-
-- Performing a deep code quality audit of a branch or PR.
-- Reviewing large, complex refactors.
-- Scrutinizing the structure and architecture of proposed changes.
-- Specifically requested for a harsh, "thermo-nuclear" or extremely strict maintainability review.
 
 ## Procedure
 

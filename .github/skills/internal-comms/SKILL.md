@@ -1,22 +1,13 @@
 ---
 name: internal-comms
-description: A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
+description: A set of resources to help me write internal communications using the formats that my company likes to use.
 license: Complete terms in LICENSE.txt
 ---
 
 ## When to use this skill
-To write internal communications, use this skill for:
-- 3P updates (Progress, Plans, Problems)
-- Company newsletters
-- FAQ responses
-- Status reports
-- Leadership updates
-- Project updates
-- Incident reports
+Use this skill when asked to write any internal communication.
 
 ## How to use this skill
-
-To write any internal communication:
 
 1. **Identify the communication type** from the request
 2. **Load the appropriate guideline file** from the `examples/` directory:
@@ -28,5 +19,9 @@ To write any internal communication:
 
 If the communication type doesn't match any existing guideline, ask for clarification or more context about the desired format.
 
-## Keywords
-3P updates, company newsletter, company comms, weekly update, faqs, common questions, updates, internal comms
+## Completion Criteria
+
+The task is complete when:
+- The communication draft matches the selected guideline's formatting and tone
+- All required sections are present per the guideline
+- The user confirms the draft is ready to send

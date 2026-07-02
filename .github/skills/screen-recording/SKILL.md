@@ -137,81 +137,13 @@ draw.text((10, height - 30), f"F{i}/{total} a={alpha:.0%} FADE",
           fill="white", font=small_font)
 ```
 
-## Desktop Screen Recording (mss)
+## Desktop Screen Recording
 
-For recording desktop apps, terminals, or anything outside a browser. Uses `mss` for fast screen capture.
-
-```python
-import mss
-from PIL import Image
-import time
-
-def record_gif(output_path, region=None, duration=5, fps=8):
-    """Record screen region to GIF. region = {left, top, width, height} or None for full screen."""
-    with mss.mss() as sct:
-        if region is None:
-            region = sct.monitors[1]  # primary monitor
-
-        frames = []
-        t_end = time.time() + duration
-        while time.time() < t_end:
-            t0 = time.time()
-            shot = sct.grab(region)
-            frames.append(Image.frombytes('RGB', shot.size, shot.rgb))
-            time.sleep(max(0, 1 / fps - (time.time() - t0)))
-
-    frames[0].save(output_path, save_all=True, append_images=frames[1:],
-                   duration=int(1000 / fps), loop=0, optimize=True)
-    return len(frames)
-
-record_gif('demo.gif', region={'left': 0, 'top': 0, 'width': 800, 'height': 500}, duration=3)
-```
-
-Tested: 3s at 8fps → 24 frames, ~31KB. Keep fps ≤ 10 for reasonable file sizes.
-
-**Note:** `PIL.save(save_all=True)` works for simple recordings but merges visually similar frames. For annotated GIFs with fade effects, use `imageio.v3.imwrite` instead.
-
-### Combining with window capture
-
-```python
-# Find window rect, then record it as a GIF
-# Reuse find_window() from the ui-screenshots skill
-import ctypes
-from ctypes import c_int, Structure, byref, windll
-
-class RECT(Structure):
-    _fields_ = [('left', c_int), ('top', c_int), ('right', c_int), ('bottom', c_int)]
-
-hwnd = find_window('My App')[0][0]
-rect = RECT()
-windll.user32.GetWindowRect(hwnd, byref(rect))
-region = {'left': rect.left, 'top': rect.top,
-          'width': rect.right - rect.left, 'height': rect.bottom - rect.top}
-record_gif('app-demo.gif', region=region, duration=5, fps=8)
-```
+For recording desktop apps, terminals, or anything outside a browser. See [references/desktop-recording.md](references/desktop-recording.md) for `mss` capture code and window-recording patterns.
 
 ## Diff-Based Cluster Detection
 
-Programmatically find changed regions between frames to decide what to annotate:
-
-```python
-import numpy as np
-from scipy import ndimage
-
-def find_changed_clusters(frame_a, frame_b, threshold=30, min_pixels=300, dilate=5):
-    """Find bounding boxes of changed regions between two frames."""
-    diff = np.abs(frame_b.astype(float) - frame_a.astype(float)).max(axis=2)
-    mask = diff > threshold
-    dilated = ndimage.binary_dilation(mask, iterations=dilate)
-    labeled, n = ndimage.label(dilated)
-    clusters = []
-    for i in range(1, n + 1):
-        ys, xs = np.where(labeled == i)
-        if len(ys) < min_pixels:
-            continue
-        clusters.append((xs.min(), ys.min(), xs.max(), ys.max(), len(ys)))
-    return sorted(clusters, key=lambda c: -c[4])  # largest first
-```
+Programmatically find changed regions between frames to decide what to annotate. See [references/cluster-detection.md](references/cluster-detection.md) for the `find_changed_clusters` implementation.
 
 ## Format Compatibility
 

@@ -3,9 +3,9 @@ name: pytest-coverage
 description: 'Run pytest tests with coverage, discover lines missing coverage, and increase coverage to 100%.'
 ---
 
-The goal is for the tests to cover all lines of code.
+## Steps
 
-Generate a coverage report with:
+### 1. Generate coverage report
 
 pytest --cov --cov-report=annotate:cov_annotate
 
@@ -17,12 +17,12 @@ You can also specify specific tests to run, for example:
 
 pytest tests/test_your_module.py --cov=your_module_name --cov-report=annotate:cov_annotate
 
-Open the cov_annotate directory to view the annotated source code.
-There will be one file per source file. If a file has 100% source coverage, it means all lines are covered by tests, so you do not need to open the file.
+### 2. Review uncovered lines
 
-For each file that has less than 100% test coverage, find the matching file in cov_annotate and review the file.
+Open the `cov_annotate` directory. For each file with less than 100% coverage, review the annotated source. Lines starting with `!` are not covered.
 
-If a line starts with a ! (exclamation mark), it means that the line is not covered by tests.
-Add tests to cover the missing lines.
+### 3. Add missing tests
 
-Keep running the tests and improving coverage until all lines are covered.
+Write tests covering the `!` lines. Keep running pytest + coverage until all lines are covered.
+
+**Stop when:** coverage report shows 0 uncovered lines, or further gains require architectural changes (flag to user).

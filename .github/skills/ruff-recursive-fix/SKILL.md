@@ -5,19 +5,7 @@ description: Run Ruff checks with optional scope and rule overrides, apply safe 
 
 # Ruff Recursive Fix
 
-## Overview
-
-Use this skill to enforce code quality with Ruff in a controlled, iterative workflow.
-It supports:
-
-- Optional scope limitation to a specific folder.
-- Default project settings from `pyproject.toml`.
-- Flexible Ruff invocation (`uv`, direct `ruff`, `python -m ruff`, or equivalent).
-- Optional per-run rule overrides (`--select`, `--ignore`, `--extend-select`, `--extend-ignore`).
-- Automatic safe then unsafe autofixes.
-- Diff review after each fix pass.
-- Recursive repetition until findings are resolved or require a decision.
-- Judicious use of inline `# noqa` only when suppression is justified.
+Iterative Ruff linting: autofix safe, then unsafe, review diffs, suppress only when justified, repeat until clean.
 
 ## Inputs
 
@@ -34,13 +22,7 @@ Collect these inputs before running:
 
 ## Command Construction
 
-Build Ruff commands from inputs.
-
-### 0. Resolve Ruff Runner
-
-Determine a reusable `ruff_cmd` prefix before building commands.
-
-Resolution order:
+Resolve a reusable `ruff_cmd` prefix before building commands. Resolution order:
 
 1. If `ruff_runner` is provided, use it as-is.
 2. Else if `uv` is available and Ruff is managed through `uv`, use `uv run ruff`.
@@ -49,41 +31,6 @@ Resolution order:
 5. Else use any project-specific equivalent that invokes installed Ruff (for example `pipx run ruff`), or stop and ask the user.
 
 Use the same resolved `ruff_cmd` for all `check` and `format` commands in the workflow.
-
-Base command:
-
-```bash
-<ruff_cmd> check
-```
-
-Formatter command:
-
-```bash
-<ruff_cmd> format
-```
-
-With optional target:
-
-```bash
-<ruff_cmd> format <target_path>
-```
-
-Add optional target:
-
-```bash
-<ruff_cmd> check <target_path>
-```
-
-Add optional overrides as needed:
-
-```bash
---select <codes>
---ignore <codes>
---extend-select <codes>
---extend-ignore <codes>
-```
-
-Examples:
 
 ```bash
 # Full project with defaults from pyproject.toml

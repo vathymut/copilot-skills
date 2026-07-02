@@ -1,17 +1,16 @@
 ---
 name: git-commit
-description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping'
+description: 'Execute git commit with conventional commit message analysis, staging, and message generation. Use when user asks to commit changes or mentions "/commit".'
 license: MIT
 allowed-tools: Bash
 ---
 
 # Git Commit with Conventional Commits
 
-## Overview
+Create standardized, semantic git commits using the Conventional Commits
+specification. Analyze the actual diff to determine type, scope, and message.
 
-Create standardized, semantic git commits using the Conventional Commits specification. Analyze the actual diff to determine appropriate type, scope, and message.
-
-## Conventional Commit Format
+## Format
 
 ```
 <type>[optional scope]: <description>
@@ -19,34 +18,6 @@ Create standardized, semantic git commits using the Conventional Commits specifi
 [optional body]
 
 [optional footer(s)]
-```
-
-## Commit Types
-
-| Type       | Purpose                        |
-| ---------- | ------------------------------ |
-| `feat`     | New feature                    |
-| `fix`      | Bug fix                        |
-| `docs`     | Documentation only             |
-| `style`    | Formatting/style (no logic)    |
-| `refactor` | Code refactor (no feature/fix) |
-| `perf`     | Performance improvement        |
-| `test`     | Add/update tests               |
-| `build`    | Build system/dependencies      |
-| `ci`       | CI/config changes              |
-| `chore`    | Maintenance/misc               |
-| `revert`   | Revert commit                  |
-
-## Breaking Changes
-
-```
-# Exclamation mark after type/scope
-feat!: remove deprecated endpoint
-
-# BREAKING CHANGE footer
-feat: allow config to extend other configs
-
-BREAKING CHANGE: `extends` key behavior changed
 ```
 
 ## Workflow
@@ -66,17 +37,9 @@ git status --porcelain
 
 ### 2. Stage Files (if needed)
 
-If nothing is staged or you want to group changes differently:
-
 ```bash
-# Stage specific files
 git add path/to/file1 path/to/file2
-
-# Stage by pattern
 git add *.test.*
-git add src/components/*
-
-# Interactive staging
 git add -p
 ```
 
@@ -85,37 +48,27 @@ git add -p
 ### 3. Generate Commit Message
 
 Analyze the diff to determine:
-
-- **Type**: What kind of change is this?
+- **Type**: What kind of change? (→ `references/commit-types.md`)
 - **Scope**: What area/module is affected?
-- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars)
+- **Description**: One-line summary, present tense, imperative mood, <72 chars
 
 ### 4. Execute Commit
 
 ```bash
-# Single line
 git commit -m "<type>[scope]: <description>"
-
-# Multi-line with body/footer
-git commit -m "$(cat <<'EOF'
-<type>[scope]: <description>
-
-<optional body>
-
-<optional footer>
-EOF
-)"
 ```
 
-## Best Practices
+**Completion criteria:** commit created, no staged secrets, message follows conventional format.
+
+## Conventions
 
 - One logical change per commit
 - Present tense: "add" not "added"
 - Imperative mood: "fix bug" not "fixes bug"
 - Reference issues: `Closes #123`, `Refs #456`
-- Keep description under 72 characters
+- Description under 72 characters
 
-## Git Safety Protocol
+## Safety
 
 - NEVER update git config
 - NEVER run destructive commands (--force, hard reset) without explicit request

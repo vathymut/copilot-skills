@@ -7,23 +7,13 @@ description: >
   codebase", "audit for over-engineering", "what can I delete from this repo",
   "find bloat", "ponytail-audit", or "/ponytail-audit". One-shot report, does
   not apply fixes.
-license: MIT
 ---
 
-# Ponytail Audit
-
-ponytail-review, repo-wide. Scan the whole tree instead of a diff. Rank
-findings biggest cut first.
+Scan the whole tree instead of a diff. Rank findings biggest cut first.
 
 ## Tags
 
-Same as ponytail-review:
-
-- `delete:` dead code, unused flexibility, speculative feature. Replacement: nothing.
-- `stdlib:` hand-rolled thing the standard library ships. Name the function.
-- `native:` dependency or code doing what the platform already does. Name the feature.
-- `yagni:` abstraction with one implementation, config nobody sets, layer with one caller.
-- `shrink:` same logic, fewer lines. Show the shorter form.
+Use the same tags as `ponytail-review` (`delete:`, `stdlib:`, `native:`, `yagni:`, `shrink:`).
 
 ## Hunt
 
@@ -41,3 +31,4 @@ End with `net: -<N> lines, -<M> deps possible.` Nothing to cut: `Lean already. S
 Scope: over-engineering and complexity only. Correctness bugs, security holes,
 and performance are explicitly out of scope. Route them to a normal review
 pass. Lists findings, applies nothing. One-shot.
+"stop ponytail-audit" or "normal mode" to revert.

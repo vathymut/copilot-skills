@@ -1,18 +1,9 @@
 ---
 name: python-pypi-package-builder
-description: 'End-to-end skill for building, testing, linting, versioning, and publishing a production-grade Python library to PyPI. Covers all four build backends (setuptools+setuptools_scm, hatchling, flit, poetry), PEP 440 versioning, semantic versioning, dynamic git-tag versioning, OOP/SOLID design, type hints (PEP 484/526/544/561), Trusted Publishing (OIDC), and the full PyPA packaging flow. Use for: creating Python packages, pip-installable SDKs, CLI tools, framework plugins, pyproject.toml setup, py.typed, setuptools_scm, semver, mypy, pre-commit, GitHub Actions CI/CD, or PyPI publishing.'
+description: 'Build, test, lint, version, and publish a production-grade Python library to PyPI. Covers all four build backends, PEP 440 versioning, Trusted Publishing (OIDC), and the full PyPA packaging flow. Trigger for: "create a Python package", "publish to PyPI", "pyproject.toml setup", or "build a pip-installable SDK".'
 ---
 
 # Python PyPI Package Builder Skill
-
-A complete, battle-tested guide for building, testing, linting, versioning, typing, and
-publishing a production-grade Python library to PyPI — from first commit to community-ready
-release.
-
-> **AI Agent Instruction:** Read this entire file before writing a single line of code or
-> creating any file. Every decision — layout, backend, versioning strategy, patterns, CI —
-> has a decision rule here. Follow the decision trees in order. This skill applies to any
-> Python package type (utility, SDK, CLI, plugin, data library). Do not skip sections.
 
 ---
 

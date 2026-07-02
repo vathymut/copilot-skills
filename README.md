@@ -1,8 +1,8 @@
 # copilot-skills
-/
+
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-70-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-72-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,15 +13,15 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **70 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **72 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
 | **Code Quality & Security** | `deslop`, `ponytail`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-review`, `pytest-coverage`, `refactor`, `refactor-plan`, `ruff-recursive-fix`, `sql-code-review` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `create-implementation-plan`, `create-specification`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming-research-ideas`, `exam-ready`, `ml-paper-writing` |
-| **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-from-skore`, `iterate-from-user`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
-| **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `fix-merge-conflicts`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer` |
+| **ML Experimentation** | `audit-ml-pipeline`, `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `explore-ml-data`, `iterate-from-skore`, `iterate-from-user`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
+| **Development Workflow** | `acquire-codebase-knowledge`, `commit-message-storyteller`, `fix-merge-conflicts`, `git-commit`, `github-copilot-starter`, `grill-me`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer`, `writing-great-skills` |
 | **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
 | **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
 | **Frontend & Creative** | `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `theme-factory`, `tufte-data-viz`, `ui-screenshots` |
@@ -153,6 +153,7 @@ When removing skills from the local catalog:
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `DietrichGebert/ponytail` | YAGNI-first lazy senior dev philosophy and over-engineering review |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
+| `mattpocock/skills` | Skill-writing principles and reference vocabulary |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
 | `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
 
@@ -210,7 +211,7 @@ Verify the skills are discovered:
 opencode debug skill | rg '"name":'
 ```
 
-> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 68 skills in this catalog load successfully in OpenCode.
+> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 72 skills in this catalog load successfully in OpenCode.
 
 ### Agents
 

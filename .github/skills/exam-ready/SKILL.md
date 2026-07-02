@@ -1,58 +1,23 @@
 ---
 name: exam-ready
-description: >
-  Activate this skill when a student provides study material (PDF or pasted notes)
-  and a syllabus, and wants to prepare for an exam. Extracts key definitions,
-  points, keywords, diagrams, exam-ready sentences, and practice questions
-  strictly from the provided material.
+description: Prepare exam-ready study material from notes and a syllabus.
 ---
 
 # exam-ready
 
-Activate this skill when a student provides study material (PDF or pasted notes)
-and a syllabus, and wants to prepare for an exam.
+## Workflow
 
-## What this skill does
+1. **Parse inputs**: Read study material (PDF/notes) and syllabus. If study material missing, ask. If syllabus missing, ask. Completion: both inputs received.
 
-For each syllabus topic, extract from the provided material:
-- What it is (1 line definition — exam-ready)
-- 3–5 key points an examiner expects
-- Important keywords to use in the answer (bold them)
-- Any important diagram or figure — describe what it shows in 2 lines
-- 1–2 sentences the student can directly write in their exam answer (or MCQ trick if exam type is MCQ)
-- 1 examiner-style practice question to test recall
+2. **Triage** (if time constraint given): Number topics by priority (weightage, coverage, breadth). Completion: priority list generated.
 
-Do NOT explain the full topic. Do NOT add context outside the provided material.
-Do NOT explain things the syllabus didn't ask for.
-Never tell the student to "read more" or "refer to chapter X". Give them what they need right here.
+3. **Extract per topic**: For each syllabus topic, extract definition, key points, keywords, diagram description, exam-ready sentences, practice question. Follow output format below. Completion: every syllabus topic covered.
 
-## Input format
+4. **Cross-reference**: Flag keywords that appear across multiple topics. Completion: cross-references listed.
 
-Student will provide:
-1. A PDF file or pasted notes (their study material)
-2. A syllabus — either pasted as text or listed as topics
-3. Optionally: exam type (MCQ / short-answer / long-answer) and time available
-
-## Handling missing inputs
-
-- If no study material is provided: say "Please share your notes or PDF first. I won't use outside knowledge."
-- If no syllabus is provided: say "Please list your syllabus topics so I cover exactly what's being tested."
-- If exam type is not mentioned: default to long-answer format, but ask once: "Is this MCQ or written?"
-- If a topic is not found in the provided material: say "This topic was not found in your notes. Check your material."
-
-## Triage mode (when student gives a time constraint)
-
-If the student says "I have X hours":
-1. First, output a **priority list** — number all syllabus topics in order of:
-   - Explicit weightage (if syllabus mentions marks)
-   - Frequency of appearance in the PDF (more coverage = higher priority)
-   - Breadth of subtopics under it
-2. Then expand each topic in that priority order, not syllabus order.
-3. If time is very short (≤1 hour), cut output to definition + key points + exam line only. Skip diagrams.
+5. **Deliver**: Present output in the format below. Completion: all topics delivered.
 
 ## Output format per topic
-
----
 
 ### [Topic Name]
 
@@ -79,8 +44,6 @@ If the student says "I have X hours":
 **Practice question:**
 [1 examiner-style question to test recall on this topic]
 
----
-
 ## Rules
 
 - Stay strictly within the provided material. Do not add outside knowledge under any circumstance.
@@ -89,12 +52,3 @@ If the student says "I have X hours":
 - If a keyword from one topic reappears in another, flag it under "Cross-references".
 - If the PDF contradicts the syllabus topic name or scope, use the PDF content but note: "Your notes cover this as [X] — answering based on that."
 - Keep everything short. The student is cramming, not researching.
-
-## Trigger phrases
-
-- "I have an exam tomorrow on [subject]"
-- "explain [topic] from my notes"
-- "what do I need to know about [topic] for my exam"
-- "go through my syllabus"
-- "I only have [X] hours, help me prepare"
-- "quiz me on [topic]"

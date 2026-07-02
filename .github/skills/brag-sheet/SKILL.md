@@ -2,16 +2,11 @@
 name: brag-sheet
 description: >
   Turn vague "what did I do?" into evidence-backed impact statements for performance
-  reviews, self-reviews, promotion packets, and weekly updates. Uniquely mines Copilot
-  CLI session logs to reconstruct forgotten work, plus git commits and GitHub PRs.
-  Enforces a 3-part impact contract (action → result → evidence). Works standalone
-  with zero dependencies. Trigger for: "brag", "log work", "what did I do",
-  "backfill my work history", "performance review", "self-review", "self assessment",
-  "write impact statement", "review prep", "promo packet", "promotion case",
-  "weekly update", "status report", "accomplishments", "what did I ship",
-  "I forgot to log my work", "summarize my work", "track my wins",
-  "what should I highlight", "end of half", "career growth", "work journal",
-  or any request to document, summarize, or organize work accomplishments.
+  reviews, self-reviews, promotion packets, and weekly updates. Mines Copilot CLI
+  session logs, git commits, and GitHub PRs to reconstruct forgotten work. Enforces
+  a 3-part impact contract (action → result → evidence). Trigger for: "brag sheet",
+  "performance review prep", "what did I ship", or any request to document work
+  accomplishments.
 license: MIT
 compatibility: 'Cross-platform (Windows, macOS, Linux). Works with any GitHub Copilot CLI session. Optional: git, gh CLI.'
 metadata:
@@ -23,7 +18,6 @@ argument-hint: 'Optional: time range ("last 2 weeks", "this half"), category ("i
 
 Turn engineering work into evidence-backed impact statements for performance reviews, self-reviews, promotion packets, and weekly updates. Uniquely mines Copilot CLI session logs, git history, and PRs to reconstruct forgotten work.
 
-USE FOR: "brag", "log work", "what did I do", "backfill", "performance review", "self-review", "promo packet", "weekly update", "status report", "write impact statement", "what did I ship", "I forgot to log my work", "review prep", "accomplishments"
 DO NOT USE FOR: project management, sprint planning, time tracking, ticket creation
 
 ## Quick Start

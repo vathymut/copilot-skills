@@ -38,7 +38,8 @@ description: >
 
 # Data Science Python Stack
 
-Opinionated stack — one library per job, organized into four tiers:
+Opinionated stack — one library per job, organized into four tiers
+plus an orthogonal **agent feature**:
 
 1. **Mandatory** — installed at project start, no exceptions.
 2. **User choice (competing-library jobs)** — multiple valid libraries
@@ -47,6 +48,12 @@ Opinionated stack — one library per job, organized into four tiers:
 3. **Optional** — install only when the project's task requires it.
 4. **Transitive** — already pulled in by the mandatory tier; do not
    install explicitly, but know they're available.
+5. **Agent feature (orthogonal)** — deps that the *agent* uses
+   to audit a workspace and to power the editor LSP integration
+   (`ipython`, `pyright`), kept out of the production-shape
+   runtime via a manager-specific scope. Install logistics owned
+   by `python-env-manager` § "Agent feature"; consumed by
+   `audit-ml-pipeline` and the opencode LSP integration.
 
 ## Stop conditions — read before naming any library
 
@@ -81,72 +88,41 @@ Opinionated stack — one library per job, organized into four tiers:
   non-compliance to the user explicitly as part of your final
   message — do not hide it.
 
-## Forbidden shortcuts (observed in real traces)
-
-| Shortcut | Why it feels right | Why it's wrong |
-|----------|--------------------|----------------|
-| `pandas` is already pulled in by `skore` → skip the Tier 2 ask | "Free" library, no install needed | Tier 2 is a *project-shape* decision (every `data.py` signature, every fixture); transitive presence is not a pick |
-| User said "quick baseline" → assume `pandas` | Task urgency reads as permission | Urgency phrasing never waives a competing-library gate (Stop conditions above) |
-| Folder has no existing tabular code → infer pandas | "No preference signalled" | Inference is a silent pick; the gate requires a structured ask or a recorded `JOURNAL.md` decision |
-| One competing option requires a new `pixi add` → pick the "free" one | Avoids an install step | Install cost is not the criterion; project fit is |
-| User picked `pytorch` last project → reuse without asking | Continuity is friendly | Each workspace records its own `Workspace decisions`; cross-project memory is forbidden |
-
 ## Competing libraries — general rule
 
 This is the meta-rule that governs every "user choice" entry in
 this skill. It applies to the Tier 2 table below and to any new
-competing-library job added in the future. It also applies inside
-Tier 3 when two optional libraries cover the same job (e.g.
-`pytorch` vs `keras` as the deep-learning framework).
+competing-library job added in the future.
 
 ### The rule
 
 Whenever the stack offers two or more libraries for the same job:
 
 1. **`AskUserQuestion` before any import or install.** Use the
-   options listed for the job in the competing-jobs table; do not
-   editorialize the option labels.
+   options listed for the job in the competing-jobs table.
 2. **Persist the answer in `journal/JOURNAL.md` Status under
-   `Workspace decisions`.** This block is immutable until the user
-   explicitly pivots. On future sessions, **read Status first**;
-   do not re-ask a recorded decision. The persistence contract
-   lives in `iterate-ml-experiment`'s `JOURNAL.md` template — the
-   `Workspace decisions` block is the source of truth for cross-
-   session continuity.
+   `Workspace decisions`.** On future sessions, **read Status
+   first**; do not re-ask a recorded decision.
 3. **No silent default.** Even when one option is "free"
    (already pulled in transitively) and the other costs an
-   install, never pick silently. The free option becoming the
-   pick is fine; *the picking happens via `AskUserQuestion`*.
+   install, never pick silently. The picking happens via
+   `AskUserQuestion`.
 
 ### Free-text resolution
 
 A user message resolves a competing-library gate **only** if it
-names one of the listed options for the job. Apply in priority
-order:
+names one of the listed options for the job:
 
-- **Exact match** (case-insensitive, whitespace-trimmed) to an
-  option label: resolves the gate. ("use polars", "let's go
-  with pytorch", "pandas please" → resolved.)
-- **Library named in a free-text intent** ("rewrite the loader
-  in polars", "I want a keras model"): resolves the gate for
-  that job.
-- **No library named** ("make it fast", "you pick", "whatever",
-  "no preference", "quick baseline"): does **NOT** resolve.
-  Fall through to the structured `AskUserQuestion`.
-- **"You pick" / "no preference" specifically** — surface the
-  **default-on-no-preference** for the job (from the Tier 2
-  table) and ask for confirmation. Never silently pick; never
-  skip the confirmation step.
+- **Exact match** to an option label: resolves the gate.
+- **Library named in a free-text intent**: resolves the gate.
+- **No library named** ("you pick", "whatever", "no preference"):
+  does **NOT** resolve. Fall through to `AskUserQuestion`.
 
 ### Adding a new contested job
 
-When a new job appears in the stack with two viable libraries,
-add a row to the Tier 2 competing-jobs table. **Every row must
-name an explicit `Default-on-no-preference`** — rows without one
-are forbidden, because they re-create the silent-pick loophole
-this rule exists to close. If a sensible default cannot be
-named, the job does not belong in the table; surface the gap to
-the user and pick per-project via a free-form `AskUserQuestion`.
+Every row must name an explicit `Default-on-no-preference` — rows
+without one are forbidden. If a sensible default cannot be named,
+the job does not belong in the table.
 
 ## When to invoke this skill
 
@@ -239,6 +215,20 @@ changes.
   `seaborn`, `plotly`, `joblib`, and others transitively (see
   Tier 4) — so static *and* interactive plotting are available
   without any extra install.
+
+  **Install variant per mode.** `skore.Project(...)` supports three
+  mutually exclusive modes: `local` (artifacts on disk; no extra
+  deps), `hub` (artifacts on Skore Hub; requires `skore[hub]`
+  extra + `skore.login()` before first use), `mlflow` (artifacts
+  in an MLflow tracking server; requires the `skore[mlflow]` extra
+  **plus an explicit `mlflow>=3` pin** — `skore[mlflow]` alone can
+  resolve an unsupported mlflow 2.x).
+  The choice is a workspace-level decision owned by
+  `organize-ml-workspace` § "G-SKORE-MODE" — fired at scaffold
+  alongside G-PKG-NAME / G-TABULAR / G-ENV-MGR. `python-env-manager`
+  § "Tier 1 install: skore variant per mode" maps the recorded
+  decision to the right install command per env manager.
+  Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format,
   replaces `black` / `isort` / `flake8` / `pydocstyle`. Install in
   the **same feature/env as the rest of the Tier 1 stack** so
@@ -378,12 +368,15 @@ markers (jupytext percent format) over `.ipynb` files. Python
 files are diffable and version-control friendly; jupytext handles
 the conversion to/from notebook format when needed.
 
-- [`jupyterlab`](references/jupyterlab.md) — browser-based
-  notebook IDE; edits and runs notebooks (or jupytext-paired
-  `.py` files). Brings `ipykernel` transitively.
-- [`jupytext`](references/jupytext.md) — sync `.ipynb` ↔ `.py`
-  (`# %%` markers) so the notebook source-of-truth stays
-  version-control friendly.
+- [`jupyterlab`](references/jupyterlab.md) + [`ipykernel`](references/ipykernel.md)
+  — **ambient in the `dev` feature** (alongside `ruff` + `pytest`,
+  per `python-env-manager` § "Where does the package belong?").
+  Always installed; no per-project ask. The reference pages
+  describe the tools' role, not an opt-in install.
+- [`jupytext`](references/jupytext.md) — **Tier 3 opt-in**: sync
+  `.ipynb` ↔ `.py` (`# %%` markers) so the notebook source-of-
+  truth stays version-control friendly. Install only when the
+  project wants `.ipynb` interop with the `# %%` scripts.
 
 ## Tier 4 — Transitive (already pulled in; do not install explicitly)
 
@@ -405,9 +398,21 @@ available without an extra install.
   zoom, pan); browser-based, suited for dashboards and exploratory
   notebooks. Pulled in by `skore` — **interactive viz is free, no
   extra install needed**.
-- [`ipykernel`](references/ipykernel.md) — Python kernel for
-  Jupyter. Pulled in by `jupyterlab` when the notebooks tier is
-  installed.
+
+## Agent feature — orthogonal to the four tiers
+
+Agent-only tooling (`ipython` + `pyright`) used by
+`audit-ml-pipeline` and the editor LSP integration. Not Tier 1–4;
+lives in its own manager-scoped bucket.
+
+| Library | Role |
+|---|---|
+| `ipython` | Powers the in-process cell runner for `# %%` audit files |
+| `pyright` | Powers the opencode LSP integration for Python files |
+
+**Install + config: owned by `python-env-manager` § "Agent feature".**
+Consumed by `audit-ml-pipeline` and the LSP; routes through
+`G-AGENT-FEATURE` when not present. No kernel registration needed.
 
 ## Conventions
 

@@ -2,39 +2,9 @@
 name: iterate-from-user
 description: >
   Source the next ML experiment proposal from the user via one of
-  three entry points selected by `AskUserQuestion`:
-  (a) a scientific article URL the agent must read and synthesize,
-  (b) a resource link or path (GitHub issue / spec file / reference
-  repo), or (c) free-text the user types directly. In every branch,
-  the agent reads the source, synthesizes its understanding of what
-  to implement, and confirms with the user *before* returning the
-  Proposal block. Hand the confirmed Proposal back to
-  `iterate-ml-experiment`, which writes it into
-  `journal/NN_short_name.md` and seeks the user's design-note approval.
-  Stops at "Proposal returned, user-confirmed"; never writes a
-  design note, never authors acceptance criteria.
-
-  TRIGGER when: `iterate-ml-experiment` is picking a sourcing
-  strategy and the user picks `user` from the menu; the user
-  volunteers a concrete idea ("I want to try X"); the user pastes
-  or links a scientific article, GitHub issue, spec file, or
-  reference repo and asks us to read it.
-
-  SKIP when: the user wants to mine the previous report (use
-  `iterate-from-skore`); the user is asking for a symbol lookup or
-  pipeline mechanics (use the `python-api` skill); the work is
-  evaluation mechanics on a single report (route to
-  `evaluate-ml-pipeline`).
-
-  HOW TO USE: open with an `AskUserQuestion` for the entry point —
-  article-link / resource-link / free-text. In each branch: gather
-  the source material with the appropriate tool (`WebFetch`,
-  `gh issue view`, `Read`), synthesize what you understand into the
-  three shaping questions, and **confirm with the user via plain
-  text** (one or two sentences: "you'd like to implement X by
-  changing src/<pkg>/<file>.py — right?") before returning the
-  Proposal. Do not write any design note. Do not author acceptance
-  criteria.
+  three entry points: article-link, resource-link, or free-text.
+  Reads the source, synthesizes understanding, confirms with the
+  user, and returns a Proposal block to `iterate-ml-experiment`.
 ---
 
 # Iterate from user
@@ -45,8 +15,7 @@ block, handed back to `iterate-ml-experiment`.
 
 ## Output contract (read this before the body)
 
-This skill **never writes `journal/` files** and **never authors
-acceptance criteria**. It returns a single **Proposal block** as
+This skill returns a single **Proposal block** as
 conversation text (full shape in § What is returned at the bottom):
 `Question`, `Motivation` (with `Source` field — quote, URL, or path),
 `Method outline`, `Open gaps`. Required, in every branch:
@@ -258,11 +227,6 @@ The user's answer determines what happens next:
 - **"No / not quite / adjust X" → revise and re-confirm.** Iterate
   the synthesis until the user is happy. Do not return a Proposal
   the user hasn't signed off on.
-
-This gate is non-optional. It is the user-side analogue of the
-parent's design-note approval gate — it catches misunderstandings
-*before* a design note is drafted, when the cost of revision is
-cheapest.
 
 ## What is returned
 

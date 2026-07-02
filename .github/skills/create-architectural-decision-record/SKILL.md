@@ -1,97 +1,48 @@
 ---
 name: create-architectural-decision-record
-description: 'Create an Architectural Decision Record (ADR) document for AI-optimized decision documentation.'
+description: 'Create an ADR document for architectural decisions.'
 ---
 
 # Create Architectural Decision Record
 
-Create an ADR document for `${input:DecisionTitle}` using structured formatting optimized for AI consumption and human readability.
+## Steps
 
-## Inputs
+### 1. Gather Inputs
 
-- **Context**: `${input:Context}`
-- **Decision**: `${input:Decision}`
-- **Alternatives**: `${input:Alternatives}`
-- **Stakeholders**: `${input:Stakeholders}`
+Collect from the user or conversation context:
 
-## Input Validation
-If any of the required inputs are not provided or cannot be determined from the conversation history, ask the user to provide the missing information before proceeding with ADR generation.
+- **Context**: Problem statement, constraints, business requirements
+- **Decision**: What was decided and why
+- **Alternatives**: Other options considered
+- **Stakeholders**: Who is involved or affected
 
-## Requirements
+If any are missing, ask before proceeding. **Completion**: all inputs collected.
 
-- Use precise, unambiguous language
-- Follow standardized ADR format with front matter
-- Include both positive and negative consequences
-- Document alternatives with rejection rationale
-- Structure for machine parsing and human reference
-- Use coded bullet points (3-4 letter codes + 3-digit numbers) for multi-item sections
+### 2. Determine Sequence Number
 
-The ADR must be saved in the `/docs/adr/` directory using the naming convention: `adr-NNNN-[title-slug].md`, where NNNN is the next sequential 4-digit number (e.g., `adr-0001-database-selection.md`).
+Scan `/docs/adr/` for existing `adr-NNNN-*.md` files. Next number is `max(NNNN) + 1`, zero-padded to 4 digits. Start at `0001` if none exist.
 
-## Required Documentation Structure
+**Completion**: sequence number determined.
 
-The documentation file must follow the template below, ensuring that all sections are filled out appropriately. The front matter for the markdown should be structured correctly as per the example following:
+### 3. Fill Template
 
-```md
----
-title: "ADR-NNNN: [Decision Title]"
-status: "Proposed"
-date: "YYYY-MM-DD"
-authors: "[Stakeholder Names/Roles]"
-tags: ["architecture", "decision"]
-supersedes: ""
-superseded_by: ""
----
+Read `references/adr-template.md` and populate every section. Use coded bullet points (`POS-001`, `NEG-001`, `ALT-001`, etc.) for multi-item sections.
 
-# ADR-NNNN: [Decision Title]
+**Completion**: all sections populated.
 
-## Status
+### 4. Validate
 
-**Proposed** | Accepted | Rejected | Superseded | Deprecated
+- No placeholder text (`[Bracket]` tokens)
+- All consequences documented (positive and negative)
+- Every alternative has a rejection rationale
 
-## Context
+**Completion**: validation passes.
 
-[Problem statement, technical constraints, business requirements, and environmental factors requiring this decision.]
+### 5. Save
 
-## Decision
+Write to `/docs/adr/adr-NNNN-[title-slug].md` — sequential 4-digit number, title in kebab-case. **Completion**: file written.
 
-[Chosen solution with clear rationale for selection.]
+## Rules
 
-## Consequences
-
-### Positive
-
-- **POS-001**: [Beneficial outcomes and advantages]
-- **POS-002**: [Performance, maintainability, scalability improvements]
-- **POS-003**: [Alignment with architectural principles]
-
-### Negative
-
-- **NEG-001**: [Trade-offs, limitations, drawbacks]
-- **NEG-002**: [Technical debt or complexity introduced]
-- **NEG-003**: [Risks and future challenges]
-
-## Alternatives Considered
-
-### [Alternative 1 Name]
-
-- **ALT-001**: **Description**: [Brief technical description]
-- **ALT-002**: **Rejection Reason**: [Why this option was not selected]
-
-### [Alternative 2 Name]
-
-- **ALT-003**: **Description**: [Brief technical description]
-- **ALT-004**: **Rejection Reason**: [Why this option was not selected]
-
-## Implementation Notes
-
-- **IMP-001**: [Key implementation considerations]
-- **IMP-002**: [Migration or rollout strategy if applicable]
-- **IMP-003**: [Monitoring and success criteria]
-
-## References
-
-- **REF-001**: [Related ADRs]
-- **REF-002**: [External documentation]
-- **REF-003**: [Standards or frameworks referenced]
-```
+- Precise, unambiguous language; both positive and negative consequences required
+- Alternatives must include rejection rationale; structure for machine parsing
