@@ -107,6 +107,15 @@ smallest thing that fails if the logic breaks: an `assert`-based
 fixtures, no per-function suites unless asked. Trivial one-liners need no
 test, YAGNI applies to tests too.
 
+## Related tools
+
+For reports and diagnostics, invoke `/ponytail-tools <command>`:
+
+- `review` — over-engineering review of a diff.
+- `audit` — whole-repo scan for cuts.
+- `debt` — ledger of all `ponytail:` deferral comments.
+- `gain` — benchmark scoreboard.
+
 ## Boundaries
 
 Ponytail governs what you build, not how you talk (pair with Caveman for

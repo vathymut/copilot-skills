@@ -1,6 +1,6 @@
 ---
 name: refactor
-description: 'Surgical code refactoring — improve maintainability without changing behavior. Use when the user asks to clean up, refactor, improve code structure, break down large functions, or eliminate code smells.'
+description: 'Surgical code refactoring — improve maintainability without changing behavior. Use when the user asks to clean up, refactor, improve code structure, break down large functions, or eliminate code smells. Also use when the user asks for a refactor plan; planning is step 1 of this skill.'
 license: MIT
 ---
 
@@ -8,17 +8,14 @@ license: MIT
 
 Improve code structure and readability without changing external behavior. Small steps, always with tests.
 
-## When to Use
+**Not for:** rewrites from scratch, or code without tests.
 
-Use this skill when:
+## When to use
 
-- Code is hard to understand or maintain
-- Functions/classes are too large
-- Adding features is difficult due to code structure
-
-**Not for:** rewrites from scratch (use `repo-rebuilder`), or working on code without tests.
-
----
+- Code is hard to understand or maintain.
+- Functions/classes are too large.
+- Adding features is difficult due to code structure.
+- The user asks for a refactor plan.
 
 ## Steps
 
@@ -30,9 +27,20 @@ Write or confirm tests exist that cover current behavior. Commit the working sta
 
 ### 2. Plan the path
 
-Read the code to understand what it does. Consult `references/code-smells.md` to identify which smell applies. If the refactoring involves replacing conditional logic with polymorphism, see `references/design-patterns.md`. Decide the smallest change that addresses the smell.
+For a **multi-file refactor**, or when the user explicitly asks for a plan, produce a written plan before touching code:
 
-**Completion criterion:** You can name the specific change, the smell it fixes, and the behavior it preserves.
+1. Read the code to understand what it does.
+2. Identify affected files, ownership boundaries, dependencies, and hidden coupling.
+3. Sequence the changes safely: contracts/types first, then implementations, then callers, then tests, then cleanup.
+4. Include verification steps between phases and a final validation command.
+5. Include rollback or recovery steps for the riskiest phases.
+6. Stop and ask for confirmation before implementing, unless the user explicitly said to proceed without review.
+
+Use the plan format in [references/refactor-plan-template.md](references/refactor-plan-template.md).
+
+For a **local refactor**, plan mentally but still name the change, the smell it fixes, and the behavior it preserves.
+
+**Completion criterion:** You can name the specific change(s), the smell(s) addressed, the behavior preserved, and the user has confirmed a multi-file plan if one was written.
 
 ### 3. Refactor in small steps
 
@@ -52,17 +60,15 @@ Update comments and documentation that reference the old structure. Remove any t
 
 **Completion criterion:** No stale references to removed code remain in comments or docs.
 
----
-
 ## Constraints
 
-- **Behavior is preserved** — refactoring changes structure, not behavior
-- **Tests are mandatory** — without tests, you're editing, not refactoring
-- **One change at a time** — don't bundle refactoring with feature work
-- **Small steps** — if a step feels large, split it further
+- **Behavior is preserved** — refactoring changes structure, not behavior.
+- **Tests are mandatory** — without tests, you're editing, not refactoring.
+- **One change at a time** — don't bundle refactoring with feature work.
+- **Small steps** — if a step feels large, split it further.
 
-### When NOT to Refactor
+### When not to refactor
 
-- Code that works and won't change again
-- Critical production code without tests (add tests first)
-- Under a tight deadline with no time for verification
+- Code that works and won't change again.
+- Critical production code without tests (add tests first).
+- Under a tight deadline with no time for verification.

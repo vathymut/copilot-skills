@@ -188,7 +188,7 @@ How would you like me to source the next experiment?
 
   skore    — read the audit digest; draft Backlog rows, re-present
   user     — article URL, GitHub issue, spec, or free text
-  my-pick  — I synthesize 2–4 candidates; you pick one
+  my-pick  — I synthesize 2-4 candidates; you pick one
   B<N>     — promote a Backlog row directly
 
 Backlog (pick by index):
@@ -211,11 +211,11 @@ unavailable.
 
 ### Branches
 
-- **`skore`** → `iterate-from-skore`. Returns Backlog-candidate
+- **`skore`** → run § "Source from skore". Returns Backlog-candidate
   rows + summary. Re-present sourcing menu. *No design note.*
-- **`user`** → `iterate-from-user`. Returns a Proposal. Draft into
+- **`user`** → run § "Source from user". Returns a Proposal. Draft into
   `journal/NN_short_name.md`.
-- **`my-pick`** → inline. Synthesize 2–4 candidates via
+- **`my-pick`** → inline. Synthesize 2-4 candidates via
   `AskUserQuestion`. Draft the design note on pick.
 - **`B<N>`** → promote the row. Remove from Backlog on approval.
 
@@ -224,6 +224,54 @@ For `user` / `my-pick` / `B<N>`: write draft to
 `NN` is the next free integer; `short_name` is the user's call.
 
 → next: § 3.
+
+## § 2a Source from skore
+
+Read the audit digest at `scratch/audit/<stem>/audit.md` (produced by
+`audit-ml-pipeline`) and convert actionable checks into Backlog-candidate rows.
+Full procedure is in `references/source-from-skore.md`.
+
+Output: a set of **Backlog-candidate rows** + a short human summary. The
+parent writes rows to `JOURNAL.md` Backlog and re-presents the sourcing menu.
+
+Stop conditions:
+
+- Don't write `journal/` files from this section.
+- Don't re-open the skore Project; read the digest as text.
+- Only `## Checks summary` rows drive Backlog candidates. Metrics summary is
+  context only.
+- Follow the `documentation_url` for each check with `WebFetch`; don't invent
+  mitigations from memory.
+- Dedup against existing Backlog rows by `Source` citation.
+- If the digest is inaccessible, return zero rows and explain why; recovery is
+  owned by `audit-ml-pipeline`.
+
+## § 2b Source from user
+
+Source the next experiment proposal from the user — directly or via something
+they point at (article, issue, spec, repo). Full procedure is in
+`references/source-from-user.md`.
+
+Output: a user-confirmed **Proposal block**:
+
+```
+Proposal (from: user via <article-link | resource-link | free-text>):
+  Question:        <one sentence>
+  Motivation:      <quote / URL / file path + the why-now reason>
+  Source:          <article URL with claim | gh issue URL | spec file:line | user quote>
+  Method outline:  <prose; which file in src/<pkg>/ is touched>
+  Open gaps:       <transfer risks, dep questions, domain assertions needing confirmation>
+```
+
+Stop conditions:
+
+- Don't write `journal/` files from this section.
+- Don't infer source content from memory; fetch / read it.
+- Confirm before returning — free-text "hmm" is not approval.
+- Check `gh auth status` before any GitHub fetch.
+- Flag goal shifts against `JOURNAL.md` Status.
+- Gate new dependencies as `Open gaps`; don't silently add them.
+- List domain-specific assertions as `[needs user confirmation]` in `Open gaps`.
 
 ## § 3 Iterate on the design note + implement
 
@@ -326,10 +374,13 @@ strategy on the user's behalf.
 
 - `organize-ml-workspace` — scaffold + stem-pairing rule
 - `explore-ml-data` — § 0 fires G-EDA; findings seed Method/Risks
-- `iterate-from-user` / `iterate-from-skore` — sourcing branches
 - `build-ml-pipeline` / `evaluate-ml-pipeline` / `test-ml-pipeline` — implementation chain
 - `audit-ml-pipeline` — § 4 dispatch; carries headline metrics
 - `python-api` / `python-env-manager` — symbol lookups, agent feature
+
+Sourcing was previously handled by `iterate-from-skore` and `iterate-from-user`;
+those contents now live in this skill's `references/source-from-skore.md` and
+`references/source-from-user.md`.
 
 ## References (load on demand)
 

@@ -1,26 +1,23 @@
 ---
 name: fix-merge-conflicts
-description: Resolve merge conflicts non-interactively, validate build and tests, and finalize conflict resolution. Use when a branch has unresolved merge conflicts and needs a reliable path to a buildable state.
+description: Resolve an in-progress git merge or rebase conflict, validate the result, and finalize. Use when the user says "resolve conflicts", "fix merge conflict", or "finish rebase".
 ---
 
-# Fix merge conflicts
+# Fix Merge Conflicts
 
-## Trigger
-
-Branch has unresolved merge conflicts and needs a reliable path to a buildable state.
+Resolve an in-progress git merge or rebase. **Never `--abort` without explicit user approval.**
 
 ## Workflow
 
-1. Detect all conflicting files from git status and conflict markers.
-2. Resolve each conflict with minimal, correctness-first edits. Preserve both sides when safe; otherwise choose the variant that compiles and keeps public behavior stable.
-3. Regenerate lockfiles with package manager tools instead of hand-editing.
-4. Run compile, lint, and relevant tests.
-5. Stage resolved files and summarize key decisions.
+1. **See the current state.** Read `git status`, the conflicted files, and recent history.
+2. **Find the intent behind each side.** Read commit messages, PR/issue references, and the code to understand why each change was made.
+3. **Resolve each hunk.** Preserve both intents when possible. When they conflict, pick the side that matches the merge's goal and note the trade-off. Do **not** invent new behavior.
+4. **Regenerate lockfiles with the package manager** if they conflict — do not hand-edit them.
+5. **Run automated checks.** Compile/typecheck, then tests, then lint/format. Fix anything the merge broke.
+6. **Finalize.** Stage all resolved files and complete the merge or rebase; continue rebasing until done.
 
-**Completion criteria:** all conflict markers removed, build passes, tests pass.
+## Completion criteria
 
-## Output
-
-- Files resolved
-- Notable resolution choices
-- Build/test outcome
+- [ ] No conflict markers remain.
+- [ ] The working tree builds and relevant tests pass.
+- [ ] Resolution choices are summarized for the user.

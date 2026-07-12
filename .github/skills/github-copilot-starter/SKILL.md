@@ -1,74 +1,44 @@
 ---
 name: github-copilot-starter
-description: >
-  Set up complete GitHub Copilot configuration for a new project.
-  Use when: scaffolding Copilot instructions, agents, skills, or workflows for a repo;
-  user says "set up Copilot", "configure Copilot", or "create copilot config";
-  another skill needs Copilot-ready project conventions.
+description: 'Set up GitHub Copilot configuration (instructions, agents, skills, workflows) for a new project. Use when the user says "set up Copilot", "configure Copilot", or "create copilot config".'
 ---
 
-Set up GitHub Copilot configuration — instructions, agents, skills, and optionally workflows — for a new project.
+# GitHub Copilot Starter
 
-## 1. Detect the tech stack
+Scaffold Copilot configuration for a new project.
 
-Ask the user for (or infer from the repo):
-1. Primary language/framework
-2. Project type (web app, API, library, etc.)
-3. Additional technologies (database, cloud, testing frameworks)
-4. Development style (strict standards, flexible, specific patterns)
-5. GitHub Actions usage (yes/no — determines workflow generation)
+## Steps
 
-**Completion criterion:** all five items resolved.
+1. **Detect tech stack**
+   - Primary language/framework
+   - Project type (web app, API, library)
+   - Additional tech (database, cloud, testing)
+   - Development style
+   - GitHub Actions usage (yes/no)
 
-## 2. Research existing patterns
+2. **Research patterns**
+   - Fetch from GitHub's awesome-copilot repo for instructions, agents, and skills.
+   - Document attribution sources.
 
-Fetch from awesome-copilot before authoring anything:
-- `https://github.com/github/awesome-copilot/tree/main/instructions`
-- `https://github.com/github/awesome-copilot/tree/main/agents`
-- `https://github.com/github/awesome-copilot/tree/main/skills`
+3. **Generate files**
+   - `.github/copilot-instructions.md`
+   - `.github/instructions/{language,testing,security,documentation,performance,code-review}.instructions.md`
+   - `.github/skills/*/SKILL.md`
+   - `.github/agents/*.agent.md`
+   - `.github/workflows/copilot-setup-steps.yml` if Actions are used
 
-Check for exact tech-stack matches, then general matches. Document all sources for attribution.
+   Use templates from [`references/file-templates.md`](references/file-templates.md) and [`references/workflow-templates.md`](references/workflow-templates.md). Keep `.instructions.md` files high-level — no code snippets.
 
-**Completion criterion:** at least one source checked per file type; attribution URLs recorded.
-
-## 3. Generate configuration files
-
-Create the directory structure and files. Reference templates in [`references/file-templates.md`](references/file-templates.md).
-
-| File | Purpose |
-|------|---------|
-| `.github/copilot-instructions.md` | Repo-wide conventions |
-| `.github/instructions/{language}.instructions.md` | Language-specific guidelines |
-| `.github/instructions/testing.instructions.md` | Testing standards |
-| `.github/instructions/security.instructions.md` | Security practices |
-| `.github/instructions/documentation.instructions.md` | Documentation standards |
-| `.github/instructions/performance.instructions.md` | Performance guidelines |
-| `.github/instructions/code-review.instructions.md` | Code review standards |
-| `.github/skills/*/SKILL.md` | Reusable skills (setup-component, write-tests, code-review, refactor-code, generate-docs, debug-issue) |
-| `.github/agents/*.agent.md` | Specialized agents (software-engineer, architect, reviewer, debugger) |
-
-If GitHub Actions is used, also create `.github/workflows/copilot-setup-steps.yml` from [`references/workflow-templates.md`](references/workflow-templates.md).
-
-- Use awesome-copilot content when available; add attribution comments.
-- When creating custom content, keep guidelines high-level (principles, patterns, preferences) — no code snippets or implementation details in `.instructions.md` files.
-
-**Completion criterion:** every file in the target structure created with valid YAML frontmatter.
-
-## 4. Validate
-
-Verify:
-- All `.instructions.md` files have correct `applyTo` frontmatter and contain guidelines only (no code examples)
-- All `.agent.md` files have `description`, `tools`, `model` frontmatter
-- Files reference each other where appropriate
-- Workflow (if created) uses job name `copilot-setup-steps` and includes only essential steps
-- Attribution comments present where awesome-copilot content was adapted
-
-**Completion criterion:** zero formatting errors; quality checklist passes.
+4. **Validate**
+   - `.instructions.md` files have valid `applyTo` frontmatter and guidelines only.
+   - `.agent.md` files have `description`, `tools`, and `model` frontmatter.
+   - Workflow uses job name `copilot-setup-steps`.
+   - Attribution comments are present where content was adapted.
 
 ## Completion
 
-After setup, provide the user with:
-1. How to enable the files in VS Code
-2. Usage examples for skills and agents
-3. Customization tips
-4. Testing recommendations
+Provide the user with:
+- How to enable the files in VS Code
+- Usage examples for skills and agents
+- Customization tips
+- Testing recommendations

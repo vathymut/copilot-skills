@@ -1,23 +1,25 @@
 ---
 name: prd
-description: 'Generate Product Requirements Documents for software systems and AI features.'
+description: 'Generate product requirements and formal specifications. Use when the user wants a PRD, a product spec, a feature specification, or an AI-optimized spec file.'
 license: MIT
 ---
 
 # Product Requirements Document (PRD)
 
-## When to Use
+## When to use
 
-- Starting new product or feature development
-- Translating a vague idea into a concrete specification
-- Defining requirements for AI-powered features
-- User asks to "write a PRD" or "plan a feature"
+- Starting new product or feature development.
+- Translating a vague idea into a concrete specification.
+- Defining requirements for AI-powered features.
+- The user asks to "write a PRD", "plan a feature", or "create a spec".
 
----
+## Branches
 
-## Workflow
+### Branch A — Product PRD (default)
 
-### Phase 1: Discovery
+Use this when the user wants a human-readable product requirements document.
+
+#### Phase 1: Discovery
 
 Interrogate the user to fill knowledge gaps. Do not assume context.
 
@@ -28,7 +30,7 @@ Interrogate the user to fill knowledge gaps. Do not assume context.
 
 **Completion:** All knowledge gaps filled or explicitly marked TBD.
 
-### Phase 2: Analysis & Scoping
+#### Phase 2: Analysis & Scoping
 
 Synthesize user input. Identify dependencies and hidden complexities.
 - Map the **User Flow**
@@ -37,15 +39,24 @@ Synthesize user input. Identify dependencies and hidden complexities.
 
 **Completion:** User flow mapped, non-goals listed, dependencies identified.
 
-### Phase 3: Technical Drafting
+#### Phase 3: Technical Drafting
 
-Generate the document using the schema below.
+Generate the document using the schema in the next section.
 
 **Completion:** All schema sections populated with concrete, measurable criteria.
 
----
+### Branch B — Formal AI-optimized specification
 
-## Strict PRD Schema
+Use this when the user explicitly wants a machine-readable spec file (e.g., for agent consumption) rather than a narrative PRD.
+
+1. Gather inputs: purpose, scope, requirements, constraints.
+2. Choose a filename prefix: `schema`, `tool`, `data`, `infrastructure`, `process`, `architecture`, or `design`.
+3. Populate [references/spec-template.md](references/spec-template.md) with no placeholders.
+4. Validate:
+   - No `[Bracket]` tokens remain.
+   - All acronyms are defined in §2.
+   - Acceptance criteria are testable (Given-When-Then or equivalent).
+5. Save to `/spec/spec-[type]-[name].md`.
 
 ### 1. Executive Summary
 - **Problem Statement**: 1-2 sentences on the pain point.

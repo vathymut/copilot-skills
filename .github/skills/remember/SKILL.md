@@ -1,20 +1,11 @@
 ---
 name: remember
-description: 'Store lessons learned as domain-organized memory instructions. Syntax: `/remember [>domain [scope]] lesson clue` where scope is `global` (default), `user`, `workspace`, or `ws`.'
+description: 'Store lessons learned as domain-organized memory instructions. Syntax: `/remember [>domain [scope]] lesson` where scope is `global` (default) or `workspace`.'
 ---
 
-# Memory Keeper
+# Remember
 
-Store and retrieve domain-organized memory instructions that persist
-across sessions. Auto-categorizes learnings by domain and creates new
-memory files as needed.
-
-## Scopes
-
-- **Global** (`global` or `user`) — `<global-prompts>` (`vscode-userdata:/User/prompts/`), applies to all projects
-- **Workspace** (`workspace` or `ws`) — `<workspace-instructions>` (`<workspace-root>/.github/instructions/`), applies to current project only
-
-Default: **global**.
+Store domain-organized memory instructions that persist across sessions.
 
 ## Syntax
 
@@ -22,52 +13,36 @@ Default: **global**.
 /remember [>domain-name [scope]] lesson content
 ```
 
-- `>domain-name` — Optional. Explicitly target a domain (e.g., `>clojure`)
-- `[scope]` — Optional. `global`, `user`, `workspace`, or `ws`. Default: `global`
-- `lesson content` — Required. The lesson to remember
+- `>domain-name` — optional domain target (e.g., `>clojure`)
+- `scope` — `global` (default) or `workspace`/`ws`
+- `lesson content` — the lesson to remember
 
-**Examples:**
-- `/remember >shell-scripting now we've forgotten about using fish syntax too many times`
+Examples:
 - `/remember >clojure prefer passing maps over parameter lists`
-- `/remember avoid over-escaping`
-- `/remember >clojure workspace prefer threading macros for readability`
+- `/remember workspace use uv for this repo`
 
-## Memory File Structure
+## Targets
 
-- **Description Frontmatter** — general domain responsibility
-- **ApplyTo Frontmatter** — glob patterns targeting relevant files
-- **Main Headline** — `# <Domain Name> Memory`
-- **Tag Line** — succinct capture of core patterns
-- **Learnings** — each distinct lesson gets its own `##` heading
+| Scope | Location | Applies to |
+|---|---|---|
+| Global | `<global-prompts>/*.instructions.md` | all projects |
+| Workspace | `<workspace-root>/.github/instructions/*.instructions.md` | current project only |
+
+Domain-specific files are named `{domain}-memory.instructions.md`. Universal lessons go in `memory.instructions.md`.
 
 ## Process
 
-1. **Parse input** — extract domain (if `>domain-name`) and scope
-2. **Glob and read** existing memory/instruction files:
-   - Global: `<global-prompts>/*-memory.instructions.md`, `<global-prompts>/*.instructions.md`
-   - Workspace: `<workspace-instructions>/*-memory.instructions.md`, `<workspace-instructions>/*.instructions.md`
-3. **Analyze** the lesson from user input and chat session
-4. **Categorize**: new gotcha, enhancement, best practice, or process improvement
-5. **Determine target domain(s)**:
-   - User specified `>domain-name` → confirm if ambiguous
-   - Otherwise, match to existing domain or create new one
-   - Universal learnings → `memory.instructions.md` in scope
-   - Domain-specific → `{domain}-memory.instructions.md`
-6. **Read domain files** to avoid redundancy
-7. **Update or create** memory files per Memory File Structure
-8. **Write** instructions that are:
-   - Succinct, clear, and actionable
-   - Generalized from specific instances
-   - Positive (focus on correct patterns, not "don't"s)
-   - Concrete with code examples when relevant
+1. Parse domain and scope.
+2. Read existing memory files in the target scope.
+3. Categorize the lesson: gotcha, best practice, workflow, style decision.
+4. Update or create the target memory file:
+   - `description` and `applyTo` frontmatter
+   - One `##` heading per distinct lesson
+   - Succinct, positive, actionable text with code examples when useful
+5. Avoid redundant entries.
 
-**Completion criteria:** memory file updated/created, no redundant entries, instructions are scannable and actionable.
+## Completion criteria
 
-## Update Triggers
-
-- Repeatedly forgetting the same shortcuts or commands
-- Discovering effective workflows
-- Learning domain-specific best practices
-- Finding reusable problem-solving approaches
-- Coding style decisions and rationale
-- Cross-project patterns that work well
+- [ ] Memory file updated or created.
+- [ ] No redundant entries.
+- [ ] Instructions are scannable and actionable.

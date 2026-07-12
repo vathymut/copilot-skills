@@ -2,18 +2,19 @@
 name: python-code-style
 description: >
   Owns Python code style for this stack: ruff for lint + format, numpydoc
-  for docstrings. Runs ruff manually on touched files and contextualizes
-  comments to the data-science problem.
+  for docstrings.
 
   TRIGGER when (any of these):
-  (1) a Python file was just created or edited via Write / Edit /
-      MultiEdit — invoke this skill before declaring the task done so
-      ruff is run AND the file's comments are contextualized to the
-      problem;
-  (2) a fresh ML workspace was just scaffolded by
+  (1) a Python file was just created or edited via Write / Edit / MultiEdit
+      — invoke this skill before declaring the task done so ruff is run
+      AND the file's comments are contextualized to the problem;
+  (2) a user asks "run ruff-recursive-fix", "fix all ruff issues",
+      "clean up ruff violations", or any variation of iterative ruff over
+      a scope;
+  (3) a fresh ML workspace was just scaffolded by
       `organize-ml-workspace` and the project has no `ruff.toml` at
       its root yet — drop the bundled template;
-  (3) the user asks about lint, format, docstring style, or reaches
+  (4) the user asks about lint, format, docstring style, or reaches
       for `black` / `isort` / `flake8` / `pydocstyle` (redirect to
       ruff — the stack's canonical linter, owned by
       `data-science-python-stack` Tier 1).
@@ -22,8 +23,9 @@ description: >
   are to Markdown / TOML / JSON / YAML; the file lives in a
   third-party vendored directory the user doesn't own.
 
-  HOW TO USE: run ruff manually on the files you just touched — do
-  not configure a PostToolUse hook for this. **Read the "Stop
+  HOW TO USE: choose the correct branch. For post-edit runs, run the
+  manual ruff trio on files you touched. For recursive clean-up, run
+  the iterative workflow in § Recursive clean-up. **Read the "Stop
   conditions" block and emit the Pre-flight checklist as visible
   text in your response — both are mandatory before running ruff.**
 ---
@@ -32,7 +34,8 @@ description: >
 
 Single owner of Python style in this stack: ruff (lint + format) and
 numpydoc docstrings. Intentionally **manual** — Claude runs ruff on
-files it has just touched, no hook involved.
+files it has just touched, no hook involved. Also handles iterative,
+scoped ruff clean-up whenever the user asks for it.
 
 ## Stop conditions — read before anything else
 
@@ -108,17 +111,20 @@ Pre-flight (python-code-style):
 
 ## Scope
 
-- **In scope:** running `ruff format` + `ruff check --fix` + `ruff
-  check` on Python files Claude has just generated or edited;
-  authoring numpydoc docstrings on public functions and classes;
-  contextualizing each touched file's comments to the data-science
-  problem and stripping workflow/process meta; dropping the
-  `ruff.toml` template into a fresh project.
+- **In scope:**
+  - Manual `ruff format` + `ruff check --fix` + `ruff check` on
+    Python files Claude has just generated or edited.
+  - Iterative scoped ruff clean-up when the user explicitly asks for
+    "ruff-recursive-fix", "clean all ruff violations", etc.
+  - Authoring numpydoc docstrings on public functions and classes.
+  - Contextualizing each touched file's comments to the data-science
+    problem and stripping workflow/process meta.
+  - Dropping the `ruff.toml` template into a fresh project.
 - **Out of scope:** type hints (mypy / pyright are not in the
   stack); naming conventions ruff doesn't enforce; setting up
   PostToolUse / PreToolUse hooks; linting non-Python files.
 
-## What to run, in what order
+## Branch A — post-edit ruff run
 
 For every Python file touched this turn, run inside the project's
 environment manager (per `python-env-manager`):
@@ -138,6 +144,30 @@ pixi run ruff check <files>
 `D100`/`D103` warnings are expected for `# %%` cells under
 `experiments/`, `audit/`, and `data/eda.py` — the bundled `ruff.toml`
 per-file-ignores them. If you see them, the `ruff.toml` isn't loaded.
+
+## Branch B — recursive clean-up
+
+Use this branch when the user asks to "run ruff-recursive-fix",
+"clean all ruff issues", "fix lint everywhere", or similar. First
+read `references/recursive-ruff.md` for the full workflow. In brief:
+
+1. Collect `target_path`, `ruff_runner`, `rules_select`,
+   `rules_ignore`, `extend_select`, `extend_ignore`,
+   `allow_unsafe_fixes` (default true), `ask_on_ambiguity`
+   (default true) from the user or the current context.
+2. Resolve `ruff_cmd` once and reuse it for all commands
+   (`pixi run ruff` first, then `uv run ruff`, then `ruff`, then
+   `python -m ruff`; ask if none found).
+3. Run baseline `ruff check`, classify findings.
+4. Safe fix pass: `ruff check --fix`; format; re-check.
+5. Unsafe fix pass (if enabled): `ruff check --fix --unsafe-fixes`;
+   format; re-check.
+6. Manual remediation for what remains; format; re-check.
+7. Loop until clean, blocked, or no progress. Ask on ambiguity.
+
+Use `# noqa` only when justified and scoped to a single rule line.
+Report scope, iterations, fixed findings, manual fixes,
+suppressions, and remaining blockers at the end.
 
 ## Contextualize the comments
 
@@ -174,6 +204,8 @@ standalone `ruff.toml` is unambiguous.
 
 Fix only the lines Claude touched. Mention pre-existing warnings
 elsewhere so the user can decide, but don't drag them into scope.
+This rule applies to **Branch A** only. In **Branch B** the scope is
+explicitly whatever the user asked to clean.
 
 ## Companion skills
 
