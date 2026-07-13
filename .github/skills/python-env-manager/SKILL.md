@@ -72,7 +72,7 @@ Always re-emit the Pre-flight checklist with evidence.
 
 ## Pre-flight — emit before any command
 
-Evidence format: see `references/preflight_evidence.md`.
+Evidence format: see `writing-great-skills:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (python-env-manager):
