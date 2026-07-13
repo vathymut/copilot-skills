@@ -15,3 +15,8 @@ Index of the chart, diagram, and figure skills. Invoke the right skill by name.
 | `academic-plotting` | Generate publication-quality figures for an ML/AI paper (diagrams via Gemini, data charts via matplotlib/seaborn). |
 
 These skills are model-invoked; you can type their names directly, or let the agent pick them when you describe the matching deliverable.
+
+Default routing: for open-ended chart/visualization requests, use
+`tufte-data-viz` unless the use case clearly points to one of the others
+(e.g., a paper figure → `academic-plotting`, a Mermaid diagram in docs →
+`mermaid-diagram-specialist`).
