@@ -97,6 +97,7 @@ Escalate findings when you see:
 - Logic added in the wrong layer/package when it should live somewhere more central.
 - Sequential async flow where obviously independent work could stay simpler and clearer with parallel execution.
 - Partial-update logic that leaves state less atomic than necessary.
+- **AI-generated slop**: verbose comments explaining the obvious, defensive `try/except` or `if` blocks that do not match normal code paths, broad exception swallowing (`except Exception:`), casts to `any`/`type: ignore`, deep nesting fixable with early returns, or anything inconsistent with the surrounding codebase.
 
 ## Preferred Remedies
 

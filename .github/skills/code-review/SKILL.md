@@ -58,7 +58,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Identify the maintainability posture
 
-The Maintainability axis is a strict structural review. It does not repeat the smell baseline; it asks whether the diff makes the codebase simpler, deeper, and easier to reason about. Load the full guidance from [references/maintainability-review.md](references/maintainability-review.md) and give the sub-agent that file as its brief.
+The Maintainability axis is a strict structural review. It does not repeat the smell baseline; it asks whether the diff makes the codebase simpler, deeper, and easier to reason about. This axis subsumes what the standalone `deslop` and `thermo-nuclear-code-quality-review` skills used to cover. Load the full guidance from [references/maintainability-review.md](references/maintainability-review.md) and give the sub-agent that file as its brief.
 
 Leading questions for the Maintainability sub-agent:
 
@@ -67,6 +67,8 @@ Leading questions for the Maintainability sub-agent:
 - Are new conditionals scattered across unrelated paths, or do they belong behind a dedicated abstraction?
 - Are wrappers, casts, or optional types hiding a simpler boundary?
 - Is feature logic leaking into shared paths or the wrong canonical layer?
+- Are there patterns of AI-generated slop (verbose comments, defensive bloat, broad `except Exception`, unnecessary casts) that should be deleted while preserving behavior?
+- Is the diff the smallest working change, or can it be tightened?
 
 ### 5. Spawn all three sub-agents in parallel
 
@@ -88,7 +90,7 @@ Send a single message with two `Agent` tool calls. Use the `general-purpose` sub
 
 - The diff command and commit list.
 - The full text of [references/maintainability-review.md](references/maintainability-review.md).
-- The brief: "Report the highest-conviction structural findings for this diff. Prioritize: code-judo simplifications, file-size regressions past 1000 lines, scattered special-case branching, abstraction bloat, boundary leaks, and canonical-layer mistakes. Be direct and demanding; each finding must quote the hunk it refers to. Under 400 words."
+- The brief: "Report the highest-conviction structural findings for this diff. Prioritize: code-judo simplifications, file-size regressions past 1000 lines, scattered special-case branching, abstraction bloat, boundary leaks, canonical-layer mistakes, and AI-generated slop. Be direct and demanding; each finding must quote the hunk it refers to. Under 400 words."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
