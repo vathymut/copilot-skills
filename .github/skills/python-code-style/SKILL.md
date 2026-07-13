@@ -217,6 +217,9 @@ explicitly whatever the user asked to clean.
 - **`audit-ml-pipeline`** / **`explore-ml-data`** — generate audit
   and EDA files; same `# %%` convention, same per-file ignores.
 
+For the rest of the ML-workspace family, see the shared map at
+`writing-great-skills:references/ml-companion-skills.md`.
+
 ## Reference map
 
 Use the shared ML companion map at

@@ -292,6 +292,20 @@ G-SKORE-MODE) → add tabular lib → wire editable workspace package
 
 - **One install operation per response.** Group related deps and
   confirm before continuing.
-- **No `--no-deps` or version pins by default.**
+- **No `--no-deps` or version pins by default.** Exception: this
+  skill applies required pins from `data-science-python-stack`
+  (e.g. `skore` and `skrub` stay latest; `mlflow>=3` for skore's
+  mlflow mode).
 - **Surface, don't bypass.** If an install fails, surface the error.
   Don't try alternative managers — that's a Stop-condition violation.
+
+## Split of ownership
+
+| Decision | Owned by |
+|---|---|
+| What library is in the stack, and why | `data-science-python-stack` |
+| Which manager + feature scope to use | this skill |
+| ruff/NumPyDoc conventions | `python-code-style` |
+| Exact install command syntax | this skill |
+| `skore` mode / hub / mlflow variant details | `organize-ml-workspace` decides mode; this skill executes |
+| Mandatory Tier 1 vs user-choice Tier 2 vs opt-in Tier 3 | `data-science-python-stack` |

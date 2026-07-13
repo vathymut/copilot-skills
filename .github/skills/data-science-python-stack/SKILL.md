@@ -141,15 +141,13 @@ made from a single index entry.
 
 ## Missing dependency — install, do not substitute
 
-When code in this stack needs a library but `import` fails, the answer
-is **install it**, not substitute. Specifically:
+When code in this stack needs a library but `import` fails, the answer is
+**install it**, not substitute. Specifically:
 
-- Surface the missing dependency to the user with the exact install
-  command. **Invoke `python-env-manager` to detect the project's
-  environment manager (pixi / uv / poetry / hatch / conda / pip+venv)
-  and produce the right install command** — don't infer the manager
-  from memory; the project may not use the default. **Stop and wait
-  for confirmation before doing anything else.**
+- Surface the missing dependency to the user. **Invoke
+  `python-env-manager` to produce the right install command** — don't
+  infer it from memory; the project may not use the default manager.
+  **Stop and wait for confirmation before doing anything else.**
 - Do **not** rewrite the code to use a non-stack equivalent
   (`sklearn.Pipeline` for `skrub`, `cross_val_score` + handwritten
   metric prints for `skore`. Substitution silently breaks the contract
@@ -169,8 +167,8 @@ is **install it**, not substitute. Specifically:
 2. Match the task to an entry in the right tier.
 3. Read the linked `references/<library>.md` for the chosen library's
    scope and tradeoffs before introducing it.
-4. Install via `pixi` by default. If the project already uses a
-   different manager (pip+venv, uv, conda), follow that instead.
+4. For the actual install command, invoke `python-env-manager`. This
+   skill owns *what* and *why*; `python-env-manager` owns *how*.
 5. Don't substitute libraries silently. If no entry fits the task,
    surface the tradeoff to the user.
 
@@ -216,35 +214,29 @@ changes.
   Tier 4) — so static *and* interactive plotting are available
   without any extra install.
 
-  **Install variant per mode.** `skore.Project(...)` supports three
-  mutually exclusive modes: `local` (artifacts on disk; no extra
-  deps), `hub` (artifacts on Skore Hub; requires `skore[hub]`
-  extra + `skore.login()` before first use), `mlflow` (artifacts
-  in an MLflow tracking server; requires the `skore[mlflow]` extra
-  **plus an explicit `mlflow>=3` pin** — `skore[mlflow]` alone can
-  resolve an unsupported mlflow 2.x).
-  The choice is a workspace-level decision owned by
-  `organize-ml-workspace` § "G-SKORE-MODE" — fired at scaffold
-  alongside G-PKG-NAME / G-TABULAR / G-ENV-MGR. `python-env-manager`
-  § "Tier 1 install: skore variant per mode" maps the recorded
-  decision to the right install command per env manager.
-  Default-on-no-preference: `local`.
+  **Skore mode variant.** `skore.Project(...)` supports three
+  mutually exclusive modes: `local` (artifacts on disk), `hub`
+  (artifacts on Skore Hub), `mlflow` (artifacts in an MLflow
+  tracking server). The mode is a workspace-level decision owned by
+  `organize-ml-workspace` § "G-SKORE-MODE". The exact install
+  command for each mode lives in `python-env-manager` § "Tier 1
+  install: skore variant per mode" — this skill only records *what*
+  to install, not *how*. Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format,
-  replaces `black` / `isort` / `flake8` / `pydocstyle`. Install in
-  the **same feature/env as the rest of the Tier 1 stack** so
-  `pixi run ruff` works without extra activation. The
+  replaces `black` / `isort` / `flake8` / `pydocstyle`. The
   configuration (rule selection, numpydoc convention, per-file
   ignores) and the rule "Claude runs ruff after generating code"
   are owned by the `python-code-style` skill, which also ships the
-  canonical `ruff.toml` template.
+  canonical `ruff.toml` template. `python-env-manager` routes ruff
+  to the `dev` feature.
 - [`pytest`](references/pytest.md) — test runner for the
   smoke-test gate enforced by `test-ml-pipeline` /
   `smoke-test-ml-pipeline`. Every approved experiment must have a
   passing `tests/smoke/test_NN_<short_name>.py` before its row
   in `JOURNAL.md` can flip to `done`; pytest is what runs that
   test, so the dependency is non-negotiable even on workspaces
-  that haven't authored any tests yet. Install in the **same
-  feature/env as the rest of the Tier 1 stack**.
+  that haven't authored any tests yet. `python-env-manager` routes
+  pytest to the `dev` feature.
 
 ## Tier 2 — Competing-library jobs (user choice)
 
@@ -416,12 +408,10 @@ Consumed by `audit-ml-pipeline` and the LSP; routes through
 
 ## Conventions
 
-- **Environment manager:** detection + install commands are owned by
-  the `python-env-manager` skill — invoke it for any add / remove /
-  upgrade. Default *recommendation* is `pixi`; if the project
-  already uses a different manager (uv / poetry / hatch / conda /
-  pip+venv), `python-env-manager`'s detection table picks it up
-  and never substitutes one manager for another.
+- **Ownership split.** This skill owns *what* goes in the stack and
+  *why*. `python-env-manager` owns *how* it is installed (manager
+  detection, command syntax, feature/layout). Never put install
+  command tables here; link to `python-env-manager` instead.
 - **Versions:** don't pin unless the user asks or there's a known
   incompatibility. **Exception — `skore` and `skrub` must always be
   the latest available release.**
