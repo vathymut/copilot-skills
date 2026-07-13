@@ -1,5 +1,9 @@
 # Companion Skills — build-ml-pipeline
 
+Canonical ownership map is at
+`writing-great-skills:references/ml-companion-skills.md`. This local table
+only lists relationships that are load-bearing for this skill body.
+
 | Skill | Relationship |
 |---|---|
 | `python-api` | Authoritative lookup of sklearn / skrub / skore. Invoke whenever picking a symbol; cache hits first (Shape 0) |

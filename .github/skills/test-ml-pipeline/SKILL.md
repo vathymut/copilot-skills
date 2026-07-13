@@ -58,6 +58,9 @@ Before answering anything else:
 
 ## Pre-flight — emit this checklist as visible text before any test work
 
+Evidence format:
+`writing-great-skills:references/shared-preflight-evidence.md`.
+
 ```
 Pre-flight (test-ml-pipeline):
 - [ ] `journal/NN_<short_name>.md` exists and is at least `approved`
@@ -215,3 +218,6 @@ opt-in and added when the workspace's needs warrant them.
   gap CV doesn't.
 - **`data-science-python-stack`** — declares pytest as a Tier 1
   mandatory dependency for any workspace that uses this skill.
+
+See the canonical ML companion map at
+`writing-great-skills:references/ml-companion-skills.md`.

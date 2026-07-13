@@ -115,6 +115,8 @@ read the report. The pipeline declaration is out of scope (see
 Before writing the evaluation call, output the following block
 verbatim in your response. Each box must be backed by an actual
 tool call or an explicit decision documented in the response.
+Evidence format:
+`writing-great-skills:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (evaluate-ml-pipeline):
@@ -313,6 +315,10 @@ Pre-flight (evaluate-ml-pipeline):
    request.
 
 ## Companion skills
+
+See the canonical map at
+`writing-great-skills:references/ml-companion-skills.md`. Local
+load-bearing relationships:
 
 | Skill | Relationship |
 |---|---|

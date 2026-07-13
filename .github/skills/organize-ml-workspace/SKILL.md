@@ -68,8 +68,8 @@ Sibling skills (just-in-time):
 
 ## Pre-flight — emit before any code
 
-Each ticked box needs an Evidence line (format spec in
-`iterate-ml-experiment` § "Pre-flight evidence requirements").
+Each ticked box needs an Evidence line. Format spec:
+`writing-great-skills:references/shared-preflight-evidence.md`.
 Inline `python -c` is NOT evidence — use scratch files.
 
 ```
@@ -238,8 +238,13 @@ replaced per recorded `skore mode:`. Three forms:
 `data-science-python-stack` (what to install), `python-code-style`
 (ruff.toml + NumPyDoc).
 
+See the shared ML companion map at
+`writing-great-skills:references/ml-companion-skills.md`.
+
 ## References (load on demand)
 
+- `writing-great-skills:references/ml-companion-skills.md` — canonical
+  ownership map for the ML-workspace family.
 - `references/scaffold_steps.md` — full 13-step Decision flow
 - `references/g_skore_mode.md` — G-SKORE-MODE gate detail
 - `references/forbidden-shortcuts.md` — shortcuts table

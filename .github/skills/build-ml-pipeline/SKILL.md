@@ -197,7 +197,8 @@ See `references/common_patterns.md` for the full table.
 ## Pre-flight — emit before any code
 
 Each ticked box requires an actual tool call this turn. Empty
-Evidence = unchecked.
+Evidence = unchecked. Evidence format:
+`writing-great-skills:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (build-ml-pipeline):
@@ -422,6 +423,10 @@ catalogue with code: → `references/common_patterns.md`.
 
 ## References (load on demand)
 
+- `writing-great-skills:references/ml-companion-skills.md` — canonical
+  ownership map for the whole ML-workspace family.
+- `references/companion_skills.md` — local, load-bearing relationships
+  for this skill; keep it in sync with the shared map.
 - `references/source-binding.md` — source-binding patterns +
   `apply_func` vs `deferred` decision.
 - `references/layer_examples.md` — worked code for IID,
@@ -430,5 +435,3 @@ catalogue with code: → `references/common_patterns.md`.
   tripwire criterion, cheap executable check.
 - `references/common_patterns.md` — full catalogue of recurring
   pipeline shapes with code snippets.
-- `references/companion_skills.md` — relationship table for
-  downstream and upstream skills.

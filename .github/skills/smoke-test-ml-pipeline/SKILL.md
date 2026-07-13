@@ -94,6 +94,9 @@ anti-pattern at iteration time, before it reaches production.
 
 ## Pre-flight — emit this checklist as visible text before any test code
 
+Evidence format:
+`writing-great-skills:references/shared-preflight-evidence.md`.
+
 ```
 Pre-flight (smoke-test-ml-pipeline):
 - [ ] Tier 1 mandatory libs importable: pytest + sklearn + skrub
@@ -427,3 +430,6 @@ metric problem.
   teaches the parameter-shape-in-type-slot and the section
   layout (`Parameters` / `Returns` / `Notes`) the test fixture +
   test function should use.
+
+See the shared ML companion map at
+`writing-great-skills:references/ml-companion-skills.md`.

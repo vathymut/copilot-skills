@@ -97,8 +97,8 @@ the **read** mode first, stop. Re-entering § 1 is a separate turn.
 
 ## Pre-flight — emit before any design-note write
 
-Compact checklist; Evidence-format spec in
-`references/preflight_evidence.md`.
+Compact checklist. Evidence-format spec:
+`writing-great-skills:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (iterate-ml-experiment):
@@ -120,9 +120,8 @@ Pre-flight (iterate-ml-experiment):
 ## § 0 Bootstrap (first session only)
 
 Workspace is in bootstrap mode when `journal/JOURNAL.md` is missing,
-placeholder, or has 0 History rows.
-
-**Procedure (compact — full version in `references/bootstrap.md`):**
+placeholder, or has 0 History rows. Full procedure:
+`references/bootstrap.md`.
 
 1. **Scaffold first if needed.** No `src/` / `experiments/` /
    `journal/` → hand off to `organize-ml-workspace`, return when
@@ -311,7 +310,7 @@ If run completed this turn → continue to § 4.
 agent ran the experiment in the same turn (G-RUN = run now) and it
 completed successfully. **Do NOT auto-detect via `reports/` mtime.**
 
-**Procedure (compact — full version in `references/record_outcome.md`):**
+Full procedure: `references/record_outcome.md`.
 
 1. **Audit-first**: dispatch `audit-ml-pipeline` →
    `audit/NN_<short_name>.py`. Read the digest (replaces scratch probes).
@@ -382,12 +381,18 @@ Sourcing was previously handled by `iterate-from-skore` and `iterate-from-user`;
 those contents now live in this skill's `references/source-from-skore.md` and
 `references/source-from-user.md`.
 
+See also the shared ML companion map at
+`writing-great-skills:references/ml-companion-skills.md`.
+
 ## References (load on demand)
 
+- `writing-great-skills:references/ml-companion-skills.md` — canonical
+  ownership map for the ML-workspace family.
+- `writing-great-skills:references/shared-preflight-evidence.md` —
+  evidence-format spec shared across ML skills.
 - `references/bootstrap.md` — full bootstrap procedure, config gates
 - `references/forbidden-shortcuts.md` — common shortcut violations
 - `references/journal-shape.md` — JOURNAL.md and design-note shapes
-- `references/preflight_evidence.md` — Evidence-format spec
 - `references/record_outcome.md` — full § 4 procedure
 - `references/maintenance_modes.md` — overview / compare / pivot / abandon / re-runs
 

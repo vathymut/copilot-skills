@@ -83,6 +83,8 @@ scoped ruff clean-up whenever the user asks for it.
 
 ## Pre-flight — emit this checklist as visible text before running ruff
 
+Evidence format: `writing-great-skills:references/shared-preflight-evidence.md`.
+
 ```
 Pre-flight (python-code-style):
 - [ ] ruff importable in the project's env (`pixi run ruff --version`
@@ -214,3 +216,9 @@ explicitly whatever the user asked to clean.
 - **`organize-ml-workspace`** — sets up the directory layout.
 - **`audit-ml-pipeline`** / **`explore-ml-data`** — generate audit
   and EDA files; same `# %%` convention, same per-file ignores.
+
+## Reference map
+
+Use the shared ML companion map at
+`writing-great-skills:references/ml-companion-skills.md` for
+ownership of sibling skills.
