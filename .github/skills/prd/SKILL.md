@@ -15,7 +15,12 @@ license: MIT
 
 ## Branches
 
-### Branch A — Product PRD (default)
+### Branch A — PRD / Product spec (default)
+
+This branch also covers what the former `create-specification` skill did for
+human-readable specs. If the user asks for a "spec file" or "solution spec"
+rather than a named PRD, still use this branch unless they explicitly request
+machine-readable structure (Branch B).
 
 Use this when the user wants a human-readable product requirements document.
 
@@ -45,7 +50,10 @@ Generate the document using the schema in the next section.
 
 **Completion:** All schema sections populated with concrete, measurable criteria.
 
-### Branch B — Formal AI-optimized specification
+### Branch B — AI-optimized specification file
+
+This branch replaces the standalone `create-specification` skill. Use it when
+the user explicitly wants a machine-readable spec file for agent consumption.
 
 Use this when the user explicitly wants a machine-readable spec file (e.g., for agent consumption) rather than a narrative PRD.
 
