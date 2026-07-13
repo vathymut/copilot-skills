@@ -2,7 +2,7 @@
 
 > A curated, versioned local catalog of reusable skills and agents for GitHub Copilot Chat.
 
-[![Skills](https://img.shields.io/badge/skills-79-blue?style=flat-square)](./.github/skills/)
+[![Skills](https://img.shields.io/badge/skills-83-blue?style=flat-square)](./.github/skills/)
 [![Agents](https://img.shields.io/badge/agents-3-purple?style=flat-square)](./.github/agents/)
 
 This repository is a practical, versioned workspace for curating the prompts, references, scripts, and agent definitions you actually use — distilled from multiple upstream sources into a lean, task-focused catalog.
@@ -13,22 +13,24 @@ This repository is a practical, versioned workspace for curating the prompts, re
 
 ### Skills
 
-Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **79 skills** grouped by domain:
+Skills are reusable instruction sets that extend Copilot Chat with specialized domain knowledge. This catalog contains **83 skills** grouped by domain:
 
 | Domain | Skills |
 |---|---|
 | **Code Quality & Security** | `ponytail`, `pytest-coverage`, `refactor`, `sql-code-review` |
-| **Documentation & Specs** | `create-architectural-decision-record`, `documentation-writer`, `prd`, `to-spec` |
+| **Documentation & Specs** | `create-architectural-decision-record`, `documentation-writer`, `prd` |
 | **Research & Academic** | `academic-plotting`, `brainstorming`, `exam-ready`, `ml-paper-writing`, `research` |
 | **ML Experimentation** | `audit-ml-pipeline`, `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `explore-ml-data`, `iterate-ml-experiment`, `organize-ml-workspace`, `python-api`, `python-code-style`, `python-env-manager`, `smoke-test-ml-pipeline`, `test-ml-pipeline` |
-| **Development Workflow** | `acquire-codebase-knowledge`, `fix-merge-conflicts`, `git-commit`, `github-copilot-starter`, `graphify`, `grill-with-docs`, `improve-codebase-architecture`, `remember`, `skill-creator`, `web-design-reviewer`, `writing-great-skills` |
-| **Engineering Discipline** | `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `implement`, `prototype`, `tdd`, `to-tickets`, `triage`, `wayfinder` |
-| **Data & Cloud** | `python-expert`, `python-pypi-package-builder` |
-| **DuckDB & Data Files** | `attach-db`, `convert-file`, `duckdb-docs`, `install-duckdb`, `query`, `read-file`, `read-memories`, `s3-explore`, `spatial` |
+| **Development Workflow** | `fix-merge-conflicts`, `finishing-a-development-branch`, `git-commit`, `github-copilot-starter`, `graphify`, `grill-with-docs`, `remember`, `skill-creator`, `using-git-worktrees`, `web-design-reviewer`, `writing-great-skills` |
+| **Engineering Discipline** | `code-review`, `codebase-design`, `dispatching-parallel-agents`, `domain-modeling`, `executing-plans`, `implement`, `prototype`, `receiving-code-review`, `requesting-code-review`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans`, `writing-skills` |
+| **Data Engineering & Packaging** | `python-expert`, `python-pypi-package-builder`, `xlsx` |
+| **DuckDB & Data Files** | `attach-db`, `data-access`, `duckdb-docs`, `duckdb`, `install-duckdb`, `query`, `read-memories`, `spatial` |
 | **Frontend & Creative** | `frontend`, `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `theme-factory`, `tufte-data-viz`, `ui-screenshots` |
-| **Visualization** | `visualization` |
-| **Communication** | `internal-comms`, `meeting-minutes`, `performance-review-writer` |
+| **Visualization** | `visualization`, `academic-plotting` |
+| **Communication** | `internal-writing` |
 | **Routers & Media** | `docs`, `duckdb`, `git-workflow`, `media`, `memory`, `planning` |
+| **Documents & Files** | `pdf` |
+| **Skills Meta** | `deslop.deprecated`, `using-superpowers` |
 
 ### Agents
 
@@ -116,6 +118,15 @@ find .github/skills -name SKILL.md
 find .github/agents -name '*.agent.md'
 ```
 
+## Catalog Architecture
+
+This repo is the single source of truth for skills consumed by both GitHub Copilot and OpenCode:
+
+- Skills live under `.github/skills/<name>/SKILL.md`.
+- User-invoked routers (`docs`, `duckdb`, `frontend`, `git-workflow`, `media`, `memory`, `planning`, `visualization`) point humans to model-invoked or leaf skills.
+- Model-invoked skills carry `description` and trigger automatically from matching requests.
+- Some skills are **orchestrators** (e.g., `test-ml-pipeline`): they are model-invoked and hand off to a subskill after doing light work, distinguishing them from pure user-invoked routers.
+
 ## Update Strategy
 
 When syncing from upstream repositories:
@@ -123,6 +134,7 @@ When syncing from upstream repositories:
 1. Pull only the skills you actively need.
 2. Review diffs carefully before committing.
 3. Record the source in your commit message for provenance.
+4. Resolve duplicate copies: the Superpowers cache at `~/.cache/opencode/packages/.../superpowers/skills` is not canonical for this repo; keep skills in `.github/skills/` only.
 
 ## Catalog Maintenance
 
@@ -213,7 +225,7 @@ Verify the skills are discovered:
 opencode debug skill | rg '"name":'
 ```
 
-> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 79 skills in this catalog load successfully in OpenCode.
+> Skills in this catalog use GitHub Copilot's `SKILL.md` format with `allowed-tools` frontmatter. OpenCode uses `name` and `description` frontmatter fields — the Copilot fields are simply ignored, so skills work in both tools without modification. All 83 skills in this catalog load successfully in OpenCode.
 
 ### Agents
 

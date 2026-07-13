@@ -1,6 +1,7 @@
 ---
 name: fix-merge-conflicts
 description: Resolve an in-progress git merge or rebase conflict, validate the result, and finalize. Use when the user says "resolve conflicts", "fix merge conflict", or "finish rebase".
+disable-model-invocation: true
 ---
 
 # Fix Merge Conflicts

@@ -73,7 +73,7 @@ Columns:
                removal; new rows take the next free B<N>.
   - `Item`   — one-line description of the idea.
   - `Source` — where the idea came from. Use one of:
-                 `skore:<stem>`    — written by `iterate-from-skore`
+                 `skore:<stem>`    — written by the skore source branch
                                      from the report of `<stem>`
                  `my-pick:<stem>`  — agent-synthesized; <stem> is
                                      the experiment whose context

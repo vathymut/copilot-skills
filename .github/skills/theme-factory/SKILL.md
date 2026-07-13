@@ -1,7 +1,8 @@
 ---
 name: theme-factory
-description: 'Apply professional color/font themes to slides, docs, or HTML artifacts. 10 pre-set themes or generate custom on-the-fly.'
+description: 'User-invoked: Apply professional color/font themes to slides, docs, or HTML artifacts. 10 pre-set themes or generate custom on-the-fly.'
 license: Complete terms in LICENSE.txt
+disable-model-invocation: true
 ---
 
 

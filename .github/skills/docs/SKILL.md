@@ -6,15 +6,15 @@ disable-model-invocation: true
 
 # Docs Router
 
-Index of document-creation skills. Invoke the right skill by name.
+Index of document-creation skills. Invoke the right skill by name; high-frequency skills also auto-trigger.
 
 | Skill | Use when |
 |---|---|
-| `create-architectural-decision-record` | Create an ADR for an architectural decision. |
-| `prd` | Generate a Product Requirements Document or formal spec for a software system or AI feature. |
+| `prd` | Generate a Product Requirements Document, spec, or turn a conversation into a spec. |
 | `documentation-writer` | Write high-quality software documentation using the Diátaxis framework. |
-| `meeting-minutes` | Generate concise, actionable meeting minutes. |
+| `create-architectural-decision-record` | Create an ADR for an architectural decision. |
+| `internal-writing` | Meeting minutes, performance/peer/upward reviews, brag sheets, weekly updates, newsletters, FAQ answers, or other internal communications. |
 
 Note: `create-specification` and `create-implementation-plan` were merged into
-`prd` Branch B and the broader planning workflow. Use `prd` for spec writing
-and `planning` for implementation plans.
+`prd` Branch B and Branch C. Use `prd` for spec writing and `planning` for
+implementation plans.

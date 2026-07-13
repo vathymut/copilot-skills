@@ -68,7 +68,7 @@ stdout to the digest. A forbidden call surfaces in the digest (as a
 section). The contract is *visible*, not invisible.
 
 Sibling read-only consumers (different output shapes, same
-discipline): `scratch/<ts>_*.py` probes, `iterate-from-skore`'s
+discipline): `scratch/<ts>_*.py` probes, the skore source branch's
 Backlog enrichment walk. See `evaluate-ml-pipeline` § Stop
 conditions for the three-consumer rule.
 
@@ -220,10 +220,10 @@ That's the whole template. `.frame()` is load-bearing on cells 6
 and 7 — without it the digest shows `<…Display object at 0x…>`.
 Details: → `references/cell_anatomy.md`.
 
-### The digest is `iterate-from-skore`'s canonical source
+### The digest is the skore source branch's canonical source
 
 The rendered digest at `scratch/audit/<stem>/audit.md` is the
-**single source of truth** that `iterate-from-skore` mines to
+**single source of truth** that the skore source branch mines to
 populate the JOURNAL Backlog. That skill reads the digest as text,
 walks the checks + metrics sections, and follows each check's
 `documentation_url` to draft Backlog rows. It does NOT re-open the

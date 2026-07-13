@@ -1,6 +1,7 @@
 ---
 name: create-architectural-decision-record
-description: 'Create an ADR document for architectural decisions.'
+description: 'User-invoked: Create an ADR document for architectural decisions.'
+disable-model-invocation: true
 ---
 
 # Create Architectural Decision Record

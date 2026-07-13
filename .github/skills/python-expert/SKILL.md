@@ -67,3 +67,7 @@ Structure output by severity:
 For each finding: file path, line number, issue description, and corrected code.
 
 **Completion criterion:** every finding has a concrete fix with code.
+
+## Style and formatting branch
+
+When the task is specifically about linting, formatting, or docstring conventions in the data-science Python stack, delegate to `python-code-style`. Use it after editing Python files or when the user asks for ruff/numpydoc help. `python-code-style` owns the manual ruff workflow, numpydoc, and bundled `ruff.toml` template.

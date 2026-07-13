@@ -1,6 +1,7 @@
 ---
 name: frontend-slides
-description: Create zero-dependency, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to create or convert a presentation.
+description: User-invoked: Create zero-dependency, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to create or convert a presentation.
+disable-model-invocation: true
 ---
 
 # Frontend Slides

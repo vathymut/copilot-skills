@@ -1,8 +1,9 @@
 ---
 name: git-commit
-description: 'Execute git commit with conventional commit message analysis, staging, and message generation. Also generates narrative commit messages from diffs or change descriptions. Use when user asks to commit changes, mentions "/commit", or says "write a commit message", "summarize my diff", "what should I commit this as".'
+description: 'Execute git commit with conventional commit message analysis, staging, and message generation. Also generates narrative commit messages from diffs or change descriptions. Use when '
 license: MIT
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 # Git Commit with Conventional Commits

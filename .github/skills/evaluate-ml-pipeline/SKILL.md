@@ -86,7 +86,7 @@ read the report. The pipeline declaration is out of scope (see
   `audit-ml-pipeline`, executed via its bundled in-process IPython
   runner; output digest at `scratch/audit/<stem>/audit.md`).
   Neither calls `evaluate(...)` or `put(...)`. A third consumer,
-  `iterate-from-skore`, does not open the Project at all — it
+  the skore source branch, does not open the Project at all — it
   reads the audit's digest as text and converts the surfaced
   checks into Backlog candidates. The trap the two Project-side
   consumers share: `project.get(key)` raising `KeyError` reads as
@@ -106,7 +106,7 @@ read the report. The pipeline declaration is out of scope (see
   mandatory `AskUserQuestion` in this stack —
   `python-env-manager` § "Where does the package belong?",
   `data-science-python-stack` § Tier 2 (pandas vs polars),
-  `iterate-ml-experiment` § 2 (sourcing menu), `iterate-from-user`
+  `iterate-ml-experiment` § 2 (sourcing menu), the user source branch
   § "The entry-point AskUserQuestion". When in doubt: the user's
   approval is the gate, not the harness's instruction text.
 

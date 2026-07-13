@@ -1,7 +1,6 @@
 ---
 name: web-design-reviewer
-description: Visually inspect websites to identify and fix design issues at the source code level. Use when the user asks to review, check, or fix website design, UI, layout, or responsive/accessibility issues.
----
+description: Visually inspect websites to identify and fix design issues at the source code level. Use when the user asks to review, check, or fix website design, UI, layout, or responsive/acce---
 
 # Web Design Reviewer
 

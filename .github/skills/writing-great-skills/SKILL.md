@@ -70,6 +70,16 @@ Hunt for opportunities to refactor skills to use leading words. A triad spelled 
 
 You win twice over: fewer tokens, _and_ a sharper hook for the agent to hang its thinking on. Assume every skill is carrying restatements that leading words retire — go find them.
 
+## Testing a skill (red-green-refactor)
+
+A new or edited skill should be tested the same way code is: establish a baseline, watch it fail, write the skill, watch it pass, then close loopholes.
+
+1. **Red:** run a realistic task without the skill. Capture what the agent does wrong and the rationalizations it uses.
+2. **Green:** write the minimal skill that addresses those failures.
+3. **Refactor:** re-run under pressure; add explicit counters for any rationalizations that resurface.
+
+Use `skill-creator` for the full eval workflow, subagent test cases, and description optimization.
+
 ## Failure modes
 
 Use these to diagnose issues the user may be having with the skill.

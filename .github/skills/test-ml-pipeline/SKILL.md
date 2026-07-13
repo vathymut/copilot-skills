@@ -2,14 +2,14 @@
 name: test-ml-pipeline
 description: >
   Owns the `tests/` folder of an ML workspace and the pairing
-  rule between an experiment and its tests. Lightweight router:
-  every test category has its own subskill (`smoke-test-ml-pipeline`
-  is the only one for v1; `regression-test-ml-pipeline` /
-  `distribution-test-ml-pipeline` etc. plug in as siblings as the
-  workspace grows). This skill places an empty `tests/<category>/`
-  folder, enforces the stem-pairing rule between
-  `tests/<category>/test_NN_<short_name>.py` and
-  `experiments/NN_<short_name>.py`, and dispatches to the matching
+  rule between an experiment and its tests. Lightweight
+  **orchestrator**: every test category has its own subskill
+  (`smoke-test-ml-pipeline` is the only one for v1;
+  `regression-test-ml-pipeline` / `distribution-test-ml-pipeline`
+  plug in as siblings as the workspace grows). This skill places an
+  empty `tests/<category>/` folder, enforces the stem-pairing rule
+  between `tests/<category>/test_NN_<short_name>.py` and
+  `experiments/NN_<short_name>.py`, and hands off to the matching
   subskill when the user asks for a test.
 
   TRIGGER when: a new design note was just approved by
@@ -24,29 +24,33 @@ description: >
   `iterate-ml-experiment` first); the test is for the package's
   internal helpers and unrelated to a specific experiment (regular
   unit tests live wherever the project's `pytest` config picks
-  them up — out of scope here); the question is *what does the
-  test result mean* rather than *should the test exist* (route to
+  them up — out of scope here); the question is *what does the test
+  result mean* rather than *should the test exist* (route to
   the matching subskill).
 
-  HOW TO USE: this skill is a router. Read the dispatch table to
-  figure out which subskill owns the test category the user is
-  asking about, then hand off. Do not write the test body
-  yourself — that belongs to the subskill. Do place the empty
-  test file with the matching stem and the pytest scaffolding,
-  then hand control over.
+  HOW TO USE: this skill is an orchestrator, not a pure router.
+  Read the dispatch table to figure out which subskill owns the
+  test category, place the empty test file with the matching stem
+  and pytest scaffolding, then hand off to the subskill. Do not
+  write the test body yourself — that belongs to the subskill.
 ---
 
-# Test ML Pipeline (router)
+# Test ML Pipeline (orchestrator)
 
 Where tests for an ML workspace live, what gets paired with what,
-and which subskill owns the body of each test category.
+and which subskill owns the body of each test category. This skill
+is an **orchestrator**: it is model-invoked because
+`iterate-ml-experiment` needs to dispatch to it directly, and it
+hands off to a subskill after placing the empty test file. It is
+not a user-invoked router because it performs work (file placement
++ dispatch) rather than just naming skills.
 
 ## First action (every turn)
 
 Before answering anything else:
 
 1. **Confirm an approved design note exists** for the test
-   the user is asking about. The pairing rule is hard:
+   the user is asking about. The **pairing** rule is hard:
    `tests/<category>/test_NN_<short_name>.py` only exists if
    `journal/NN_<short_name>.md` is at least `approved` and
    `experiments/NN_<short_name>.py` is the matching script. If
@@ -54,7 +58,7 @@ Before answering anything else:
 2. **Emit the Pre-flight checklist** (below) as visible text in
    your response, with each box marked.
 3. **Use the Dispatch table** to pick the subskill that owns the
-   test category, then hand off.
+   test category, place the empty test file if needed, then hand off.
 
 ## Pre-flight — emit this checklist as visible text before any test work
 
@@ -108,7 +112,7 @@ project/
     └── (future: regression/, distribution/, …)
 ```
 
-The pairing rule:
+The **pairing** rule — same `NN_<short_name>` stem in all three:
 
 ```
 journal/NN_<short_name>.md
@@ -116,9 +120,8 @@ experiments/NN_<short_name>.py
 tests/<category>/test_NN_<short_name>.py
 ```
 
-— same `NN_<short_name>` stem in all three. The `test_` prefix on
-the test file basename is the pytest naming convention; everything
-after it tracks the experiment.
+The `test_` prefix on the test file basename is the pytest naming
+convention; everything after it tracks the experiment.
 
 The `tests/<category>/` subfolder lets the workspace grow more
 test types without renaming anything. `tests/smoke/` is the only
@@ -171,12 +174,12 @@ opt-in and added when the workspace's needs warrant them.
    scaffolding (one `def test_*():` function, empty body, a
    `# TODO: filled in by <subskill>` marker). If the file already
    exists, do **not** overwrite.
-4. Hand off to the subskill (`smoke-test-ml-pipeline` etc.). The
+4. **Hand off** to the subskill (`smoke-test-ml-pipeline` etc.). The
    subskill writes the assertions, fixture construction, and any
    helpers it needs.
 5. Confirm with the user that the subskill's draft is correct
    before running the test (the subskill owns this loop; this
-   skill only does placement + dispatch).
+   skill only does placement + hand-off).
 
 ## What this skill does NOT do
 
@@ -191,6 +194,8 @@ opt-in and added when the workspace's needs warrant them.
   `iterate-ml-experiment` / `organize-ml-workspace` /
   `build-ml-pipeline` / `evaluate-ml-pipeline` are on those skills,
   not this one.
+- Act as a pure router. It places files and then hands off; see
+  the orchestrator note at the top.
 
 ## Companion skills
 

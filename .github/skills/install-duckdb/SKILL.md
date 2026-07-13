@@ -6,6 +6,7 @@ description: >
   Pass --update to update extensions instead of installing.
 argument-hint: "[--update] [ext1 ext2@repo ext3 ...]"
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Arguments: `$@`

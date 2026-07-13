@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Media Router
 
-Index of visual media skills. Invoke the right skill by name.
+Index of visual media skills. Invoke the right skill by name; high-frequency skills also auto-trigger.
 
 | Skill | Use when |
 |---|---|

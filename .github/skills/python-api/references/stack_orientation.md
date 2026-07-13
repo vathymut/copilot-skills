@@ -51,7 +51,7 @@ finds the right submodule.
   appropriate headline metrics), `.checks` (with
   `.summarize().frame()` for the automated `passed` / `issue` /
   `tip` walk — the surface `audit-ml-pipeline` renders and
-  `iterate-from-skore` mines via the digest), and `.inspection`
+  the skore source branch mines via the digest), and `.inspection`
   (for feature importance / coefficients where the estimator
   supports it).
 - **Project**: `skore.Project(name, *, mode='local', **kwargs)`.

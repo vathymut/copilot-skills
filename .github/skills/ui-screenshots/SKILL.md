@@ -1,6 +1,7 @@
 ---
 name: ui-screenshots
-description: 'Capture screenshots of web apps during development using Playwright and PIL. Supports full-page captures, interactive states, and an iterate-on-crop workflow that avoids slow re-screenshots.'
+description: 'Capture screenshots of web apps during development using Playwright and PIL. Supports full-page captures, interactive states, and an iterate-on-crop workflow that avoids slow re-sc'
+disable-model-invocation: true
 ---
 
 # UI Screenshots

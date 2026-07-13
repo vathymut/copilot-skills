@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Git Workflow Router
 
-Index of the git-related skills. Invoke the right skill by name.
+Index of git-related skills. Invoke the right skill by name; high-frequency skills also auto-trigger.
 
 | Skill | Use when |
 |---|---|
@@ -15,6 +15,5 @@ Index of the git-related skills. Invoke the right skill by name.
 | `using-git-worktrees` | Start feature work in an isolated workspace or worktree. |
 | `finishing-a-development-branch` | Implementation is complete and you need to decide merge / PR / cleanup. |
 
-These skills are model-invoked; you can type their names directly, or let the
-agent pick them when you say "commit", "merge conflict", "worktree", or
-"finish this branch".
+Say "commit", "merge conflict", "worktree", or "finish this branch" to trigger
+the matching child directly, or invoke `git-workflow` to see the index.

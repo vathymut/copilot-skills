@@ -4,6 +4,7 @@ description: >-
   Mermaid diagram specialist for creating flowcharts, sequence diagrams, ERDs,
   and architecture visualizations. Use when creating technical documentation,
   visualizing workflows, documenting architecture, or explaining system design.
+disable-model-invocation: true
 ---
 
 # Mermaid Diagram Specialist

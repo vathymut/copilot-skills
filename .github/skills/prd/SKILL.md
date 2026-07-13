@@ -1,6 +1,6 @@
 ---
 name: prd
-description: 'Generate product requirements and formal specifications. Use when the user wants a PRD, a product spec, a feature specification, or an AI-optimized spec file.'
+description: 'Generate product requirements and specs. Use when the user wants a PRD, product spec, feature specification, AI-optimized spec file, or to turn the current conversation into a spec.'
 license: MIT
 ---
 
@@ -55,8 +55,6 @@ Generate the document using the schema in the next section.
 This branch replaces the standalone `create-specification` skill. Use it when
 the user explicitly wants a machine-readable spec file for agent consumption.
 
-Use this when the user explicitly wants a machine-readable spec file (e.g., for agent consumption) rather than a narrative PRD.
-
 1. Gather inputs: purpose, scope, requirements, constraints.
 2. Choose a filename prefix: `schema`, `tool`, `data`, `infrastructure`, `process`, `architecture`, or `design`.
 3. Populate [references/spec-template.md](references/spec-template.md) with no placeholders.
@@ -65,6 +63,23 @@ Use this when the user explicitly wants a machine-readable spec file (e.g., for 
    - All acronyms are defined in §2.
    - Acceptance criteria are testable (Given-When-Then or equivalent).
 5. Save to `/spec/spec-[type]-[name].md`.
+
+### Branch C — Conversation-to-spec (formerly `to-spec`)
+
+Use when the user says "turn this into a spec", "publish this conversation as a spec", "write the spec from our discussion", or similar — i.e., the spec should be synthesized from the current conversation rather than discovered via interview.
+
+1. Do NOT interview the user. Synthesize what you already know from the conversation and codebase.
+2. Explore the repo if you haven't already. Use the project's domain glossary and ADRs.
+3. Sketch the seams at which the feature will be tested. Prefer existing seams; the ideal number is one. Confirm with the user if scope is unclear.
+4. Write the spec using this template, then publish it to the project issue tracker with the `ready-for-agent` label:
+
+- **Problem Statement**
+- **Solution**
+- **User Stories** (numbered list, extensive)
+- **Implementation Decisions** (modules, interfaces, schema, API contracts; no file paths or code snippets)
+- **Testing Decisions** (seams, prior art)
+- **Out of Scope**
+- **Further Notes**
 
 ### 1. Executive Summary
 - **Problem Statement**: 1-2 sentences on the pain point.

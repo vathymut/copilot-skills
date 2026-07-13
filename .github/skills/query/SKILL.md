@@ -5,6 +5,7 @@ description: >
   Accepts raw SQL or natural language questions. Uses DuckDB Friendly SQL idioms.
 argument-hint: <SQL or question> [--file path]
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Input: `$@`

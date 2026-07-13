@@ -6,7 +6,7 @@ Cross-referenced from SKILL.md § "Audit file contract — overview".
 
 The template is deliberately narrow: checks summary + metrics
 summary. The rendered digest at `scratch/audit/<stem>/audit.md`
-is what `iterate-from-skore` reads to populate the JOURNAL
+is what the skore source branch reads to populate the JOURNAL
 Backlog — each row in the checks summary carries a
 `documentation_url` that drives an actionable mitigation. Do not
 extend the template with per-task accessors (residuals, confusion
@@ -139,7 +139,7 @@ user asks for a deeper accessor.
    Pandas DataFrame of the passed/issue/tip walk with codes like
    `SKD003`. Each row carries a `documentation_url` — the
    actionable mitigation lives at that link, and
-   `iterate-from-skore` follows it to draft Backlog rows.
+   the skore source branch follows it to draft Backlog rows.
    Verified on `CrossValidationReport` and `EstimatorReport` in
    skore ≥ 0.18.
 

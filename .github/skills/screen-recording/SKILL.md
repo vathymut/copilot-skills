@@ -1,6 +1,7 @@
 ---
 name: screen-recording
-description: 'Create annotated animated GIF demos and screen recordings for pull requests and documentation. Covers frame capture, timing, imageio-based GIF creation, and per-frame annotation workflows.'
+description: 'Create annotated animated GIF demos and screen recordings for pull requests and documentation. Covers frame capture, timing, imageio-based GIF creation, and per-frame annotation wo'
+disable-model-invocation: true
 ---
 
 # Screen Recording

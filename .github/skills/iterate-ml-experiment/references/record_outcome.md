@@ -122,7 +122,7 @@ per item:
   ```
 
 **Diagnostic mining of the *new* report is NOT done here** — that
-is `iterate-from-skore`'s job, triggered when the user picks
+is the skore source branch's job, triggered when the user picks
 `skore` from the sourcing menu in a later turn. § 4 only prunes
 existing items; it never appends new findings.
 

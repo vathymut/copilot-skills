@@ -1,6 +1,7 @@
 ---
 name: deslop
-description: DEPRECATED — merged into code-review (Maintainability axis). Kept as a user-invoked alias that forwards to code-review.
+description: User-invoked alias. DEPRECATED — merged into code-review (Maintainability axis). Invoke code-review instead.
+disable-model-invocation: true
 ---
 
 # Deprecated

@@ -9,6 +9,7 @@ description: >
   containment checks, density analysis, and format conversions for geographic data.
 argument-hint: <question or file> [additional context]
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 You are answering spatial questions using DuckDB's spatial extension and, when needed, Overture Maps as a free global data source.

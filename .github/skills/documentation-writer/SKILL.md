@@ -1,6 +1,7 @@
 ---
 name: documentation-writer
 description: 'Write software documentation using the Diátaxis framework. Use when the user asks for docs, a tutorial, how-to, reference, or explanation.'
+disable-model-invocation: true
 ---
 
 # Documentation Writer

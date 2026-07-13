@@ -1,9 +1,19 @@
 ---
 name: code-review
-description: 'Review the changes since a fixed point (commit, branch, tag, or merge-base) along three axes: Standards, Spec, and Maintainability. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".'
+description: 'Review code changes or review workflow. Use when the user wants to review a branch, PR, diff, work-in-progress changes, asks to "review since X", or asks to request or respond to code review.'
 ---
 
-Three-axis review of the diff between `HEAD` and a fixed point the user supplies:
+# Code Review
+
+Review workflow with three branches:
+
+- **Branch A — Three-axis review** (default): review the diff between `HEAD` and a fixed point along Standards, Spec, and Maintainability.
+- **Branch B — Request review**: dispatch a reviewer subagent before merging or after a task. Delegates to `requesting-code-review`.
+- **Branch C — Receive review**: evaluate received feedback rigorously before implementing. Delegates to `receiving-code-review`.
+
+Pick the branch the user asked for; default to Branch A when the request is about a diff or PR.
+
+## Branch A — Three-axis review of the diff between `HEAD` and a fixed point the user supplies
 
 - **Standards** — does the code follow this repo's documented conventions?
 - **Spec** — does it match the originating issue / PRD / spec?
@@ -108,3 +118,11 @@ A change can pass two axes and fail the third:
 - Code that is structurally clean but implements the wrong feature → **Maintainability pass, Spec fail.**
 
 Reporting them separately stops any one axis from masking the others.
+
+## Branch B — Request review
+
+Use when the user says "request review", "review before merge", "have someone review this", or similar. Announce: "Dispatching a reviewer subagent via `requesting-code-review`." Then load `requesting-code-review` and follow its process. Use the template at [references/code-reviewer.md](references/code-reviewer.md).
+
+## Branch C — Receive review
+
+Use when the user pastes review feedback and asks what to do, or says "implement these review comments", "address feedback", etc. Announce: "Evaluating review feedback via `receiving-code-review`." Then load `receiving-code-review` and follow its process.

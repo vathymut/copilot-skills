@@ -6,6 +6,7 @@ description: >
   so subsequent queries can restore this session automatically via duckdb -init.
 argument-hint: <path-to-database.duckdb>
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 You are helping the user attach a DuckDB database file for interactive querying.

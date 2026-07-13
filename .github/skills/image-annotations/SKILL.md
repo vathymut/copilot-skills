@@ -5,6 +5,7 @@ description: >-
   labels, and color-coded highlights using PIL. Use when adding visual callouts
   to PR screenshots, before/after diffs, architecture diagrams, or animated GIF
   demo frames.
+disable-model-invocation: true
 ---
 
 # Image Annotations

@@ -3,8 +3,8 @@ name: iterate-ml-experiment
 description: >
   Drives the propose → approve → implement → record loop on top of
   an ML workspace. Drafts per-experiment design notes in
-  `journal/NN_*.md`, enforces approval before any code, and dispatches
-  to `iterate-from-skore` / `iterate-from-user` for sourcing.
+  `journal/NN_*.md`, enforces approval before any code, sources next
+  steps from skore audit digests or user input, and records outcomes.
 
   TRIGGER — any of:
   - A session opens in an ML workspace (missing/placeholder → bootstrap).
@@ -337,15 +337,15 @@ propose-and-record in one breath.
 |---|---|
 | **No prior experiment** (bootstrap) | § 0 forces baseline. No strategy skill |
 | User names a Backlog row (`B2`) | Promote directly. No strategy skill |
-| "mine the report" / "what does skore see?" | `iterate-from-skore`. No design note this turn. |
-| "I want to try X" / article URL / issue | `iterate-from-user`. Pass pre-resolved branch if available |
+| "mine the report" / "what does skore see?" | the skore source branch. No design note this turn. |
+| "I want to try X" / article URL / issue | the user source branch. Pass pre-resolved branch if available |
 | "give me ideas" / "you decide" | `my-pick` — inline, AskUserQuestion |
 | Open-ended "what's next?" | Present sourcing menu + Backlog. No silent default |
 
 The strategy skills *source*; this skill *drafts*. `skore` requires
 a prior experiment with a report — bootstrap can't use it.
 
-**Zero candidates from `iterate-from-skore`**: append one-liner to
+**Zero candidates from the skore source branch**: append one-liner to
 JOURNAL Status. No History row. Re-present menu.
 
 ## Maintenance modes
@@ -377,7 +377,7 @@ strategy on the user's behalf.
 - `audit-ml-pipeline` — § 4 dispatch; carries headline metrics
 - `python-api` / `python-env-manager` — symbol lookups, agent feature
 
-Sourcing was previously handled by `iterate-from-skore` and `iterate-from-user`;
+Sourcing was previously handled by the skore source branch and the user source branch;
 those contents now live in this skill's `references/source-from-skore.md` and
 `references/source-from-user.md`.
 

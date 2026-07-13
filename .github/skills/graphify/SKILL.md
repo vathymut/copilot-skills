@@ -1,11 +1,16 @@
 ---
 name: graphify
-description: "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first. Turns any input (code, docs, papers, images, videos) into a persistent knowledge graph with god nodes, community detection, and query/path/explain tools."
+description: "Answer questions about a codebase, its architecture, file relationships, or project content. Use when the user asks to map, document, onboard into, or query a codebase — especially when graphify-out/ exists, treat natural-language questions as a graphify query first."
 ---
 
 # /graphify
 
-Turn any folder of files into a navigable knowledge graph with community detection, an honest audit trail, and three outputs: interactive HTML, GraphRAG-ready JSON, and a plain-language GRAPH_REPORT.md.
+Answer codebase questions by turning files into a navigable knowledge graph, or produce a seven-document onboarding map under `docs/codebase/`. The default is graph-mode; switch to onboard-mode only when the user explicitly asks to "map", "document", or "onboard into" the codebase.
+
+## Modes
+
+- **Graph mode (default):** build or query `graphify-out/`. Use for architecture questions, file relationships, and project content queries.
+- **Onboard mode:** produce `docs/codebase/` documentation. Use only when the user explicitly asks to map, document, or onboard into the repo. See [references/onboard-mode.md](references/onboard-mode.md) for the seven-document workflow.
 
 ## Usage
 
