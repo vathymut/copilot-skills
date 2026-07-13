@@ -315,7 +315,19 @@ Quick lookup; detailed recovery steps in `references/failure_modes.md`.
 
 ## Companion skills
 
-See `references/companion_skills.md` for the full relationship table.
+See the shared ML companion map at
+`writing-great-skills:references/ml-companion-skills.md`. Local
+load-bearing relationships:
+
+| Skill | Relationship |
+|---|---|
+| `iterate-ml-experiment` | Caller. § 4 dispatches here FIRST; the digest feeds the `JOURNAL.md` Status + History update |
+| `evaluate-ml-pipeline` | Producer side. `skore.evaluate` + `project.put` live only in `experiments/NN_*.py` |
+| `organize-ml-workspace` | Workspace layout; four-way stem pairing |
+| `python-env-manager` | Agent feature install (G-AGENT-FEATURE). This skill requests; that skill installs |
+| `python-api` | skore symbol lookups. Cache hits first |
+| `python-code-style` | ruff after writing/editing `audit/<stem>.py` |
+| `data-science-python-stack` | Catalogues `ipython` + `pyright` under the agent feature |
 
 ## Templates and assets
 
@@ -338,5 +350,5 @@ See `references/companion_skills.md` for the full relationship table.
   symptom in § Failure modes.
 - `references/shortcuts.md` — forbidden shortcuts table with
   rationale for each entry.
-- `references/companion_skills.md` — relationship table for
-  upstream and downstream skills.
+- `writing-great-skills:references/ml-companion-skills.md` — canonical
+  ML-workspace companion map.
