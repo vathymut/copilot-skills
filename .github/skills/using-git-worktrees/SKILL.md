@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: User-invoked: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git w
+description: "Set up an isolated workspace for feature work using native tools or git worktrees."
 disable-model-invocation: true
 ---
 

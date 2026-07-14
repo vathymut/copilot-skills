@@ -1,6 +1,6 @@
 ---
 name: finishing-a-development-branch
-description: User-invoked: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for m
+description: "Guide completion of a feature branch by verifying tests and offering merge, PR, keep, or discard options."
 disable-model-invocation: true
 ---
 

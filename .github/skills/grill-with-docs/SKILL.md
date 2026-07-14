@@ -1,6 +1,6 @@
 ---
 name: grill-with-docs
-description: Run a relentless interview to sharpen a plan or design, producing ADRs and glossary entries as decisions crystallize. Trigger for: "grill me", "grill this plan", "stress-test my design", "challenge my design against our docs", "sharpen this plan with docs".
+description: "Run a relentless interview to sharpen a plan or design against project docs, producing ADRs and glossary entries."
 ---
 
 # Grill With Docs

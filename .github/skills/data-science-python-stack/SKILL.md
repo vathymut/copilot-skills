@@ -1,39 +1,6 @@
 ---
 name: data-science-python-stack
-description: >
-  Opinionated Python stack for data-science / ML work — one library
-  per job, organized into tiers (mandatory / user choice / optional /
-  transitive). SKILL.md is the index; per-library
-  `references/<library>.md` files carry scope, "pick this when" /
-  "pick something else when", and pairings.
-
-  TRIGGER when (any of these):
-  (1) **a library import fails** in this stack's domain — the answer
-  is install, not substitute (see § "Missing dependency");
-  (2) **a library choice has to be made** — explicitly (the user asks
-  "which library for X?") or implicitly (code is about to introduce a
-  new dependency, or the project is being scaffolded and the tabular
-  library hasn't been picked yet);
-  (3) starting a new Python data-science / ML project;
-  (4) the user or current code reaches for a substitute outside the
-  stack (xgboost, lightgbm, black, isort, flake8, poetry, hatch), or
-  reaches for `mlflow` to log params/metrics, or for `cross_val_score`
-  + handwritten reporting — redirect: tracking → `skore` Project API,
-  evaluation / reporting → `skore` report classes, `mlflow` stays
-  only for model serving / registry.
-
-  SKIP when: the project is non-Python; the work is web / backend /
-  infra unrelated to data science; the library is already chosen and
-  installed and the task is implementation inside it (bug fix, feature
-  work, refactor) with no new dependency in play.
-
-  HOW TO USE: **read this SKILL.md end-to-end before recommending or
-  installing anything** — picking from a single index entry hides the
-  tier (whether the library is mandatory, a user-choice, optional, or
-  already transitively present) and the pairings, and both matter.
-  Then read the linked `references/<library>.md` for the chosen
-  library's scope and tradeoffs. Don't silently substitute one library
-  for another; if no entry fits, surface the gap to the user.
+description: "Opinionated Python library stack and usage rules for data-science / ML work."
 ---
 
 # Data Science Python Stack
@@ -53,7 +20,7 @@ plus an orthogonal **agent feature**:
    (`ipython`, `pyright`), kept out of the production-shape
    runtime via a manager-specific scope. Install logistics owned
    by `python-env-manager` § "Agent feature"; consumed by
-   `audit-ml-pipeline` and the opencode LSP integration.
+   `evaluate-ml-pipeline` § Audit and the opencode LSP integration.
 
 ## Stop conditions — read before naming any library
 
@@ -152,7 +119,7 @@ When code in this stack needs a library but `import` fails, the answer is
   (`sklearn.Pipeline` for `skrub`, `cross_val_score` + handwritten
   metric prints for `skore`. Substitution silently breaks the contract
   that the workflow skills (`build-ml-pipeline`,
-  `evaluate-ml-pipeline`, `organize-ml-workspace`) rely on.
+  `evaluate-ml-pipeline`, `ml-scaffold`) rely on.
 - This rule **overrides** "make the code run". If the user prefers a
   substitute, they will say so — until they do, install. Reaching
   for a substitute because the dependency is missing is the most
@@ -182,13 +149,12 @@ evaluates the result and persists it as a project on disk. The
 fourth, `ruff`, owns lint + format and is non-negotiable: every
 project Claude touches should pass `ruff check`. The fifth,
 `pytest`, runs the smoke test that every approved experiment
-must have per the `test-ml-pipeline` / `smoke-test-ml-pipeline`
-contract — without pytest the smoke-test gate can't enforce
+must have per the `evaluate-ml-pipeline` § Smoke contract — without
+pytest the smoke-test gate can't enforce
 predict-time correctness, so pytest stays mandatory even when
 no other tests have been written yet. Each is named explicitly
 even when transitively present, because the workflow skills
-(`build-ml-pipeline`, `evaluate-ml-pipeline`,
-`python-code-style`, `test-ml-pipeline`) depend on them
+(`build-ml-pipeline`, `evaluate-ml-pipeline`, `python-quality`) depend on them
 directly and should not silently lose them if upstream packaging
 changes.
 
@@ -218,7 +184,7 @@ changes.
   mutually exclusive modes: `local` (artifacts on disk), `hub`
   (artifacts on Skore Hub), `mlflow` (artifacts in an MLflow
   tracking server). The mode is a workspace-level decision owned by
-  `organize-ml-workspace` § "G-SKORE-MODE". The exact install
+  `ml-scaffold` § "G-SKORE-MODE". The exact install
   command for each mode lives in `python-env-manager` § "Tier 1
   install: skore variant per mode" — this skill only records *what*
   to install, not *how*. Default-on-no-preference: `local`.
@@ -226,12 +192,12 @@ changes.
   replaces `black` / `isort` / `flake8` / `pydocstyle`. The
   configuration (rule selection, numpydoc convention, per-file
   ignores) and the rule "Claude runs ruff after generating code"
-  are owned by the `python-code-style` skill, which also ships the
+  are owned by the `python-quality` skill, which also ships the
   canonical `ruff.toml` template. `python-env-manager` routes ruff
   to the `dev` feature.
 - [`pytest`](references/pytest.md) — test runner for the
-  smoke-test gate enforced by `test-ml-pipeline` /
-  `smoke-test-ml-pipeline`. Every approved experiment must have a
+  smoke-test gate enforced by `evaluate-ml-pipeline` § Smoke. Every
+  approved experiment must have a
   passing `tests/smoke/test_NN_<short_name>.py` before its row
   in `JOURNAL.md` can flip to `done`; pytest is what runs that
   test, so the dependency is non-negotiable even on workspaces
@@ -394,7 +360,7 @@ available without an extra install.
 ## Agent feature — orthogonal to the four tiers
 
 Agent-only tooling (`ipython` + `pyright`) used by
-`audit-ml-pipeline` and the editor LSP integration. Not Tier 1–4;
+`evaluate-ml-pipeline § Audit` and the editor LSP integration. Not Tier 1–4;
 lives in its own manager-scoped bucket.
 
 | Library | Role |
@@ -403,7 +369,7 @@ lives in its own manager-scoped bucket.
 | `pyright` | Powers the opencode LSP integration for Python files |
 
 **Install + config: owned by `python-env-manager` § "Agent feature".**
-Consumed by `audit-ml-pipeline` and the LSP; routes through
+Consumed by `evaluate-ml-pipeline § Audit` and the LSP; routes through
 `G-AGENT-FEATURE` when not present. No kernel registration needed.
 
 ## Conventions

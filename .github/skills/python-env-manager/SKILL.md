@@ -1,41 +1,14 @@
 ---
 name: python-env-manager
-description: >
-  Detects which Python environment manager a project uses and
-  installs packages with the correct command.
-
-  TRIGGER when (any of these):
-  (1) **about to install / add / pin / upgrade / remove a Python
-      package** — `pip install`, `pixi add`, `uv add`, `poetry add`,
-      `conda install`, etc. — under any framing;
-  (2) `data-science-python-stack` § "Missing dependency" surfaced a
-      missing import and an install is the next step;
-  (3) a workflow skill's Stop condition fired on a missing
-      dependency;
-  (4) starting a new Python project and no manager is in place yet;
-  (5) an agent-only consumer needs the **agent feature** and it
-      isn't yet present in the manifest.
-
-  SKIP when: the project is non-Python; the install/add command is
-  for a non-Python tool; the dependency is already installed and
-  importable; the work is purely editing existing source code with
-  no new dependency in play.
-
-  HOW TO USE: **detect first, then install**. Run the § "Detection"
-  table at the project root before issuing any install command. If
-  no manager is detected, ask the user before bootstrapping. Never
-  install with a different manager than the one the project uses.
-  **Read the "Stop conditions" block and emit the Pre-flight
-  checklist as visible text in your response — both are mandatory
-  before issuing any command.**
+description: "Detect the project's Python environment manager and install packages with the right command."
 ---
 
 ## Next-step pointers
 
 | Came here from… | After install, next gate is… |
 |---|---|
-| `organize-ml-workspace` § scaffold | → editable workspace package |
-| `audit-ml-pipeline` § agent-feature-missing | → place `audit/<stem>.py` |
+| `ml-scaffold` § scaffold | → editable workspace package |
+| `evaluate-ml-pipeline` § Audit | → place `audit/<stem>.py` |
 | `build-ml-pipeline` / `evaluate-ml-pipeline` § missing dep | → continue at the failing pre-flight box |
 | `data-science-python-stack` § Missing dependency | → caller; the missing import should now succeed |
 
@@ -172,8 +145,8 @@ doesn't compose it. User sees "unresolved import" on valid code.
 
 ### `G-AGENT-FEATURE` — install ipython + pyright
 
-**Fires when**: an agent-only consumer (`audit-ml-pipeline` for audit
-files, or `explore-ml-data` for `data/eda.py`) needs `ipython` /
+**Fires when**: an agent-only consumer (`evaluate-ml-pipeline § Audit` for audit
+files, or `ml-eda` for `data/eda.py`) needs `ipython` /
 `pyright` and the manifest doesn't expose them. Can fire as early as
 **bootstrap** (the G-EDA run path).
 
@@ -254,7 +227,7 @@ PyPI installs need `jupyter` extra; conda-forge already ships it.
 | `mlflow` | `pixi add "skore[mlflow]" "mlflow>=3"` / `conda install -c conda-forge "skore[mlflow]" "mlflow>=3"` | `uv add "skore[mlflow,jupyter]" "mlflow>=3"` / `poetry add "skore[mlflow,jupyter]" "mlflow>=3"` / `pip install "skore[mlflow,jupyter]" "mlflow>=3"` |
 
 The `mlflow` variant **must pin `mlflow>=3` explicitly**. If the
-row is absent, route back to `organize-ml-workspace` § G-SKORE-MODE.
+row is absent, route back to `ml-scaffold` § G-SKORE-MODE.
 Do not guess.
 
 **Forbidden:** silently picking `skore[hub]` / `skore[mlflow]`;
@@ -283,8 +256,8 @@ G-SKORE-MODE) → add tabular lib → wire editable workspace package
 | Skill | Relationship |
 |---|---|
 | `data-science-python-stack` | Owns *what* to install; this skill turns it into a command |
-| `organize-ml-workspace` | Scaffold hands off here for editable install |
-| `audit-ml-pipeline` / `explore-ml-data` | G-AGENT-FEATURE fires from there |
+| `ml-scaffold` | Scaffold hands off here for editable install |
+| `evaluate-ml-pipeline § Audit` / `ml-eda` | G-AGENT-FEATURE fires from there |
 | `build-ml-pipeline` / `evaluate-ml-pipeline` | Missing-dep Stop conditions redirect here |
 | `iterate-ml-experiment` | Owns the `Workspace decisions` block this skill reads / writes |
 
@@ -305,7 +278,7 @@ G-SKORE-MODE) → add tabular lib → wire editable workspace package
 |---|---|
 | What library is in the stack, and why | `data-science-python-stack` |
 | Which manager + feature scope to use | this skill |
-| ruff/NumPyDoc conventions | `python-code-style` |
+| ruff/NumPyDoc conventions | `python-quality` |
 | Exact install command syntax | this skill |
-| `skore` mode / hub / mlflow variant details | `organize-ml-workspace` decides mode; this skill executes |
+| `skore` mode / hub / mlflow variant details | `ml-scaffold` decides mode; this skill executes |
 | Mandatory Tier 1 vs user-choice Tier 2 vs opt-in Tier 3 | `data-science-python-stack` |

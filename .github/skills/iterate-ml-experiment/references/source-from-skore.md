@@ -1,7 +1,7 @@
 # Source from Skore
 
 Read the audit digest at `scratch/audit/<stem>/audit.md`, produced by
-`audit-ml-pipeline` at § 4 record-outcome. Output: a set of
+`evaluate-ml-pipeline § Audit` at § 4 record-outcome. Output: a set of
 **Backlog-candidate rows** + a short human summary, handed back to the parent
 `iterate-ml-experiment` section § 2a.
 
@@ -52,13 +52,13 @@ summary saying so explicitly.
 
 If the digest cannot be read, return zero rows and explain the access failure.
 Do not fabricate findings or re-run probes. Recovery is owned by
-`audit-ml-pipeline`.
+`evaluate-ml-pipeline § Audit`.
 
 ## Stop conditions
 
 - Don't write `journal/` files.
 - Don't re-open the skore Project. Reading the digest is the contract; if it's
-  missing, re-execute the audit runner via `audit-ml-pipeline`.
+  missing, re-execute the audit runner via `evaluate-ml-pipeline § Audit`.
 - Only `## Checks summary` rows drive Backlog candidates.
 - Follow the `documentation_url` with `WebFetch`; don't invent mitigations.
 - Don't pick a single "winning" finding for the user.

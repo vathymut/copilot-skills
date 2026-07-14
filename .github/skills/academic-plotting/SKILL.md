@@ -1,11 +1,12 @@
 ---
 name: academic-plotting
-description: Generates publication-quality figures for ML papers. Two workflows: architecture diagrams via Gemini, data charts via matplotlib/seaborn. Use when creating any figure for a confere
+description: "Generate publication-quality figures for ML papers. Use Gemini for diagrams and matplotlib/seaborn for data charts."
 version: 1.0.0
 author: Orchestra Research
 license: MIT
 tags: [Academic Writing, Visualization, Matplotlib, Seaborn, Plotting, Figures, Diagrams, NeurIPS, ICML, ICLR, LaTeX]
-dependencies: [matplotlib>=3.8.0, seaborn>=0.13.0, numpy, google-genai>=1.0.0]---
+dependencies: [matplotlib>=3.8.0, seaborn>=0.13.0, numpy, google-genai>=1.0.0]
+---
 
 # Academic Plotting for ML Papers
 

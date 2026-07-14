@@ -1,8 +1,6 @@
 ---
 name: query
-description: >
-  Run SQL queries against the attached DuckDB database or ad-hoc against files.
-  Accepts raw SQL or natural language questions. Uses DuckDB Friendly SQL idioms.
+description: "Run SQL queries against an attached DuckDB database or ad-hoc against files."
 argument-hint: <SQL or question> [--file path]
 allowed-tools: Bash
 disable-model-invocation: true

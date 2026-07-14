@@ -10,9 +10,9 @@ when debugging a failed install.
 A project-scoped install of two agent-only tools plus a config:
 
 - **`ipython`** — powers the shared in-process cell runner at
-  `audit-ml-pipeline/scripts/run_cells.py` via
-  `InteractiveShell.run_cell`. Used by `audit-ml-pipeline` (audit
-  files) and `explore-ml-data` (`data/eda.py`). No kernel
+  `ml-scaffold/scripts/run_cells.py` via
+  `InteractiveShell.run_cell`. Used by `evaluate-ml-pipeline § Audit` (audit
+  files) and `ml-eda` (`data/eda.py`). No kernel
   registration, no notebook conversion.
 - **`pyright`** — powers the opencode LSP integration for Python
   files. Surfaces import / type / undefined-symbol diagnostics in
@@ -83,39 +83,39 @@ Per-manager footgun catalogue: `references/per_manager_footguns.md`.
 
 ## Post-install: how to invoke the shared cell runner
 
-The same runner executes both `audit/<stem>.py` (audit-ml-pipeline)
-and `data/eda.py` (explore-ml-data) — swap the file argument. The
+The same runner executes both `audit/<stem>.py` (evaluate-ml-pipeline § Audit)
+and `data/eda.py` (ml-eda) — swap the file argument. The
 examples below show an audit file; for EDA pass `data/eda.py`.
 
 ```bash
 # pixi
 pixi run -e agent python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # uv
 uv run --group agent python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # poetry
 poetry run python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # hatch
 hatch run agent:python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # conda
 conda run -n <project>-agent python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # pip + venv
 .venv-agent/bin/python \
-  .agents/skills/audit-ml-pipeline/scripts/run_cells.py \
+  .agents/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 ```
 

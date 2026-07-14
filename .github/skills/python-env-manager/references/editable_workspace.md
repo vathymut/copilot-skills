@@ -2,14 +2,14 @@
 
 Per-manager wiring for installing `src/<pkg>/` in editable mode.
 Cross-referenced from SKILL.md § "Install commands — by manager"
-and from `organize-ml-workspace` § Editable workspace package.
+and from `ml-scaffold` § Editable workspace package.
 
 When the project ships a local Python package under `src/<pkg>/`
 (declared by a `pyproject.toml` at the project root), it must be
 installed in **editable** mode so that `from <pkg>.X import Y`
 works from any CWD without `PYTHONPATH=src` hacks **and** so that
 edits to the source tree are picked up immediately.
-`organize-ml-workspace` hands off here after dropping
+`ml-scaffold` hands off here after dropping
 `pyproject.toml`.
 
 The wiring differs per manager. Use the matching command — never

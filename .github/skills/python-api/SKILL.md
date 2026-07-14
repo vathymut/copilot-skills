@@ -1,30 +1,6 @@
 ---
 name: python-api
-description: >
-  Look up the public API of a Python package against the *installed
-  version* and cache what's worth keeping. Four shapes by question
-  type: (0) cache hit; (1) symbol card; (2) module surface;
-  (3) narrative. Never write a symbol from training-data memory.
-
-  TRIGGER — any of:
-  - About to name a symbol (function / class / method / arg) in code.
-  - User asks "what's the signature of X?", "what's in module Y?",
-    "how do I call X?", "which of A/B should I use?".
-  - User asks "what does X return when <condition>?" (Shape 3).
-  - Another workflow skill says "consult the API skill".
-  - About to reach for a library's "obvious" pattern from memory.
-
-  SKIP when: the signature is obvious from a call site you just
-  read in this turn; the work is filesystem / shell only (no
-  Python symbols); a cache file already answers the question.
-
-  HOW TO USE: resolve the package version first via a scratch
-  file. Then list `scratch/api/<lib>/<version>/`. Then pick the
-  shape from the "What kind of question?" table. Narrative
-  findings get cached back. **All Python execution goes through
-  `scratch/<ts>_*.py` files — inline `python -c` is forbidden.**
-  Stack-specific orientation lives in
-  `references/stack_orientation.md` — load on demand.
+description: "Look up and cache installed Python package APIs against the *installed* version."
 ---
 
 ## Next-step pointers

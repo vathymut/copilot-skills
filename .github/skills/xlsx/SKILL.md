@@ -1,6 +1,6 @@
 ---
 name: xlsx
-description: "Use this skill any time a spreadsheet file is the primary input or output — creating, editing, analyzing, or cleaning .xlsx, .xlsm, .csv, or .tsv files. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration."
+description: "Create, edit, analyze, and clean spreadsheet files when the deliverable is a spreadsheet."
 license: Proprietary. LICENSE.txt has complete terms
 ---
 

@@ -6,7 +6,7 @@ Reference companion for the two artifacts this skill owns.
 
 1. **Status** — 2-3 lines: dataset, goal, last experiment + status.
 2. **Data understanding (EDA)** — short summary + link to
-   `data/eda.md`. Owned by `explore-ml-data` (written at the G-EDA
+   `data/eda.md`. Owned by `ml-eda` (written at the G-EDA
    bootstrap step); this skill only reserves the section.
 3. **History** (chronological) — one row per experiment: stem,
    intent, status, headline, design-note link.

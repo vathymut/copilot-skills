@@ -1,6 +1,6 @@
 ---
 name: python-pypi-package-builder
-description: 'Build, test, lint, version, and publish a production-grade Python library to PyPI. Covers all four build backends, PEP 440 versioning, Trusted Publishing (OIDC), and the full PyPA packaging flow. Trigger for: "create a Python package", "publish to PyPI", "pyproject.toml setup", or "build a pip-installable SDK".'
+description: "Build, test, lint, version, and publish a production-grade Python library to PyPI."
 ---
 
 # Python PyPI Package Builder Skill

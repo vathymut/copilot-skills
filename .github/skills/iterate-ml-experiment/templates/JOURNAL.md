@@ -37,7 +37,7 @@ mid-project (e.g. DL is added), the matching skill fires its
 Owning skills:
   - tabular library     → data-science-python-stack § Tier 2
   - env manager + scope → python-env-manager
-  - package name        → organize-ml-workspace
+  - package name        → ml-scaffold
   - CV splitter family  → evaluate-ml-pipeline
 -->
 

@@ -107,13 +107,13 @@ installed skore version — the dispatch table can evolve.
 
 Every report goes under a **stable key** in the workspace's
 `skore.Project` so future runs can read it back (the
-`audit-ml-pipeline` skill renders each report to a markdown
+`evaluate-ml-pipeline § Audit` skill renders each report to a markdown
 digest, and the skore source branch mines that digest for Backlog
 candidates).
 
 The Project init form depends on the workspace's `skore mode:`
 decision (recorded in `JOURNAL.md` Status `Workspace decisions`;
-gate owned by `organize-ml-workspace` § "G-SKORE-MODE"). Three
+gate owned by `ml-scaffold` § "G-SKORE-MODE"). Three
 forms; pick the one matching the workspace:
 
 ```python
@@ -227,7 +227,7 @@ project = skore.Project(
     name="load-forecast",
     mode="local",
     workspace=str(PROJECT_ROOT / "reports"),
-)  # local-mode form; see `organize-ml-workspace` § "G-SKORE-MODE" for hub
+)  # local-mode form; see `ml-scaffold` § "G-SKORE-MODE" for hub
 
 # %% [markdown]
 # ## Learner
@@ -286,7 +286,7 @@ version — the kwargs differ between `EstimatorReport` (uses
 - `evaluate-ml-pipeline` — the methodology side: cross-validator
   choice, default metrics, structural metadata (`split_kwargs`).
 - the skore source branch — reads the audit digest at
-  `scratch/audit/<stem>/audit.md` (produced by `audit-ml-pipeline`)
+  `scratch/audit/<stem>/audit.md` (produced by `evaluate-ml-pipeline § Audit`)
   and converts each `issue` / `tip` row from the report's
   `checks.summarize()` into a Backlog candidate, following the
   check's `documentation_url` for the mitigation.

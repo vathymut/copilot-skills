@@ -1,9 +1,6 @@
 ---
 name: pdf
-description: >
-  Process PDF files — read, extract, merge, split, rotate, create, watermark, encrypt, or OCR.
-  Use when: user mentions a .pdf file, asks to produce a PDF, or wants any PDF operation;
-  trigger on "pdf", ".pdf", "extract from PDF", "merge PDFs", "OCR scanned".
+description: "Process PDF files: read, extract, merge, split, rotate, create, watermark, encrypt, or OCR."
 ---
 
 Process PDFs by identifying the operation, selecting the right tool, implementing, and verifying output.

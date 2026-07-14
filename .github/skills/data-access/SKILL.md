@@ -1,8 +1,8 @@
 ---
 name: data-access
-description: User-invoked skill for reading, profiling, converting, and accessing data files and remote object storage. Invoke when the user references a data file, asks "what's in this file", wants to preview/profile/convert a dataset, or mentions S3/R2/GCS/MinIO URLs.
+description: "Read, profile, convert, and query local or remote data files with DuckDB."
 disable-model-invocation: true
-argument-hint: <command> <args> — commands: read, convert, s3
+argument-hint: "<command> <args> — commands: read, convert, s3"
 allowed-tools: Bash
 ---
 

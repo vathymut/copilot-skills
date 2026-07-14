@@ -1,157 +1,80 @@
 ---
 name: web-design-reviewer
-description: Visually inspect websites to identify and fix design issues at the source code level. Use when the user asks to review, check, or fix website design, UI, layout, or responsive/acce---
+description: 'Inspect a running website to identify and fix design, layout, responsive, and accessibility issues at the source. Captures screenshots as part of the workflow.'
+---
 
 # Web Design Reviewer
 
-Visual inspection and validation of website design quality, identifying and fixing issues at the source code level.
-
-## Prerequisites
-
-1. **Target website must be running** — local dev server, staging, or production (read-only)
-2. **Browser automation must be available** — screenshot capture, page navigation, DOM retrieval
-3. **Access to source code** (when making fixes) — project must exist within the workspace
+Inspect a running website, identify visual and accessibility issues, then fix them in the source code. Screenshots are part of the workflow.
 
 ## Workflow
 
-```mermaid
-flowchart TD
-    A[Step 1: Information Gathering] --> B[Step 2: Visual Inspection]
-    B --> C[Step 3: Issue Fixing]
-    C --> D[Step 4: Re-verification]
-    D --> E{Issues Remaining?}
-    E -->|Yes| B
-    E -->|No| F[Completion Report]
-```
+1. **Gather context:** URL, framework, styling method, review scope.
+2. **Capture** screenshots at mobile (375px), tablet (768px), desktop (1280px), and wide (1920px).
+3. **Inspect** layout, responsive behaviour, accessibility, and visual consistency.
+4. **Fix** source code, prioritised by impact.
+5. **Re-verify** by re-capturing and comparing.
 
----
+## 1. Gather context
 
-## Step 1: Information Gathering
+If the URL is not provided, ask for it. Detect the tech stack from workspace files:
 
-### 1.1 URL Confirmation
+- Framework: `package.json`, `next.config`, `nuxt.config`, `vite.config`, `tsconfig.json`
+- Styling: `tailwind.config.*`, `*.module.css`, `*.scss`, `styled.`, `@emotion`
+- Source dirs: `src/`, `app/`, `components/`, `pages/`
 
-If the URL is not provided, ask the user for it.
+If you don't have source access, report findings only.
 
-### 1.2 Understanding Project Structure
+## 2. Capture screenshots
 
-When making fixes, gather: framework (React/Vue/Next.js/etc.), styling method (CSS/SCSS/Tailwind/CSS-in-JS), source file locations, and review scope.
+Use browser automation. Playwright is the default; the specific MCP/tooling setup is in `references/tooling.md`.
 
-### 1.3 Automatic Project Detection
+Key practices:
 
-Detect from workspace files: `package.json` → framework/deps, `tsconfig.json` → TypeScript, `tailwind.config` → Tailwind, `next.config` → Next.js, `vite.config` → Vite, `nuxt.config` → Nuxt, `src/` or `app/` → source dir.
+- Capture full-page first, then crop with PIL to avoid repeated browser launches.
+- Use `device_scale_factor=1` for consistent pixels.
+- Wait for async content (charts, animations) before capturing.
+- For interactive states (hover, selected, tooltip), trigger the state first, move the pointer away if needed, then capture.
+- Save before-state screenshots before making changes.
 
-### 1.4 Identifying Styling Method
+See `references/screenshots/` for full capture recipes, including desktop and Electron variants.
 
-| Method | Detection | Edit Target |
-|--------|-----------|-------------|
-| Pure CSS | `*.css` files | Global or component CSS |
-| SCSS/Sass | `*.scss`, `*.sass` | SCSS files |
-| CSS Modules | `*.module.css` | Module CSS files |
-| Tailwind CSS | `tailwind.config.*` | className in components |
-| styled-components | `styled.` in code | JS/TS files |
-| Emotion | `@emotion/` imports | JS/TS files |
-| CSS-in-JS (other) | Inline styles | JS/TS files |
+## 3. Inspect
 
----
+Check the categories below. Load `references/visual-checklist.md` for the full checklist.
 
-## Step 2: Visual Inspection
+- **Layout:** overflow, overlap, alignment, spacing, text clipping.
+- **Responsive:** breakpoint issues, touch-target size, readability on small screens.
+- **Accessibility:** contrast, focus states, missing alt text, keyboard navigation, heading hierarchy.
+- **Visual consistency:** fonts, colours, spacing, component reuse.
 
-### 2.1 Page Traversal
+## 4. Fix
 
-Navigate to the URL, capture screenshots, retrieve DOM structure, and traverse additional pages if they exist.
+Find the source of each issue:
 
-### 2.2 Inspection Categories
+1. Search by class/ID selector.
+2. Identify the component from text or structure.
+3. Filter by likely source directories.
 
-**Layout:** element overflow, overlap, alignment issues, inconsistent spacing, text clipping.
+Apply minimal source changes, respecting existing patterns. See `references/framework-fixes.md` for framework-specific examples.
 
-**Responsive:** non-mobile-friendly layouts, breakpoint issues, touch targets too small.
+Prioritise by impact:
 
-**Accessibility:** insufficient contrast, no focus state, missing alt text.
+- **P1:** layout or functionality breaking — fix immediately
+- **P2:** clear UX degradation — fix next
+- **P3:** minor inconsistency — fix if easy
 
-**Visual Consistency:** font inconsistency, color inconsistency, spacing inconsistency.
+If more than 3 attempts are needed for one issue, consult the user.
 
-### 2.3 Viewport Testing
+## 5. Re-verify
 
-Test at: Mobile (375px), Tablet (768px), Desktop (1280px), Wide (1920px).
+Reload or wait for HMR. Re-capture the affected viewports and compare before/after. Check for regressions elsewhere. If issues remain, repeat from Step 3.
 
----
+## Output
 
-## Step 3: Issue Fixing
+Summarise:
 
-### 3.1 Priority Matrix
-
-- **P1:** Layout issues affecting functionality — fix immediately
-- **P2:** Visual issues degrading UX — fix next
-- **P3:** Minor visual inconsistencies — fix if possible
-
-### 3.2 Identifying Source Files
-
-1. **Selector-based Search** — search by class name or ID
-2. **Component-based Search** — identify components from element text/structure
-3. **File Pattern Filtering** — `src/**/*.css`, `styles/**/*`, `src/components/**/*`, `src/pages/**`, `app/**`
-
-### 3.3 Applying Fixes
-
-See [references/framework-fixes.md](references/framework-fixes.md) for framework-specific guidelines.
-
-**Principles:** minimal changes, respect existing patterns, avoid breaking changes, add comments where appropriate.
-
----
-
-## Step 4: Re-verification
-
-1. Reload browser / wait for HMR
-2. Capture screenshots of fixed areas, compare before/after
-3. Verify no regressions in other areas or responsive display
-4. If more than 3 fix attempts are needed for a specific issue, consult the user
-
----
-
-## Output Format
-
-```markdown
-# Web Design Review Results
-
-## Summary
-| Item | Value |
-|------|-------|
-| Target URL | {URL} |
-| Framework | {Detected framework} |
-| Styling | {CSS / Tailwind / etc.} |
-| Tested Viewports | Desktop, Mobile |
-| Issues Detected | {N} |
-| Issues Fixed | {M} |
-
-## Detected Issues
-### [P1] {Issue Title}
-- **Page**: {Page path}
-- **Element**: {Selector or description}
-- **Issue**: {Detailed description}
-- **Fixed File**: `{File path}`
-- **Fix Details**: {Description of changes}
-- **Screenshot**: Before/After
-
-## Unfixed Issues (if any)
-### {Issue Title}
-- **Reason**: {Why it was not fixed}
-- **Recommended Action**: {Recommendations}
-
-## Recommendations
-- {Suggestions for future improvements}
-```
-
----
-
-## Best Practices
-
-**DO:** save screenshots before fixing, fix one issue at a time and verify each, follow existing code style, confirm with user before major changes, document fix details.
-
-**DON'T:** large-scale refactor without confirmation, ignore design systems/brand guidelines, ignore performance, fix multiple issues at once.
-
----
-
-## Troubleshooting
-
-- **Style files not found:** check `package.json` deps, consider CSS-in-JS or build-time CSS, ask user
-- **Fixes not reflected:** check HMR, clear cache, rebuild, check CSS specificity
-- **Fixes affecting other areas:** rollback, use more specific selectors, consider CSS Modules/scoped styles
+- Target URL, detected framework and styling method, tested viewports
+- Issues detected, fixed, and unfixed (with reason)
+- Files changed and what changed
+- Recommended next steps

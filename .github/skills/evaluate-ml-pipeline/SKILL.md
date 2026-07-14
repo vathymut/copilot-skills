@@ -1,331 +1,218 @@
 ---
 name: evaluate-ml-pipeline
-description: >
-  Methodology for evaluating a single sklearn-compatible learner (in
-  particular, the `SkrubLearner` produced by `build-ml-pipeline`).
-  Owns: which entry point to call, which cross-validator to pick,
-  how to consume structural metadata from the X marker. Stops at
-  "what does the report say". Use when scoring, evaluating, or
-  comparing a single learner, or when code calls `cross_val_score`,
-  `cross_validate`, or handwritten metric prints.
+description: "Evaluate, smoke-test, and audit an ML pipeline in one chain: CV report, predict-time structural proof, and read-only digest."
 ---
 
 # Evaluate ML Pipeline
 
-Pick the entry point, pick the cross-validator, route the metadata,
-read the report. The pipeline declaration is out of scope (see
-`build-ml-pipeline`).
+Validate a declared pipeline. Three sub-tasks, in order:
+**evaluate** (CV report), **smoke** (predict-time structural proof),
+**audit** (read-only digest). The pipeline declaration is out of scope
+→ `build-ml-pipeline`.
 
-## Stop conditions — read before anything else
+## Branches — which path this turn
 
-- **Missing dependency.** If `import skore` raises in this project's
-  env, STOP. **Invoke `python-env-manager`** to detect the manager
-  and produce the right install command (the project may not use
-  pixi); surface the command to the user and wait for confirmation.
-  **Do not drop back to `cross_val_score`, `cross_validate`,
-  `classification_report`, or hand-rolled metric prints** — that
-  silently rewrites this skill out of the project. See
-  `data-science-python-stack` § "Missing dependency".
-- **Symbol from memory is forbidden.** Any `skore` entry point
-  (`evaluate`, `EstimatorReport`, `CrossValidationReport`,
-  `ComparisonReport`) and any sklearn splitter name must come from a
-  `Skill(python-api)` or `Skill(python-api)` call **in this turn**.
-  "I remember `KFold(n_splits=5)`" is not acceptable.
-- **Splitter choice is data-driven, not default-driven
-  (`G-CV-SPLITTER`).** This is the **G-CV-SPLITTER** gate — owned by
-  this skill, fired during `iterate-ml-experiment` § 3 (the build →
-  evaluate → test chain, **after** the design note is approved at
-  G-DESIGN), before `src/<pkg>/evaluate.py` is written. The splitter
-  is NOT pre-committed in the design note. Pick from the
-  `split_kwargs` content at the X marker via the table in rule 3 —
-  never reach for `KFold(5)` or `StratifiedKFold` out of habit. If
-  `split_kwargs` is empty *and* you cannot rule out group / temporal
-  structure, return to `build-ml-pipeline` and ask before defaulting.
-- **No `Stratified*` for class imbalance.** It compresses across-fold
-  variance and produces over-confident error bars. Imbalance does
-  not change the splitter choice.
-- **CV is necessary but not sufficient for any pipeline with
-  history-dependent features.** `skore.evaluate(...)` materializes
-  the graph **once** with one env-dict and splits *indices* — it
-  never exercises a different env-dict at predict time, which is
-  exactly the binding shape production faces. A pipeline that
-  loads-then-features-then-splits passes CV trivially and still
-  silently drops cold-start rows when handed a fresh
-  `learner.predict(env₂)`. The structural check that catches this
-  is the smoke test owned by `smoke-test-ml-pipeline` — required
-  alongside CV for any pipeline that has a backward shift, lag,
-  rolling window, target shift, or join with side history. If
-  you produce a CV report and the pipeline has any such step,
-  the matching `tests/smoke/test_NN_<short_name>.py` must also
-  pass before the experiment can flip to `done` (enforced by
-  `iterate-ml-experiment` § 4).
-- **All Python execution goes to `scratch/`.** Every Python
-  command — version checks, signature lookups, walking the skore
-  report's metrics accessors, extracting per-fold values,
-  sanity-checking the splitter's fold geometry, multi-symbol
-  `inspect.signature(...)` on skore / sklearn classes — lands in
-  `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` and runs via
-  `pixi run python scratch/<ts>_<short>.py`. **Inline
-  `pixi run python -c "..."` is forbidden regardless of length**
-  (see `python-api` § Stop conditions). The previous "2-line
-  inline cap" is removed.
-- **Don't filter warnings.** No `warnings.filterwarnings(...)`
-  around `skore.evaluate(...)` or the CV splitter unless the user
-  explicitly asks. See `python-code-style` § Stop conditions.
+| Signal | Path | Section |
+|---|---|---|
+| Choose entry point / CV / run `experiments/NN_*.py` | evaluate | § Evaluate |
+| "write the smoke test" / smoke failure / late mark-as-X | smoke | § Smoke |
+| "audit 02" / record outcome / digest the report | audit | § Audit |
+
+## Stop conditions — read first
+
+- **Missing dependency.** `import skore` raises → invoke
+  `python-env-manager`. Do not drop back to `cross_val_score`,
+  `cross_validate`, `classification_report`, or hand-rolled prints.
+- **Symbol from memory is forbidden.** Every `skore`, `skrub`,
+  `sklearn` symbol this turn comes from `python-api`.
 - **`skore.evaluate(...)` and `project.put(...)` live only in
-  `experiments/NN_*.py`.** The experiment script is the sole
-  producer of a report in the workspace's skore Project.
-  Re-running `evaluate` from a `scratch/` probe, an `audit/` file,
-  a notebook, or a one-off Python file in `src/` duplicates the
-  report under the same `key` and pollutes `project.summarize()`
-  — the cross-experiment metrics view the audit digest draws
-  from. **Two read-only consumers** of the Project share
-  the same `summarize()` → `get(id)` → `report.*` discipline:
-  `scratch/<ts>_*.py` probes (owned by `organize-ml-workspace`
-  § "Scratch is read-only") and `audit/<stem>.py` files (owned by
-  `audit-ml-pipeline`, executed via its bundled in-process IPython
-  runner; output digest at `scratch/audit/<stem>/audit.md`).
-  Neither calls `evaluate(...)` or `put(...)`. A third consumer,
-  the skore source branch, does not open the Project at all — it
-  reads the audit's digest as text and converts the surfaced
-  checks into Backlog candidates. The trap the two Project-side
-  consumers share: `project.get(key)` raising `KeyError` reads as
-  "the report is missing" but actually means "the lookup shape is
-  wrong — `get` is by id, not
-  by `key`". Never substitute by re-running `evaluate` + `put`.
-  See `python-api` § "Lookup failure ≠ artifact missing" for the
-  general registry-lookup discipline.
-- **The time-ordered splitter AskUserQuestion is non-skippable,
-  even under harness-level "no clarifying questions"
-  instructions.** When the data is temporal, the four-option
-  pick from rule 3 is an operating-contract gate, not a
-  clarifying question. The harness's "no clarifying questions"
-  hint applies to agent-discretionary asks (ambiguous wording,
-  unclear intent); it never overrides a gate a skill explicitly
-  mandates. The same override rule applies to every other
-  mandatory `AskUserQuestion` in this stack —
-  `python-env-manager` § "Where does the package belong?",
-  `data-science-python-stack` § Tier 2 (pandas vs polars),
-  `iterate-ml-experiment` § 2 (sourcing menu), the user source branch
-  § "The entry-point AskUserQuestion". When in doubt: the user's
-  approval is the gate, not the harness's instruction text.
+  `experiments/NN_*.py`.** Scratch, audit, and one-off files are
+  read-only consumers; they lookup via `summarize()` → `get(id)`.
+- **CV splitter is data-driven, not default-driven (`G-CV-SPLITTER`).**
+  Read `split_kwargs` from the X marker; never reach for `KFold(5)`
+  out of habit. Temporal data → mandatory `AskUserQuestion` with the
+  four options in § Evaluate rule 3.
+- **No stratified splitters for class imbalance.** They compress
+  across-fold variance and produce over-confident error bars.
+- **CV is necessary but not sufficient for history-dependent
+  pipelines.** Lags, rolling windows, target shifts, or joins with
+  side history require a passing smoke test before the experiment can
+  be marked `done`.
+- **Python-stack defaults apply:** all execution to `scratch/`, no
+  inline `python -c`, don't filter warnings. See `python-api` and
+  `python-quality`.
+- **Audit is read-only against the skore Project.** No `evaluate`,
+  no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
+- **`project.get(...)` is by id, not key.** For hub, derive id from
+  the printed URL (`…/cross-validations/<N>` →
+  `skore:report:cross-validation:<N>`). For local/mlflow, read the
+  `"id"` column from `project.summarize()`.
+- **Harness "no clarifying questions" hints do not waive mandatory
+  `AskUserQuestion` gates.**
 
-## Pre-flight — emit this checklist as visible text before any code
-
-Before writing the evaluation call, output the following block
-verbatim in your response. Each box must be backed by an actual
-tool call or an explicit decision documented in the response.
-Evidence format:
-`writing-great-skills:references/shared-preflight-evidence.md`.
+## Pre-flight — emit before any code
 
 ```
 Pre-flight (evaluate-ml-pipeline):
-- [ ] Tier 1 mandatory libs importable in this env: sklearn, skrub, skore
-      (per `data-science-python-stack` § "Tier 1")
-- [ ] Skill(python-api) consulted for skore symbols (evaluate /
-      report classes): <symbols>
-      Evidence: Read scratch/api/skore/<version>/<topic>.md (this turn)
-                | Write scratch/api/skore/<version>/<topic>.md (this turn)
-                | "n/a — no new skore symbol introduced this turn"
-      "Read python-api SKILL.md" alone is NOT evidence.
-- [ ] Call site for `skore.evaluate(...)` / `project.put(...)`
-      is `experiments/NN_*.py` (not `scratch/`, not a notebook,
-      not `src/<pkg>/`). See Stop condition
-      "`skore.evaluate(...)` and `project.put(...)` live only in
-      `experiments/NN_*.py`".
-      Evidence: Write experiments/<NN>_<name>.py (this turn) |
-                "the call already lives in an existing experiments/ file"
-- [ ] Skill(python-api) consulted for sklearn splitter: <name>
-      Evidence: Read scratch/api/sklearn/<version>/cv_splitters.md
-                (or topic-matching file, this turn)
-                | Write of the same (this turn)
-                | "n/a — splitter is one already in src/<pkg>/evaluate.py
-                  and its arguments are unchanged"
-      "Read python-api SKILL.md" alone is NOT evidence.
-- [ ] split_kwargs at the X marker read: <groups | time | none>
-- [ ] Splitter chosen via rule 3 mapping table: <name + reason>
-- [ ] Data-passing form picked: <X, y> | <data={...}>
-- [ ] Smoke test status (per `smoke-test-ml-pipeline`):
-        passing  — CV report can be persisted and experiment can
-                   flip to `done`;
-        failing  — pipeline has a structural bug; route back to
-                   `build-ml-pipeline` (CV report can still be
-                   produced, but the experiment stays `approved`,
-                   not `done`, until smoke passes);
-        n/a      — pipeline has no history-dependent step (rare
-                   for time-series / panel data; explain why in
-                   the response).
-- [ ] If a probe is needed in this turn (skore report walk,
-      metric extraction, splitter fold inspection), the payload
-      goes to `scratch/<ts>_<short>.py`, **not inline `pixi run
-      python -c "..."`**. No inline allowance — all Python
-      execution goes to scratch.
+- [ ] Branch: evaluate | smoke | audit
+- [ ] Tier 1 libs importable: sklearn, skrub, skore
+      Evidence: scratch/<ts>_check_tier1.py + run
+- [ ] `journal/NN_<short_name>.md` exists and ≥ approved;
+      `experiments/NN_<short_name>.py` exists (or n/a for re-audit)
+      Evidence: ls/Glob
+- [ ] python-api consulted for skore/sklearn/skrub symbols this turn
+      Evidence: Read/Write scratch/api/<lib>/<version>/<topic>.md
+- [ ] (Evaluate) split_kwargs at X marker read: <groups | time | none>
+- [ ] (Evaluate) Splitter chosen via rule 3: <name + reason>
+- [ ] (Evaluate) `skore.evaluate` / `project.put` call site is
+      `experiments/NN_<short_name>.py`
+- [ ] (Smoke) Test file stem: `tests/smoke/test_NN_<short_name>.py`
+- [ ] (Smoke) Hard assertion wired: `len(predictions) == n_predict_grid_rows`
+- [ ] (Smoke) Soft assertion wired or explicitly skipped
+- [ ] (Audit) Report present under key=<NN_short_name>
+      Evidence: project.summarize() this turn shows the row
+- [ ] (Audit) Read-only contract verified: no evaluate/put calls
+- [ ] Pre-flight re-emitted with evidence before final message.
 ```
 
-## Scope
+## § Evaluate
 
-- **In scope:** choosing the evaluation entry point, picking a
-  cross-validator, wiring `split_kwargs` into the splitter, reading
-  the report, deciding when to escalate to explicit report classes.
-- **Out of scope:** pipeline declaration, hyperparameter search,
-  persistence, serving, multi-run tracking.
+### Rule 1 — `skore.evaluate(...)` is the entry point
 
-## Core rules
+Always pass `splitter=` explicitly. Omitted `splitter=` falls back to
+a single 80/20 holdout or a DataOp `cv=`; this stack does not declare
+`cv` at the marker, so omission silently breaks protocol.
 
-1. **`skore.evaluate(...)` is the entry point.** It is a dispatcher
-   that returns the right report for the task and `splitter`
-   argument. **Never** hand-roll `cross_val_score` + manual metric
-   prints, and don't drop back to bare sklearn for evaluation. If you
-   see existing `cross_val_score` / `cross_validate` /
-   `classification_report` / `mean_squared_error` calls in the diff,
-   redirect them through `skore.evaluate`. Consult `python-api` for
-   the exact signature.
+Data-passing forms:
 
-   **Always pass `splitter=` explicitly.** When `splitter=` is
-   omitted, `evaluate` auto-selects: if the learner's DataOp was
-   declared with `mark_as_X(cv=...)` it reuses that cross-validator
-   (→ `CrossValidationReport`), otherwise it falls back to a single
-   80/20 holdout (→ `EstimatorReport`). This stack does not declare
-   `cv` at the X marker (`build-ml-pipeline` § S3), so an omitted
-   `splitter=` would silently produce a holdout instead of the
-   gated CV choice. Passing `splitter=` explicitly is what makes the
-   `G-CV-SPLITTER` decision visible, and it **overrides** any DataOp
-   `cv`.
+- sklearn-style: `skore.evaluate(estimator, X, y, splitter=...)`.
+- env-dict-style for `SkrubLearner`:
+  `skore.evaluate(learner, data={"X": X, "y": y, ...}, splitter=...)`.
 
-   **Two data-passing forms — pick the one that matches the
-   estimator:**
+### Rule 2 — Escalate only when `evaluate` is too coarse
 
-   - sklearn-style: `skore.evaluate(estimator, X, y, splitter=...)`
-     for any estimator whose `fit` is `(X, y)`.
-   - env-dict-style: `skore.evaluate(learner, data={"X": X, "y": y,
-     ...}, splitter=...)` for a skrub `SkrubLearner` (its `fit`
-     takes a single environment dict mapping `skrub.var(name=...)`
-     names to values). This is the right form for the pipelines
-     produced by `build-ml-pipeline`.
+- `EstimatorReport` — final fit on held-out data after CV.
+- `CrossValidationReport` — k-fold, per-fold artifacts.
+- `ComparisonReport` — ≥2 learners side-by-side.
 
-   `X`/`y` and `data` are mutually exclusive. The same split applies
-   to `CrossValidationReport(...)`; `EstimatorReport(...)` uses
-   `train_data=` / `test_data=` for the env-dict equivalent of
-   `X_train` / `y_train` / `X_test` / `y_test`. The full interop
-   pattern (env-dict-style vs sklearn-style, how `data={...}` keys
-   map to `skrub.var` roots, key conventions in the Project store)
-   is in `python-api/references/skrub_interop.md`; for exact
-   signatures, look them up via `python-api` against the installed
-   skore version.
+Details: `references/reports.md`.
 
-2. **Escalate to explicit report classes only when `evaluate` is too
-   coarse.** The escalation order:
+### Rule 3 — Pick the splitter from structural facts (`G-CV-SPLITTER`)
 
-   - `EstimatorReport` — single fit on a held-out set (no CV); use
-     when CV is wasteful (e.g., evaluating the final model on all
-     data after CV has already been done).
-   - `CrossValidationReport` — k-fold over one learner with access
-     to per-fold artifacts.
-   - `ComparisonReport` — two or more learners side-by-side.
-
-   See `references/reports.md` for the escalation table; defer all
-   API details to `python-api`.
-
-3. **Pick the cross-validator from the structural facts of the data
-   — not by default (the `G-CV-SPLITTER` gate).** The data tells you
-   what splitter is correct.
-   The structural facts arrive at the X marker through
-   `split_kwargs` (set by `build-ml-pipeline` at declaration time).
-   Mapping rules:
-
-   | `split_kwargs` content | Splitter |
-   |---|---|
-   | `groups` | `GroupKFold` |
-   | temporal ordering | **ask the user** (see "Time-ordered data" below) |
-   | none | `KFold` (or `RepeatedKFold` for small / noisy data) |
-
-   Imbalanced classification *does not* change the choice — use
-   plain `KFold` / `GroupKFold`. See "Avoid by default" below.
-
-   **Avoid by default:**
-   - **Stratified variants** (`StratifiedKFold`,
-     `StratifiedGroupKFold`, `StratifiedShuffleSplit`,
-     `RepeatedStratifiedKFold`) — they reduce across-fold variance
-     by construction, producing over-confident error bars on the
-     score. Don't reach for them on imbalance.
-   - **`LeaveOneOut` / `LeaveOneGroupOut` / `LeavePGroupsOut`** —
-     high per-fold variance; aggregate hides the noise. Use
-     `KFold` / `GroupKFold` with 5–10 splits instead.
-
-   See `references/cross-validation.md` § "Avoid" for the reasoning.
-   Wiring details: `references/metadata-routing.md`.
-
-   **Time-ordered data — `AskUserQuestion` is mandatory.** When
-   the data is temporal, fire `AskUserQuestion` *before* picking
-   a splitter, with **four explicit options**:
-
-   1. **`TimeSeriesSplit(gap=horizon)`** — growing-window train,
-      contiguous test, embargo equal to the forecast horizon.
-      The safe default for any horizon-`h` forecasting task.
-   2. **`TimeSeriesSplit(gap=0)`** — only on the user's explicit
-      pick. Warn that with horizon `h > 0`, the last `h` rows
-      of every training fold predict values whose target time
-      is *inside* the test fold; the reported metric is optimistic.
-   3. **Custom splitter** — purged-and-embargoed (finance),
-      blocked calendar windows, walk-forward with refit cadence.
-      See `references/custom-splitter.md`.
-   4. **`KFold` ignoring time** — only when the user confirms
-      the temporal structure shouldn't drive splitting.
-
-   **No silent default.** Even if the data looks "obviously
-   `TimeSeriesSplit`", the user picks via `AskUserQuestion`.
-   Ambiguous free text routes to a clarifying `AskUserQuestion`.
-   Separately, ask whether the time column should stay as a
-   covariate or be dropped from the feature matrix.
-
-   If `split_kwargs` is empty *and* you cannot confirm there's
-   no structure (from build-time checks or from the user), do
-   not silently default. Return to `build-ml-pipeline` and ask
-   the user first.
-
-4. **Trust skore's metric defaults; override only on explicit user
-   request.** `skore.evaluate` picks task-appropriate metrics
-   automatically (regression: MSE/RMSE/MAE/R²; binary: accuracy,
-   precision, recall, F1, ROC-AUC; multiclass: macro/micro variants;
-   multilabel: per-label + averages). Override only when the user
-   says so — e.g., "use RMSE", "report ROC-AUC". Don't pre-emptively
-   pin metrics or pass a `scoring=...` argument unless asked.
-
-5. **Custom splitter — only when sklearn doesn't have it.** Examples
-   that justify one: purged-and-embargoed time-series CV (finance),
-   blocked spatial CV. The contract is small: `split` +
-   `get_n_splits`. See `references/custom-splitter.md`. Otherwise,
-   prefer the sklearn built-in.
-
-## Decision flow
-
-1. Is the goal to *score* one learner, or to *compare* ≥ 2?
-   - One → `skore.evaluate(...)` (default), escalate to
-     `CrossValidationReport` or `EstimatorReport` only if needed.
-   - ≥ 2 → `ComparisonReport`.
-2. Read `split_kwargs` at the X marker.
-3. Map to a splitter using the table in rule 3.
-4. Pick the data-passing form (rule 1): `data={"X": X, "y": y, ...}`
-   for a `SkrubLearner`, positional `X, y` otherwise.
-5. Pass the splitter via `splitter=...` to the chosen entry point
-   (always explicit — never rely on the omitted-`splitter` default,
-   which would holdout-or-DataOp-cv; an explicit `splitter=`
-   overrides any DataOp `cv`).
-6. Inspect the report; override metrics only on explicit user
-   request.
-
-## Companion skills
-
-See the canonical map at
-`writing-great-skills:references/ml-companion-skills.md`. Local
-load-bearing relationships:
-
-| Skill | Relationship |
+| `split_kwargs` content | Splitter |
 |---|---|
-| `python-api` | Every skore symbol (`evaluate`, `EstimatorReport`, `CrossValidationReport`, `ComparisonReport`) and sklearn splitter. Cache hits first |
-| `build-ml-pipeline` | Upstream pipeline shape; where `split_kwargs` is attached. Return if metadata isn't wired or smoke test fails on row count |
-| `smoke-test-ml-pipeline` | Structural check CV cannot do: predict on a different env-dict, assert prediction count. Required alongside CV for history-dependent pipelines |
-| `audit-ml-pipeline` | Read-only consumer of the report this skill produces. Fires at `iterate-ml-experiment` § 4 |
-| `test-ml-pipeline` | Router for `tests/`. Owns layout and stem pairing |
-| `python-env-manager` | Detection + install commands. Invoke when `import skore` raises |
-| `python-code-style` | **Must be invoked** after writing/editing `src/<pkg>/evaluate.py`. Ships ruff + NumPyDoc convention |
+| `groups` | `GroupKFold` |
+| temporal ordering | `AskUserQuestion` — four options: `TimeSeriesSplit(gap=horizon)` (default), `TimeSeriesSplit(gap=0)` with warning, custom splitter, `KFold` ignoring time |
+| none | `KFold` (or `RepeatedKFold` for small/noisy data) |
+
+Avoid by default: stratified variants, `LeaveOneOut`,
+`LeaveOneGroupOut`. Reasoning: `references/cross-validation.md` § Avoid.
+
+### Rule 4 — Trust skore's metric defaults
+
+Override only on explicit user request. No pre-emptive `scoring=`.
+
+### Rule 5 — Custom splitter only when sklearn lacks it
+
+Small contract: `split` + `get_n_splits`. See
+`references/custom-splitter.md`.
+
+## § Smoke
+
+Write `tests/smoke/test_NN_<short_name>.py`: a diagnostic fixture +
+two assertions. The test uses **only** the predicting package's API
+(`skrub` + `sklearn.metrics`); no `skore` import, so it is portable.
+
+### Hard assertion — row count
+
+```python
+assert len(predictions) == n_predict_grid_rows
+```
+
+A correctly placed X marker makes this pass trivially. A late marker
+silently drops cold-start rows and fails.
+
+### Soft assertion — NaN sanity
+
+```python
+smoke_mae = mean_absolute_error(y_true, predictions)
+assert smoke_mae < 3 * CV_MAE_MEAN
+```
+
+`CV_MAE_MEAN` is a literal hardcoded from the design note's headline.
+Opt-out only when ground truth is deliberately absent; leave a comment
+explaining why.
+
+### Fixture contract
+
+The predict env carries **only** the rows we want predictions for, with
+**no** pre-history padding. Three common source shapes and how to build
+them: `references/smoke-fixtures.md`.
+
+### Failure semantics
+
+- Hard failure → pipeline shape bug; route back to `build-ml-pipeline`.
+  Don't loosen the assertion, don't wrap, don't add `feature_steps=[]`.
+- Soft failure → values exist but are garbage (usually a history node
+  not resolved at predict time).
+- Failure blocks `done` in `iterate-ml-experiment`.
+
+Template: `templates/smoke.py`.
+
+## § Audit
+
+Per-experiment `# %%` file at `audit/NN_<short_name>.py`; executes to a
+markdown digest. Read-only.
+
+### Allowed / forbidden
+
+Allowed: open `skore.Project(...)`, `summarize()`, `get(id)`, every
+`report.*` accessor, read-only imports from `<pkg>`.
+Forbidden: `skore.evaluate(...)`, `project.put(...)`, any workspace
+mutation, monkey-patching.
+
+### Cell sequence
+
+1. Markdown docstring (read-only rule).
+2. Imports.
+3. Open Project as a bare expression.
+4. `project.summarize()`.
+5. `report = project.get(REPORT_ID)`; `report`.
+6. `report.checks.summarize().frame()`.
+7. `report.metrics.summarize().frame()`.
+
+`.frame()` is load-bearing on cells 6 and 7. Full examples:
+`references/cell_anatomy.md`.
+
+### Execution
+
+```bash
+pixi run -e agent python \
+  ~/.config/opencode/skills/ml-eda/scripts/run_cells.py \
+  audit/<stem>.py [scratch/audit/<stem>/audit.md]
+```
+
+The runner always streams stdout; the optional second arg also writes
+  the digest. Runner lives in `ml-eda`; internals: `references/runner_internals.md`.
+
+### The digest feeds the loop
+
+`iterate-ml-experiment` reads `scratch/audit/<stem>/audit.md` as text
+to extract metrics and check `documentation_url`s. It never re-opens
+the Project.
+
+Template: `templates/audit.py`.
+
+## References
+
+- `writing-great-skills:references/ml-companion-skills.md` — canonical
+  ownership map.
+- `references/cross-validation.md` — splitter reasoning and avoid list.
+- `references/reports.md` — report escalation.
+- `references/custom-splitter.md` — custom splitter contract.
+- `references/metadata-routing.md` — routing `split_kwargs`.
+- `references/smoke-fixtures.md` — three fixture shapes.
+- `references/cell_anatomy.md` — concrete audit cell examples.
+- `references/runner_internals.md` — how the cell runner works.
+- `references/failure_modes.md` — audit smoke / audit recovery.
+- `references/shortcuts.md` — forbidden shortcuts.

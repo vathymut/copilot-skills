@@ -1,25 +1,6 @@
 ---
 name: iterate-ml-experiment
-description: >
-  Drives the propose → approve → implement → record loop on top of
-  an ML workspace. Drafts per-experiment design notes in
-  `journal/NN_*.md`, enforces approval before any code, sources next
-  steps from skore audit digests or user input, and records outcomes.
-
-  TRIGGER — any of:
-  - A session opens in an ML workspace (missing/placeholder → bootstrap).
-  - User says "what's next", "resume", "where were we", "let's iterate".
-  - About to create a new `experiments/NN_*.py` (design note must exist first).
-  - User wants to record an outcome or compare past experiments.
-
-  SKIP when: no workspace scaffold (→ `organize-ml-workspace`);
-  mechanical edits to `pipeline.py` / `evaluate.py` (→ sibling skills);
-  symbol lookup (`python-api`); diagnosing a single report without a
-  "what next" framing (`evaluate-ml-pipeline`).
-
-  HOW TO USE: read `journal/JOURNAL.md` first, classify via the
-  **Mode picker**, then read only the matching section. Sibling skills
-  open just-in-time — do not pre-read all at session start.
+description: "Drive the propose-approve-implement-record loop for ML experiments in a workspace."
 ---
 
 # Iterate ML Experiment
@@ -35,7 +16,7 @@ session open
    │
    ├── JOURNAL.md missing / placeholder ──► § 0 Bootstrap
    │                                          │
-   │                                          ├─► G-EDA (explore-ml-data: run | skip)
+   │                                          ├─► G-EDA (ml-eda: run | skip)
    │                                          │
    │                                          └─► design note → G-DESIGN → § 3 implement
    │
@@ -43,7 +24,7 @@ session open
    │
    ├── "run finished" ─────────────────────► § 4 record outcome
    │                                          │
-   │                                          └─► dispatch audit-ml-pipeline
+   │                                          └─► dispatch evaluate-ml-pipeline § Audit
    │
    └── "status?" / "compare X Y" ──────────► references/maintenance_modes.md
 ```
@@ -66,7 +47,7 @@ then jump.
 | Signal / workspace state | Mode | Section |
 |---|---|---|
 | `JOURNAL.md` missing / placeholder / 0 History rows | **Bootstrap** | § 0 |
-| Not scaffolded (no `src/`, no `experiments/`) | **Bootstrap → handoff** | → `organize-ml-workspace`, then § 0 |
+| Not scaffolded (no `src/`, no `experiments/`) | **Bootstrap → handoff** | → `ml-scaffold`, then § 0 |
 | "what's next?" / "let's iterate" with ≥1 done row | **Iterate (propose)** | §§ 1–3 + Dispatch table |
 | "the run finished" / "log the result" | **Iterate (record)** | § 4 |
 | "where are we?" / "status?" | **Project overview** | `references/maintenance_modes.md` |
@@ -89,8 +70,8 @@ the **read** mode first, stop. Re-entering § 1 is a separate turn.
   Status block before moving on.
 - **Prior experiments stay reproducible.** Touching `src/<pkg>/`
   preserves existing shape. Smoke test going red = broken.
-- **Three skills, in order, after G-DESIGN**: build-ml-pipeline →
-  evaluate-ml-pipeline (owns CV-strategy) → test-ml-pipeline.
+- **After G-DESIGN, dispatch in order:** `build-ml-pipeline` →
+  `evaluate-ml-pipeline` § Evaluate → `evaluate-ml-pipeline` § Smoke.
   Only then assemble `experiments/NN_*.py`.
 - **Harness hints do NOT waive gates.**
 - **Post-hoc audit required** before ending the turn.
@@ -109,7 +90,7 @@ Pre-flight (iterate-ml-experiment):
 - [ ] (Bootstrap) G-EDA fired: run / skip
 - [ ] Design note drafted or Backlog enriched
 - [ ] G-DESIGN: user approved
-- [ ] (§ 3) Three-skill chain ran: build → evaluate → test
+- [ ] (§ 3) Build → evaluate → smoke chain ran
 - [ ] (§ 3) G-CV-SPLITTER resolved at evaluate step
 - [ ] (§ 3) G-RUN resolved: run now | leave for later
 - [ ] (§ 4) Artifacts: Status + JOURNAL row + Backlog + audit
@@ -124,17 +105,13 @@ placeholder, or has 0 History rows. Full procedure:
 `references/bootstrap.md`.
 
 1. **Scaffold first if needed.** No `src/` / `experiments/` /
-   `journal/` → hand off to `organize-ml-workspace`, return when
+   `journal/` → hand off to `ml-scaffold`, return when
    the placeholder `JOURNAL.md` exists.
 2. **Rewrite `JOURNAL.md` from `templates/JOURNAL.md`**.
 3. **Derive the goal default from `data/README.md`** *before*
    asking. Propose one sentence; user confirms or amends.
 4. **Explore the data BEFORE designing the model (G-EDA).** Dispatch
-   to `explore-ml-data`. Gate: **run** / **skip**. Run executes
-   `data/eda.py`, writes `data/eda.md` + HTML, fills the
-   `## Data understanding (EDA)` JOURNAL section. Run path needs
-   `ipython` (may trigger `G-AGENT-FEATURE`). Skip records
-   `Status: skipped`.
+   to `ml-eda`. Gate: **run** / **skip**. Skip records `Status: skipped`.
 5. **Auto-draft `journal/01_baseline.md`** informed by EDA findings:
    learner default (`build-ml-pipeline`), metric default
    (`python-api`). **Do NOT fix a splitter** — CV strategy decided
@@ -152,11 +129,11 @@ placeholder, or has 0 History rows. Full procedure:
 
 | Gate ID | Picks | Owner | When |
 |---|---|---|---|
-| `G-PKG-NAME` | `src/<pkg>/` name | `organize-ml-workspace` | before manifest |
+| `G-PKG-NAME` | `src/<pkg>/` name | `ml-scaffold` | before manifest |
 | `G-ENV-MGR` | Env manager | `python-env-manager` | before install |
 | `G-TABULAR` | Tabular library | `data-science-python-stack` | before `data.py` |
-| `G-SKORE-MODE` | Skore Project mode + URI | `organize-ml-workspace` | before `pyproject.toml` |
-| `G-EDA` | Run / skip | `explore-ml-data` | before baseline draft |
+| `G-SKORE-MODE` | Skore Project mode + URI | `ml-scaffold` | before `pyproject.toml` |
+| `G-EDA` | Run / skip | `ml-eda` | before baseline draft |
 | `G-AGENT-FEATURE` | Install ipython + pyright | `python-env-manager` | conditional (G-EDA=run) |
 | `G-DESIGN` | Approve baseline note | this skill | before § 3 chain |
 | `G-CV-SPLITTER` | CV family | `evaluate-ml-pipeline` | inside § 3, after G-DESIGN |
@@ -227,7 +204,7 @@ For `user` / `my-pick` / `B<N>`: write draft to
 ## § 2a Source from skore
 
 Read the audit digest at `scratch/audit/<stem>/audit.md` (produced by
-`audit-ml-pipeline`) and convert actionable checks into Backlog-candidate rows.
+`evaluate-ml-pipeline` § Audit) and convert actionable checks into Backlog-candidate rows.
 Full procedure is in `references/source-from-skore.md`.
 
 Output: a set of **Backlog-candidate rows** + a short human summary. The
@@ -243,7 +220,7 @@ Stop conditions:
   mitigations from memory.
 - Dedup against existing Backlog rows by `Source` citation.
 - If the digest is inaccessible, return zero rows and explain why; recovery is
-  owned by `audit-ml-pipeline`.
+  owned by `evaluate-ml-pipeline` § Audit.
 
 ## § 2b Source from user
 
@@ -278,21 +255,22 @@ Stop conditions:
 - **Mid-iteration feedback** is free-text. Edit `journal/NN_*.md`
   in place; loop here.
 - **Final approval gate** is `AskUserQuestion`: **approved** →
-  flip status, add History row, hand off to three-skill chain.
+  flip status, add History row, hand off to implementation chain.
   **more changes** → back to amendment loop. Ambiguous → re-ask.
 - **Do not create `experiments/NN_*.py`** during iteration.
 
-### Three-skill implementation chain — non-skippable
+### Implementation chain — non-skippable
 
 After G-DESIGN passes, dispatch in order:
 
 1. `build-ml-pipeline` → `src/<pkg>/{pipeline,features,data}.py`
-2. `evaluate-ml-pipeline` → `src/<pkg>/evaluate.py`. **Owns
-   CV-strategy via `AskUserQuestion`.**
-3. `test-ml-pipeline` → `smoke-test-ml-pipeline` → smoke test
+2. `evaluate-ml-pipeline` § Evaluate → `src/<pkg>/evaluate.py` +
+   `experiments/NN_<short_name>.py`. **Owns CV strategy via
+   `G-CV-SPLITTER` AskUserQuestion.**
+3. `evaluate-ml-pipeline` § Smoke → `tests/smoke/test_NN_<short_name>.py`
 
-Only then assemble `experiments/NN_*.py`. Confirm signatures via
-`python-api`, not memory.
+Only then run the experiment. Confirm signatures via `python-api`,
+not memory.
 
 ### G-RUN — post-smoke run gate
 
@@ -312,7 +290,7 @@ completed successfully. **Do NOT auto-detect via `reports/` mtime.**
 
 Full procedure: `references/record_outcome.md`.
 
-1. **Audit-first**: dispatch `audit-ml-pipeline` →
+1. **Audit-first**: dispatch `evaluate-ml-pipeline` § Audit →
    `audit/NN_<short_name>.py`. Read the digest (replaces scratch probes).
    If agent feature missing → `python-env-manager` § Agent feature.
 2. **Fill Status-block fields**: State (`done` / `abandoned`),
@@ -364,18 +342,18 @@ Artifact shapes — see `references/journal-shape.md`.
 
 ## What this skill does NOT do
 
-Run experiments, explore data (`explore-ml-data`), edit pipeline
+Run experiments, explore data (`ml-eda`), edit pipeline
 code (`build-ml-pipeline`), decide workspace layout
-(`organize-ml-workspace`), write commits/PRs, or pick a sourcing
-strategy on the user's behalf.
+(`ml-scaffold`), write commits/PRs, or pick a sourcing
+strategy on behalf of the user.
 
 ## Companion skills
 
-- `organize-ml-workspace` — scaffold + stem-pairing rule
-- `explore-ml-data` — § 0 fires G-EDA; findings seed Method/Risks
-- `build-ml-pipeline` / `evaluate-ml-pipeline` / `test-ml-pipeline` — implementation chain
-- `audit-ml-pipeline` — § 4 dispatch; carries headline metrics
-- `python-api` / `python-env-manager` — symbol lookups, agent feature
+- `ml-scaffold` — layout + stem-pairing rule
+- `ml-eda` — bootstrap EDA
+- `build-ml-pipeline` / `evaluate-ml-pipeline` — implementation chain
+- `evaluate-ml-pipeline` § Audit — § 4 digest
+- `python-api` / `python-env-manager` — symbols, installs, agent feature
 
 Sourcing was previously handled by the skore source branch and the user source branch;
 those contents now live in this skill's `references/source-from-skore.md` and

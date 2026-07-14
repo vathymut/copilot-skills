@@ -86,7 +86,7 @@ Before issuing the skore install command, read
 `skore mode:` row.
 
 If the row is absent (workspace not yet bootstrapped through
-`organize-ml-workspace`), route back to `organize-ml-workspace` §
+`ml-scaffold`), route back to `ml-scaffold` §
 G-SKORE-MODE — do not guess. The default proposal at G-SKORE-MODE
 is `local`, but **the decision is the user's**, not the install
 layer's.
@@ -94,7 +94,7 @@ layer's.
 ## Switching modes mid-project
 
 If the user pivots `skore mode:` mid-project (per
-`organize-ml-workspace` § "Switching skore mode mid-project is
+`ml-scaffold` § "Switching skore mode mid-project is
 forbidden by default" — requires explicit user confirmation):
 
 - **`local` → `hub`**: run the manager's `add` command for the

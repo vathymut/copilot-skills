@@ -1,128 +1,129 @@
 ---
 name: code-review
-description: 'Review code changes or review workflow. Use when the user wants to review a branch, PR, diff, work-in-progress changes, asks to "review since X", or asks to request or respond to code review.'
+description: 'Review code, review workflow, and review feedback. Use when the user wants to review a diff, PR, branch, work-in-progress changes, request a reviewer subagent, or respond to code review feedback.'
 ---
 
 # Code Review
 
-Review workflow with three branches:
+Three branches:
 
-- **Branch A — Three-axis review** (default): review the diff between `HEAD` and a fixed point along Standards, Spec, and Maintainability.
-- **Branch B — Request review**: dispatch a reviewer subagent before merging or after a task. Delegates to `requesting-code-review`.
-- **Branch C — Receive review**: evaluate received feedback rigorously before implementing. Delegates to `receiving-code-review`.
+- **Branch A — Three-axis review** (default): review the change against Standards, Spec, and Maintainability.
+- **Branch B — Request review**: dispatch a reviewer subagent before merging or after a major task.
+- **Branch C — Receive review**: evaluate feedback before implementing.
 
-Pick the branch the user asked for; default to Branch A when the request is about a diff or PR.
+Default to Branch A unless the user asks for one of the others.
 
-## Branch A — Three-axis review of the diff between `HEAD` and a fixed point the user supplies
+## Branch A — Three-axis review
 
-- **Standards** — does the code follow this repo's documented conventions?
-- **Spec** — does it match the originating issue / PRD / spec?
-- **Maintainability** — does the change simplify the architecture or introduce structural debt?
+Run Standards, Spec, and Maintainability as **parallel sub-agents**, then aggregate.
 
-All three axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
+### 1. Pin the comparison
 
-The issue tracker should have been provided to you — run `/setup-matt-pocock-skills` if `docs/agents/issue-tracker.md` is missing.
+Find the diff the user wants reviewed. It may be a git range, a PR, or a set of files. If the user didn't specify one:
 
-## Process
+- A git repo: default to `git diff origin/main...HEAD`.
+- A PR or branch: use the provided refs.
+- Individual files: compare the provided files against their last-known-good state or review them as-is.
 
-### 1. Pin the fixed point
-
-Whatever the user said is the fixed point — a commit SHA, branch name, tag, `main`, `HEAD~5`, etc. If they didn't specify one, ask for it.
-
-Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so the comparison is against the merge-base). Also note the list of commits via `git log <fixed-point>..HEAD --oneline`.
-
-Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here — not inside parallel sub-agents.
+Confirm the range resolves and is non-empty before spawning sub-agents.
 
 ### 2. Identify the spec source
 
-Look for the originating spec, in this order:
+Look for the originating spec in this order:
 
-1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.) — fetch via the workflow in `docs/agents/issue-tracker.md`.
+1. Issue/PR references in commit messages or the PR body.
 2. A path the user passed as an argument.
-3. A PRD/spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
-4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+3. A spec, PRD, or design doc under `docs/`, `specs/`, `.scratch/`, or matching the branch/feature name.
+4. If nothing is found, ask the user. If there is no spec, the Spec sub-agent skips and reports "no spec available".
 
 ### 3. Identify the standards sources
 
-Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md` or `CONTRIBUTING.md`.
+Look for repo conventions: `CODING_STANDARDS.md`, `CONTRIBUTING.md`, `STYLE.md`, linter configs, etc. If the repo documents nothing, use the smell baseline below.
 
-On top of whatever the repo documents, the Standards axis always carries the **smell baseline** below — a fixed set of Fowler code smells (_Refactoring_, ch.3) that applies even when a repo documents nothing. Two rules bind it:
+**Rules:**
 
-- **The repo overrides.** A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.
-- **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation — and, like any standard here, skip anything tooling already enforces.
+- Documented repo standards override the baseline.
+- Each smell is a judgement call, never a hard violation.
+- Skip anything tooling already enforces.
 
-Each smell reads *what it is* → *how to fix*; match it against the diff:
+**Smell baseline** (Fowler, _Refactoring_, ch. 3):
 
-- **Mysterious Name** — a function, variable, or type whose name doesn't reveal what it does or holds. → rename it; if no honest name comes, the design's murky.
-- **Duplicated Code** — the same logic shape appears in more than one hunk or file in the change. → extract the shared shape, call it from both.
-- **Feature Envy** — a method that reaches into another object's data more than its own. → move the method onto the data it envies.
-- **Data Clumps** — the same few fields or params keep travelling together (a type wanting to be born). → bundle them into one type, pass that.
-- **Primitive Obsession** — a primitive or string standing in for a domain concept that deserves its own type. → give the concept its own small type.
-- **Repeated Switches** — the same `switch`/`if`-cascade on the same type recurs across the change. → replace with polymorphism, or one map both sites share.
-- **Shotgun Surgery** — one logical change forces scattered edits across many files in the diff. → gather what changes together into one module.
-- **Divergent Change** — one file or module is edited for several unrelated reasons. → split so each module changes for one reason.
-- **Speculative Generality** — abstraction, parameters, or hooks added for needs the spec doesn't have. → delete it; inline back until a real need shows.
-- **Message Chains** — long `a.b().c().d()` navigation the caller shouldn't depend on. → hide the walk behind one method on the first object.
-- **Middle Man** — a class or function that mostly just delegates onward. → cut it, call the real target direct.
-- **Refused Bequest** — a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
+- **Mysterious Name** → rename; if no honest name fits, the design is murky.
+- **Duplicated Code** → extract the shared shape.
+- **Feature Envy** → move the method onto the data it envies.
+- **Data Clumps** → bundle the fields/params into a type.
+- **Primitive Obsession** → give the domain concept its own small type.
+- **Repeated Switches** → replace with polymorphism or a shared map.
+- **Shotgun Surgery** → gather scattered edits into one module.
+- **Divergent Change** → split the module so each changes for one reason.
+- **Speculative Generality** → delete unused abstraction/parameters/hooks.
+- **Message Chains** → hide the walk behind one method.
+- **Middle Man** → cut it, call the target direct.
+- **Refused Bequest** → drop inheritance, use composition.
 
-### 4. Identify the maintainability posture
+### 4. Maintainability posture
 
-The Maintainability axis is a strict structural review. It does not repeat the smell baseline; it asks whether the diff makes the codebase simpler, deeper, and easier to reason about. This axis subsumes what the standalone `deslop` and `thermo-nuclear-code-quality-review` skills used to cover. Load the full guidance from [references/maintainability-review.md](references/maintainability-review.md) and give the sub-agent that file as its brief.
+Load `references/maintainability-review.md` and give it to the Maintainability sub-agent as its brief.
 
-Leading questions for the Maintainability sub-agent:
+Leading questions:
 
-- Is there a **code-judo** move that would delete whole branches or layers?
-- Does any file cross **1000 lines** because of this change? If so, should it split?
-- Are new conditionals scattered across unrelated paths, or do they belong behind a dedicated abstraction?
-- Are wrappers, casts, or optional types hiding a simpler boundary?
-- Is feature logic leaking into shared paths or the wrong canonical layer?
-- Are there patterns of AI-generated slop (verbose comments, defensive bloat, broad `except Exception`, unnecessary casts) that should be deleted while preserving behavior?
-- Is the diff the smallest working change, or can it be tightened?
+- Is there a **code-judo** move that deletes whole branches or layers?
+- Does any file cross **1000 lines** because of this change?
+- Are new conditionals scattered across unrelated paths?
+- Are wrappers, casts, or optionals hiding a simpler boundary?
+- Is feature logic leaking into shared paths or the wrong layer?
+- Are there patterns of AI-generated slop (verbose comments, defensive bloat, broad `except Exception`, unnecessary casts)?
+- Is the diff the smallest working change?
 
-### 5. Spawn all three sub-agents in parallel
+### 5. Spawn sub-agents in parallel
 
-Send a single message with two `Agent` tool calls. Use the `general-purpose` subagent for both.
+Use the `general-purpose` subagent. Each prompt includes the diff/range, the spec (if found), and the standards sources/baseline.
 
-**Standards sub-agent prompt** — include:
+**Standards sub-agent brief:**
+> Report per file/hunk (a) documented-standard violations (cite file + rule) and (b) baseline smells (name and quote the hunk). Distinguish hard violations from judgement calls; baseline smells are always judgement calls. Skip tooling-enforced issues. Under 400 words.
 
-- The full diff command and commit list.
-- The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full — the sub-agent has no other access to it.
-- The brief: "Report — per file/hunk where relevant — (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls — documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
+**Spec sub-agent brief** (skip if no spec):
+> Report: requirements missing/partial, behaviour not asked for (scope creep), and implementations that look wrong. Quote the spec for each. Under 400 words.
 
-**Spec sub-agent prompt** — include:
-
-- The diff command and commit list.
-- The path or fetched contents of the spec.
-- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
-
-**Maintainability sub-agent prompt** — include:
-
-- The diff command and commit list.
-- The full text of [references/maintainability-review.md](references/maintainability-review.md).
-- The brief: "Report the highest-conviction structural findings for this diff. Prioritize: code-judo simplifications, file-size regressions past 1000 lines, scattered special-case branching, abstraction bloat, boundary leaks, canonical-layer mistakes, and AI-generated slop. Be direct and demanding; each finding must quote the hunk it refers to. Under 400 words."
-
-If the spec is missing, skip the Spec sub-agent and note this in the final report.
+**Maintainability sub-agent brief:**
+> Report the highest-conviction structural findings. Prioritize code-judo simplifications, file-size regressions past 1000 lines, scattered special-case branching, abstraction bloat, boundary leaks, canonical-layer mistakes, and AI-generated slop. Quote each hunk. Under 400 words.
 
 ### 6. Aggregate
 
-Present the three reports under `## Standards`, `## Spec`, and `## Maintainability` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings across axes — each axis is deliberately separate.
+Present the reports under `## Standards`, `## Spec`, and `## Maintainability`. Do **not** merge or rerank across axes. End with one summary line per axis: total findings and the worst issue (if any).
 
-End with a one-line summary per axis: total findings and the worst issue within that axis (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.
+### Why separate axes
 
-## Why separate axes
-
-A change can pass two axes and fail the third:
-
-- Code that follows every standard and implements the right thing, but does so by enlarging files and scattering branches → **Standards pass, Spec pass, Maintainability fail.**
-- Code that is structurally clean but implements the wrong feature → **Maintainability pass, Spec fail.**
-
-Reporting them separately stops any one axis from masking the others.
+A change can pass two axes and fail the third. Keeping the axes separate prevents one from masking another.
 
 ## Branch B — Request review
 
-Use when the user says "request review", "review before merge", "have someone review this", or similar. Announce: "Dispatching a reviewer subagent via `requesting-code-review`." Then load `requesting-code-review` and follow its process. Use the template at [references/code-reviewer.md](references/code-reviewer.md).
+Use when the user says "request review", "review before merge", or "have someone review this".
+
+1. **Get SHAs:** `BASE_SHA=$(git rev-parse HEAD~1)` (or `origin/main`), `HEAD_SHA=$(git rev-parse HEAD)`.
+2. **Dispatch a reviewer subagent** via `Task` (`general-purpose`) using `references/code-reviewer.md`. Fill `{DESCRIPTION}`, `{PLAN_OR_REQUIREMENTS}`, `{BASE_SHA}`, `{HEAD_SHA}`.
+3. **Act on feedback:** fix Critical immediately, Important before proceeding, note Minor, push back with reasoning if wrong.
+
+**Mandatory before merge.** Optional but valuable when stuck, before refactoring, or after a complex bug fix.
 
 ## Branch C — Receive review
 
-Use when the user pastes review feedback and asks what to do, or says "implement these review comments", "address feedback", etc. Announce: "Evaluating review feedback via `receiving-code-review`." Then load `receiving-code-review` and follow its process.
+Use when the user pastes review feedback or says "address feedback".
+
+**Core principle:** verify before implementing.
+
+**Process:**
+
+1. Read all feedback without reacting.
+2. Restate each item in your own words; ask if anything is unclear.
+3. Verify against the codebase before changing anything.
+4. Push back if the suggestion is wrong for this codebase or conflicts with prior decisions.
+5. Implement one item at a time; test each.
+
+**Rules:**
+
+- No performative agreement ("You're absolutely right", "Great point").
+- Clarify unclear items first; don't implement partially understood feedback.
+- Order: blocking issues, simple fixes, complex fixes.
+- Check YAGNI for "implement properly" suggestions: if the code isn't used, propose removal.
+- Reply to inline comments in the inline thread, not as a top-level comment.

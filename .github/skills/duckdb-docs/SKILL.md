@@ -1,11 +1,9 @@
 ---
 name: duckdb-docs
-description: >
-  Search DuckDB and DuckLake documentation and blog posts. Returns relevant
-  doc chunks for a question or keyword using full-text search against a
-  locally cached index.
+description: "Search DuckDB and DuckLake documentation using a locally cached full-text index."
 argument-hint: <question or keyword>
-allowed-tools: Bash---
+allowed-tools: Bash
+---
 
 You are helping the user find relevant DuckDB or DuckLake documentation.
 

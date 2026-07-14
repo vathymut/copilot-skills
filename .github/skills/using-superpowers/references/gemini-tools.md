@@ -26,7 +26,7 @@ When a skill says to dispatch a named agent type, use `@generalist` with the ful
 |-------------------|----------------------|
 | `Task tool (superpowers:implementer)` | `@generalist` with the filled `implementer-prompt.md` template |
 | `Task tool (superpowers:spec-reviewer)` | `@generalist` with the filled `spec-reviewer-prompt.md` template |
-| `Task tool (superpowers:code-reviewer)` | `@code-reviewer` (bundled agent) or `@generalist` with the filled review prompt |
+| `Task tool (superpowers:code-review)` § Branch B | `@code-reviewer` (bundled agent) or `@generalist` with the filled `references/code-reviewer.md` template |
 | `Task tool (superpowers:code-quality-reviewer)` | `@generalist` with the filled `code-quality-reviewer-prompt.md` template |
 | `Task tool (general-purpose)` with inline prompt | `@generalist` with your inline prompt |
 

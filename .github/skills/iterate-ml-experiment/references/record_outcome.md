@@ -12,7 +12,7 @@ you suspect a run finished but the user hasn't said so, ask.
 
 ## Step 1 — Run the audit and read its digest
 
-§ 4 is **audit-first**: dispatch to `audit-ml-pipeline` to place +
+§ 4 is **audit-first**: dispatch to `evaluate-ml-pipeline § Audit` to place +
 execute `audit/NN_<short_name>.py` before doing anything else. The
 audit runner is the one path that opens the skore Project from
 this skill's flow; § 4 itself never calls `project.get(...)` or
@@ -38,7 +38,7 @@ extract metrics — the audit already did the walk.
 Agent feature missing, report not landed in the Project, hub
 auth expired, script crashed before `project.put`: **do not
 fabricate report content from memory.** Recovery is owned by
-`audit-ml-pipeline` (re-run the runner once the issue is fixed)
+`evaluate-ml-pipeline § Audit` (re-run the runner once the issue is fixed)
 or `python-env-manager` (G-AGENT-FEATURE). If the user wants to
 record the outcome anyway, ask them for the headline metric (and
 a one-line note on anything that looked off), set the design
