@@ -30,9 +30,9 @@ Each skill is a directory:
 
 The catalog contains three kinds of skills:
 
-1. **User-invoked routers** — called directly by name, dispatch the user to the right leaf skill. Examples: `docs`, `duckdb`, `frontend`, `git-workflow`, `media`, `memory`, `planning`, `visualization`.
+1. **User-invoked routers** — called directly by name, dispatch the user to the right leaf skill. Examples: `docs`, `duckdb`, `git-workflow`, `media`, `memory`, `planning`, `visualization`.
 2. **Model-invoked skills** — triggered automatically by matching requests, often based on `description` frontmatter. Examples: `systematic-debugging`, `test-driven-development`.
-3. **Orchestrators** — model-invoked skills that do light work and then hand off to a subskill. Example: `test-ml-pipeline` places the test file and then dispatches to `smoke-test-ml-pipeline`.
+3. **Orchestrators** — model-invoked skills that do light work and then hand off to a subskill. Example: `iterate-ml-experiment` dispatches to `evaluate-ml-pipeline` for the audit stage.
 
 Most skills are leaf skills: they are invoked by name and execute the task themselves.
 
