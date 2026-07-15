@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Implement work from a spec or set of tickets. Use after planning is complete and the user says implement / build / code it. For executing an already-written multi-step plan, prefer executing-plans or subagent-driven-development; for throwaway design exploration, use prototype."
+description: "Implement work from a spec or set of tickets. Use after planning is complete and the user says implement / build / code it. For executing an already-written multi-step plan, prefer subagent-driven-development; for throwaway design exploration, use prototype."
 disable-model-invocation: true
 ---
 

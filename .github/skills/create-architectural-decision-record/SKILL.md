@@ -6,6 +6,18 @@ disable-model-invocation: true
 
 # Create Architectural Decision Record
 
+## When to create one
+
+Record an ADR only when all three are true:
+
+1. **Hard to reverse** — the cost of changing your mind later is meaningful.
+2. **Surprising without context** — a future reader will look at the code and wonder "why on earth did they do it this way?"
+3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons.
+
+If a decision is easy to reverse, unsurprising, or had no real alternative, skip it.
+
+**What typically qualifies:** architectural shape (monorepo, event sourcing); integration patterns between contexts; technology choices that carry lock-in (database, message bus, auth provider); boundary/scope decisions ("Customer data is owned by the Customer context"); deliberate deviations from the obvious path ("manual SQL instead of an ORM because X"); constraints not visible in the code (compliance, latency contracts); and non-obvious rejected alternatives (picked REST over GraphQL for subtle reasons).
+
 ## Steps
 
 ### 1. Gather Inputs

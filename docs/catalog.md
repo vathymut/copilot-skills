@@ -13,13 +13,13 @@ The catalog is intentionally compact. Skills and agents are sourced from upstrea
 | **Research & Academic** | `academic-plotting`, `brainstorming`, `exam-ready`, `ml-paper-writing`, `research` |
 | **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`, `ml-scaffold`, `python-api`, `python-env-manager` |
 | **Development Workflow** | `fix-merge-conflicts`, `finishing-a-development-branch`, `git-commit`, `github-copilot-starter`, `graphify`, `grill-with-docs`, `remember`, `using-git-worktrees`, `web-design-reviewer`, `writing-great-skills` |
-| **Engineering Discipline** | `code-review`, `codebase-design`, `dispatching-parallel-agents`, `domain-modeling`, `executing-plans`, `implement`, `prototype`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans` |
+| **Engineering Discipline** | `code-review`, `codebase-design`, `domain-modeling`, `implement`, `prototype`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans` |
 | **Data Engineering & Packaging** | `python-pypi-package-builder`, `xlsx` |
 | **DuckDB & Data Files** | `attach-db`, `data-access`, `duckdb-docs`, `duckdb`, `install-duckdb`, `query`, `read-memories`, `spatial` |
 | **Frontend & Creative** | `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `tufte-data-viz` |
 | **Visualization** | `visualization` |
 | **Communication** | `internal-writing` |
-| **Routers & Media** | `docs`, `duckdb`, `git-workflow`, `media`, `memory`, `ml-experiments`, `planning` |
+| **Routers & Media** | `docs`, `duckdb`, `git-workflow`, `media`, `ml-experiments` |
 | **Documents & Files** | `pdf` |
 | **Skills Meta** | `using-superpowers` |
 
@@ -59,7 +59,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **70 skills** in `.github/skills/`
+- **66 skills** in `.github/skills/`
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

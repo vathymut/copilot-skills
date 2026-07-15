@@ -58,7 +58,7 @@ Verify discovery:
 opencode debug skill | rg '"name":'
 ```
 
-All 70 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
+All 66 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
 
 ### Agents
 

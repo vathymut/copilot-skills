@@ -16,5 +16,5 @@ Index of document-creation skills. Invoke the right skill by name; high-frequenc
 | `internal-writing` | Meeting minutes, performance/peer/upward reviews, brag sheets, weekly updates, newsletters, FAQ answers, or other internal communications. |
 
 Note: `create-specification` and `create-implementation-plan` were merged into
-`prd` Branch B and Branch C. Use `prd` for spec writing and `planning` for
+`prd` Branch B and Branch C. Use `prd` for spec writing and `writing-plans` for
 implementation plans.

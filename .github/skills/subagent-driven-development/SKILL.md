@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when executing a written implementation plan with independent tasks in the current session, using a fresh subagent per task plus two-stage review. Use executing-plans for parallel-session execution; use implement for a single spec or ticket set without a formal plan.
+description: Use when executing a written implementation plan in the current session with a fresh subagent per task plus two-stage review. Covers sequential per-task execution, parallel dispatch for fully independent tasks, and an inline fallback when subagents are unavailable. Use implement for a single spec or ticket set without a formal plan.
 ---
 
 # Subagent-Driven Development
@@ -19,25 +19,24 @@ Execute plan by dispatching fresh subagent per task, with two-stage review after
 digraph when_to_use {
     "Have implementation plan?" [shape=diamond];
     "Tasks mostly independent?" [shape=diamond];
-    "Stay in this session?" [shape=diamond];
-    "subagent-driven-development" [shape=box];
-    "executing-plans" [shape=box];
+    "Fully independent, no shared state?" [shape=diamond];
+    "Parallel dispatch (one subagent per task)" [shape=box];
+    "subagent-driven-development (sequential)" [shape=box];
     "Manual execution or brainstorm first" [shape=box];
 
     "Have implementation plan?" -> "Tasks mostly independent?" [label="yes"];
     "Have implementation plan?" -> "Manual execution or brainstorm first" [label="no"];
-    "Tasks mostly independent?" -> "Stay in this session?" [label="yes"];
+    "Tasks mostly independent?" -> "Fully independent, no shared state?" [label="yes"];
     "Tasks mostly independent?" -> "Manual execution or brainstorm first" [label="no - tightly coupled"];
-    "Stay in this session?" -> "subagent-driven-development" [label="yes"];
-    "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
+    "Fully independent, no shared state?" -> "Parallel dispatch (one subagent per task)" [label="yes"];
+    "Fully independent, no shared state?" -> "subagent-driven-development (sequential)" [label="no - sequential"];
 }
 ```
 
-**vs. Executing Plans (parallel session):**
-- Same session (no context switch)
-- Fresh subagent per task (no context pollution)
-- Two-stage review after each task: spec compliance first, then code quality
-- Faster iteration (no human-in-loop between tasks)
+**Three execution modes:**
+- **Sequential (default):** fresh subagent per task, two-stage review after each. For plans whose tasks share state or build on each other.
+- **Parallel dispatch:** one subagent per fully-independent problem domain, run concurrently. See [Parallel Dispatch](#parallel-dispatch).
+- **Inline fallback:** no subagents available — execute the plan yourself. See [Inline Fallback](#inline-fallback-no-subagents).
 
 ## The Process
 
@@ -209,10 +208,10 @@ Done!
 - Parallel-safe (subagents don't interfere)
 - Subagent can ask questions (before AND during work)
 
-**vs. Executing Plans:**
-- Same session (no handoff)
-- Continuous progress (no waiting)
+**vs. inline execution:**
+- Fresh context per task (no pollution)
 - Review checkpoints automatic
+- Continuous progress (no waiting)
 
 **Efficiency gains:**
 - No file reading overhead (controller provides full text)
@@ -264,6 +263,34 @@ Done!
 - Dispatch fix subagent with specific instructions
 - Don't try to fix manually (context pollution)
 
+## Parallel Dispatch
+
+When tasks are **fully independent** — different subsystems, different files, no shared state — dispatch one subagent per problem domain and run them concurrently instead of task-by-task. Typical trigger: several unrelated test files or subsystems broken independently.
+
+**Use when:** each problem can be understood without context from the others, and agents won't edit the same code.
+
+**Don't use when:** failures are related (fixing one may fix others), you need full system state, or agents would touch shared files.
+
+**Pattern:**
+
+1. **Group by independent domain.** One subagent per domain (e.g. one per failing test file / subsystem).
+2. **Write focused prompts.** Each is self-contained: specific scope, clear goal, constraints ("don't change other code"), and the exact output you want back. Paste the real error messages and test names — never "fix the race condition".
+3. **Dispatch concurrently.** Launch all subagents in one batch.
+4. **Review and integrate.** Read each summary, check for conflicting edits, run the full suite, spot-check for systematic errors.
+
+**Prompt smells:** too broad ("fix all the tests"), no context ("fix the race condition"), no constraints (agent refactors everything), vague output ("fix it"). Each is fixed by being specific.
+
+## Inline Fallback (no subagents)
+
+If the platform has no subagents, execute the plan yourself in-session:
+
+1. **Load and review the plan critically.** Identify gaps or concerns; raise them with your human partner before starting. If clean, create a TodoWrite and proceed.
+2. **Execute each task** in order: mark in-progress, follow the plan's bite-sized steps exactly, run the verifications it specifies, mark complete.
+3. **Stop and ask — don't guess —** on any blocker: missing dependency, failing test, unclear instruction, or repeated verification failure.
+4. **Finish** via superpowers:finishing-a-development-branch.
+
+Never start implementation on main/master without explicit user consent.
+
 ## Integration
 
 **Required workflow skills:**
@@ -274,6 +301,3 @@ Done!
 
 **Subagents should use:**
 - **superpowers:test-driven-development** - Subagents follow TDD for each task
-
-**Alternative workflow:**
-- **superpowers:executing-plans** - Use for parallel session instead of same-session execution
