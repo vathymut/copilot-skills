@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: remember
 description: 'Store lessons learned as domain-organized memory instructions. Syntax: `/remember [>domain [scope]] lesson` where scope is `global` (default) or `workspace`.'
 ---

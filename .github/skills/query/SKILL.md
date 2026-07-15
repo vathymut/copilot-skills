@@ -8,7 +8,18 @@ disable-model-invocation: true
 
 Input: `$@`
 
-Follow these steps in order.
+## Attach mode (`--attach <path>`)
+
+To register a DuckDB file for later session-mode queries, invoke with `--attach <path>`:
+
+1. Resolve `<path>` to an absolute `RESOLVED_PATH` (`cd "$(dirname "$0")" && pwd)/$(basename "$0")`).
+2. Validate: `duckdb "$RESOLVED_PATH" -c "PRAGMA version;"`. If the file is missing, offer to create it (DuckDB writes on first use); if invalid, stop. If DuckDB is missing, delegate to `/duckdb-skills:install-duckdb`.
+3. Resolve the state directory (same logic as Step 1): prefer `.duckdb-skills/state.sql` in-project, else `~/.duckdb-skills/<project-id>/state.sql` (project id = repo root with `/` → `-`). Create it if absent — ask the user in-project vs home, and offer to `echo '.duckdb-skills/' >> .gitignore`.
+4. Append an ATTACH to the shared, accumulative `state.sql` — **never overwrite**. Derive the alias from the filename; if `grep -q "ATTACH.*RESOLVED_PATH" "$STATE_DIR/state.sql"` finds no match, append `ATTACH IF NOT EXISTS 'RESOLVED_PATH' AS <alias>;` (add `USE <alias>;` only when it is the first/primary database). Prompt for an alternate alias on conflict.
+5. Verify: `duckdb -init "$STATE_DIR/state.sql" -c "SHOW DATABASES;"`.
+6. Report the path, alias, state file, and table list. Subsequent `query` calls use session mode automatically.
+
+## Step 1 — Resolve state and determine the mode
 
 ## Step 1 — Resolve state and determine the mode
 

@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: read-memories
 description: "Search past session logs to recall prior decisions and context."
 argument-hint: <keyword> [--here]

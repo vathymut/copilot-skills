@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: graphify
 description: "Answer questions about a codebase, its architecture, file relationships, or project content. Use when the user asks to map, document, onboard into, or query a codebase — especially when graphify-out/ exists, treat natural-language questions as a graphify query first."
 ---

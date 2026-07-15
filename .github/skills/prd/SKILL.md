@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: prd
 description: 'Generate product requirements and specs. Use when the user wants a PRD, product spec, feature specification, AI-optimized spec file, or to turn the current conversation into a spec.'
 license: MIT

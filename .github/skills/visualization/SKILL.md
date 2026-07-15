@@ -6,15 +6,13 @@ disable-model-invocation: true
 
 # Visualization Router
 
-Index of chart, diagram, and figure skills. Invoke the right skill by name; high-frequency skills also auto-trigger.
+Index of chart, diagram, and figure skills. Invoke the right skill by name (all children are user-invoked).
 
 | Skill | Use when |
 |---|---|
-| `tufte-data-viz` | Create or review any chart, graph, dashboard, or data visualization. |
+| `tufte-data-viz` | Create or review any chart, graph, dashboard, or data visualization (incl. matplotlib/seaborn publication figures). |
 | `mermaid-diagram-specialist` | Create a flowchart, sequence diagram, ERD, class diagram, state diagram, Gantt, or C4 diagram in Mermaid. |
-| `academic-plotting` | Generate publication-quality figures for an ML/AI paper. |
 
 Default routing: for open-ended chart/visualization requests, invoke
-`tufte-data-viz` unless the use case clearly points to one of the others
-(e.g., a paper figure → `academic-plotting`, a Mermaid diagram in docs →
-`mermaid-diagram-specialist`).
+`tufte-data-viz` unless the use case clearly points to a Mermaid diagram in docs
+(`mermaid-diagram-specialist`).

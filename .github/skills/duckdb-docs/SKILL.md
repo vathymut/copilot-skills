@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: duckdb-docs
 description: "Search DuckDB and DuckLake documentation using a locally cached full-text index."
 argument-hint: <question or keyword>

@@ -323,3 +323,13 @@ Otherwise → not TDD
 ```
 
 No exceptions without your human partner's permission.
+
+## Coverage (after code exists)
+
+Once a feature is implemented, raise coverage rather than lower it. For Python:
+
+```bash
+pytest --cov=<package> --cov-report=term-missing
+```
+
+Target 100% on changed lines; treat each missing line as a test to write or dead code to delete. (Formerly the `pytest-coverage` skill.)
