@@ -61,7 +61,7 @@ Pre-flight (ml-scaffold):
 7. Ask about `.gitignore` for `reports/`; never ignore `data/` as a whole.
 8. Write placeholder `journal/JOURNAL.md` from
    `iterate-ml-experiment/templates/JOURNAL.md`.
-9. Hand off to `python-quality` for initial `ruff.toml` setup.
+9. Write the ruff config: copy `templates/ruff.toml` to the project root as `ruff.toml` (or fold it into a `[tool.ruff]` table in `pyproject.toml`).
 10. Return to `iterate-ml-experiment` § 0.
 
 ## File rules
@@ -77,7 +77,7 @@ Pre-flight (ml-scaffold):
 ## References
 
 - `writing-great-skills:references/ml-gates.md` — gate registry.
-- `writing-great-skills:references/ml-companion-skills.md` — ownership map.
+- `ml-experiments` — ownership map.
 - `references/scaffold_steps.md` — full step-by-step.
 - `references/g_skore_mode.md` — G-SKORE-MODE detail.
 - `references/forbidden-shortcuts.md` — common scaffold shortcuts.

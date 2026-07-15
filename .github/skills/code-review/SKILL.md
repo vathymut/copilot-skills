@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: 'Review code, review workflow, and review feedback. Use when the user wants to review a diff, PR, branch, work-in-progress changes, request a reviewer subagent, or respond to code review feedback.'
+description: 'Review code, review workflow, and review feedback. Use when the user wants to review a diff, PR, branch, work-in-progress changes, SQL/database code, request a reviewer subagent, or respond to code review feedback.'
 ---
 
 # Code Review
@@ -80,7 +80,7 @@ Leading questions:
 Use the `general-purpose` subagent. Each prompt includes the diff/range, the spec (if found), and the standards sources/baseline.
 
 **Standards sub-agent brief:**
-> Report per file/hunk (a) documented-standard violations (cite file + rule) and (b) baseline smells (name and quote the hunk). Distinguish hard violations from judgement calls; baseline smells are always judgement calls. Skip tooling-enforced issues. Under 400 words.
+> Report per file/hunk (a) documented-standard violations (cite file + rule) and (b) baseline smells (name and quote the hunk). Distinguish hard violations from judgement calls; baseline smells are always judgement calls. Skip tooling-enforced issues. Under 400 words. When the diff is SQL, also load `references/sql-review.md` and report injection (CRITICAL), anti-pattern, and performance findings. When it is Python, load `references/python-standards.md` and report correctness, type-safety, performance, and style findings.
 
 **Spec sub-agent brief** (skip if no spec):
 > Report: requirements missing/partial, behaviour not asked for (scope creep), and implementations that look wrong. Quote the spec for each. Under 400 words.

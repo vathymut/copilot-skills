@@ -39,8 +39,10 @@ Validate a declared pipeline. Three sub-tasks, in order:
   side history require a passing smoke test before the experiment can
   be marked `done`.
 - **Python-stack defaults apply:** all execution to `scratch/`, no
-  inline `python -c`, don't filter warnings. See `python-api` and
-  `python-quality`.
+  inline `python -c`, don't filter warnings. Copy `templates/ruff.toml`
+  to the project root (or a `[tool.ruff]` table in `pyproject.toml`),
+  then `ruff format .` → `ruff check --fix .` → `ruff check .`; NumPyDoc
+  docstrings are enforced via the `D` rule.
 - **Audit is read-only against the skore Project.** No `evaluate`,
   no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
 - **`project.get(...)` is by id, not key.** For hub, derive id from
@@ -205,8 +207,7 @@ Template: `templates/audit.py`.
 
 ## References
 
-- `writing-great-skills:references/ml-companion-skills.md` — canonical
-  ownership map.
+- `ml-experiments` — canonical ownership map.
 - `references/cross-validation.md` — splitter reasoning and avoid list.
 - `references/reports.md` — report escalation.
 - `references/custom-splitter.md` — custom splitter contract.

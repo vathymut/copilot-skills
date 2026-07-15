@@ -209,7 +209,7 @@ a fast, representative read, not exhaustive stats.
 - No splitter / metric / learner *decision* — only the *evidence*.
 - No pandas/polars-specific summary methods — read skrub's json.
 - No `warnings.filterwarnings(...)` — stderr in the digest is signal
-  (see `python-quality` § Stop conditions).
+  (ruff Stop condition: never silence warnings to hide formatting weirdness; fix the source).
 
 ## From digest to deliverables
 

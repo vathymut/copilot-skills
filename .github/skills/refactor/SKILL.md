@@ -1,17 +1,17 @@
 ---
 name: refactor
-description: 'Improve code structure without changing behavior. Use when the user asks to clean up, refactor, break down large functions, eliminate code smells, find deepening opportunities, or make code more testable or AI-navigable.'
+description: 'Improve code structure without changing behavior. Use when the user asks to clean up, refactor, break down large functions, or eliminate code smells.'
 license: MIT
 ---
 
 # Refactor
 
-Improve code structure without changing external behavior. Two branches:
+Improve code structure without changing external behavior. Branch A is the
+default path: change structure in small steps, always with tests.
 
-- **Branch A — Local/surgical refactor** (default): change structure in small steps, always with tests.
-- **Branch B — Deepening scan**: explore the codebase for architectural deepening opportunities, produce an HTML report, then grill through a chosen candidate.
-
-**Not for:** rewrites from scratch, or code without tests.
+**Not for:** rewrites from scratch, or code without tests. For architectural
+deepening (module interfaces, seams, testability), fold that work into the
+restructure itself rather than handing off to a separate skill.
 
 ## When to use
 
@@ -75,16 +75,3 @@ Update comments and documentation that reference the old structure. Remove any t
 - Code that works and won't change again.
 - Critical production code without tests (add tests first).
 - Under a tight deadline with no time for verification.
-
-## Branch B — Deepening scan
-
-Use when the user asks for an architecture review, "deepen" opportunities, "make this more testable/AI-navigable", or asks to scan the codebase for structural improvement.
-
-1. Read `CONTEXT.md` and ADRs first. Use the vocabulary from `codebase-design` (module, interface, depth, seam, adapter, leverage, locality).
-2. Explore with a subagent: where is understanding fragmented across many small modules? Where are modules shallow? Where is locality poor?
-3. Write a self-contained HTML report to the OS temp directory (`$TMPDIR` or `/tmp`), filename `architecture-review-<timestamp>.html`, and open it for the user.
-4. Each candidate card includes: files involved, problem, solution, benefits in locality/leverage terms, before/after diagram, and recommendation strength (`Strong`, `Worth exploring`, `Speculative`).
-5. Ask: "Which of these would you like to explore?"
-6. Once a candidate is chosen, run `grill-with-docs` to walk constraints, dependencies, the shape of the deepened module, and what tests survive. Update `CONTEXT.md` or offer an ADR as decisions crystallise.
-
-Do not propose interfaces before the report.

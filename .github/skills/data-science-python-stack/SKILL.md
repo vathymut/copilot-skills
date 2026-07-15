@@ -154,7 +154,7 @@ pytest the smoke-test gate can't enforce
 predict-time correctness, so pytest stays mandatory even when
 no other tests have been written yet. Each is named explicitly
 even when transitively present, because the workflow skills
-(`build-ml-pipeline`, `evaluate-ml-pipeline`, `python-quality`) depend on them
+(`build-ml-pipeline`, `evaluate-ml-pipeline`) depend on them
 directly and should not silently lose them if upstream packaging
 changes.
 
@@ -189,12 +189,12 @@ changes.
   install: skore variant per mode" — this skill only records *what*
   to install, not *how*. Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format,
-  replaces `black` / `isort` / `flake8` / `pydocstyle`. The
-  configuration (rule selection, numpydoc convention, per-file
-  ignores) and the rule "Claude runs ruff after generating code"
-  are owned by the `python-quality` skill, which also ships the
-  canonical `ruff.toml` template. `python-env-manager` routes ruff
-  to the `dev` feature.
+  replaces `black` / `isort` / `flake8` / `pydocstyle`. This stack
+  uses ruff as Tier 1 (mandatory). Copy `templates/ruff.toml` to the
+  project root as `ruff.toml` (or fold it into a `[tool.ruff]` table in
+  `pyproject.toml`), then run `ruff format .`, `ruff check --fix .`,
+  `ruff check .`; NumPyDoc docstrings are enforced via the `D` rule.
+  The environment manager routes ruff to the `dev` feature.
 - [`pytest`](references/pytest.md) — test runner for the
   smoke-test gate enforced by `evaluate-ml-pipeline` § Smoke. Every
   approved experiment must have a

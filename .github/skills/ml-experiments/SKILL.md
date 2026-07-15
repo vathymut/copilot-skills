@@ -1,7 +1,32 @@
-# ML Workspace Companion Skills
+---
+name: ml-experiments
+description: User-invoked router for ML-experiment skills. Type this skill name to see which ML skill to use.
+disable-model-invocation: true
+---
 
-Canonical map of the ML-workspace family. Five skills: setup, EDA,
-declaration, validation, and the iteration loop.
+# ML Experiments Router
+
+Index of the ML-workspace skill family. Invoke the right skill by name;
+high-frequency skills also auto-trigger on their own descriptions.
+
+## Which skill for the job
+
+| Need | Skill |
+|---|---|
+| Scaffold a new experiment workspace (dirs, four-way stem pairing, config gates) | `ml-scaffold` |
+| One-time bootstrap EDA (`data/eda.py`, `data/eda.md`, HTML report) | `ml-eda` |
+| Declare the pipeline as a skrub DataOps graph | `build-ml-pipeline` |
+| CV strategy, smoke test, read-only audit digest | `evaluate-ml-pipeline` |
+| Run the propose → approve → implement → record loop | `iterate-ml-experiment` |
+| Decide *what* to install (tiers, competing-library gates) | `data-science-python-stack` |
+| Decide *how* to install (manager detection, feature layout) | `python-env-manager` |
+| Look up installed-version API symbols | `python-api` |
+
+## Ownership & dispatch map
+
+Canonical relationships between the eight ML-workspace skills. Each skill
+is standalone; this map exists only so a maintainer can see who owns what
+and what depends on what.
 
 | Skill | Owns | Consumes / dispatches to |
 |---|---|---|

@@ -278,7 +278,7 @@ G-SKORE-MODE) → add tabular lib → wire editable workspace package
 |---|---|
 | What library is in the stack, and why | `data-science-python-stack` |
 | Which manager + feature scope to use | this skill |
-| ruff/NumPyDoc conventions | `python-quality` |
+| ruff/NumPyDoc conventions | this skill (`templates/ruff.toml`) |
 | Exact install command syntax | this skill |
 | `skore` mode / hub / mlflow variant details | `ml-scaffold` decides mode; this skill executes |
 | Mandatory Tier 1 vs user-choice Tier 2 vs opt-in Tier 3 | `data-science-python-stack` |

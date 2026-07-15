@@ -8,16 +8,6 @@ description: "Declare ML pipelines as skrub DataOps graphs, stopping at the pred
 Declarative shape of a Python ML pipeline from data source to
 predictor.
 
-## Next-step pointers
-
-| After this skill… | → next |
-|---|---|
-| CV strategy | `evaluate-ml-pipeline` § Evaluate |
-| Smoke test | `evaluate-ml-pipeline` § Smoke |
-| Symbol lookup | `python-api` |
-| Missing import | `python-env-manager` |
-| Code just edited | `python-quality` |
-
 Key terms (`X marker`, `predict grid`, `cross-row step`, `Layers 1/2/3`)
 are introduced inline in Rule 2.
 
@@ -68,7 +58,7 @@ For loader-baked-shift counter-example (what NOT to do):
 - **Symbol from memory is forbidden.** Use `python-api` this turn.
 - **Splitter imports are out of scope.** Only `split_kwargs` at the
   X marker.
-- **Python-stack defaults apply.** See `python-api` / `python-quality`.
+- **Python-stack defaults apply.** Copy `templates/ruff.toml` to the project root (or a `[tool.ruff]` table in `pyproject.toml`); run `ruff format .` → `ruff check --fix .` → `ruff check .`. NumPyDoc docstrings are enforced via the `D` rule.
 
 ## Core rules
 
@@ -235,8 +225,7 @@ Look up exact symbols in `python-api`. Full catalogue:
 
 ## References
 
-- `writing-great-skills:references/ml-companion-skills.md` — ownership
-  map.
+- `ml-experiments` — ownership map.
 - `writing-great-skills:references/ml-gates.md` — gate registry.
 - `references/source-binding.md` — root-binding patterns.
 - `references/layer_examples.md` — IID, history-dependent, counter-example.

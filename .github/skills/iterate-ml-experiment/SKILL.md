@@ -359,13 +359,11 @@ Sourcing was previously handled by the skore source branch and the user source b
 those contents now live in this skill's `references/source-from-skore.md` and
 `references/source-from-user.md`.
 
-See also the shared ML companion map at
-`writing-great-skills:references/ml-companion-skills.md`.
+See also the shared ML companion map at `ml-experiments`.
 
 ## References (load on demand)
 
-- `writing-great-skills:references/ml-companion-skills.md` — canonical
-  ownership map for the ML-workspace family.
+- `ml-experiments` — canonical ownership map for the ML-workspace family.
 - `writing-great-skills:references/shared-preflight-evidence.md` —
   evidence-format spec shared across ML skills.
 - `references/bootstrap.md` — full bootstrap procedure, config gates

@@ -66,8 +66,8 @@ Each is a skeleton; the actual content lands later when
 Copy `templates/experiment.py`, **substituting `<pkg>`** with the
 package name from step 2. This substitution is load-bearing: the
 `<pkg>` literals appear in `from <pkg> import ...` statements and
-are Python syntax errors if left in place — `python-quality`'s
-ruff pass at step 11 will fail on them.
+are Python syntax errors if left in place — the ruff pass at step 11
+will fail on them.
 
 The other placeholders (`<short title>`, `YYYY-MM-DD`,
 `<project-name>`, `<experiment-key>`) sit inside markdown comments
@@ -157,10 +157,10 @@ fix (switch to specific input patterns) rather than silently editing.
 
 ## Step 11 — `ruff.toml` + first ruff pass
 
-**Hand off to `python-quality` § "Initial setup".** That skill
-owns its own `templates/ruff.toml`, writes it to the project
-root, and runs `ruff format` + `ruff check` against the modules
-dropped at step 4.
+**Write `ruff.toml` (or a `[tool.ruff]` table in `pyproject.toml`)**
+using this skill's `templates/ruff.toml`, then run `ruff format .`,
+`ruff check --fix .`, `ruff check .` against the modules dropped at
+step 4.
 
 **Do not copy `templates/ruff.toml` by hand** and run ruff
 yourself — invoking the skill is what teaches the agent the
