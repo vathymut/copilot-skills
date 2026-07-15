@@ -15,4 +15,4 @@ Index of code-quality skills. Invoke the right skill by name.
 | `systematic-debugging` | Investigate a bug, test failure, or unexpected behavior *before* proposing a fix. |
 | `test-driven-development` | Build test-first (red-green-refactor) and raise coverage on existing code. |
 
-Note: `verification-before-completion` is an always-on discipline (fresh evidence before any "done" claim), not a routed skill. `sql-code-review` is subsumed by `code-review`'s SQL review reference.
+Note: verification (fresh evidence before any "done" claim) is an always-on discipline, covered by the verification steps in `test-driven-development` and `systematic-debugging`. SQL review lives in `code-review`'s SQL review reference.

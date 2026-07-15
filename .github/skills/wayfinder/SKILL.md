@@ -4,7 +4,36 @@ description: Plan a huge chunk of work — more than one agent session can hold 
 disable-model-invocation: true
 ---
 
-> **Heavyweight — reach for it last.** Wayfinder charts a shared, multi-session ticket map and depends on issue-tracker setup. If the work fits in one plan, use `writing-plans`; if it splits cleanly into tickets, use `to-tickets`. Only use wayfinder when the work is too big for one session *and* the route to the destination is genuinely unclear.
+> **Reach for the lightest mode that fits.**
+> - **Lightweight** — break a plan/spec into tracer-bullet tickets with blocking edges, in one session (formerly the `to-tickets` skill).
+> - **Heavyweight** — chart a shared, multi-session ticket map when the work is too big for one session *and* the route to the destination is genuinely unclear. Reach for it last.
+
+## Lightweight mode — single-session tracer-bullet tickets
+
+Break a plan, spec, or conversation into **tickets** — tracer-bullet vertical
+slices, each declaring the tickets that **block** it. The destination is clear;
+you just want tracked, ordered work items.
+
+The issue tracker and triage label vocabulary should have been provided to you
+— run `/setup-matt-pocock-skills` if not.
+
+1. **Gather context** — work from the conversation; fetch any referenced spec
+   or issue and read its full body and comments.
+2. **Explore the codebase (optional)** — use the project's domain glossary and
+   respect ADRs; look for prefactoring opportunities.
+3. **Draft vertical slices** — each cuts a complete path through every layer
+   (schema, API, UI, tests), demoable on its own, sized to one context window.
+   Give each ticket its **blocking edges**. Wide refactors are the exception:
+   sequence them expand–contract, each batch its own ticket blocked by the
+   expand.
+4. **Quiz the user** — present title / Blocked by / What it delivers; iterate
+   on granularity and edges until approved.
+5. **Publish** — local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`
+   (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance
+   criteria), or a real tracker using native blocking with the `ready-for-agent`
+   label. Work the frontier one at a time with `subagent-driven-development`.
+
+## Heavyweight mode — multi-session map
 
 A loose idea has arrived — too big for one agent session, and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **shared map** on the repo's issue tracker, then works its tickets one at a time until the route is clear.
 

@@ -20,6 +20,26 @@ restructure itself rather than handing off to a separate skill.
 - Adding features is difficult due to code structure.
 - The user asks for a refactor plan.
 
+## Vocabulary: deep modules
+
+When a refactor touches module boundaries (not just local cleanup), use this
+shared vocabulary so the shape of the change is unambiguous:
+
+- **Module** — anything with an interface and an implementation (function, class, package, or tier-spanning slice).
+- **Interface** — everything a caller must know to use the module correctly: type signature, invariants, ordering, error modes, config, performance.
+- **Implementation** — the module's body. Distinct from **Adapter** (a concrete thing satisfying an interface at a seam).
+- **Depth** — leverage at the interface: lots of behaviour behind a small interface (deep) vs. a large interface over thin logic (shallow).
+- **Seam** (Feathers) — where a module's interface lives; the place you can alter behaviour without editing in place.
+- **Adapter** — a concrete thing that satisfies an interface at a seam (role, not substance).
+- **Leverage / Locality** — what callers gain from depth (more capability per unit of interface) and what maintainers gain (change concentrates in one place).
+
+Principles: depth is a property of the *interface*, not the implementation; the
+deletion test (delete it — does complexity vanish or reappear across callers?)
+tells you if it earned its keep; the interface is the test surface; one adapter
+means a hypothetical seam, two means a real one (don't introduce a seam unless
+something varies across it). For deepening a cluster or exploring alternative
+interfaces, see `references/DEEPENING.md` and `references/DESIGN-IT-TWICE.md`.
+
 ## Steps
 
 ### 1. Prepare

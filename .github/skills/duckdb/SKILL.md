@@ -16,4 +16,3 @@ Index of DuckDB skills. Invoke the right skill by name (all children are user-in
 | `duckdb-docs` | Search DuckDB or DuckLake documentation and blog posts. |
 | `install-duckdb` | Install or update DuckDB extensions. |
 
-Note: `read-file`, `convert-file`, and `s3-explore` were merged into `data-access`; `attach-db` was merged into `query`.

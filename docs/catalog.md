@@ -8,18 +8,18 @@ The catalog is intentionally compact. Skills and agents are sourced from upstrea
 
 | Domain | Skills |
 |---|---|
-| **Code Quality & Security** | `ponytail`, `pytest-coverage`, `refactor` |
+| **Code Quality & Security** | `ponytail`, `refactor` |
 | **Documentation & Specs** | `create-architectural-decision-record`, `documentation-writer`, `prd` |
-| **Research & Academic** | `academic-plotting`, `brainstorming`, `exam-ready`, `ml-paper-writing`, `research` |
+| **Research & Academic** | `brainstorming`, `exam-ready`, `ml-paper-writing`, `research` |
 | **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`, `ml-scaffold`, `python-api`, `python-env-manager` |
-| **Development Workflow** | `fix-merge-conflicts`, `finishing-a-development-branch`, `git-commit`, `github-copilot-starter`, `graphify`, `grill-with-docs`, `remember`, `using-git-worktrees`, `web-design-reviewer`, `writing-great-skills` |
-| **Engineering Discipline** | `code-review`, `codebase-design`, `domain-modeling`, `implement`, `prototype`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans` |
+| **Development Workflow** | `fix-merge-conflicts`, `finishing-a-development-branch`, `git-commit`, `github-copilot-starter`, `graphify`, `remember`, `using-git-worktrees`, `web-design-reviewer`, `writing-great-skills` |
+| **Engineering Discipline** | `code-review`, `codebase-design`, `domain-modeling`, `prototype`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans` |
 | **Data Engineering & Packaging** | `python-pypi-package-builder`, `xlsx` |
-| **DuckDB & Data Files** | `attach-db`, `data-access`, `duckdb-docs`, `duckdb`, `install-duckdb`, `query`, `read-memories`, `spatial` |
+| **DuckDB & Data Files** | `data-access`, `duckdb-docs`, `duckdb`, `install-duckdb`, `query`, `read-memories`, `spatial` |
 | **Frontend & Creative** | `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `tufte-data-viz` |
 | **Visualization** | `visualization` |
 | **Communication** | `internal-writing` |
-| **Routers & Media** | `docs`, `duckdb`, `git-workflow`, `media`, `ml-experiments` |
+| **Routers & Media** | `code-quality`, `docs`, `duckdb`, `frontend`, `git-workflow`, `media`, `memory`, `ml-experiments`, `planning` |
 | **Documents & Files** | `pdf` |
 | **Skills Meta** | `using-superpowers` |
 
@@ -59,7 +59,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **66 skills** in `.github/skills/`
+- **65 skills** in `.github/skills/`
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

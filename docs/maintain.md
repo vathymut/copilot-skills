@@ -76,6 +76,23 @@ Periodically review the catalog for:
 
 After any audit that changes the catalog, update the README inventory, badges, and domain tables.
 
+### Detect drift automatically
+
+The catalog tables and counts in `README.md` and `docs/catalog.md` are maintained by hand and drift after consolidation. Run this to catch mismatches between the filesystem and the catalog:
+
+```bash
+# Skills present on disk but missing from the catalog tables
+comm -23 \
+  <(ls .github/skills | sort) \
+  <(grep -oE '`[a-z0-9-]+`' docs/catalog.md | tr -d '`' | sort -u)
+
+# Counts (should match README and catalog "Counts")
+echo "skills: $(find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
+echo "agents: $(find .github/agents -maxdepth 1 -type f | wc -l | tr -d ' ')"
+```
+
+If either list is non-empty, add or remove rows in `docs/catalog.md` and update the counts in both `docs/catalog.md` and `README.md`.
+
 ## Upstream sources
 
 | Source | Notes |

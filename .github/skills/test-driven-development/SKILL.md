@@ -293,6 +293,13 @@ Before marking work complete:
 
 Can't check all boxes? You skipped TDD. Start over.
 
+## Always verify before claiming done
+
+A passing test is not a "done" claim. Before reporting work complete, run the
+verification command and read its output — fresh evidence, never "should pass".
+This is an always-on discipline, not a separate step: see
+`references/verify-before-claiming.md`.
+
 ## When Stuck
 
 | Problem | Solution |

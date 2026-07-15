@@ -14,6 +14,7 @@ natural collaborative dialogue. Two branches share the same core loop: explore
 | Branch | Trigger | Leads to |
 |---|---|---|
 | **Design brainstorming** | "build X", "add feature Y", "modify Z" | `writing-plans` implementation plan |
+| **Product requirements (PRD / spec)** | "write a PRD", "create a spec", "turn this into a spec" | `writing-plans` implementation plan |
 | **Research ideation** | "research ideas", "high-impact directions", "stuck on current project" |see § Research Ideation |
 
 ## Hard gate
@@ -38,7 +39,7 @@ Complete these in order:
 3. **Ask clarifying questions** — one at a time; understand purpose, constraints, success criteria.
 4. **Propose 2-3 approaches** — with trade-offs and a recommendation.
 5. **Present design** — scaled by complexity; get approval after each section.
-6. **Write design doc** — `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` (or user-preferred location).
+6. **Write design doc** — `docs/specs/YYYY-MM-DD-<topic>-design.md` (or user-preferred location).
 7. **Spec self-review** — placeholders, contradictions, ambiguity, scope.
 8. **User reviews written spec**.
 9. **Transition** — invoke `writing-plans`.
@@ -65,6 +66,56 @@ See the source `brainstorming` skill body for:
 - Spec self-review checklist (placeholders, consistency, scope, ambiguity).
 - User review gate language.
 - Visual Companion offer and usage rules.
+
+## Product requirements (PRD / spec)
+
+Use this branch when the user wants a PRD, product spec, feature spec, or to
+turn the current conversation into a spec. It produces the same kind of design
+doc as design brainstorming, driven by a requirements interview (or by
+synthesis from the conversation) rather than a "build X" intent.
+
+### Phase 1 — Discovery
+
+Interrogate to fill gaps; never assume context.
+
+- **Core Problem**: why build this now?
+- **Success Metrics**: how do we know it worked?
+- **Constraints**: budget, stack, deadline?
+- **Completion**: gaps filled or explicitly marked TBD.
+
+### Phase 2 — Analysis & scoping
+
+Synthesize: map the user flow, list non-goals, identify dependencies.
+**Completion**: user flow mapped, non-goals listed, dependencies identified.
+
+### Phase 3 — Draft
+
+Populate the schema below with concrete, measurable criteria (avoid
+"fast"/"easy"/"intuitive"; label unknowns `TBD`):
+
+1. **Executive Summary** — problem, solution, 3–5 success KPIs.
+2. **User Experience** — personas, `As a … I want … so that …` stories, acceptance criteria, non-goals.
+3. **Technical Specs** — architecture, integrations, security/privacy.
+4. **Risks & Roadmap** — phased rollout, technical risks.
+
+### Phase 4 — Machine-readable spec (optional)
+
+When the user wants an agent-consumable spec file: choose a prefix
+(`schema`/`tool`/`data`/`infrastructure`/`process`/`architecture`/`design`),
+populate `references/spec-template.md` with no placeholders, validate (no
+`[Bracket]` tokens, acronyms defined, testable acceptance criteria), and save
+to `/spec/spec-[type]-[name].md`.
+
+### Phase 5 — Conversation-to-spec (optional)
+
+When the user says "turn this into a spec": do NOT re-interview — synthesize
+from the conversation and codebase, sketch the test seams, and publish to the
+issue tracker with the `ready-for-agent` label.
+
+### Transition
+
+Save the spec to `docs/specs/YYYY-MM-DD-<topic>-design.md` (or user-preferred
+location) and hand off to `writing-plans`.
 
 ## Research ideation
 

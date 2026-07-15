@@ -19,15 +19,16 @@ Complete [Install the catalog](./install.md) first. You should have:
 
 ## Install a skill from an upstream repository
 
-Many skills are published in repositories that follow a `skills/<name>/` layout. Install one with the GitHub CLI:
+Many skills are published in repositories that follow a `skills/<name>/` layout. Clone the source repo and copy the skill directory in:
 
 ```bash
 # From the official GitHub catalog
-gh skill install github/awesome-copilot <skill-name>
+gh repo clone github/awesome-copilot /tmp/awesome-copilot
+cp -r /tmp/awesome-copilot/skills/<skill-name> .github/skills/<skill-name>
 
 # From other known sources
-gh skill install anthropics/skills <skill-name>
-gh skill install probabl-ai/skills <skill-name>
+gh repo clone anthropics/skills /tmp/anthropics-skills
+cp -r /tmp/anthropics-skills/skills/<skill-name> .github/skills/<skill-name>
 ```
 
 To see what skills are available upstream before installing:

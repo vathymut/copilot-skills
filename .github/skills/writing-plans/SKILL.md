@@ -14,9 +14,9 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+**Context:** If working in an isolated worktree, it should have been created via the `using-git-worktrees` skill at execution time.
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 - (User preferences for plan location override this default)
 
 ## Which planning skill?
@@ -26,8 +26,8 @@ This skill is the default: a single multi-step plan document for a self-containe
 | Situation | Use |
 |---|---|
 | Self-contained multi-step feature (default) | **writing-plans** (this skill) |
-| Work to publish as tracker tickets with blocking edges | `to-tickets` |
-| Work too big for one session, wrapped in fog — decisions must be found before planning can even start | `wayfinder` (heavyweight; prefer this skill or `to-tickets` unless the destination is genuinely unclear) |
+| Work to publish as tracker tickets with blocking edges | `wayfinder` (lightweight mode) |
+| Work too big for one session, wrapped in fog — decisions must be found before planning can even start | `wayfinder` (heavyweight; prefer this skill or `wayfinder` lightweight unless the destination is genuinely unclear) |
 
 ## Scope Check
 
@@ -60,7 +60,7 @@ This structure informs the task decomposition. Each task should produce self-con
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan task-by-task (it also carries the inline fallback for platforms without subagents). Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` to implement this plan task-by-task (it also carries the inline fallback for platforms without subagents). Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -148,5 +148,5 @@ After saving the plan, hand off to execution:
 
 **"Plan complete and saved to `docs/superpowers/plans/<filename>.md`."**
 
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development to execute it.
+- **REQUIRED SUB-SKILL:** Use `subagent-driven-development` to execute it.
 - It runs a fresh subagent per task with two-stage review by default, dispatches fully independent tasks in parallel, and falls back to inline execution when subagents are unavailable.
