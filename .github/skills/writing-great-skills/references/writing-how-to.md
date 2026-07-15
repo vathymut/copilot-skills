@@ -1,7 +1,3 @@
----
-name: writing-skills
-description: Use when creating new skills, editing existing skills, or verifying skills work before deployment
----
 
 # Writing Skills
 
@@ -172,12 +168,13 @@ description: Use when implementing any feature or bugfix, before writing impleme
 ```
 
 **Content:**
+- **Front-load the skill's leading word** — a compact pretrained concept (e.g. _lesson_, _fog of war_; defined in GLOSSARY.md) the agent already holds, so the description fires the right behaviour. Word the description with the leading words you actually use when you want the skill.
 - Use concrete triggers, symptoms, and situations that signal this skill applies
 - Describe the *problem* (race conditions, inconsistent behavior) not *language-specific symptoms* (setTimeout, sleep)
 - Keep triggers technology-agnostic unless the skill itself is technology-specific
 - If skill is technology-specific, make that explicit in the trigger
 - Write in third person (injected into system prompt)
-- **NEVER summarize the skill's process or workflow**
+- **NEVER summarize the skill's process or workflow** — a workflow-summarizing description is a no-op trap (see failure modes in GLOSSARY.md): the agent follows the description instead of reading the skill.
 
 ```yaml
 # ❌ BAD: Too abstract, vague, doesn't include when to use
@@ -209,6 +206,8 @@ Use words an agent would search for:
 **Use active voice, verb-first:**
 - ✅ `creating-skills` not `skill-creation`
 - ✅ `condition-based-waiting` not `async-test-helpers`
+
+A **leading word** (defined in GLOSSARY.md) is a compact concept the model already holds; name the skill with a word you actually use when you want it, so the name itself triggers the behaviour. Prefer a pretrained word over a coined one — a coined word recruits no priors and you pay its definition in tokens.
 
 ### 4. Token Efficiency (Critical)
 
@@ -275,7 +274,9 @@ wc -w skills/path/SKILL.md
 - `creating-skills`, `testing-skills`, `debugging-with-logs`
 - Active, describes the action you're taking
 
-### 5. Cross-Referencing Other Skills
+### 5. Cross-References as Context Pointers
+
+A cross-reference is a **context pointer** (defined in GLOSSARY.md): it names out-of-context material and encodes the condition for reaching it. Its _wording_, not its target, decides whether the agent actually loads the reference — so write the pointer to fire, and inline the material only if sharpening the wording fails.
 
 **When writing documentation that references other skills:**
 
@@ -313,9 +314,9 @@ digraph when_flowchart {
 - Linear instructions → Numbered lists
 - Labels without semantic meaning (step1, helper2)
 
-See `graphviz-conventions.dot` in this directory for graphviz style rules.
+See `graphviz-conventions.dot` in this skill's directory for graphviz style rules.
 
-**Visualizing for your human partner:** Use `render-graphs.js` in this directory to render a skill's flowcharts to SVG:
+**Visualizing for your human partner:** Use `render-graphs.js` in this skill's directory to render a skill's flowcharts to SVG:
 ```bash
 ./render-graphs.js ../some-skill           # Each diagram separately
 ./render-graphs.js ../some-skill --combine # All diagrams in one SVG
@@ -584,7 +585,7 @@ Full pressure-scenario runs are the final gate, but they are slow and expensive 
 
 Micro-tests verify wording; they do not replace pressure scenarios for discipline skills.
 
-**Testing methodology:** See [testing-skills-with-subagents.md](testing-skills-with-subagents.md) for the complete testing methodology:
+**Testing methodology:** See [testing-skills-with-subagents.md](../testing-skills-with-subagents.md) for the complete testing methodology:
 - How to write pressure scenarios
 - Pressure types (time, sunk cost, authority, exhaustion)
 - Plugging holes systematically
@@ -626,17 +627,19 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 
 ## Skill Creation Checklist (TDD Adapted)
 
+The vocabulary below — **leading word**, **completion criterion**, **context pointer**, **premature completion**, **no-op** — is defined in GLOSSARY.md. Each item is a step; treat its text as its **completion criterion**: done only when the stated condition holds.
+
 **IMPORTANT: Create a todo for EACH checklist item below.**
 
 **RED Phase - Write Failing Test:**
-- [ ] Create pressure scenarios (3+ combined pressures for discipline skills)
-- [ ] Run scenarios WITHOUT skill - document baseline behavior verbatim
-- [ ] Identify patterns in rationalizations/failures
+- [ ] Create pressure scenarios (3+ combined pressures for discipline skills) — done when you have at least one scenario per pressure type that reproducibly triggers the failure
+- [ ] Run scenarios WITHOUT skill - document baseline behavior verbatim — done when you hold verbatim transcripts showing the agent violating the rule
+- [ ] Identify patterns in rationalizations/failures — done when every rationalization is named and quoted
 
 **GREEN Phase - Write Minimal Skill:**
 - [ ] Name uses only letters, numbers, hyphens (no parentheses/special chars)
 - [ ] YAML frontmatter with required `name` and `description` fields (max 1024 chars; see [spec](https://agentskills.io/specification))
-- [ ] Description starts with "Use when..." and includes specific triggers/symptoms
+- [ ] Description starts with "Use when...", front-loads the **leading word** (GLOSSARY.md), and includes specific triggers/symptoms
 - [ ] Description written in third person
 - [ ] Keywords throughout for search (errors, symptoms, tools)
 - [ ] Clear overview with core principle
@@ -645,20 +648,21 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 - [ ] For behavior-shaping guidance: wording micro-tested against a no-guidance control (5+ reps, every flagged match read manually) — N/A for pure reference skills
 - [ ] Code inline OR link to separate file
 - [ ] One excellent example (not multi-language)
-- [ ] Run scenarios WITH skill - verify agents now comply
+- [ ] Run scenarios WITH skill - verify agents now comply — done when the agent passes every scenario it failed in RED
 
 **REFACTOR Phase - Close Loopholes:**
 - [ ] Identify NEW rationalizations from testing
 - [ ] Add explicit counters (if discipline skill)
 - [ ] Build rationalization table from all test iterations
 - [ ] Create red flags list
-- [ ] Re-test until bulletproof
+- [ ] Re-test until bulletproof — done when a fresh run with combined pressures shows no new rationalization
 
 **Quality Checks:**
 - [ ] Small flowchart only if decision non-obvious
 - [ ] Quick reference table
 - [ ] Common mistakes section
 - [ ] No narrative storytelling
+- [ ] No **no-op** lines (every line changes behaviour vs the default) — see GLOSSARY.md
 - [ ] Supporting files only for tools or heavy reference
 
 **Deployment:**

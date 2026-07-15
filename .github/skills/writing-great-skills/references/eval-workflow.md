@@ -1,7 +1,7 @@
 # Skill Eval Workflow
 
 Concise version of the full eval loop. See the archived source
-`writing-skills/SKILL.md` for the 689-line original if you need every detail.
+`references/writing-how-to.md` for the full how-to if you need every detail.
 
 ## 1. Create evals
 
@@ -68,7 +68,7 @@ When each subagent task completes, write `timing.json`:
    ```
 3. Launch the viewer:
    ```bash
-   python <skill-creator-path>/eval-viewer/generate_review.py \
+   python <skill-path>/eval-viewer/generate_review.py \
      <workspace>/iteration-N \
      --skill-name "my-skill" \
      --benchmark <workspace>/iteration-N/benchmark.json
