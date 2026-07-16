@@ -1,6 +1,6 @@
 ---
 name: evaluate-ml-pipeline
-description: Use when validating a declared ML pipeline — running cross-validation via skore, writing the predict-time smoke test, or producing a read-only audit digest.
+description: Use when a declared ML pipeline needs validation — cross-validation, a predict-time smoke test, or a read-only audit digest.
 ---
 
 # Evaluate ML Pipeline

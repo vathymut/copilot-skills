@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: Use when writing or reviewing code and tempted to over-build, or when a minimal YAGNI solution is preferred.
+description: Use when about to add new code, structure, an abstraction, or a plan task and a minimal YAGNI solution would do — before building, not for restructuring existing code.
 argument-hint: "[lite|full|ultra]"
 license: MIT
 ---

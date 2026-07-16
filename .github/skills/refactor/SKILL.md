@@ -1,6 +1,6 @@
 ---
 name: refactor
-description: Use when the user asks to clean up code, refactor, break down large functions, or eliminate code smells.
+description: Use when existing code needs restructuring without behavior change — large functions, code smells, hard-to-maintain structure, or a multi-file refactor plan with tests.
 license: MIT
 ---
 

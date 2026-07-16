@@ -1,22 +1,19 @@
 ---
 name: planning
-description: Use when the user wants the right planning or development-workflow skill — plans, wayfinder, subagent-driven development, or research and triage.
+description: Use when a piece of work needs routing across planning, design, or development-workflow skills — before picking which one to invoke.
 disable-model-invocation: true
 ---
 
-# Planning Router
+# Planning
 
-Index of planning and development-workflow skills. Invoke the right skill by name.
+Route the work before invoking a sibling skill. The skills themselves are
+discoverable; this skill exists only to pick the right first move.
 
-| Skill | Use when |
-|---|---|
-| `brainstorming` | Explore user intent, requirements, and design *before* any creative or implementation work. Hard gate before code. |
-| `writing-plans` | Write a multi-step implementation plan from a spec or requirements (before touching code). `brainstorming` produces that spec/PRD. |
-| `wayfinder` | Break work into tracker tickets with blocking edges (lightweight) or chart a huge multi-session map (heavyweight). |
-| `subagent-driven-development` | Execute a written plan in the current session via a fresh subagent per task + two-stage review. |
-| `research` | Investigate a question against primary sources and capture findings as a repo Markdown file. |
-| `triage` | Move issues and external PRs through a state machine of triage roles and write agent-ready briefs. |
+## Default routing
 
-For a throwaway design prototype, use `ponytail` (prototype mode).
-
-Default routing: a new feature request → `brainstorming` first, then `writing-plans`; a large/uncertain effort → `wayfinder`; a ready plan → `subagent-driven-development`.
+- **New feature request** → `brainstorming` first (intent/design gate), then `writing-plans` (multi-step plan).
+- **Large or uncertain effort, route unclear** → `wayfinder` (tickets with blocking edges, or a multi-session map).
+- **Plan already written** → `subagent-driven-development` (one subagent per task + two-stage review).
+- **Question to investigate** → `research` (primary sources → repo Markdown).
+- **Issues / external PRs to sort** → `triage` (state machine + agent-ready briefs).
+- **Throwaway design prototype** → `ponytail` (prototype mode).

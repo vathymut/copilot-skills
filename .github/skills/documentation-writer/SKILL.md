@@ -1,6 +1,6 @@
 ---
 name: documentation-writer
-description: Use when the user asks for docs — a tutorial, how-to guide, reference, or explanation — or wants an architectural decision record (ADR).
+description: Use when the user asks for docs — a tutorial, how-to guide, reference, or explanation.
 disable-model-invocation: true
 ---
 
@@ -32,12 +32,13 @@ Write documentation using the Diátaxis framework.
 ## Branch: ADR (architectural decision record)
 
 Create an Architectural Decision Record — a documentation artifact for a
-hard-to-reverse, surprising, trade-off-bearing decision. If a decision is easy
-to reverse, unsurprising, or had no real alternative, skip it. Qualifies:
-architectural shape (monorepo, event sourcing); integration patterns;
-lock-in technology choices (database, message bus, auth); boundary/scope
-decisions; deliberate deviations from the obvious path; constraints not visible
-in code (compliance, latency); non-obvious rejected alternatives.
+hard-to-reverse, surprising, trade-off-bearing decision. **Whether** an ADR is
+warranted is gated by `domain-modeling` (hard-to-reverse, surprising, real
+trade-off); skip it if that gate fails. Qualifies: architectural shape
+(monorepo, event sourcing); integration patterns; lock-in technology choices
+(database, message bus, auth); boundary/scope decisions; deliberate deviations
+from the obvious path; constraints not visible in code (compliance, latency);
+non-obvious rejected alternatives.
 
 ### Steps
 
