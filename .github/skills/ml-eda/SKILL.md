@@ -26,7 +26,7 @@ the JOURNAL `## Data understanding (EDA)` entry.
   anywhere; `data/eda.py` / `data/eda.md` / `data/eda_*.html` are durable.
 - **Agent feature required to execute.** `ipython` missing → delegate to
   `python-env-manager` § Agent feature. Decline → skip path.
-- **All Python execution goes to `scratch/`** — rule and command: see `references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
+- **All Python execution goes to `scratch/`** — rule and command: see `../references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
 
 ## Pre-flight
 

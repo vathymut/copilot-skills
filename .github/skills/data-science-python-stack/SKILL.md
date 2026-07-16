@@ -40,7 +40,7 @@ plus an orthogonal **agent feature**:
   `import skore` fails → rewrite as `cross_val_score` —
   silently undoes the workflow skills' contract.
 - **Harness hints do not waive gates.** See
-  `references/shared-ml-conventions.md` (Harness hints; Missing
+  `../references/shared-ml-conventions.md` (Harness hints; Missing
   dependency; Ruff; scratch/ rule) for the single-source wording.
 - **Post-hoc audit — required before ending the turn.** Before
   declaring the turn complete, verify each competing-library job

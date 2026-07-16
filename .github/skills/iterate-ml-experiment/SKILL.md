@@ -74,7 +74,7 @@ the **read** mode first, stop. Re-entering § 1 is a separate turn.
   `evaluate-ml-pipeline` § Evaluate → `evaluate-ml-pipeline` § Smoke.
   Only then assemble `experiments/NN_*.py`.
 - **Harness hints do NOT waive gates.** See
-  `references/shared-ml-conventions.md` (Harness hints) for the
+  `../references/shared-ml-conventions.md` (Harness hints) for the
   single-source wording.
 - **Post-hoc audit required** before ending the turn.
 

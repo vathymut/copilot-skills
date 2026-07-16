@@ -23,7 +23,7 @@ Validate a declared pipeline. Three sub-tasks, in order:
 - **Missing dependency.** `import skore` raises → invoke
   `python-env-manager`. Do not drop back to `cross_val_score`,
   `cross_validate`, `classification_report`, or hand-rolled prints.
-  See `references/shared-ml-conventions.md` (Missing dependency).
+  See `../references/shared-ml-conventions.md` (Missing dependency).
 - **Symbol from memory is forbidden.** Every `skore`, `skrub`,
   `sklearn` symbol this turn comes from `python-api`.
 - **`skore.evaluate(...)` and `project.put(...)` live only in
@@ -40,7 +40,7 @@ Validate a declared pipeline. Three sub-tasks, in order:
   side history require a passing smoke test before the experiment can
   be marked `done`.
 - **Python-stack defaults apply** — all execution to `scratch/`, ruff,
-  and harness-hint handling: see `references/shared-ml-conventions.md`.
+  and harness-hint handling: see `../references/shared-ml-conventions.md`.
 - **Audit is read-only against the skore Project.** No `evaluate`,
   no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
 - **`project.get(...)` is by id, not key.** For hub, derive id from

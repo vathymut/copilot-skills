@@ -16,10 +16,9 @@ User-invoked dispatchers. Type the name to find the right leaf skill in that are
 
 | Router | Points at |
 |---|---|
-| `docs` | Document-creation skills (tutorials, how-tos, references, explanations, ADRs) |
-| `duckdb` | DuckDB-related skills (query, install, docs search, spatial) |
-| `frontend` | Frontend, web, and presentation skills |
 | `planning` | Planning and development-workflow skills (plans, wayfinder, subagents) |
+
+> The `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation — those areas are now reached by their leaf skills directly.
 
 ## Code Quality & Security
 
@@ -165,7 +164,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **48 skills** in `.github/skills/` (4 routers, 44 leaf skills)
+- **45 skills** in `.github/skills/` (1 router, 44 leaf skills — the `references/` folder holds shared ML conventions, not a skill)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

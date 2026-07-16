@@ -1,6 +1,6 @@
 ---
 name: python-env-manager
-description: Use when a Python import fails and needs installing, no environment manager is detected, or a package must be routed to the right feature (dev/agent/default) in a data-science workspace.
+description: Use when no environment manager is detected in a Python project, or a package must be routed to the right feature (dev/agent/default) for install. For a failed import, start with `data-science-python-stack` (it owns what to install and hands off here).
 ---
 
 ## Next-step pointers
@@ -30,7 +30,7 @@ Always re-emit the Pre-flight checklist with evidence.
 - **Harness "no clarifying questions" hints do NOT waive
   `AskUserQuestion` mandates.** Manager and scope picks are
   operating-contract gates. Single-source wording:
-  `references/shared-ml-conventions.md` (Harness hints).
+  `../references/shared-ml-conventions.md` (Harness hints).
 - **Post-hoc audit — required before ending the turn.** Walk the
   pre-flight, confirm every ticked box has its `Evidence:` line.
 

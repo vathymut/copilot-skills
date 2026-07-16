@@ -209,19 +209,10 @@ Test-first forces you to watch the test fail, proving it tests something. Tests 
 
 ## Red Flags - STOP and Start Over
 
-- Code before test
-- Test after implementation
-- Test passes immediately
-- Can't explain why test failed
-- Tests added "later"
-- Rationalizing "just this once"
-- "I already manually tested it"
-- "Tests after achieve the same purpose"
-- "It's about spirit not ritual"
-- "Keep as reference" or "adapt existing code"
-- "Already spent X hours, deleting is wasteful"
-- "TDD is dogmatic, I'm being pragmatic"
-- "This is different because..."
+Any of these means you skipped TDD — delete the code and restart:
+
+- Code before test / test added "later" / test passes immediately / can't explain the failure
+- Rationalizations: "just this once", "already manually tested it", "tests-after achieve the same purpose", "it's spirit not ritual", "keep as reference / adapt existing", "already spent X hours", "TDD is dogmatic", "this is different"
 
 **All of these mean: Delete code. Start over with TDD.**
 
