@@ -1,6 +1,6 @@
 ---
 name: screen-recording
-description: 'Create annotated animated GIF demos and screen recordings for pull requests and documentation. Covers frame capture, timing, imageio-based GIF creation, and per-frame annotation wo'
+description: Use when creating an animated GIF demo or screen recording for a PR, doc, or release note — with frame capture, variable timing, and per-frame annotations.
 disable-model-invocation: true
 ---
 
@@ -84,20 +84,16 @@ Uniform timing makes everything feel either too fast or too slow. Use variable d
 
 ### 4. Annotate frames
 
-Apply annotations to specific frames using the `image-annotations` skill:
+Apply annotations to specific frames using the `image-annotations` skill. For each frame that needs a callout, rectangle, arrow, or label, delegate to that skill's `annotate_image()` rather than re-implementing the drawing logic here:
 
 ```python
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
+from annotate import annotate_image  # from image-annotations/references/annotate.py
 
 def annotate_frame(frame_path, annotations, out_path):
     img = Image.open(frame_path)
-    draw = ImageDraw.Draw(img)
-
-    for ann in annotations:
-        # Apply annotation (rect, arrow, label, etc.)
-        pass
-
-    img.save(out_path)
+    annotated = annotate_image(img, annotations)  # rect / arrow / label / highlight
+    annotated.save(out_path)
 ```
 
 ### 5. Fade-in annotations

@@ -6,7 +6,7 @@ and § "Agent feature install". Read this when a per-manager install
 script fails, or before recommending a manager to a user.
 
 The bundled per-manager install scripts under
-`.agents/skills/python-env-manager/scripts/install_agent_feature_<manager>.sh`
+`.github/skills/python-env-manager/scripts/install_agent_feature_<manager>.sh`
 encode the workarounds for each of these footguns. If you find
 yourself re-typing the equivalent commands by hand, you are almost
 certainly going to hit one of these failure modes — run the script

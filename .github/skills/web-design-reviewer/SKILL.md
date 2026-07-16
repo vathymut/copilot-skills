@@ -1,11 +1,15 @@
 ---
 name: web-design-reviewer
-description: 'Inspect a running website to identify and fix design, layout, responsive, and accessibility issues at the source. Captures screenshots as part of the workflow.'
+description: Use when inspecting a running website to find and fix design, layout, responsive, or accessibility issues at the source.
 ---
 
 # Web Design Reviewer
 
 Inspect a running website, identify visual and accessibility issues, then fix them in the source code. Screenshots are part of the workflow.
+
+## Boundary
+
+**Fixes an existing running site only.** This skill diagnoses and repairs live UI in source code — it does not design new UI from a blank brief. To *build* new components/pages from scratch, use `frontend-design`. Hold the same design bar as that skill: distinctive and intentional, **no generic AI-slop** (accidental gradients, fonts, layouts). When fixing, respect the existing aesthetic direction rather than inventing a new one.
 
 ## Workflow
 

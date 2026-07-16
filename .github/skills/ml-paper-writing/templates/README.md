@@ -2,7 +2,7 @@
 
 This directory contains official LaTeX templates for major machine learning and AI conferences.
 
-**Systems conference templates** (OSDI, NSDI, ASPLOS, SOSP) have moved to the [systems-paper-writing](../../systems-paper-writing/templates/) skill.
+**Systems conference templates** (OSDI, NSDI, ASPLOS, SOSP) have moved to the venue's own authoring guidelines.
 
 ## Compiling LaTeX to PDF
 
@@ -116,7 +116,7 @@ tlmgr install <package-name>
 
 ### Systems Conferences
 
-Systems conference templates (OSDI, NSDI, ASPLOS, SOSP) are now in the [systems-paper-writing](../../systems-paper-writing/templates/) skill.
+Systems conference templates (OSDI, NSDI, ASPLOS, SOSP) are now in the venue's own authoring guidelines.
 
 ## Usage
 
@@ -214,7 +214,7 @@ Key files:
 | AAAI 2026 | 7 pages | 8 pages | +unlimited refs/appendix |
 | COLM 2025 | 9 pages | 10 pages | +unlimited refs/appendix |
 
-**Systems conferences** (OSDI, NSDI, ASPLOS, SOSP): See the [systems-paper-writing](../../systems-paper-writing/templates/) skill for page limits and templates.
+**Systems conferences** (OSDI, NSDI, ASPLOS, SOSP): See the venue's own authoring guidelines for page limits and templates.
 
 ## Common Issues
 
@@ -256,4 +256,4 @@ Templates are updated annually. Check official sources before each submission:
 - AAAI: https://aaai.org/
 - COLM: https://colmweb.org/
 
-**Systems:** See the [systems-paper-writing](../../systems-paper-writing/) skill for OSDI, NSDI, ASPLOS, SOSP template sources
+**Systems:** See the venue's own authoring guidelines for OSDI, NSDI, ASPLOS, SOSP template sources

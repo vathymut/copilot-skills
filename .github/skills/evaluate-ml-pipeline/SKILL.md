@@ -1,6 +1,6 @@
 ---
 name: evaluate-ml-pipeline
-description: "Evaluate, smoke-test, and audit an ML pipeline in one chain: CV report, predict-time structural proof, and read-only digest."
+description: Use when validating a declared ML pipeline — running cross-validation via skore, writing the predict-time smoke test, or producing a read-only audit digest.
 ---
 
 # Evaluate ML Pipeline
@@ -23,6 +23,7 @@ Validate a declared pipeline. Three sub-tasks, in order:
 - **Missing dependency.** `import skore` raises → invoke
   `python-env-manager`. Do not drop back to `cross_val_score`,
   `cross_validate`, `classification_report`, or hand-rolled prints.
+  See `references/shared-ml-conventions.md` (Missing dependency).
 - **Symbol from memory is forbidden.** Every `skore`, `skrub`,
   `sklearn` symbol this turn comes from `python-api`.
 - **`skore.evaluate(...)` and `project.put(...)` live only in
@@ -38,11 +39,8 @@ Validate a declared pipeline. Three sub-tasks, in order:
   pipelines.** Lags, rolling windows, target shifts, or joins with
   side history require a passing smoke test before the experiment can
   be marked `done`.
-- **Python-stack defaults apply:** all execution to `scratch/`, no
-  inline `python -c`, don't filter warnings. Copy `templates/ruff.toml`
-  to the project root (or a `[tool.ruff]` table in `pyproject.toml`),
-  then `ruff format .` → `ruff check --fix .` → `ruff check .`; NumPyDoc
-  docstrings are enforced via the `D` rule.
+- **Python-stack defaults apply** — all execution to `scratch/`, ruff,
+  and harness-hint handling: see `references/shared-ml-conventions.md`.
 - **Audit is read-only against the skore Project.** No `evaluate`,
   no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
 - **`project.get(...)` is by id, not key.** For hub, derive id from
@@ -207,7 +205,7 @@ Template: `templates/audit.py`.
 
 ## References
 
-- `ml-experiments` — canonical ownership map.
+- `iterate-ml-experiment` — canonical ownership map.
 - `references/cross-validation.md` — splitter reasoning and avoid list.
 - `references/reports.md` — report escalation.
 - `references/custom-splitter.md` — custom splitter contract.

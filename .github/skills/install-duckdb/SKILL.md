@@ -1,6 +1,6 @@
 ---
 name: install-duckdb
-description: "Install or update DuckDB extensions."
+description: Use when DuckDB is missing an extension, needs an extension upgraded, or the CLI itself is outdated.
 argument-hint: "[--update] [ext1 ext2@repo ext3 ...]"
 allowed-tools: Bash
 disable-model-invocation: true

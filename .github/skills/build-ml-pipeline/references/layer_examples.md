@@ -102,7 +102,7 @@ def build_learner(predict_grid_preview=None, history_source_preview=None):
     # Layer 2: align predict_grid + history into (X, y).
     # `align_xy` is a small stateful BaseEstimator:
     #   fit_transform → {X, y}; transform → {X, y=None}.
-    # See python-api/references/pre_mark_alignment.md for the full
+    # See .github/skills/python-api/references/pre_mark_alignment.md for the full
     # production-style walkthrough drawn from this workspace's
     # 01_baseline.
     aligned = skrub.as_data_op(

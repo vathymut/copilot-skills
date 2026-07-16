@@ -1,6 +1,6 @@
 ---
 name: internal-writing
-description: User-invoked skill for internal prose. Type this when the user wants meeting minutes, performance/peer/upward reviews, brag sheets, weekly updates, newsletters, team updates, FAQ answers, or other internal communications.
+description: Use when the user wants internal prose drafted — meeting minutes, performance/peer/upward reviews, brag sheets, weekly updates, newsletters, team updates, or FAQ answers.
 disable-model-invocation: true
 ---
 

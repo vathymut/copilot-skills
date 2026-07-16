@@ -1,6 +1,6 @@
 ---
 name: planning
-description: User-invoked router for planning and development-workflow skills. Type this skill name to see which planning skill to use.
+description: Use when the user wants the right planning or development-workflow skill — plans, wayfinder, subagent-driven development, or research and triage.
 disable-model-invocation: true
 ---
 
@@ -14,7 +14,9 @@ Index of planning and development-workflow skills. Invoke the right skill by nam
 | `writing-plans` | Write a multi-step implementation plan from a spec or requirements (before touching code). `brainstorming` produces that spec/PRD. |
 | `wayfinder` | Break work into tracker tickets with blocking edges (lightweight) or chart a huge multi-session map (heavyweight). |
 | `subagent-driven-development` | Execute a written plan in the current session via a fresh subagent per task + two-stage review. |
-| `prototype` | Build a throwaway prototype to answer a design question (not production code). |
+| `research` | Investigate a question against primary sources and capture findings as a repo Markdown file. |
 | `triage` | Move issues and external PRs through a state machine of triage roles and write agent-ready briefs. |
+
+For a throwaway design prototype, use `ponytail` (prototype mode).
 
 Default routing: a new feature request → `brainstorming` first, then `writing-plans`; a large/uncertain effort → `wayfinder`; a ready plan → `subagent-driven-development`.

@@ -1,6 +1,6 @@
 ---
 name: exam-ready
-description: Prepare exam-ready study material from notes and a syllabus.
+description: Use when the user has study notes and/or a syllabus and wants exam-ready material — definitions, key points, practice questions, or MCQ strategies.
 ---
 
 # exam-ready

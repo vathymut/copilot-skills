@@ -55,4 +55,4 @@ A new reference doc lands here when **all three** hold:
 When all three hold, **fire an `AskUserQuestion`** before writing.
 The user gates the new file because references are durable git
 content. The doc lives at
-`.agents/skills/python-api/references/<topic>.md`.
+`.github/skills/python-api/references/<topic>.md`.

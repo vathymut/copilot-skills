@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: 'Create distinctive, production-grade frontend interfaces. Use when the user wants to build web components, pages, applications, posters, or interactive artifacts.'
+description: Use when building new web components, pages, applications, posters, or interactive artifacts from scratch or a brief.
 license: Complete terms in LICENSE.txt
 disable-model-invocation: true
 ---
@@ -8,6 +8,10 @@ disable-model-invocation: true
 # Frontend Design
 
 Build production-grade frontend components, pages, applications, or interactive artifacts with a distinctive, intentional aesthetic.
+
+## Boundary
+
+**Greenfield creation only.** This skill builds new UI from scratch or from a brief. To *fix* an existing running site (layout, responsive, accessibility, visual-consistency issues in live code), use `web-design-reviewer` instead. Both share the same design bar: distinctive and intentional, **no generic AI-slop** (accidental gradients, fonts, layouts).
 
 ## Steps
 

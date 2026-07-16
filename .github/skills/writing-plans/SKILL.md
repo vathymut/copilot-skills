@@ -8,13 +8,13 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. TDD. Frequent commits. Scope discipline (only plan what the spec actually needs — no speculative tasks) follows the YAGNI ladder in `ponytail`.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `using-git-worktrees` skill at execution time.
+**Context:** If working in an isolated worktree, it should already exist (created at execution time).
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 - (User preferences for plan location override this default)
@@ -73,46 +73,10 @@ This structure informs the task decomposition. Each task should produce self-con
 
 ## Task Structure
 
-````markdown
-### Task N: [Component Name]
-
-**Files:**
-- Create: `exact/path/to/file.py`
-- Modify: `exact/path/to/existing.py:123-145`
-- Test: `tests/exact/path/to/test.py`
-
-- [ ] **Step 1: Write the failing test**
-
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
-```
-
-- [ ] **Step 2: Run test to verify it fails**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
-
-- [ ] **Step 3: Write minimal implementation**
-
-```python
-def function(input):
-    return expected
-```
-
-- [ ] **Step 4: Run test to verify it passes**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: PASS
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
-```
-````
+The exact markdown template — Files list, 5 checkbox steps (failing
+test → verify fail → minimal impl → verify pass → commit) with code and
+pytest run blocks — is in `references/task-structure.md`. Load it when
+you write a plan's tasks.
 
 ## No Placeholders
 
@@ -128,7 +92,7 @@ Every step must contain the actual content an engineer needs. These are **plan f
 - Exact file paths always
 - Complete code in every step — if a step changes code, show the code
 - Exact commands with expected output
-- DRY, YAGNI, TDD, frequent commits
+- DRY, TDD, frequent commits; for scope discipline defer to `ponytail`
 
 ## Self-Review
 
@@ -146,7 +110,7 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 After saving the plan, hand off to execution:
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`."**
+**"Plan complete and saved to `docs/plans/<filename>.md`."**
 
 - **REQUIRED SUB-SKILL:** Use `subagent-driven-development` to execute it.
 - It runs a fresh subagent per task with two-stage review by default, dispatches fully independent tasks in parallel, and falls back to inline execution when subagents are unavailable.

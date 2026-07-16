@@ -2,7 +2,7 @@
 
 This reference documents the mandatory checklist requirements for major ML/AI conferences. All major venues now require paper checklists—missing them results in desk rejection.
 
-**For systems conference checklists (OSDI, NSDI, ASPLOS, SOSP)**, see the [systems-paper-writing](../../systems-paper-writing/) skill.
+**For systems conference checklists (OSDI, NSDI, ASPLOS, SOSP)**, see the venue's own authoring guidelines.
 
 ## Contents
 
@@ -344,4 +344,4 @@ templates/
 └── colm2025/       # COLM 2025
 ```
 
-**Systems conference templates** (OSDI, NSDI, ASPLOS, SOSP) are in the [systems-paper-writing](../../systems-paper-writing/templates/) skill.
+**Systems conference templates** (OSDI, NSDI, ASPLOS, SOSP) are in the venue's own authoring guidelines.

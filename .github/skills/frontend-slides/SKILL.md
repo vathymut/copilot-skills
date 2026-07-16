@@ -1,6 +1,6 @@
 ---
 name: frontend-slides
-description: "Create zero-dependency, animation-rich HTML presentations from scratch, from PowerPoint, or by enhancing an existing deck. Includes built-in theme presets and custom theme support."
+description: Use when building a presentation as a single self-contained HTML file, converting PowerPoint to web, or enhancing an existing HTML deck.
 disable-model-invocation: true
 ---
 

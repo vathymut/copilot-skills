@@ -1,6 +1,6 @@
 ---
 name: pdf
-description: "Process PDF files: read, extract, merge, split, rotate, create, watermark, encrypt, or OCR."
+description: Use when the user needs to read, extract, merge, split, rotate, create, watermark, encrypt, or OCR a PDF file.
 ---
 
 Process PDFs by identifying the operation, selecting the right tool, implementing, and verifying output.

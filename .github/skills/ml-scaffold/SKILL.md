@@ -1,6 +1,6 @@
 ---
 name: ml-scaffold
-description: "Scaffold an ML experiment workspace: layout, file pairing, and the bootstrap config gates."
+description: Use when starting a new ML experiment workspace, or when src/, experiments/, and journal/ are missing and need layout, stem-pairing, and bootstrap config gates.
 ---
 
 # ML Scaffold
@@ -24,7 +24,7 @@ After this, hand off to `iterate-ml-experiment` § 0.
   `G-ENV-MGR`, `G-TABULAR`, `G-SKORE-MODE`. See `writing-great-skills:references/ml-gates.md`.
 - **No design note, no experiment code.** Create only the placeholder
   `journal/JOURNAL.md`; never write `experiments/NN_*.py` here.
-- **All Python execution goes to `scratch/`** — rule lives in `python-api`.
+- **All Python execution goes to `scratch/`** — rule and command: see `references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
 
 ## Pre-flight
 
@@ -61,7 +61,7 @@ Pre-flight (ml-scaffold):
 7. Ask about `.gitignore` for `reports/`; never ignore `data/` as a whole.
 8. Write placeholder `journal/JOURNAL.md` from
    `iterate-ml-experiment/templates/JOURNAL.md`.
-9. Write the ruff config: copy `templates/ruff.toml` to the project root as `ruff.toml` (or fold it into a `[tool.ruff]` table in `pyproject.toml`).
+9. Write the ruff config: see `references/shared-ml-conventions.md` (Ruff) for the command and `templates/ruff.toml` source.
 10. Return to `iterate-ml-experiment` § 0.
 
 ## File rules
@@ -77,7 +77,7 @@ Pre-flight (ml-scaffold):
 ## References
 
 - `writing-great-skills:references/ml-gates.md` — gate registry.
-- `ml-experiments` — ownership map.
+- `iterate-ml-experiment` — canonical ownership map for the ML-workspace family.
 - `references/scaffold_steps.md` — full step-by-step.
 - `references/g_skore_mode.md` — G-SKORE-MODE detail.
 - `references/forbidden-shortcuts.md` — common scaffold shortcuts.

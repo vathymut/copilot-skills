@@ -1,10 +1,6 @@
 ---
 name: image-annotations
-description: >-
-  Annotate screenshots, diagrams, and images with callout rectangles, arrows,
-  labels, and color-coded highlights using PIL. Use when adding visual callouts
-  to PR screenshots, before/after diffs, architecture diagrams, or animated GIF
-  demo frames.
+description: Use when adding visual callouts — rectangles, arrows, labels, or color highlights — to PR screenshots, before/after diffs, diagrams, or animated GIF demo frames.
 disable-model-invocation: true
 ---
 

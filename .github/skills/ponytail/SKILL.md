@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: "Force the laziest minimal solution for any coding task, with optional intensity levels."
+description: Use when writing or reviewing code and tempted to over-build, or when a minimal YAGNI solution is preferred.
 argument-hint: "[lite|full|ultra]"
 license: MIT
 ---
@@ -31,11 +31,7 @@ touches first, trace the real flow end to end, then climb. Two rungs work →
 take the higher one and move on. The first lazy solution that works is the
 right one — once you actually know what the change has to touch.
 
-**Bug fix = root cause, not symptom.** A report names a symptom. Before you
-edit, grep every caller of the function you're about to touch. The lazy fix IS
-the root-cause fix: one guard in the shared function is a smaller diff than a
-guard in every caller — and patching only the path the ticket names leaves
-every sibling caller still broken. Fix it once, where all callers route through.
+**Bug fix = root cause, not symptom.** A report names a symptom; before you edit, grep every caller of the function you're about to touch. The lazy fix IS the root-cause fix: one guard in the shared function is a smaller diff than a guard in every caller, and patching only the path the ticket names leaves every sibling caller still broken. Fix it once, where all callers route through.
 
 ## Rules
 
@@ -60,43 +56,29 @@ Pattern: `[code] → skipped: [X], add when [Y].`
 
 ## Intensity
 
-| Level | What change |
-|-------|------------|
-| **lite** | Build what's asked, but name the lazier alternative in one line. User picks. |
-| **full** | The ladder enforced. Stdlib and native first. Shortest diff, shortest explanation. Default. |
-| **ultra** | YAGNI extremist. Deletion before addition. Ship the one-liner and challenge the rest of the requirement in the same breath. |
+Three levels — **lite** (name the lazier alternative, user picks),
+**full** (the ladder enforced; default), **ultra** (YAGNI extremist,
+deletion before addition) — with a worked example are in
+`references/intensity.md`. Load it when choosing how lazy to be.
 
-Example: "Add a cache for these API responses."
-- lite: "Done, cache added. FYI: `functools.lru_cache` covers this in one line if you'd rather not own a cache class."
-- full: "`@lru_cache(maxsize=1000)` on the fetch function. Skipped custom cache class, add when lru_cache measurably falls short."
-- ultra: "No cache until a profiler says so. When it does: `@lru_cache`. A hand-rolled TTL cache class is a bug farm with a hit rate."
+## Prototype mode
 
-## When NOT to be lazy
+Build a throwaway prototype to answer a design question — the extreme,
+throwaway bottom rung of this ladder. NOT for production code.
 
-Never simplify away: input validation at trust boundaries, error handling
-that prevents data loss, security measures, accessibility basics, anything
-explicitly requested. User insists on the full version → build it, no
-re-arguing.
+- **Logic / state model** → `references/prototype-logic.md`
+- **UI direction** → `references/prototype-ui.md`
 
-Never lazy about understanding the problem. The ladder shortens the
-solution, never the reading. Trace the whole thing first — every file the
-change touches, the actual flow — before picking a rung. Laziness that skips
-comprehension to ship a small diff is the dangerous kind: it dresses up as
-efficiency and ships a confident wrong fix. Read fully, then be lazy.
-
-Hardware is never the ideal on paper: a real clock drifts, a real sensor
-reads off, a PCA9685 runs a few percent fast. Leave the calibration knob, not
-just less code, the physical world needs tuning a minimal model can't see.
-
-Lazy code without its check is unfinished. Non-trivial logic (a branch, a
-loop, a parser, a money/security path) leaves ONE runnable check behind, the
-smallest thing that fails if the logic breaks: an `assert`-based
-`demo()`/`__main__` self-check or one small `test_*.py`. No frameworks, no
-fixtures, no per-function suites unless asked. Trivial one-liners need no
-test, YAGNI applies to tests too.
+Rules: mark it throwaway; one command to run; no persistence, tests, or
+abstractions beyond "runnable"; skip the polish; capture the validated decision
+and archive the prototype on a throwaway branch when done.
 
 ## Boundaries
 
 Ponytail governs what you build, not how you talk. Level persists until changed or session end.
+
+## Minimalism is the point
+
+Ponytail owns the *how small is small enough* stance: whenever you're tempted to add code, structure, a plan task, or an abstraction, climb the ladder first — reuse, stdlib, native, one line — and apply it directly. Prototype mode (above) answers a design question with the throwaway minimum, the extreme bottom rung of this ladder.
 
 The shortest path to done is the right path.

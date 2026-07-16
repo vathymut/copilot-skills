@@ -81,7 +81,7 @@ This document lists all authoritative sources used to build this skill, organize
 
 ### Systems Conferences (OSDI, NSDI, ASPLOS, SOSP)
 
-Systems conference sources have moved to the [systems-paper-writing](../../systems-paper-writing/) skill. See [systems-conferences.md](../../systems-paper-writing/references/systems-conferences.md) for CFP links and templates.
+Systems conference sources have moved to the venue's own authoring guidelines. See that skill's references/systems-conferences.md for CFP links and templates.
 
 ---
 
@@ -155,7 +155,7 @@ Systems conference sources have moved to the [systems-paper-writing](../../syste
 
 ### For Conference-Specific Requirements
 → ML/AI: Start with official venue guidelines (NeurIPS, ICML, ICLR, ACL)
-→ Systems (OSDI, NSDI, ASPLOS, SOSP): See systems-paper-writing skill
+→ Systems (OSDI, NSDI, ASPLOS, SOSP): follow the venue's authoring guidelines
 
 ### For Citation Management
 → Start with: Semantic Scholar API, CrossRef, citation-workflow.md

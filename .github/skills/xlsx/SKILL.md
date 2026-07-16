@@ -1,6 +1,6 @@
 ---
 name: xlsx
-description: "Create, edit, analyze, and clean spreadsheet files when the deliverable is a spreadsheet."
+description: Use when the deliverable is a spreadsheet (.xlsx) the user wants created, edited, analyzed, or cleaned.
 license: Proprietary. LICENSE.txt has complete terms
 ---
 

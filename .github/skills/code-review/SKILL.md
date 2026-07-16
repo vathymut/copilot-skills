@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: 'Review code, review workflow, and review feedback. Use when the user wants to review a diff, PR, branch, work-in-progress changes, SQL/database code, request a reviewer subagent, or respond to code review feedback.'
+description: Use when the user wants to review a diff, PR, branch, work-in-progress changes, SQL/database code, request a reviewer subagent, or respond to code review feedback.
 ---
 
 # Code Review

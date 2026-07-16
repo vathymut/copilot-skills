@@ -133,7 +133,7 @@ with `× URL requirement must be preceded by a package name`.
 
 ```bash
 sed -e 's|<PYTHON_PATH>|.pixi/envs/lsp/bin/python|g' \
-    .agents/skills/python-env-manager/templates/pyrightconfig.json \
+    .github/skills/python-env-manager/templates/pyrightconfig.json \
     > ./pyrightconfig.json
 ```
 

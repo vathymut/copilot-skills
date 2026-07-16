@@ -1,6 +1,6 @@
 ---
 name: spatial
-description: "Answer spatial questions and analyze geographic data with DuckDB and Overture Maps."
+description: Use when the user asks about geographic or spatial data — distances, GeoJSON/Shapefile/GPKG, or Overture Maps analysis.
 argument-hint: <question or file> [additional context]
 allowed-tools: Bash
 disable-model-invocation: true

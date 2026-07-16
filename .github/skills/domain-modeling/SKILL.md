@@ -1,7 +1,7 @@
 ---
 disable-model-invocation: true
 name: domain-modeling
-description: Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.
+description: Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs the domain model maintained.
 ---
 
 # Domain Modeling
@@ -72,4 +72,4 @@ Only offer to create an ADR when all three are true:
 2. **Surprising without context** — a future reader will wonder "why did they do it this way?"
 3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
 
-If any of the three is missing, skip the ADR. When all three hold, write it with the `create-architectural-decision-record` skill — that skill owns the ADR format, numbering, and template.
+If any of the three is missing, skip the ADR. When all three hold, write it as an ADR (Architectural Decision Record): a short doc with title, status, context, decision, and consequences, numbered sequentially (e.g. `ADR-0007`).

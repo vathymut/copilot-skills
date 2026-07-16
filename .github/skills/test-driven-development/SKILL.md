@@ -205,23 +205,7 @@ Next failing test for next feature.
 
 ## Why Order Matters
 
-Test-first forces you to watch the test fail, proving it tests something. Tests written after pass immediately — and passing immediately proves nothing: they may test the wrong thing, test implementation instead of behavior, or miss the edge cases you forgot. Tests-after answer "what does this do?"; tests-first answer "what *should* this do?" See the rationalizations below for the specific excuses and why each fails.
-
-## Common Rationalizations
-
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
-| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
-| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
-| "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
-| "Existing code has no tests" | You're improving it. Add tests for existing code. |
+Test-first forces you to watch the test fail, proving it tests something. Tests written after pass immediately — and passing immediately proves nothing: they may test the wrong thing, test implementation instead of behavior, or miss the edge cases you forgot. Tests-after answer "what does this do?"; tests-first answer "what *should* this do?"
 
 ## Red Flags - STOP and Start Over
 
@@ -317,7 +301,7 @@ Never fix bugs without a test.
 
 ## Testing Anti-Patterns
 
-When adding mocks or test utilities, read @testing-anti-patterns.md to avoid common pitfalls:
+When adding mocks or test utilities, read `testing-anti-patterns.md` to avoid common pitfalls:
 - Testing mock behavior instead of real behavior
 - Adding test-only methods to production classes
 - Mocking without understanding dependencies

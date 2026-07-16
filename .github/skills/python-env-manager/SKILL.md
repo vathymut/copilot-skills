@@ -1,6 +1,6 @@
 ---
 name: python-env-manager
-description: "Detect the project's Python environment manager and install packages with the right command."
+description: Use when a Python import fails and needs installing, no environment manager is detected, or a package must be routed to the right feature (dev/agent/default) in a data-science workspace.
 ---
 
 ## Next-step pointers
@@ -29,7 +29,8 @@ Always re-emit the Pre-flight checklist with evidence.
   install command and let the user run it.
 - **Harness "no clarifying questions" hints do NOT waive
   `AskUserQuestion` mandates.** Manager and scope picks are
-  operating-contract gates.
+  operating-contract gates. Single-source wording:
+  `references/shared-ml-conventions.md` (Harness hints).
 - **Post-hoc audit — required before ending the turn.** Walk the
   pre-flight, confirm every ticked box has its `Evidence:` line.
 
@@ -50,7 +51,7 @@ Evidence format: see `writing-great-skills:references/shared-preflight-evidence.
 ```
 Pre-flight (python-env-manager):
 - [ ] Sibling SKILL.md files opened this turn
-      Evidence: Read .agents/skills/<each>/SKILL.md (this turn)
+      Evidence: Read .github/skills/<each>/SKILL.md (this turn)
 - [ ] `journal/JOURNAL.md` Status `Workspace decisions` read for
       `env manager:` and `agent feature:` rows
       Evidence: each row's value or "not recorded yet" / "n/a"
@@ -94,110 +95,19 @@ surface the ambiguity before picking. Ambient-manager edge cases:
 
 ## Gates this skill owns
 
-### `G-ENV-MGR` — which manager
-
-**Fires when**: detection returned `(nothing detected)` AND project is
-fresh; OR detection returned a single manager but no
-`Workspace decisions` row for `env manager` exists yet.
-
-**AskUserQuestion**: single pick from the detection table. Default
-*recommendation* on nothing-detected: `pixi`. Free-text resolves
-only when it names a listed manager.
-
-**Persists**: `env manager: <pick> — recorded: <date>` in
-`journal/JOURNAL.md` Status `Workspace decisions`.
-
-### `G-ENV-SCOPE` — only for ambiguous extras
-
-**Fires when**: a requested dep doesn't match the § "Auto-routing
-table" below (e.g. `optuna`, `xgboost`, `mlflow`).
-
-**AskUserQuestion (binary)**:
-1. **`default`** — fold into runtime deps. One step: `pixi add <pkg>`.
-2. **New named feature `<X>`** — propose a name from the user's
-   wording (`tracing` for `mlflow`, `tuning` for `optuna`, `dl` for
-   `torch`).
-
-Free-text resolution: explicit `default` or a feature name resolves;
-"you pick" / "doesn't matter" does NOT.
-
-#### When a new named feature `<X>` is picked — 6 steps, all required
-
-**This is the load-bearing procedure smaller models forget.** Step
-3 specifically is the one that silently breaks LSP integration.
-
-1. **Install into the new feature**: `pixi add --feature <X> <pkg>`
-   (manager-equivalents: `uv add --group <X> <pkg>`,
-   `poetry add --group <X> <pkg>`).
-2. **Confirm the feature block exists** in the manifest.
-3. **APPEND `<X>` to the `lsp` env's features list** — pixi: edit
-   `[environments]` → `lsp = { features = [..., "<X>"], ... }`;
-   uv/poetry: covered by `--all-groups`/`--with`;
-   hatch/conda/pip+venv: re-author the lsp env's dep list.
-4. **Re-sync the lsp env**: pixi → `pixi install -e lsp`; uv →
-   `uv sync --all-groups`; poetry → `poetry install --with <X>`;
-   others → re-create.
-5. **Update `JOURNAL.md`**: append `<X>` to `optional features:`.
-6. **Verify**: `bash .agents/skills/python-env-manager/scripts/verify_layout.sh`.
-
-Skipping step 3 or 4 → pyright doesn't index `<X>` because `lsp`
-doesn't compose it. User sees "unresolved import" on valid code.
-
-### `G-AGENT-FEATURE` — install ipython + pyright
-
-**Fires when**: an agent-only consumer (`evaluate-ml-pipeline § Audit` for audit
-files, or `ml-eda` for `data/eda.py`) needs `ipython` /
-`pyright` and the manifest doesn't expose them. Can fire as early as
-**bootstrap** (the G-EDA run path).
-
-**AskUserQuestion (binary)**: `install` | `skip`.
-- `install` → run the bundled per-manager script (see § "Agent
-  feature install").
-- `skip` → block the calling skill; no silent degradation.
-
-**Persists**: `agent feature: <installed | skipped> — recorded: <date>`.
-
-No kernel registration — the audit runner is in-process.
-→ next: § "Agent feature install" if `install`.
-
-### Persistence lookup — read JOURNAL.md before any gate fires
-
-Read `Workspace decisions` first:
-
-- `env manager: <pixi | uv | poetry | hatch | conda | pip+venv> — recorded: <date>`
-- `agent feature: <installed | skipped> — recorded: <date>`
-- `optional features: <name1, name2, ... | none> — recorded: <date>`
-
-If a row is recorded, **do not re-ask** — cite
-`JOURNAL.md Status (Workspace decisions, recorded YYYY-MM-DD)` as
-evidence. If `journal/JOURNAL.md` doesn't exist yet, gates fire
-fresh and answers land in `Workspace decisions` once
-`iterate-ml-experiment` writes the JOURNAL.
+`G-ENV-MGR` (which manager), `G-ENV-SCOPE` (ambiguous extras → named
+feature), `G-AGENT-FEATURE` (ipython + pyright), and the persistence
+lookup that reads `Workspace decisions` before firing — full fire
+conditions, `AskUserQuestion` shapes, and the 6-step named-feature
+procedure (step 3 is the one that silently breaks LSP) are in
+`references/gates.md`. Load it when a gate is about to fire.
 
 ## Where does the package belong? — 3-feature layout
 
-### The fixed buckets
-
-| Bucket | Contents | Composes with | Purpose |
-|---|---|---|---|
-| `default` | `scikit-learn`, `skrub`, `skore`, tabular lib, editable `<pkg>` | (itself) | runtime |
-| `dev` | `ruff`, `pytest`, `jupyterlab`, `ipykernel` | `default + dev` | lint / test / interactive notebooks |
-| `agent` | `ipython`, `pyright` | `default + agent` | audit runner + pyright CLI |
-| `lsp` | (no own deps) | `default + dev + agent + <all optional>` | LSP integration |
-
-Pixi composed-envs declaration in `references/composition_model.md`.
-
-### Auto-routing table — no ask
-
-| Package | Routes to |
-|---|---|
-| `scikit-learn`, `skrub`, `skore` (or `skore[hub]`) | `default` |
-| `pandas` + `pyarrow` OR `polars` | `default` |
-| `ruff`, `pytest`, `jupyterlab`, `ipykernel` | `dev` |
-| `ipython`, `pyright` | `agent` |
-| The editable workspace package (`<pkg> @ .`) | `default` |
-
-Ambiguous → `G-ENV-SCOPE` fires.
+The fixed `default` / `dev` / `agent` / `lsp` buckets and the
+no-ask auto-routing table are in `references/placement.md`; the
+*why* behind the four composed envs is in `references/composition_model.md`.
+Load when routing a dependency.
 
 ## Install commands — by manager
 
@@ -209,7 +119,7 @@ manager: → `references/install-commands.md`.
 The agent feature = project-scoped install of `ipython` + `pyright`
 + `pyrightconfig.json`. **Run the bundled script for the detected
 manager — don't retype.** Paths:
-`.agents/skills/python-env-manager/scripts/install_agent_feature_{pixi,uv,poetry,hatch,conda,pip_venv}.sh`.
+`.github/skills/python-env-manager/scripts/install_agent_feature_{pixi,uv,poetry,hatch,conda,pip_venv}.sh`.
 → `references/agent_feature_anatomy.md` (anatomy),
 `references/per_manager_footguns.md` (footguns).
 

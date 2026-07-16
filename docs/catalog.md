@@ -1,36 +1,142 @@
 # Catalog reference
 
-This document lists the skills and agents in this repository. It is a reference: use it to find a specific skill or agent by name or domain.
+This is the reference list of every skill and agent in this repository. Use it to find a skill by domain or name, and to see at a glance what each one does.
 
-The catalog is intentionally compact. Skills and agents are sourced from upstream repositories and then edited, consolidated, or rewritten to match my own workflows and preferences. See [Upstream sources](#upstream-sources) for the main origins.
+Skills and agents are sourced from upstream repositories and then edited, consolidated, or rewritten to match my own workflows. See [Upstream sources](#upstream-sources) for the main origins.
 
-## Skills
+## How to read this catalog
 
-| Domain | Skills |
+- **Routers** are user-invoked dispatchers. Type the router name to be pointed at the right leaf skill — use them when you know the area but not the exact skill.
+- **Leaf skills** do the actual work. Many are also triggered automatically by OpenCode or Copilot based on your request.
+- **Agents** are autonomous Copilot Chat personas given a goal, not a single task.
+
+## Routers
+
+User-invoked dispatchers. Type the name to find the right leaf skill in that area.
+
+| Router | Points at |
 |---|---|
-| **Code Quality & Security** | `ponytail`, `refactor` |
-| **Documentation & Specs** | `create-architectural-decision-record`, `documentation-writer`, `prd` |
-| **Research & Academic** | `brainstorming`, `exam-ready`, `ml-paper-writing`, `research` |
-| **ML Experimentation** | `build-ml-pipeline`, `data-science-python-stack`, `evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`, `ml-scaffold`, `python-api`, `python-env-manager` |
-| **Development Workflow** | `fix-merge-conflicts`, `finishing-a-development-branch`, `git-commit`, `github-copilot-starter`, `graphify`, `remember`, `using-git-worktrees`, `web-design-reviewer`, `writing-great-skills` |
-| **Engineering Discipline** | `code-review`, `codebase-design`, `domain-modeling`, `prototype`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `to-tickets`, `triage`, `verification-before-completion`, `wayfinder`, `writing-plans` |
-| **Data Engineering & Packaging** | `python-pypi-package-builder`, `xlsx` |
-| **DuckDB & Data Files** | `data-access`, `duckdb-docs`, `duckdb`, `install-duckdb`, `query`, `read-memories`, `spatial` |
-| **Frontend & Creative** | `frontend-design`, `frontend-slides`, `image-annotations`, `mermaid-diagram-specialist`, `screen-recording`, `tufte-data-viz` |
-| **Visualization** | `visualization` |
-| **Communication** | `internal-writing` |
-| **Routers & Media** | `code-quality`, `docs`, `duckdb`, `frontend`, `git-workflow`, `media`, `memory`, `ml-experiments`, `planning` |
-| **Documents & Files** | `pdf` |
-| **Skills Meta** | `using-superpowers` |
+| `docs` | Document-creation skills (tutorials, how-tos, references, explanations, ADRs) |
+| `duckdb` | DuckDB-related skills (query, install, docs search, spatial) |
+| `frontend` | Frontend, web, and presentation skills |
+| `planning` | Planning and development-workflow skills (plans, wayfinder, subagents) |
+
+## Code Quality & Security
+
+| Skill | What it does |
+|---|---|
+| `ponytail` | Forces the laziest minimal solution for any coding task, with optional intensity levels and a throwaway prototype mode |
+| `refactor` | Improves code structure without changing behavior — cleans up, breaks down large functions, removes code smells |
+| `web-design-reviewer` | Inspects a running site to fix design, layout, responsive, and accessibility issues |
+
+## Development Workflow & Git
+
+| Skill | What it does |
+|---|---|
+| `git-workflow` | Git workflow in one skill: commit (Conventional Commits), resolve merge/rebase conflicts, set up worktrees, and finish a development branch |
+| `github-copilot-starter` | Sets up Copilot configuration (instructions, agents, skills, workflows) for a new project |
+| `graphify` | Maps, documents, and answers questions about a codebase and its architecture as a knowledge graph |
+| `writing-great-skills` | Guidance for writing, editing, reviewing, or consolidating a skill |
+
+## Engineering Discipline
+
+| Skill | What it does |
+|---|---|
+| `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
+| `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions |
+| `subagent-driven-development` | Runs a written plan with a fresh subagent per task plus two-stage review |
+| `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
+| `test-driven-development` | Drives implementation via tests, before writing implementation code |
+| `triage` | Moves issues and PRs through triage roles and writes agent-ready briefs |
+| `wayfinder` | Plans a large body of work as a shared map of investigation tickets |
+| `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
+
+## Memory & Knowledge
+
+| Skill | What it does |
+|---|---|
+| `memory` | Persists and recalls cross-session memory: write lessons as domain instructions, recall prior decisions and context |
+
+## Documentation & Specs
+
+| Skill | What it does |
+|---|---|
+| `documentation-writer` | Writes software docs using the Diátaxis framework (tutorial, how-to, reference, explanation) and architectural decision records (ADRs) |
+
+## Research & Academic
+
+| Skill | What it does |
+|---|---|
+| `brainstorming` | Explores intent and design before creative work; also structured research-ideation |
+| `exam-ready` | Prepares exam-ready study material from notes and a syllabus |
+| `ml-paper-writing` | Writes publication-ready ML/AI papers for top venues |
+| `research` | Investigates a question against high-trust primary sources and captures findings as Markdown |
+
+## ML Experimentation
+
+| Skill | What it does |
+|---|---|
+| `build-ml-pipeline` | Declares ML pipelines as skrub DataOps graphs, stopping at the predictor |
+| `data-science-python-stack` | Opinionated Python library stack and usage rules for data-science / ML work |
+| `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
+| `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments |
+| `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
+| `ml-scaffold` | Scaffolds an ML experiment workspace: layout, file pairing, config gates |
+| `python-api` | Looks up and caches installed Python package APIs against the installed version |
+| `python-env-manager` | Detects the project's Python environment manager and installs packages |
+
+## Data Engineering & Packaging
+
+| Skill | What it does |
+|---|---|
+| `python-pypi-package-builder` | Builds, tests, lints, versions, and publishes a Python library to PyPI |
+| `xlsx` | Creates, edits, analyzes, and cleans spreadsheet files |
+
+## DuckDB & Data Files
+
+| Skill | What it does |
+|---|---|
+| `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB |
+| `duckdb-docs` | Searches DuckDB and DuckLake docs via a locally cached full-text index |
+| `install-duckdb` | Installs or updates DuckDB extensions |
+| `spatial` | Answers spatial questions and analyzes geographic data with DuckDB and Overture Maps |
+
+## Frontend & Creative
+
+| Skill | What it does |
+|---|---|
+| `frontend-design` | Creates distinctive, production-grade frontend interfaces and artifacts |
+| `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
+| `image-annotations` | Annotates screenshots and diagrams with callouts, arrows, and highlights using PIL |
+| `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
+| `screen-recording` | Creates annotated GIF demos and screen recordings for PRs and docs |
+| `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
+| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops) |
+
+## Communication
+
+| Skill | What it does |
+|---|---|
+| `internal-writing` | Writes internal prose: minutes, reviews, brag sheets, updates, FAQs |
+
+## Documents & Files
+
+| Skill | What it does |
+|---|---|
+| `pdf` | Reads, merges, splits, rotates, creates, watermarks, encrypts, or OCRs PDFs |
+
+---
 
 To read a skill's full instructions, open the matching file under [`.github/skills/<skill-name>/SKILL.md`](../.github/skills/).
 
 ## Agents
 
+Autonomous Copilot Chat personas. Invoked with `@<agent-name>` and given a goal.
+
 | Agent | Purpose |
 |---|---|
-| `debug` | Find and fix bugs in your application |
-| `janitor` | Cleanup, simplification, and tech debt remediation |
+| `debug` | Finds and fixes bugs in your application |
+| `janitor` | Cleanup, simplification, and tech-debt remediation |
 | `swe-subagent` | Senior engineer subagent for implementation tasks |
 
 Agent definitions live under [`.github/agents/`](../.github/agents/).
@@ -59,7 +165,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **65 skills** in `.github/skills/`
+- **48 skills** in `.github/skills/` (4 routers, 44 leaf skills)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

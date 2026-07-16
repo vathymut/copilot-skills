@@ -1,6 +1,6 @@
 ---
 name: refactor
-description: 'Improve code structure without changing behavior. Use when the user asks to clean up, refactor, break down large functions, or eliminate code smells.'
+description: Use when the user asks to clean up code, refactor, break down large functions, or eliminate code smells.
 license: MIT
 ---
 
@@ -11,7 +11,9 @@ default path: change structure in small steps, always with tests.
 
 **Not for:** rewrites from scratch, or code without tests. For architectural
 deepening (module interfaces, seams, testability), fold that work into the
-restructure itself rather than handing off to a separate skill.
+restructure itself rather than handing off to a separate skill. Scope
+discipline (how small is small enough) is a separate concern — this skill
+reshapes *structure*, it does not shrink *scope*.
 
 ## When to use
 

@@ -147,7 +147,7 @@ Mark X and y inside the graph at the split point in either case.
 
 ## Companion references
 
-- `python-api/references/pre_mark_alignment.md` — the full 3-layer
+- `.github/skills/python-api/references/pre_mark_alignment.md` — the full 3-layer
   walkthrough showing how source-bound vars at Layer 1 feed the
   pre-mark alignment at Layer 2 and the history-dependent features
   at Layer 3.

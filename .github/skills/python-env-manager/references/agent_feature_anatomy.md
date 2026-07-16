@@ -90,32 +90,32 @@ examples below show an audit file; for EDA pass `data/eda.py`.
 ```bash
 # pixi
 pixi run -e agent python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # uv
 uv run --group agent python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # poetry
 poetry run python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # hatch
 hatch run agent:python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # conda
 conda run -n <project>-agent python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 
 # pip + venv
 .venv-agent/bin/python \
-  .agents/skills/ml-eda/scripts/run_cells.py \
+  .github/skills/ml-eda/scripts/run_cells.py \
   audit/<stem>.py
 ```
 
@@ -125,7 +125,7 @@ second arg `<dst.md>` to also write to a file.
 ## `pyrightconfig.json` — bundled template
 
 Lives at
-`.agents/skills/python-env-manager/templates/pyrightconfig.json`.
+`.github/skills/python-env-manager/templates/pyrightconfig.json`.
 One placeholder the install step substitutes:
 
 - `<PYTHON_PATH>` — interpreter of the lsp env (manager-specific).

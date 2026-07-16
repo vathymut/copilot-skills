@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when executing a written implementation plan in the current session with a fresh subagent per task plus two-stage review. Covers sequential per-task execution, parallel dispatch for fully independent tasks, and an inline fallback when subagents are unavailable. Use implement for a single spec or ticket set without a formal plan.
+description: Use when executing a written implementation plan in the current session with a fresh subagent per task plus two-stage review. Covers sequential per-task execution, parallel dispatch for fully independent tasks, and an inline fallback when subagents are unavailable. For a single spec without a formal plan, draft one with writing-plans first.
 ---
 
 # Subagent-Driven Development
@@ -62,7 +62,7 @@ digraph process {
     "Read plan, extract all tasks with full text, note context, create TodoWrite" [shape=box];
     "More tasks remain?" [shape=diamond];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
-    "Use finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
+    "Finish the development branch" [shape=box style=filled fillcolor=lightgreen];
 
     "Read plan, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
     "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
@@ -81,7 +81,7 @@ digraph process {
     "Mark task complete in TodoWrite" -> "More tasks remain?";
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Use finishing-a-development-branch";
+    "Dispatch final code reviewer subagent for entire implementation" -> "Finish the development branch";
 }
 ```
 
@@ -126,79 +126,9 @@ Implementer subagents report one of four statuses. Handle each appropriately:
 
 ## Example Workflow
 
-```
-You: I'm using Subagent-Driven Development to execute this plan.
-
-[Read plan file once: docs/plans/feature-plan.md]
-[Extract all 5 tasks with full text and context]
-[Create TodoWrite with all tasks]
-
-Task 1: Hook installation script
-
-[Get Task 1 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
-
-Implementer: "Before I begin - should the hook be installed at user or system level?"
-
-You: "User level (~/.config/superpowers/hooks/)"
-
-Implementer: "Got it. Implementing now..."
-[Later] Implementer:
-  - Implemented install-hook command
-  - Added tests, 5/5 passing
-  - Self-review: Found I missed --force flag, added it
-  - Committed
-
-[Dispatch spec compliance reviewer]
-Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
-
-[Get git SHAs, dispatch code quality reviewer]
-Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
-
-[Mark Task 1 complete]
-
-Task 2: Recovery modes
-
-[Get Task 2 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
-
-Implementer: [No questions, proceeds]
-Implementer:
-  - Added verify/repair modes
-  - 8/8 tests passing
-  - Self-review: All good
-  - Committed
-
-[Dispatch spec compliance reviewer]
-Spec reviewer: ❌ Issues:
-  - Missing: Progress reporting (spec says "report every 100 items")
-  - Extra: Added --json flag (not requested)
-
-[Implementer fixes issues]
-Implementer: Removed --json flag, added progress reporting
-
-[Spec reviewer reviews again]
-Spec reviewer: ✅ Spec compliant now
-
-[Dispatch code quality reviewer]
-Code reviewer: Strengths: Solid. Issues (Important): Magic number (100)
-
-[Implementer fixes]
-Implementer: Extracted PROGRESS_INTERVAL constant
-
-[Code reviewer reviews again]
-Code reviewer: ✅ Approved
-
-[Mark Task 2 complete]
-
-...
-
-[After all tasks]
-[Dispatch final code-reviewer]
-Final reviewer: All requirements met, ready to merge
-
-Done!
-```
+A full end-to-end trace (you → implementer → spec reviewer → code
+reviewer, two tasks) is in `references/example-workflow.md` — read it for
+a concrete walkthrough.
 
 ## Advantages
 
@@ -287,17 +217,17 @@ If the platform has no subagents, execute the plan yourself in-session:
 1. **Load and review the plan critically.** Identify gaps or concerns; raise them with your human partner before starting. If clean, create a TodoWrite and proceed.
 2. **Execute each task** in order: mark in-progress, follow the plan's bite-sized steps exactly, run the verifications it specifies, mark complete.
 3. **Stop and ask — don't guess —** on any blocker: missing dependency, failing test, unclear instruction, or repeated verification failure.
-4. **Finish** via `finishing-a-development-branch`.
+4. **Finish** the development branch — verify tests, then offer merge / PR / keep / discard.
 
 Never start implementation on main/master without explicit user consent.
 
 ## Integration
 
-**Required workflow skills:**
-- **using-git-worktrees** - Ensures isolated workspace (creates one or verifies existing)
-- **writing-plans** - Creates the plan this skill executes
-- **code-review** § Branch B — Request review (subagent reviewer)
-- **finishing-a-development-branch** - Complete development after all tasks
+**Required workflow steps:**
+- Use an isolated worktree (create one or verify an existing one).
+- A plan this skill executes (created up front by whoever is driving the work).
+- Code review — request a review of the completed work.
+- Finish the development branch (verify tests, then offer merge / PR / keep / discard).
 
 **Subagents should use:**
 - **test-driven-development** - Subagents follow TDD for each task

@@ -1,6 +1,6 @@
 ---
 name: build-ml-pipeline
-description: "Declare ML pipelines as skrub DataOps graphs, stopping at the predictor object."
+description: Use when declaring an ML pipeline with skrub and you need the source to X-marker to estimator shape, or when an import, dependency, or symbol is uncertain.
 ---
 
 # Build ML Pipeline (Declaration)
@@ -54,11 +54,12 @@ For loader-baked-shift counter-example (what NOT to do):
 
 - **Missing dependency.** `import skrub` raising → `python-env-manager`.
   Do not substitute `sklearn.Pipeline` / `make_pipeline` /
-  `FunctionTransformer`.
+  `FunctionTransformer`. See `references/shared-ml-conventions.md`
+  (Missing dependency) for the no-substitute rule.
 - **Symbol from memory is forbidden.** Use `python-api` this turn.
 - **Splitter imports are out of scope.** Only `split_kwargs` at the
   X marker.
-- **Python-stack defaults apply.** Copy `templates/ruff.toml` to the project root (or a `[tool.ruff]` table in `pyproject.toml`); run `ruff format .` → `ruff check --fix .` → `ruff check .`. NumPyDoc docstrings are enforced via the `D` rule.
+- **Python-stack defaults apply** — ruff, the `scratch/` execution rule, and harness-hint handling: see `references/shared-ml-conventions.md`.
 
 ## Core rules
 
@@ -96,7 +97,7 @@ being processed?*
 
 Worked examples (IID, history-dependent, counter-example):
 `references/layer_examples.md`. Production-style alignment walkthrough:
-`python-api/references/pre_mark_alignment.md`.
+`.github/skills/python-api/references/pre_mark_alignment.md`.
 
 A **cold-start row** has no in-slice history available. A late marker
 silently drops them at predict time. The smoke test in
@@ -154,7 +155,7 @@ Pre-flight (build-ml-pipeline):
 
 ## References
 
-- `ml-experiments` — ownership map.
+- `iterate-ml-experiment` — ownership map.
 - `writing-great-skills:references/ml-gates.md` — gate registry.
 - `references/source-binding.md` — root-binding patterns.
 - `references/layer_examples.md` — IID, history-dependent, counter-example.

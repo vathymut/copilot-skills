@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. Also handles structured research-ideation when the user needs high-impact research directions."
+description: Use when the user wants to explore intent and design before building (features, components, behaviour changes), write a PRD or spec, or generate high-impact research directions.
 ---
 
 # Brainstorming Ideas Into Designs

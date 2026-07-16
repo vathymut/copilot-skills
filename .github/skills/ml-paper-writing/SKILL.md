@@ -1,12 +1,12 @@
 ---
 disable-model-invocation: true
 name: ml-paper-writing
-description: Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Use when drafting papers from research repos, structuring arguments, verifying citations, or preparing camera-ready submissions. For systems venues (OSDI, NSDI, ASPLOS, SOSP), use systems-paper-writing instead.
+description: Use when drafting an ML/AI paper from a research repo, structuring arguments, verifying citations, or preparing a camera-ready submission for NeurIPS/ICML/ICLR/ACL/AAAI/COLM.
 ---
 
 # ML Paper Writing
 
-Expert guidance for **NeurIPS, ICML, ICLR, ACL, AAAI, COLM**. For systems venues (OSDI, NSDI, ASPLOS, SOSP), use [systems-paper-writing](../systems-paper-writing/) instead.
+Expert guidance for **NeurIPS, ICML, ICLR, ACL, AAAI, COLM**. For systems venues (OSDI, NSDI, ASPLOS, SOSP), use the venue's own authoring guidelines instead.
 
 ## ⚠️ CRITICAL: Never Hallucinate Citations
 

@@ -1,6 +1,6 @@
 ---
 name: github-copilot-starter
-description: 'Set up GitHub Copilot configuration (instructions, agents, skills, workflows) for a new project. Use when the user says "set up Copilot", "configure Copilot", or "create copilot config".'
+description: Use when the user says 'set up Copilot', 'configure Copilot', or 'create copilot config' for a new project.
 ---
 
 # GitHub Copilot Starter
