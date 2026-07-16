@@ -1,8 +1,8 @@
 ---
 name: data-access
-description: Use when the user wants to read, profile, convert, SQL-query, or attach a local or remote data file with DuckDB for analysis.
+description: Use when the user wants to read, profile, convert, SQL-query, or attach a local or remote data file with DuckDB for analysis — including geographic/spatial data (GeoJSON, Shapefile, GPKG, Overture Maps).
 disable-model-invocation: true
-argument-hint: "<command> <args> — commands: read, convert, s3, sql"
+argument-hint: "<command> <args> — commands: read, convert, s3, sql, spatial"
 allowed-tools: Bash
 ---
 
@@ -20,6 +20,7 @@ This skill replaces the former `read-file`, `convert-file`, `s3-explore`, and `q
 | `convert` | Convert a data file from one format to another. |
 | `s3` | List, preview, or query data on S3/R2/GCS/MinIO without downloading it. |
 | `sql` | Run raw SQL ad-hoc against a file, or against a session database registered with `--attach`. |
+| `spatial` | Answer geographic/spatial questions — distances, GeoJSON/Shapefile/GPKG, or Overture Maps analysis. |
 
 ---
 
@@ -157,7 +158,74 @@ Before executing, bound huge outputs. **Session:** check `estimated_size` from `
 
 Show the output. If >100 rows, note truncation and suggest `LIMIT`. For natural-language questions, add a one-line interpretation.
 
+---
+
+## Command: `spatial` <question or file> [context]
+
+Answer spatial questions using DuckDB's `spatial` extension and, when needed, Overture Maps as a free global data source. (Absorbed from the former `spatial` skill.)
+
+### Step 1 — Classify the question
+
+| Pattern | Data source | Key functions |
+|---------|-------------|---------------|
+| "Find X near Y" (no user file) | Overture Maps on S3 | `ST_Distance_Spheroid`, bbox filtering |
+| "How far between A and B" | Geocode or user data | `ST_Distance_Spheroid` |
+| "Which points fall inside polygons" | User files | `ST_Contains` |
+| "Analyze this GeoJSON/Shapefile/GPX" | User file | `ST_Read`, measurement functions |
+| "Show density/hotspots" | User or Overture data | H3 hex binning |
+| "Convert to GeoJSON/GeoPackage" | User file | `COPY TO (FORMAT GDAL)` |
+| "Count buildings/roads in area" | Overture Maps | bbox filtering + aggregation |
+
+If the question involves real-world places, POIs, buildings, roads, or boundaries and the user hasn't provided a file, use **Overture Maps** — read `references/overture.md` for S3 paths and schema. For spatial function syntax, read `references/functions.md`.
+
+### Step 2 — Write and run the query
+
+Always start with:
+
+```sql
+LOAD spatial;
+SET geometry_always_xy = true;
+```
+
+Add extensions as needed:
+
+- Overture/remote data: `LOAD httpfs; CREATE SECRET (TYPE S3, PROVIDER config, REGION 'us-west-2');`
+- H3 hex binning: `INSTALL h3 FROM community; LOAD h3;`
+
+**Key principles:**
+
+- **bbox filtering first** — filter on `bbox.xmin/xmax/ymin/ymax` before any spatial function; uses Parquet predicate pushdown.
+- **Always set `geometry_always_xy = true`** — interprets coordinates as longitude, latitude (standard for Overture, GeoJSON). Without it, spheroid functions assume latitude first and return wrong results.
+- **Use spheroid functions for real-world distances** — `ST_Distance_Spheroid` returns meters on WGS84. Plain `ST_Distance` uses planar coords and is meaningless for lat/lng. Spheroid functions require `POINT_2D` inputs; extract first: `ST_Point(ST_X(geometry), ST_Y(geometry))::POINT_2D`.
+- **CSV with lat/lng** → `ST_Point(longitude, latitude)` (longitude first).
+
+Run the query in a single bash call:
+
+```bash
+duckdb -c "
+LOAD spatial;
+<ADDITIONAL_SETUP>
+<YOUR_QUERY>
+"
+```
+
+### Step 3 — Present results
+
+- Tabular: show the data directly.
+- Spatial: consider exporting to GeoJSON for visualization (`COPY TO 'result.geojson' WITH (FORMAT GDAL, DRIVER 'GeoJSON')`).
+- Distance/area: human-readable units (km large, m small).
+- Density/hotspot: describe the pattern, offer to export.
+
+If the query fails:
+
+- `duckdb: command not found` → delegate to `install-duckdb`.
+- Missing extension → `INSTALL spatial; LOAD spatial;` or `INSTALL h3 FROM community; LOAD h3;`.
+- S3 access denied → check AWS credentials.
+- No results with Overture → widen the bbox, check category spelling, or broaden the search.
+
 ## References
 
 - `references/sql-macros.md` — `read_any` macro and remote protocol prefixes.
 - `references/friendly-sql.md` — idiomatic DuckDB SQL constructs for NL→SQL generation.
+- `references/functions.md` — spatial function syntax and examples.
+- `references/overture.md` — Overture Maps S3 paths and schema.

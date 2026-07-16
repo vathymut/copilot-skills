@@ -1,11 +1,11 @@
 ---
 name: ui-screenshots
-description: Use when you need to capture screenshots of a running web app, Electron app, or desktop window during development — full-page, interactive states, before/after pairs, or section crops — without slow re-captures.
+description: Use when capturing screenshots of a running web app, Electron app, or desktop window during development — full-page, interactive states, before/after pairs, section crops — or assembling them into an annotated animated GIF/video demo.
 ---
 
 # UI Screenshots
 
-Capture screenshots of web apps and graphical UIs during development to document visual changes.
+Capture screenshots of web apps and graphical UIs during development to document visual changes. Also assembles captured frames into annotated animated GIF demos (formerly the `screen-recording` skill).
 
 ## When to Use This Skill
 
@@ -14,6 +14,7 @@ Use this skill when you need to:
 - Document a UI before and after a code change
 - Screenshot interactive states (tooltips, hovers, selected elements)
 - Capture specific sections of a page without re-screenshotting
+- Build an animated GIF demo from stepped frames (PRs, docs, release notes)
 
 ## Prerequisites
 
@@ -199,3 +200,115 @@ await app.close();
 - Desktop capture (mss) requires the window to be visible and unobstructed
 - Electron capture requires Node.js Playwright (not Python)
 - Some SPAs with heavy client-side rendering may need custom wait logic beyond networkidle
+
+## Animated GIF demos (from captured frames)
+
+Create animated GIFs that show a feature or workflow in action — with annotations, variable timing, and proper pacing. Useful for PR descriptions, documentation, and release notes.
+
+**Prerequisites:**
+
+```bash
+pip install playwright Pillow imageio numpy scipy mss -q
+playwright install chromium
+```
+
+### 1. Capture frames
+
+Step through the interaction with Playwright and screenshot each step (reuse the capture workflow above):
+
+```python
+from playwright.async_api import async_playwright
+
+async def record_frames(url, steps, width=1400, height=900):
+    """
+    steps: list of dicts with 'action' (async callable taking page)
+           and 'name' (frame filename)
+    """
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page(viewport={"width": width, "height": height})
+        await page.goto(url, wait_until="networkidle")
+        for step in steps:
+            if step.get("action"):
+                await step["action"](page)
+                await page.wait_for_timeout(step.get("wait", 500))
+            await page.screenshot(path=step["name"])
+        await browser.close()
+```
+
+### 2. Assemble the GIF with imageio
+
+Use **imageio, not PIL**, for GIF writing — PIL's encoder merges visually similar frames and kills the animation.
+
+```python
+import imageio.v3 as iio
+from PIL import Image
+import numpy as np
+
+frames, durations = [], []
+for frame_path, duration_ms in frame_list:
+    frames.append(np.array(Image.open(frame_path)))
+    durations.append(duration_ms)
+iio.imwrite("demo.gif", frames, duration=durations, loop=0)
+```
+
+### 3. Variable frame timing
+
+Uniform timing feels too fast or too slow. Use variable durations:
+
+| Phase | Duration | Why |
+|-------|----------|-----|
+| Fast action (typing, clicking) | 100ms | Feels natural, keeps energy |
+| Pause after action | 600–800ms | Let the viewer process |
+| Hero/final message | 500ms+ | Takeaway needs time to land |
+
+### 4. Annotate frames
+
+Apply callouts to specific frames using the `image-annotations` skill's `annotate_image()`. For each frame needing a rectangle, arrow, or label, delegate rather than re-implementing the drawing:
+
+```python
+from PIL import Image
+from annotate import annotate_image  # from image-annotations/references/annotate.py
+
+def annotate_frame(frame_path, annotations, out_path):
+    annotated = annotate_image(Image.open(frame_path), annotations)
+    annotated.save(out_path)
+```
+
+### 5. Fade-in annotations
+
+```python
+def apply_fade(base, layer, alpha):
+    return Image.blend(
+        base.convert("RGBA"), layer.convert("RGBA"), alpha
+    ).convert("RGB")
+
+# 2-frame pop-in at 10fps: 50% then 100%
+faded = [apply_fade(base, ann, 0.5), apply_fade(base, ann, 1.0)]
+```
+
+At 10fps use 2 fade frames (0.2s total); at 30fps use 3–4. Easing curves look bad at low FPS — simple pop-in is snappier.
+
+### Guidelines
+
+- **Type → pause → annotate**: no annotation during fast action; pause first, then annotate.
+- **Hero message gets the biggest font** (64pt+); 38pt for details.
+- **GIF palette does not kill gradients** — 20 distinct alpha steps survive 256 colors.
+- **10fps minimum** for typing/interaction.
+- Build iteratively: frame sequence → annotations → timing.
+- **Test in isolation** before rebuilding the full demo (overlay a frame counter for debugging).
+
+### Format compatibility
+
+| Format | VS Code | GitHub | Browser |
+|--------|---------|--------|---------|
+| GIF | ✅ animates | ✅ | ✅ |
+| WebP | ⚠ static | ✅ | ✅ |
+| MP4 | ❌ broken | ⚠ | ✅ |
+
+GIF is the only universally supported animated format.
+
+### References
+
+- `references/cluster-detection.md` — `find_changed_clusters` to auto-locate changed regions for annotation.
+- `references/desktop-recording.md` — `mss` capture code and window-recording patterns for non-browser sources.

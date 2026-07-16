@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when the user wants to explore intent and design before building (features, components, behaviour changes), write a PRD or spec, or generate high-impact research directions.
+description: Use when a piece of work needs routing across planning, design, or development-workflow skills — or the user wants to explore intent and design before building, write a PRD/spec, or generate research directions. This is the default planning entry point (replaces the former `planning` router).
 ---
 
 # Brainstorming Ideas Into Designs
@@ -8,6 +8,17 @@ description: Use when the user wants to explore intent and design before buildin
 Help turn ideas into fully formed designs, specs, or research proposals through
 natural collaborative dialogue. Two branches share the same core loop: explore
 → question → propose → approve.
+
+## Which skill? (routing)
+
+Route the work before invoking a sibling skill:
+
+- **New feature request** → `brainstorming` first (this skill; intent/design gate), then `writing-plans` (multi-step plan).
+- **Large or uncertain effort, route unclear** → `wayfinder` (tickets with blocking edges, or a multi-session map).
+- **Plan already written** → `subagent-driven-development` (one subagent per task + two-stage review).
+- **Question to investigate** → `research` (primary sources → repo Markdown).
+- **Issues / external PRs to sort** → `triage` (state machine + agent-ready briefs).
+- **Throwaway design prototype** → `ponytail` (prototype mode).
 
 ## Branches
 
