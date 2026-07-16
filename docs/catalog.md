@@ -12,13 +12,7 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 ## Routers
 
-User-invoked dispatchers. Type the name to find the right leaf skill in that area.
-
-| Router | Points at |
-|---|---|
-| `planning` | Planning and development-workflow skills (plans, wayfinder, subagents) |
-
-> The `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation — those areas are now reached by their leaf skills directly.
+None. The catalog has no user-invoked routers — every skill is a leaf skill reachable by name or auto-triggered by request. The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
 
 ## Code Quality & Security
 
@@ -66,7 +60,7 @@ User-invoked dispatchers. Type the name to find the right leaf skill in that are
 
 | Skill | What it does |
 |---|---|
-| `brainstorming` | Explores intent and design before creative work; also structured research-ideation |
+| `brainstorming` | Explores intent and design before creative work; default planning/development-workflow entry point (folded-in `planning` router points at plans, wayfinder, subagents) |
 | `exam-ready` | Prepares exam-ready study material from notes and a syllabus |
 | `ml-paper-writing` | Writes publication-ready ML/AI papers for top venues |
 | `research` | Investigates a question against high-trust primary sources and captures findings as Markdown |
@@ -82,7 +76,7 @@ User-invoked dispatchers. Type the name to find the right leaf skill in that are
 | `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
 | `ml-scaffold` | Scaffolds an ML experiment workspace: layout, file pairing, config gates |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
-| `python-env-manager` | Detects the project's Python environment manager and installs packages |
+| `python-env-manager` | Detects the project's Python environment manager and routes packages to the right feature (dev/agent/default) for install; defers failed-import triage to `data-science-python-stack` |
 
 ## Data Engineering & Packaging
 
@@ -95,10 +89,9 @@ User-invoked dispatchers. Type the name to find the right leaf skill in that are
 
 | Skill | What it does |
 |---|---|
-| `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB |
+| `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB; also spatial/geographic queries (distances, GeoJSON, Overture Maps) |
 | `duckdb-docs` | Searches DuckDB and DuckLake docs via a locally cached full-text index |
 | `install-duckdb` | Installs or updates DuckDB extensions |
-| `spatial` | Answers spatial questions and analyzes geographic data with DuckDB and Overture Maps |
 
 ## Frontend & Creative
 
@@ -108,9 +101,8 @@ User-invoked dispatchers. Type the name to find the right leaf skill in that are
 | `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
 | `image-annotations` | Annotates screenshots and diagrams with callouts, arrows, and highlights using PIL |
 | `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
-| `screen-recording` | Creates annotated GIF demos and screen recordings for PRs and docs |
 | `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
-| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops) |
+| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops); also annotated animated GIF demos from captured frames |
 
 ## Communication
 
@@ -164,7 +156,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **45 skills** in `.github/skills/` (1 router, 44 leaf skills — the `references/` folder holds shared ML conventions, not a skill)
+- **42 skills** in `.github/skills/` (0 routers, 42 leaf skills — the `references/` folder holds shared ML conventions, not a skill)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:
