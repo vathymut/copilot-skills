@@ -51,22 +51,18 @@ Then use it by typing `/frontend-slides:frontend-slides` in Claude Code. Claude 
 
 ### Claude Code Manual Installation
 
+> Prefer the catalog-level install documented in the repo's top-level
+> `README.md` (symlinks `.github/skills/` into `~/.claude/skills/`).
+> The instructions below are kept only for users who want this one
+> skill installed standalone.
+
 Copy the skill files to your Claude Code skills directory:
 
 ```bash
-# Create the skill directory
 mkdir -p ~/.claude/skills/frontend-slides/scripts
-
-# Copy the user-facing skill files
 cp SKILL.md STYLE_PRESETS.md viewport-base.css html-template.md animation-patterns.md ~/.claude/skills/frontend-slides/
 cp -R bold-template-pack ~/.claude/skills/frontend-slides/
 cp scripts/extract-pptx.py scripts/deploy.sh scripts/export-pdf.sh ~/.claude/skills/frontend-slides/scripts/
-```
-
-Or clone directly:
-
-```bash
-git clone https://github.com/zarazhangrui/frontend-slides.git ~/.claude/skills/frontend-slides
 ```
 
 Then use it by typing `/frontend-slides` in Claude Code. Standalone skills are not namespaced.

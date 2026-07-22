@@ -1,0 +1,8 @@
+{
+  "include": ["src", "tests", "experiments", "audit"],
+  "exclude": ["__pycache__", ".pixi", "scratch", "reports"],
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "warning",
+  "pythonVersion": "3.11",
+  "pythonPath": "<PYTHON_PATH>"
+}

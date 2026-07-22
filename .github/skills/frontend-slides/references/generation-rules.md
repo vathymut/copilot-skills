@@ -9,7 +9,10 @@ If the user selected a bold template from `bold-template-pack`, read that one te
 - Treat viewport-fluid values in `design.md` as design proportions to translate into 1920×1080 stage coordinates. Do not keep them as live viewport reflow rules in the final deck.
 - Keep the output as a single self-contained Frontend Slides HTML file.
 - Do not copy demo slide content or mimic the source template too literally.
-- Use `template.html` only as a last-resort implementation reference for the selected template.
+- The selected template's own `template.html` may be consulted as a
+  last-resort implementation reference only when the template is
+  available upstream (`zarazhangrui/beautiful-html-templates`); the
+  catalog does not bundle it.
 - After generating, verify both content overflow and panel overlap in rendered browser screenshots. `scrollHeight` checks alone are not enough because grid panels can visually cover each other.
 
 ## Custom Wildcard Generation

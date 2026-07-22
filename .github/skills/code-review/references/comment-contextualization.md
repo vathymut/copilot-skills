@@ -4,20 +4,24 @@ ruff makes a file *well-formed*; this pass makes it *well-documented
 for the problem*. Templates ship with neutral placeholders and a
 little authoring scaffolding so the generating skill knows what each
 cell / module is for. None of that should survive into the user's
-committed file — the user's files document the **data-science
-problem**, not the process that produced them.
+committed file — the user's files document the **problem being
+solved**, not the process that produced them.
 
-After the ruff trio, for every touched file that now carries **real
-content**, do a quick documentation pass:
+After the ruff trio (see `references/python-standards.md` §
+"Post-edit run ('the ruff trio')"), for every touched file that now
+carries **real content**, do a quick documentation pass:
 
 1. **Fill the header for this problem.** Replace any `<placeholder>`
    or generic header with a one- or two-line description of what this
-   file does *here*: the experiment's hypothesis (`experiment.py`),
-   what this module contributes to the pipeline (`src/<pkg>/*.py`),
-   which report this file reviews and what it tests
-   (`audit/<stem>.py`), what the dataset is and what the analysis
-   looks at (`data/eda.py`). Pull the wording from the live context —
-   the project goal, the approved design note, the dataset.
+   file does *here*, written for the project this file belongs to.
+   Pick the framing that fits the file's role: the experiment /
+   script's purpose (`experiments/<name>.py`), what this module
+   contributes to the codebase (`src/<pkg>/*.py`), which report /
+   review this file produces and what it covers
+   (`audit/<stem>.py`), or what the dataset is and what the analysis
+   looks at (`data/<name>.py`). Pull the wording from the live
+   context — the project goal, the approved design note, the
+   dataset, the spec.
 2. **Strip the workflow meta.** Delete leftover process commentary:
    skill names, gate IDs (`G-*`), `§` cross-references, "the agent",
    "the (cell) runner", "the digest", "run cell by cell", journal /

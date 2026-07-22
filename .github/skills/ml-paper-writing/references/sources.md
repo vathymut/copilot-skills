@@ -81,7 +81,9 @@ This document lists all authoritative sources used to build this skill, organize
 
 ### Systems Conferences (OSDI, NSDI, ASPLOS, SOSP)
 
-Systems conference sources have moved to the venue's own authoring guidelines. See that skill's references/systems-conferences.md for CFP links and templates.
+Systems conference sources live at each venue's own authoring
+guidelines page; the catalog carries no bundled template. Fetch
+the venue's current CFP page directly.
 
 ---
 

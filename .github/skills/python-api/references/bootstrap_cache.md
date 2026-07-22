@@ -30,7 +30,8 @@ abbreviating (`0.18.0` → `0.18`) silently bifurcates the cache.
 
 ## Why these files, why now
 
-Inline `pixi run python -c "..."` calls are **forbidden** by the
+Inline `<env-prefix> python -c "..."` calls (any env-manager) are
+**forbidden** by the
 Stop conditions in `SKILL.md` regardless of length; all Python
 execution goes to `scratch/<ts>_*.py`. Probes record the
 *investigation*; they expire from the conversation log and do not

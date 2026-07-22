@@ -2,7 +2,8 @@
 
 Copy these templates verbatim, edit `LIB` / `DOTTED` / `TOPIC` (or
 the import line for 1b), save to `scratch/<ts>_*.py`, run via
-`pixi run python <path>`.
+`<env-prefix> python <path>` (the prefix `python-env-manager`
+detected for this project; `pixi run python` is one example).
 
 Cross-referenced from SKILL.md § "Shape 1", "Shape 1b", "Shape 2".
 

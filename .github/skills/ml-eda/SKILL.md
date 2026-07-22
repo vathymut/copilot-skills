@@ -26,7 +26,7 @@ the JOURNAL `## Data understanding (EDA)` entry.
   anywhere; `data/eda.py` / `data/eda.md` / `data/eda_*.html` are durable.
 - **Agent feature required to execute.** `ipython` missing → delegate to
   `python-env-manager` § Agent feature. Decline → skip path.
-- **All Python execution goes to `scratch/`** — rule and command: see `../references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
+- **All Python execution goes to `scratch/`** — rule and command: see `ml-conventions:references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
 
 ## Pre-flight
 
@@ -39,7 +39,11 @@ Pre-flight (ml-eda):
 - [ ] G-TABULAR known (pandas | polars)
 - [ ] Raw data located (may be outside `data/`)
 - [ ] Agent feature available (run path only)
-      Evidence: `pixi run -e agent ipython -c "print(0)"` exit 0
+      Evidence: `<agent-env-prefix> ipython -c "print(0)"` exit 0
+      (where `<agent-env-prefix>` is the `agent`-env invocation for the
+      env-manager `python-env-manager` detected — e.g. `pixi run -e agent`,
+      `uv run --group agent`, `poetry run --only agent`, etc.). **Inline
+      `<agent-env-prefix> python -c "..."` is NOT evidence.**
 - [ ] python-api consulted for symbols used this turn
 - [ ] Pre-flight re-emitted with evidence before final message.
 ```
@@ -51,8 +55,10 @@ Pre-flight (ml-eda):
 2. Resolve `G-EDA`: `run` or `skip`. Skip records `Status: skipped`.
 3. On run: copy `templates/eda.py`, substitute `<pkg>`,
    `<LOAD_RAW_DATA>`, `<TARGET_COLUMN>`, `<table>`.
-4. Execute with the shared runner:
-   `pixi run -e agent python ~/.config/opencode/skills/ml-eda/scripts/run_cells.py data/eda.py [scratch/eda/eda.md]`
+4. Execute with the shared runner: `<agent-env-prefix> python
+   ml-eda:scripts/run_cells.py data/eda.py [scratch/eda/eda.md]`
+   (where `<agent-env-prefix>` is the prefix that enters the
+   project's `agent` env, per `python-env-manager`).
 5. Read the digest and author `data/eda.md` from `templates/eda.md`.
 6. Write `data/eda_<table>.html` (≥1).
 7. Update `journal/JOURNAL.md` § Data understanding (EDA).
@@ -69,6 +75,6 @@ Pre-flight (ml-eda):
 
 ## References
 
-- `writing-great-skills:references/ml-gates.md` — gate registry.
+- `ml-conventions:references/ml-gates.md` — gate registry.
 - `references/eda-file-contract.md` — `data/eda.py` anatomy.
 - `references/cell_anatomy.md` — bare-expression rules (shared with audit).

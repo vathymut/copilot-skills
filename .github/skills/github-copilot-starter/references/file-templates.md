@@ -63,7 +63,7 @@ The plan consists of a Markdown document that describes the implementation plan,
 
 ## Attribution
 
-When using content from awesome-copilot, add at the top of the file:
+When adapting content from any community source, add at the top of the file:
 ```md
-<!-- Based on/Inspired by: https://github.com/github/awesome-copilot/blob/main/[path] -->
+<!-- Based on/Inspired by: <concrete upstream URL of the source file> -->
 ```

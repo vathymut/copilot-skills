@@ -8,7 +8,7 @@ Use this template when dispatching a code quality reviewer subagent.
 
 ```
 Task tool (general-purpose):
-  Use code-review § Branch B — Request review with references/code-reviewer.md
+  Use code-review § Branch B — Request review with code-review:references/code-reviewer.md
 
   DESCRIPTION: [task summary, from implementer's report]
   PLAN_OR_REQUIREMENTS: Task N from [plan-file]

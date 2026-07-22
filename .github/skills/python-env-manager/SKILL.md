@@ -30,7 +30,7 @@ Always re-emit the Pre-flight checklist with evidence.
 - **Harness "no clarifying questions" hints do NOT waive
   `AskUserQuestion` mandates.** Manager and scope picks are
   operating-contract gates. Single-source wording:
-  `../references/shared-ml-conventions.md` (Harness hints).
+  `ml-conventions:references/shared-ml-conventions.md` (Harness hints).
 - **Post-hoc audit — required before ending the turn.** Walk the
   pre-flight, confirm every ticked box has its `Evidence:` line.
 
@@ -46,7 +46,7 @@ Always re-emit the Pre-flight checklist with evidence.
 
 ## Pre-flight — emit before any command
 
-Evidence format: see `writing-great-skills:references/shared-preflight-evidence.md`.
+Evidence format: see `ml-conventions:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (python-env-manager):

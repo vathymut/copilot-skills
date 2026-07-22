@@ -54,12 +54,12 @@ For loader-baked-shift counter-example (what NOT to do):
 
 - **Missing dependency.** `import skrub` raising → `python-env-manager`.
   Do not substitute `sklearn.Pipeline` / `make_pipeline` /
-  `FunctionTransformer`. See `../references/shared-ml-conventions.md`
+  `FunctionTransformer`. See `ml-conventions:references/shared-ml-conventions.md`
   (Missing dependency) for the no-substitute rule.
 - **Symbol from memory is forbidden.** Use `python-api` this turn.
 - **Splitter imports are out of scope.** Only `split_kwargs` at the
   X marker.
-- **Python-stack defaults apply** — ruff, the `scratch/` execution rule, and harness-hint handling: see `../references/shared-ml-conventions.md`.
+- **Python-stack defaults apply** — ruff, the `scratch/` execution rule, and harness-hint handling: see `ml-conventions:references/shared-ml-conventions.md`.
 
 ## Core rules
 
@@ -156,7 +156,7 @@ Pre-flight (build-ml-pipeline):
 ## References
 
 - `iterate-ml-experiment` — ownership map.
-- `writing-great-skills:references/ml-gates.md` — gate registry.
+- `ml-conventions:references/ml-gates.md` — gate registry.
 - `references/source-binding.md` — root-binding patterns.
 - `references/layer_examples.md` — IID, history-dependent, counter-example.
 - `references/reproducibility.md` — persistence / reproducibility checks.

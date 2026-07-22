@@ -18,7 +18,7 @@ Follow these steps in order.
 command -v duckdb
 ```
 
-If not found, delegate to `/duckdb-skills:install-duckdb` and then continue.
+If not found, delegate to the `install-duckdb` skill and then continue.
 
 ## Step 2 — Ensure required extensions are installed
 

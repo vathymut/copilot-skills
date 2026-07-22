@@ -147,7 +147,7 @@ Which option?
 WORKTREE_PATH=$(git rev-parse --show-toplevel)
 ```
 - `GIT_DIR == GIT_COMMON`: normal repo, nothing to clean up.
-- Worktree under `.worktrees/`, `worktrees/`, or `~/.config/superpowers/worktrees/`: we own it —
+- Worktree under `.worktrees/` or `worktrees/` (or any directory this skill's instructions file declares as the worktree root): we own it —
   `cd "$(git -C "$(git rev-parse --git-common-dir)/.." rev-parse --show-toplevel)" && git worktree remove "$WORKTREE_PATH" && git worktree prune`.
 - Otherwise: harness owns it — do NOT remove; leave in place.
 

@@ -69,7 +69,7 @@ Draft self-assessments, peer reviews, upward feedback, and evidence-backed brag 
 ### Workflow
 
 1. **Gather context** — ask up to 3 clarifying questions: review type, subject, review period.
-2. **Surface evidence** — pull WorkIQ contributions when available; otherwise mine git/GitHub PRs or ask the user for bullets. Do not fabricate metrics.
+2. **Surface evidence** — pull contribution metrics from the team's work-analytics tool when available; otherwise mine git/GitHub PRs or ask the user for bullets. Do not fabricate metrics.
 3. **Draft** — use STAR for achievements and impact-first bullets for brag sheets.
 4. **Output** — present the draft with evidence summary, highlight `[NEEDS DETAIL]`, and save final drafts to `outputs/<year>/<month>/` with descriptive filenames.
 

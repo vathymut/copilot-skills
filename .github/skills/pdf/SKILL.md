@@ -29,7 +29,7 @@ Choose based on the operation:
 | Forms | pypdf | pdf-lib (JS) |
 | Encrypt/decrypt | pypdf | qpdf (CLI) |
 
-Check that the library is installed; install if missing. Code snippets for each library are in [`references/code-snippets.md`](references/code-snippets.md).
+Check that the library is installed; install if missing. Code snippets for each library are in [`references/code-snippets.md`](references/code-snippets.md). For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), load [`forms.md`](forms.md) — it routes the bundled `scripts/` helpers (`check_fillable_fields.py`, `extract_form_field_info.py`, `fill_fillable_fields.py`, `fill_pdf_form_with_annotations.py`, `convert_pdf_to_images.py`, `check_bounding_boxes.py`, `create_validation_image.py`). Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in [`reference.md`](reference.md).
 
 **Completion criterion:** tool selected and available in the environment.
 

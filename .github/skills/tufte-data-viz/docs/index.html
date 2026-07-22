@@ -518,8 +518,8 @@ body {
       <div>
         <h1 class="site-title">tufte-data-viz</h1>
         <p class="site-subtitle">Edward Tufte's data visualization principles, applied across every major charting library.</p>
-        <code class="install-cmd" role="button" tabindex="0" aria-label="Copy install command: npx skills add caylent/tufte-data-viz" onclick="copyInstall(this)" onkeydown="if(event.key==='Enter')copyInstall(this)">
-          npx skills add caylent/tufte-data-viz
+        <code class="install-cmd" role="button" tabindex="0" aria-label="Copy install command: copy this skill folder into your harness's skills directory" onclick="copyInstall(this)" onkeydown="if(event.key==='Enter')copyInstall(this)">
+          cp -r tufte-data-viz &lt;your-skills-dir&gt;/
           <span class="copy-hint">Click to copy</span>
         </code>
       </div>
@@ -645,7 +645,6 @@ body {
        ============================================================ -->
   <footer class="site-footer">
     <span>Built with Tufte's principles. No chartjunk was harmed.</span>
-    <a href="https://github.com/caylent/tufte-data-viz" target="_blank" rel="noopener noreferrer">View on GitHub</a>
   </footer>
 
 </div><!-- /.page-wrapper -->
@@ -702,7 +701,7 @@ const baState = { echarts: false, chartjs: false, plotly: false, d3: false };
 
 /* Copy install command */
 function copyInstall(el) {
-  navigator.clipboard.writeText('npx skills add caylent/tufte-data-viz').then(() => {
+  navigator.clipboard.writeText('cp -r tufte-data-viz <your-skills-dir>/').then(() => {
     el.querySelector('.copy-hint').textContent = 'Copied!';
     el.classList.add('copied');
     setTimeout(() => {

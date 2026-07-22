@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-scan.py — Collect project discovery information for the acquire-codebase-knowledge skill.
+scan.py — Collect project discovery information for the graphify onboard-mode workflow.
 Run from the project root directory.
 
 Usage: python3 scan.py [OPTIONS]
@@ -188,7 +188,7 @@ def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description="Scan the current directory (project root) and output discovery information "
-                    "for the acquire-codebase-knowledge skill.",
+                    "for the graphify onboard-mode workflow.",
         add_help=True
     )
     parser.add_argument(

@@ -74,14 +74,14 @@ the **read** mode first, stop. Re-entering § 1 is a separate turn.
   `evaluate-ml-pipeline` § Evaluate → `evaluate-ml-pipeline` § Smoke.
   Only then assemble `experiments/NN_*.py`.
 - **Harness hints do NOT waive gates.** See
-  `../references/shared-ml-conventions.md` (Harness hints) for the
+  `ml-conventions:references/shared-ml-conventions.md` (Harness hints) for the
   single-source wording.
 - **Post-hoc audit required** before ending the turn.
 
 ## Pre-flight — emit before any design-note write
 
 Compact checklist. Evidence-format spec:
-`writing-great-skills:references/shared-preflight-evidence.md`.
+`ml-conventions:references/shared-preflight-evidence.md`.
 
 ```
 Pre-flight (iterate-ml-experiment):
@@ -251,7 +251,8 @@ not memory.
 Once `tests/smoke/` passes (new test AND all prior): ask via
 `AskUserQuestion`:
 
-- **run now** — `pixi run python experiments/NN_<short_name>.py`
+- **run now** — `<env-prefix> python experiments/NN_<short_name>.py`
+  (the prefix `python-env-manager` detected for this project)
 - **leave for later** — stop. Surface Status + Backlog verbatim.
 
 If run completed this turn → continue to § 4.
@@ -335,7 +336,7 @@ those contents now live in this skill's `references/source-from-skore.md` and
 
 ## References (load on demand)
 
-- `writing-great-skills:references/shared-preflight-evidence.md` —
+- `ml-conventions:references/shared-preflight-evidence.md` —
   evidence-format spec shared across ML skills.
 - `references/bootstrap.md` — full bootstrap procedure, config gates
 - `references/forbidden-shortcuts.md` — common shortcut violations

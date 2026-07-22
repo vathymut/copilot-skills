@@ -1,5 +1,11 @@
 # Testing CLAUDE.md Skills Documentation
 
+> **Harness note:** the example install paths below use `~/.claude/skills/`
+> (Claude Code's directory). This catalog documents an alternate install
+> path (`~/.config/opencode/skills/` for OpenCode, `~/.copilot/skills/`
+> for GitHub Copilot); substitute your harness's skills directory when
+> reusing these scenarios.
+
 Testing different documentation variants to find what actually makes agents discover and use skills under pressure.
 
 ## Test Scenarios

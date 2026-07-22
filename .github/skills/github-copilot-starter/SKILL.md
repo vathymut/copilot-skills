@@ -17,8 +17,10 @@ Scaffold Copilot configuration for a new project.
    - GitHub Actions usage (yes/no)
 
 2. **Research patterns**
-   - Fetch from GitHub's awesome-copilot repo for instructions, agents, and skills.
-   - Document attribution sources.
+   - Fetch community Copilot patterns from public sources (e.g. the
+     user's own preferred awesome-copilot fork, or any community
+     collection of instructions / agents / skills).
+   - Record attribution for every source you copy from.
 
 3. **Generate files**
    - `.github/copilot-instructions.md`

@@ -257,3 +257,36 @@ Templates are updated annually. Check official sources before each submission:
 - COLM: https://colmweb.org/
 
 **Systems:** See the venue's own authoring guidelines for OSDI, NSDI, ASPLOS, SOSP template sources
+
+## Renewing a venue (annual procedure)
+
+Venues ship a new stylefile and page-limit changes every year. To
+add or refresh a venue folder (`<venue><year>/`):
+
+1. **Fetch the current style file** from the venue's official source
+   (URLs above). Do **not** reuse a previous-year template without
+   diffing against the upstream — page limits, font size, and
+   bibliography style change.
+2. **Create the directory** `templates/<venue><year>/` next to the
+   existing one (e.g. `neurips2026/` next to `neurips2025/`). Copy
+   the *entire* upstream bundle — `main.tex`, any `.sty` / `.bst`
+   files, the bibliography style, and any class-options README.
+3. **Update the parent table** in `SKILL.md` (the Conference Quick
+   Reference) with the new year, page limit, and a one-line note on
+   what changed (e.g. "NeurIPS 2026 — page limit +0; lay summary
+   unchanged"). Same for the "Page Limits Summary" table in this
+   README.
+4. **Update the renewal date** of the new bundle in any
+   `attribution.md` / source-of-truth you maintain. Do not delete
+   the previous-year folder — authors sometimes need both
+   (resubmission, archival).
+5. **Do not modify the bundled `.tex` or `.sty` files directly**
+   unless the venue publishes a patch; the changes would diverge
+   from the upstream and silently mis-apply on next fetch.
+6. **Smoke-test compile** with `latexmk -pdf <entrypoint>.tex` from
+   inside the new folder; fix only obvious upstream bugs. If the
+   upstream is genuinely broken, file an issue upstream before
+   forking.
+
+When the year rolls past the latest bundled template, this is the
+authoritative refresh path — there is no auto-update.

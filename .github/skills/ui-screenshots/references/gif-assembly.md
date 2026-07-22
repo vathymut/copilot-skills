@@ -48,8 +48,27 @@ iio.imwrite("demo.gif", frames, duration=durations, loop=0)
 Apply callouts to specific frames using the `image-annotations` skill's `annotate_image()`. For each frame needing a rectangle, arrow, or label, delegate rather than re-implementing the drawing:
 
 ```python
+import importlib.util
+from pathlib import Path
 from PIL import Image
-from annotate import annotate_image  # from image-annotations/references/annotate.py
+
+# Load annotate.py from the sibling image-annotations skill regardless of cwd.
+def _load_annotate():
+    candidates = [
+        Path(__file__).resolve().parent.parent.parent / "image-annotations" / "references" / "annotate.py",
+        Path.home() / ".config/opencode/skills/image-annotations/references/annotate.py",
+        Path.home() / ".copilot/skills/image-annotations/references/annotate.py",
+    ]
+    for p in candidates:
+        if p.exists():
+            spec = importlib.util.spec_from_file_location("annotate", p)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            return mod
+    raise SystemExit("image-annotations/references/annotate.py not found; install the image-annotations skill")
+
+annotate = _load_annotate()
+annotate_image = annotate.annotate_image
 
 def annotate_frame(frame_path, annotations, out_path):
     annotated = annotate_image(Image.open(frame_path), annotations)

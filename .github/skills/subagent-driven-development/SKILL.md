@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Use when a written implementation plan exists and should be executed in the current session via per-task subagents. For a single spec without a formal plan, draft one with writing-plans first.
+description: Use when a written implementation plan exists and should be executed in the current session. For a single spec without a formal plan, draft one with writing-plans first.
 ---
 
 # Subagent-Driven Development

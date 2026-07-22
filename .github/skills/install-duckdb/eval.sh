@@ -2,11 +2,13 @@
 # End-to-end evaluations for the install-duckdb skill.
 # Runs the skill via `claude --print` and verifies extensions are actually loadable.
 #
-# Prerequisites: claude CLI and duckdb must be in PATH and claude must be authenticated.
+# Prerequisites: claude CLI (Claude Code) and duckdb must be in PATH and
+# claude must be authenticated. This eval script is harness-specific; it
+# does not run under OpenCode or Copilot.
 #
-# Usage:
-#   bash skills/install-duckdb/eval.sh
-#   PLUGIN_DIR=/other/path bash skills/install-duckdb/eval.sh
+# Usage (from repo root):
+#   bash .github/skills/install-duckdb/eval.sh
+#   PLUGIN_DIR=/other/path bash .github/skills/install-duckdb/eval.sh
 
 PLUGIN_DIR="${PLUGIN_DIR:-$(cd "$(dirname "$0")/../.." && pwd)}"
 PASS=0
@@ -33,7 +35,7 @@ eval_case() {
     printf "  %-56s " "$desc"
     local t0 t1 elapsed result
     t0=$(date +%s)
-    result=$(printf '/duckdb-skills:install-duckdb %s' "$args" \
+    result=$(printf '/install-duckdb %s' "$args" \
         | claude --print --plugin-dir "$PLUGIN_DIR" 2>/dev/null)
     t1=$(date +%s)
     elapsed=$((t1 - t0))

@@ -8,61 +8,64 @@ This skill is **opinionated by design**. It will remove your gridlines, delete y
 
 ## Install
 
-```bash
-npx skills add caylent/tufte-data-viz
-```
+Install via this catalog (the top-level `README.md` covers the symlink
+install into both `~/.copilot/skills` and `~/.config/opencode/skills`);
+or copy the `tufte-data-viz/` folder into your harness's skills
+directory.
 
 ## Before & After
 
 The same data, default styling vs. Tufte principles applied:
 
-![Before and after comparison — default chart style vs. Tufte style](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/before-after.png)
+![Before and after comparison — default chart style vs. Tufte style](_docs/before-after.png)
 
 See it happen live — gridlines fade, legends become direct labels, chartjunk dissolves:
 
-![Animated transition from default chart styling to Tufte principles](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/before-after-animated.gif)
+![Animated transition from default chart styling to Tufte principles](_docs/before-after-animated.gif)
 
 ## Interactive Demo
 
-**[Try the live demo](https://caylent.github.io/tufte-data-viz/)** — toggle between default and Tufte styling across ECharts, Chart.js, Plotly, and D3.js. Includes dark mode.
+A self-contained interactive demo is bundled at `docs/index.html`
+(open it in a browser) — toggle between default and Tufte styling
+across ECharts, Chart.js, Plotly, and D3.js, including dark mode.
 
 ## Examples
 
 ### Line chart — direct labels, range-frame axes, annotation
 
-![Tufte-styled line chart showing revenue vs. target with direct labels and peak annotation](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-line-chart.png)
+![Tufte-styled line chart showing revenue vs. target with direct labels and peak annotation](_docs/tufte-line-chart.png)
 
 ### Horizontal bar chart — sorted by value, highlighted leader
 
-![Tufte-styled horizontal bar chart with direct value labels and highlighted top product](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-bar-chart.png)
+![Tufte-styled horizontal bar chart with direct value labels and highlighted top product](_docs/tufte-bar-chart.png)
 
 ### Slopegraph — before/after comparison
 
-![Slopegraph showing team size changes from 2024 to 2025, highlighting Engineering growth](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-slopegraph.png)
+![Slopegraph showing team size changes from 2024 to 2025, highlighting Engineering growth](_docs/tufte-slopegraph.png)
 
 ### Small multiples — shared scale, minimal chrome
 
-![Small multiples showing revenue trend by region with shared y-axis](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/small-multiples.png)
+![Small multiples showing revenue trend by region with shared y-axis](_docs/small-multiples.png)
 
 ### Sparklines — word-sized charts with min/max markers
 
-![Five sparklines showing key metrics over 24 months with min and max markers](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-sparklines.png)
+![Five sparklines showing key metrics over 24 months with min and max markers](_docs/tufte-sparklines.png)
 
 ### Data table — whitespace, thin rules, highlighted outlier
 
-![Tufte-styled data table with thin rules, right-aligned numbers, and highlighted growth leader](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-data-table.png)
+![Tufte-styled data table with thin rules, right-aligned numbers, and highlighted growth leader](_docs/tufte-data-table.png)
 
 ### Dark mode — intentional palette, not inverted
 
-![Dark mode line chart with desaturated highlight color on dark background](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-dark-mode.png)
+![Dark mode line chart with desaturated highlight color on dark background](_docs/tufte-dark-mode.png)
 
 ### Accessible scatter — dual-encoded with shape + color
 
-![Scatter plot using different shapes per segment so data is distinguishable without color](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-accessible-scatter.png)
+![Scatter plot using different shapes per segment so data is distinguishable without color](_docs/tufte-accessible-scatter.png)
 
 ### Light & dark — same chart, both themes
 
-![Side-by-side bar chart in light and dark mode showing intentional palette design](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-light-dark.png)
+![Side-by-side bar chart in light and dark mode showing intentional palette design](_docs/tufte-light-dark.png)
 
 ## What it does
 

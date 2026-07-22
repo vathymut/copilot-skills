@@ -2,9 +2,11 @@
 
 Single source of truth for the cross-cutting rules repeated across the
 ML skills (`data-science-python-stack`, `ml-scaffold`, `build-ml-pipeline`,
-`evaluate-ml-pipeline`, `iterate-ml-experiment`, `python-api`,
-`python-env-manager`). Each skill points here instead of re-stating
-these rules.
+`evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`,
+`python-api`, `python-env-manager`). This file lives in the
+`ml-conventions` skill; consuming skills point to
+`ml-conventions:references/shared-ml-conventions.md` instead of
+re-stating these rules.
 
 ## Ruff (lint + format)
 
@@ -27,14 +29,18 @@ Full rationale and config: `data-science-python-stack/references/ruff.md`.
 
 ## All Python execution goes to scratch/
 
-Every Python command — `python -c`, `pixi run python -c`, heredoc-style
-`python << 'EOF'`, or any inline Python — is forbidden regardless of
-length. Write the script to
+Every Python command — `python -c`, `<env-prefix> python -c` (e.g.
+`pixi run python -c`, `uv run python -c`, `poetry run python -c`,
+`hatch run python -c`, `conda run -n <project> python -c`,
+`.venv/bin/python -c`), heredoc-style `python << 'EOF'`, or any inline
+Python — is forbidden regardless of length. Write the script to
 `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` first, then execute it via
-`pixi run python scratch/<ts>_<short>.py`. Applies to version checks,
-import smokes, signature lookups, module-surface dumps, docstring
-extraction — anything. If you catch yourself typing `python -c`, STOP
-and write the file.
+the detected env-manager's run prefix (`<env-prefix>` — the form
+`python-env-manager` records in `JOURNAL.md` Status for the chosen
+manager) followed by `scratch/<ts>_<short>.py`. Applies to version
+checks, import smokes, signature lookups, module-surface dumps,
+docstring extraction — anything. If you catch yourself typing
+`<env-prefix> python -c` for any manager, STOP and write the file.
 
 Authoritative owner: `python-api` (Stop conditions).
 
@@ -70,4 +76,4 @@ The workspace-level config gates are owned, not duplicated:
 | `G-AGENT-FEATURE` | Install ipython + pyright | `python-env-manager` |
 | `G-CV-SPLITTER` | CV family | `evaluate-ml-pipeline` |
 
-Gate definitions: `writing-great-skills:references/ml-gates.md`.
+Gate definitions: `ml-gates.md` (same skill, sibling file).

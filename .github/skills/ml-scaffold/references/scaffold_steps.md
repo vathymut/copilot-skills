@@ -102,7 +102,7 @@ Drop a literal one-line placeholder:
 This skill **does NOT** read `iterate-ml-experiment`'s
 template — each skill owns its own template surface.
 `iterate-ml-experiment` rewrites `JOURNAL.md` from its own
-`templates/JOURNAL.md` and writes the matching
+`iterate-ml-experiment:templates/JOURNAL.md` and writes the matching
 `journal/01_baseline.md`, validated **before** the experiment
 script runs.
 
@@ -120,8 +120,17 @@ Just `mkdir reports`. Skore writes into it on the first run.
 
 ## Step 10 — `.gitignore`
 
-If the project root has no `.gitignore`, drop `templates/.gitignore`
-(includes `reports/` and `scratch/` lines by default).
+If the project root has no `.gitignore`, create `.gitignore` at the
+project root with at least the entries below (the stack's minimal
+set — your project may need more):
+
+```gitignore
+__pycache__/
+.pixi/
+.venv/
+scratch/
+reports/
+```
 
 If a `.gitignore` already exists, **do not overwrite**. Scan for
 the entries this stack expects:

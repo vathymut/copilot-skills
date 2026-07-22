@@ -21,10 +21,10 @@ After this, hand off to `iterate-ml-experiment` § 0.
   `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or
   `reports/` → glue to the existing layout; no renames.
 - **Gates fire before files are written.** `G-PKG-NAME`,
-  `G-ENV-MGR`, `G-TABULAR`, `G-SKORE-MODE`. See `writing-great-skills:references/ml-gates.md`.
+  `G-ENV-MGR`, `G-TABULAR`, `G-SKORE-MODE`. See `ml-conventions:references/ml-gates.md`.
 - **No design note, no experiment code.** Create only the placeholder
   `journal/JOURNAL.md`; never write `experiments/NN_*.py` here.
-- **All Python execution goes to `scratch/`** — rule and command: see `../references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
+- **All Python execution goes to `scratch/`** — rule and command: see `ml-conventions:references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
 
 ## Pre-flight
 
@@ -61,7 +61,7 @@ Pre-flight (ml-scaffold):
 7. Ask about `.gitignore` for `reports/`; never ignore `data/` as a whole.
 8. Write placeholder `journal/JOURNAL.md` from
    `iterate-ml-experiment/templates/JOURNAL.md`.
-9. Write the ruff config: see `../references/shared-ml-conventions.md` (Ruff) for the command and `templates/ruff.toml` source.
+9. Write the ruff config: see `ml-conventions:references/shared-ml-conventions.md` (Ruff) for the command and `templates/ruff.toml` source.
 10. Return to `iterate-ml-experiment` § 0.
 
 ## File rules
@@ -76,7 +76,7 @@ Pre-flight (ml-scaffold):
 
 ## References
 
-- `writing-great-skills:references/ml-gates.md` — gate registry.
+- `ml-conventions:references/ml-gates.md` — gate registry.
 - `iterate-ml-experiment` — canonical ownership map for the ML-workspace family.
 - `references/scaffold_steps.md` — full step-by-step.
 - `references/g_skore_mode.md` — G-SKORE-MODE detail.

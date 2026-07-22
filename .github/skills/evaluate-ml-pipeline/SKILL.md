@@ -23,7 +23,7 @@ Validate a declared pipeline. Three sub-tasks, in order:
 - **Missing dependency.** `import skore` raises → invoke
   `python-env-manager`. Do not drop back to `cross_val_score`,
   `cross_validate`, `classification_report`, or hand-rolled prints.
-  See `../references/shared-ml-conventions.md` (Missing dependency).
+  See `ml-conventions:references/shared-ml-conventions.md` (Missing dependency).
 - **Symbol from memory is forbidden.** Every `skore`, `skrub`,
   `sklearn` symbol this turn comes from `python-api`.
 - **`skore.evaluate(...)` and `project.put(...)` live only in
@@ -40,7 +40,7 @@ Validate a declared pipeline. Three sub-tasks, in order:
   side history require a passing smoke test before the experiment can
   be marked `done`.
 - **Python-stack defaults apply** — all execution to `scratch/`, ruff,
-  and harness-hint handling: see `../references/shared-ml-conventions.md`.
+  and harness-hint handling: see `ml-conventions:references/shared-ml-conventions.md`.
 - **Audit is read-only against the skore Project.** No `evaluate`,
   no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
 - **`project.get(...)` is by id, not key.** For hub, derive id from
@@ -187,10 +187,16 @@ mutation, monkey-patching.
 ### Execution
 
 ```bash
-pixi run -e agent python \
-  ~/.config/opencode/skills/ml-eda/scripts/run_cells.py \
+<agent-env-prefix> python \
+  ml-eda:scripts/run_cells.py \
   audit/<stem>.py [scratch/audit/<stem>/audit.md]
 ```
+
+`<agent-env-prefix>` is the prefix that enters the project's
+`agent` env per `python-env-manager` (e.g. `pixi run -e agent`,
+`uv run --group agent`, `poetry run --only agent`,
+`hatch run --env agent`, `conda run -n <project>-agent`,
+`.venv-agent/bin/python`).
 
 The runner always streams stdout; the optional second arg also writes
   the digest. Runner lives in `ml-eda`; internals: `references/runner_internals.md`.

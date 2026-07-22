@@ -10,7 +10,7 @@ when debugging a failed install.
 A project-scoped install of two agent-only tools plus a config:
 
 - **`ipython`** — powers the shared in-process cell runner at
-  `ml-scaffold/scripts/run_cells.py` via
+  `ml-eda:scripts/run_cells.py` via
   `InteractiveShell.run_cell`. Used by `evaluate-ml-pipeline § Audit` (audit
   files) and `ml-eda` (`data/eda.py`). No kernel
   registration, no notebook conversion.
@@ -110,12 +110,12 @@ hatch run agent:python \
 
 # conda
 conda run -n <project>-agent python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  ml-eda:scripts/run_cells.py \
   audit/<stem>.py
 
 # pip + venv
 .venv-agent/bin/python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  ml-eda:scripts/run_cells.py \
   audit/<stem>.py
 ```
 

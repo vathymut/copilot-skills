@@ -51,10 +51,13 @@ If a step downstream of the digest needs more (e.g. a
 cross-experiment metrics view from `project.summarize()` that the
 digest doesn't carry), the probe goes to
 `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` and runs via
-`pixi run python scratch/<ts>_<short>.py`.
+`<env-prefix> python scratch/<ts>_<short>.py` (the prefix
+`python-env-manager` detected for this project; `pixi run python`
+is one example).
 
 See `python-api` § "`scratch/` conventions" for the full
-convention. **Inline `pixi run python -c "..."` is forbidden
+convention. **Inline `<env-prefix> python -c "..."` is forbidden
+for any env-manager
 regardless of length** (see `python-api` § Stop conditions).
 
 **Do NOT edit the experiment script to add agent-only `print`

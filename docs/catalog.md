@@ -44,12 +44,6 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | `wayfinder` | Plans a large body of work as a shared map of investigation tickets |
 | `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
 
-## Memory & Knowledge
-
-| Skill | What it does |
-|---|---|
-| `memory` | Persists and recalls cross-session memory: write lessons as domain instructions, recall prior decisions and context |
-
 ## Documentation & Specs
 
 | Skill | What it does |
@@ -73,6 +67,7 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | `data-science-python-stack` | Opinionated Python library stack and usage rules for data-science / ML work |
 | `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
 | `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments |
+| `ml-conventions` | Single source of truth for the cross-cutting rules shared by the ML skills (ruff, scratch/, harness hints, missing-dependency contract, gate registry, pre-flight evidence format) |
 | `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
 | `ml-scaffold` | Scaffolds an ML experiment workspace: layout, file pairing, config gates |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
@@ -156,7 +151,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **42 skills** in `.github/skills/` (0 routers, 42 leaf skills — the `references/` folder holds shared ML conventions, not a skill)
+- **42 skills** in `.github/skills/` (0 routers, 42 leaf skills)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

@@ -15,7 +15,8 @@ slices, each declaring the tickets that **block** it. The destination is clear;
 you just want tracked, ordered work items.
 
 The issue tracker and triage label vocabulary should have been provided to you
-— run `/setup-matt-pocock-skills` if not.
+— if no tracker config has been provided, ask the user where issue tracker
+config / triage labels come from, or default to the local-markdown tracker.
 
 1. **Gather context** — work from the conversation; fetch any referenced spec
    or issue and read its full body and comments.
@@ -53,7 +54,7 @@ The map is a single issue on this repo's issue tracker, labelled `wayfinder:map`
 
 The map is an **index**, not a store. It lists the decisions made and points at the tickets that hold their detail; a decision lives in exactly one place — its ticket — so the map never restates it, only gists it and links.
 
-**Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** The issue tracker should have been provided to you — run `/setup-matt-pocock-skills` if not. Consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them. If no tracker has been provided, default to the local-markdown tracker.
+**Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** The issue tracker should have been provided to you — if not, ask the user where issue tracker / triage labels come from, or default to the local-markdown tracker. Consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them.
 
 The map-body template, ticket template, ticket types, and the
 Fog-of-war / Out-of-scope conventions are moved to

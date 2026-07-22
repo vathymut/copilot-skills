@@ -37,7 +37,7 @@ Answer codebase questions by turning files into a navigable knowledge graph, or 
 /graphify <path> --mcp                                # start MCP stdio server for agent access
 /graphify <path> --watch                              # watch folder, auto-rebuild on code changes (no LLM needed)
 /graphify <path> --wiki                               # build agent-crawlable wiki (index.md + one article per community)
-/graphify <path> --obsidian --obsidian-dir ~/vaults/my-project  # write vault to custom path (e.g. existing vault)
+/graphify <path> --obsidian --obsidian-dir <your-vault-path>  # write vault to custom path (e.g. existing vault)
 /graphify add <url>                                   # fetch URL, save to ./raw, update graph
 /graphify add <url> --author "Name"                   # tag who wrote it
 /graphify add <url> --contributor "Name"              # tag who added it to the corpus
@@ -45,7 +45,7 @@ Answer codebase questions by turning files into a navigable knowledge graph, or 
 /graphify query "<question>" --dfs                    # DFS - trace a specific path
 /graphify query "<question>" --budget 1500            # cap answer at N tokens
 /graphify path "AuthModule" "Database"                # shortest path between two concepts
-/graphify explain "SwinTransformer"                   # plain-language explanation of a node
+/graphify explain "AuthService"                       # plain-language explanation of a node
 ```
 
 ## What graphify is for
@@ -165,7 +165,7 @@ If `--obsidian` was given:
 
 ```bash
 graphify export obsidian
-# or with custom dir: graphify export obsidian --dir ~/vaults/my-project
+# or with custom dir: graphify export obsidian --dir <your-vault-path>
 ```
 
 Generate the HTML graph (always, unless `--no-viz`):
@@ -195,7 +195,7 @@ Graph complete. Outputs in PATH_TO_DIR/graphify-out/
   obsidian/             - Obsidian vault (only if --obsidian was given)
 ```
 
-If graphify saved you time, consider supporting it: https://github.com/sponsors/safishamsi
+If graphify saved you time, consider supporting the upstream project.
 
 Replace PATH_TO_DIR with the actual absolute path of the directory that was processed.
 

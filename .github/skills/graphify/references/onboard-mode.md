@@ -18,9 +18,9 @@ Before finishing, all of these must be true:
 
 ## Workflow
 
-1. **Scan and read intent.** Run `graphify/scripts/scan.py`, then read README/ROADMAP/SPEC/DESIGN files. Summarise stated intent before reading source.
-2. **Investigate.** Use the scan output and [`graphify/references/inquiry-checkpoints.md`](graphify/references/inquiry-checkpoints.md) to answer questions for each template. Load [`graphify/references/stack-detection.md`](graphify/references/stack-detection.md) only if the stack is ambiguous.
-3. **Populate templates.** Copy files from `graphify/assets/templates/` into `docs/codebase/` in this order:
+1. **Scan and read intent.** Run `scripts/scan.py`, then read README/ROADMAP/SPEC/DESIGN files. Summarise stated intent before reading source.
+2. **Investigate.** Use the scan output and [`references/inquiry-checkpoints.md`](inquiry-checkpoints.md) to answer questions for each template. Load [`references/stack-detection.md`](stack-detection.md) only if the stack is ambiguous.
+3. **Populate templates.** Copy files from `assets/templates/` into `docs/codebase/` in this order:
    - `STACK.md` — language, runtime, frameworks, dependencies
    - `STRUCTURE.md` — layout, entry points, key files
    - `ARCHITECTURE.md` — layers, patterns, data flow

@@ -49,7 +49,7 @@ changes.
   to install, not *how*. Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format, Tier 1
   (mandatory). Command, config, and `dev`-feature routing: see
-  `references/shared-ml-conventions.md` (Ruff).
+  `ml-conventions:references/shared-ml-conventions.md` (Ruff).
 - [`pytest`](references/pytest.md) — test runner for the
   smoke-test gate enforced by `evaluate-ml-pipeline` § Smoke. Every
   approved experiment must have a

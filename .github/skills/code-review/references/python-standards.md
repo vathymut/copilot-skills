@@ -43,10 +43,13 @@ edits. Verify with `ruff check --show-settings .`.
   skill/gate/runner meta from committed headers (see
   `references/comment-contextualization.md`).
 
-### Post-edit run
+### Post-edit run ("the ruff trio")
 
 For every Python file touched this turn, inside the project's environment
-manager:
+manager, run the three-step sequence below in order. This sequence is
+referred to elsewhere in this skill as **"the ruff trio"** — for example
+in `references/comment-contextualization.md`, which is the documentation
+pass that follows the trio.
 
 ```bash
 ruff format <files>
