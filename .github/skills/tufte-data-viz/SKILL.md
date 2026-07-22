@@ -1,6 +1,6 @@
 ---
 name: tufte-data-viz
-description: Use when creating or reviewing data visualizations — charts and figures — and you want Tufte and screen-first principles applied.
+description: Use when creating or reviewing data visualizations — charts and figures — where Tufte and screen-first principles should apply.
 allowed-tools: Read, Glob, Grep
 ---
 

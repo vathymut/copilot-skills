@@ -1,6 +1,6 @@
 ---
 name: python-api
-description: Use when you need a Python symbol's signature, docstring, or behaviour against the installed version — before writing code, debugging a KeyError/AttributeError, or resolving a version-specific rename.
+description: Use when a Python symbol's signature, docstring, or behaviour against the installed version is needed — before writing code, debugging a KeyError/AttributeError, or resolving a version-specific rename.
 ---
 
 ## Next-step pointers

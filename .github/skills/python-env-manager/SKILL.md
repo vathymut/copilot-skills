@@ -1,6 +1,6 @@
 ---
 name: python-env-manager
-description: Use when no environment manager is detected in a Python project, or a package must be routed to the right feature (dev/agent/default) for install. For a failed import, start with `data-science-python-stack` (it owns what to install and hands off here).
+description: Use when no environment manager is detected in a Python project, or a package must be routed to the right feature (dev/agent/default) for install.
 ---
 
 ## Next-step pointers

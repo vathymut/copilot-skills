@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when a piece of work needs routing across planning, design, or development-workflow skills — or the user wants to explore intent and design before building, write a PRD/spec, or generate research directions. This is the default planning entry point (replaces the former `planning` router).
+description: Use when the user wants to explore intent and design before building, write a PRD/spec, or generate research directions — or a piece of work needs routing across planning, design, or development-workflow skills. This is the default planning entry point.
 ---
 
 # Brainstorming Ideas Into Designs

@@ -1,7 +1,7 @@
 ---
 disable-model-invocation: true
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when a spec or requirements for a multi-step task exist, before touching code
 ---
 
 # Writing Plans

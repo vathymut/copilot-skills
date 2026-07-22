@@ -1,6 +1,6 @@
 ---
 name: ml-conventions
-description: Use when authoring or running ML workflow skills (`data-science-python-stack`, `ml-scaffold`, `build-ml-pipeline`, `evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`, `python-api`, `python-env-manager`) that share cross-cutting rules — ruff config, the scratch/ execution rule, harness-hint handling, the missing-dependency contract, the workspace gate registry, and the pre-flight evidence format. Other ML skills name the rule and point here instead of restating it.
+description: Use when authoring or running any ML workflow skill that shares cross-cutting rules — ruff config, the scratch/ execution rule, harness-hint handling, the missing-dependency contract, the workspace gate registry, or the pre-flight evidence format.
 ---
 
 # ML Conventions
