@@ -112,7 +112,9 @@ Load when routing a dependency.
 ## Install commands — by manager
 
 Once detected, use ONLY the matching commands. Full tables per
-manager: → `references/install-commands.md`.
+manager: → `references/install-commands.md`. For the run-prefix
+placeholders (`<env-prefix>`, `<agent-env-prefix>`) consumer skills
+use in their procedure steps: → `references/env_prefixes.md`.
 
 ## Agent feature install
 

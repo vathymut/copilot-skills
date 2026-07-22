@@ -29,20 +29,21 @@ Full rationale and config: `data-science-python-stack/references/ruff.md`.
 
 ## All Python execution goes to scratch/
 
-Every Python command — `python -c`, `<env-prefix> python -c` (e.g.
-`pixi run python -c`, `uv run python -c`, `poetry run python -c`,
-`hatch run python -c`, `conda run -n <project> python -c`,
-`.venv/bin/python -c`), heredoc-style `python << 'EOF'`, or any inline
-Python — is forbidden regardless of length. Write the script to
+Every Python command — `python -c`, `<env-prefix> python -c` (the
+run prefix the detected env-manager uses for the *default* env —
+e.g. `pixi run`, `uv run`, `poetry run`, `hatch run`,
+`conda run -n <project>`, `.venv/bin/python`; full table at
+`python-env-manager:references/env_prefixes.md`), heredoc-style
+`python << 'EOF'`, or any inline Python — is forbidden regardless of
+length. Write the script to
 `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` first, then execute it via
-the detected env-manager's run prefix (`<env-prefix>` — the form
-`python-env-manager` records in `JOURNAL.md` Status for the chosen
-manager) followed by `scratch/<ts>_<short>.py`. Applies to version
+`<env-prefix> python scratch/<ts>_<short>.py`. Applies to version
 checks, import smokes, signature lookups, module-surface dumps,
 docstring extraction — anything. If you catch yourself typing
 `<env-prefix> python -c` for any manager, STOP and write the file.
 
-Authoritative owner: `python-api` (Stop conditions).
+Authoritative owner: `python-api` (Stop conditions). Run-prefix
+resolution per manager: `python-env-manager:references/env_prefixes.md`.
 
 ## Harness hints do not waive gates
 

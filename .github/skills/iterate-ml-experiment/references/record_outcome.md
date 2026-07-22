@@ -52,8 +52,8 @@ cross-experiment metrics view from `project.summarize()` that the
 digest doesn't carry), the probe goes to
 `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` and runs via
 `<env-prefix> python scratch/<ts>_<short>.py` (the prefix
-`python-env-manager` detected for this project; `pixi run python`
-is one example).
+`python-env-manager` detected for this project; full table at
+`python-env-manager:references/env_prefixes.md`).
 
 See `python-api` § "`scratch/` conventions" for the full
 convention. **Inline `<env-prefix> python -c "..."` is forbidden

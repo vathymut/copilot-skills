@@ -79,12 +79,11 @@ Status `Workspace decisions` is the precondition; see
 - **All Python execution goes to
   `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py`. No exceptions.**
   Every Python command — `<env-prefix> python -c` (whatever
-  env-manager `python-env-manager` detected for this project — e.g.
-  `pixi run python -c`, `uv run python -c`, `poetry run python -c`,
-  `hatch run python -c`, `conda run -n <project> python -c`,
-  `.venv/bin/python -c`), `python -c`, heredoc-style
-  `python << 'EOF'`, or any inline Python — is forbidden,
-  regardless of length. Write to scratch first, then execute via
+  env-manager `python-env-manager` detected for this project; full
+  table at `python-env-manager:references/env_prefixes.md`),
+  `python -c`, heredoc-style `python << 'EOF'`, or any inline
+  Python — is forbidden, regardless of length. Write to scratch
+  first, then execute via
   `<env-prefix> python scratch/<ts>_<short>.py`. Applies to
   version checks, import smokes, signature lookups, module surface
   dumps, docstring extraction, anything. If you catch yourself
@@ -114,7 +113,8 @@ Status `Workspace decisions` is the precondition; see
    `scratch/<YYYY-MM-DD>_<HHMMSS>_version_<pkg>.py` with
    `import <pkg>; print(<pkg>.__version__)`, run via
    `<env-prefix> python scratch/<ts>_version_<pkg>.py` (the
-   prefix `python-env-manager` detected for this project). **No
+   prefix `python-env-manager` detected for this project; full
+   table at `python-env-manager:references/env_prefixes.md`). **No
    inline `python -c` or `<env-prefix> python -c`.**
 2. **List the cache:** `ls scratch/api/<lib>/<version>/`.
 3. **Cache hit?** Read the matching file. Done.
@@ -129,7 +129,8 @@ Pre-flight (python-api):
 - [ ] Package version resolved this turn: <lib> <version>
       Evidence: Write scratch/<ts>_version_<lib>.py (this turn) +
                 `<env-prefix> python scratch/<ts>_version_<lib>.py` output
-                (the prefix `python-env-manager` detected for this project).
+                (the prefix `python-env-manager` detected for this project;
+                full table at `python-env-manager:references/env_prefixes.md`).
                 **Inline `<env-prefix> python -c "..."` is NOT evidence.**
 - [ ] Cache listed this turn (Shape 0): `ls scratch/api/<lib>/<version>/`
       Evidence: tool output (paste the listing, even if empty)

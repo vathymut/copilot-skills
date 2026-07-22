@@ -4,6 +4,11 @@ Once detected, use ONLY the matching commands. Per-manager extended
 prose (the "why" + caveats per row) lives in
 `references/install_commands_anatomy.md`.
 
+For **run-prefix placeholders** (`<env-prefix>`, `<agent-env-prefix>`)
+that consumer skills use in their procedure steps, see
+`references/env_prefixes.md` — single source of truth, including
+the uv `default-groups` gotcha and a worked example.
+
 ## pixi
 
 | Action | Command |

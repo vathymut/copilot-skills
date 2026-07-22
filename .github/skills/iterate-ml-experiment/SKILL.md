@@ -252,7 +252,8 @@ Once `tests/smoke/` passes (new test AND all prior): ask via
 `AskUserQuestion`:
 
 - **run now** — `<env-prefix> python experiments/NN_<short_name>.py`
-  (the prefix `python-env-manager` detected for this project)
+  (the prefix `python-env-manager` detected for this project; full
+  table at `python-env-manager:references/env_prefixes.md`)
 - **leave for later** — stop. Surface Status + Backlog verbatim.
 
 If run completed this turn → continue to § 4.

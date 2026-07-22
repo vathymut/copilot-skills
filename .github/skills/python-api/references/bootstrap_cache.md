@@ -38,6 +38,13 @@ execution goes to `scratch/<ts>_*.py`. Probes record the
 carry forward. The cache file records the *conclusion*; the next
 agent reads it and skips the round-trip.
 
+`<env-prefix>` resolution per manager is in
+`python-env-manager:references/env_prefixes.md` (single source of
+truth, including the uv `default-groups` gotcha — bare `uv run` may
+or may not include the `agent` group depending on the project's
+`[tool.uv]` config; use `uv run --group agent` when a probe needs
+`IPython`).
+
 A bootstrap turn that fits skrub + skore + sklearn into a working
 baseline without leaving the cache behind has done the discovery
 work and thrown it away. The next session repeats every `dir(...)`

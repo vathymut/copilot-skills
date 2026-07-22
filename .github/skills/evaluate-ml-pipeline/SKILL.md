@@ -195,8 +195,10 @@ mutation, monkey-patching.
 `<agent-env-prefix>` is the prefix that enters the project's
 `agent` env per `python-env-manager` (e.g. `pixi run -e agent`,
 `uv run --group agent`, `poetry run --only agent`,
-`hatch run --env agent`, `conda run -n <project>-agent`,
-`.venv-agent/bin/python`).
+`hatch run -e agent`, `conda run -n <project>-agent`,
+`.venv/bin/python` if agent deps are in the single venv).
+Full resolution table:
+`python-env-manager:references/env_prefixes.md`.
 
 The runner always streams stdout; the optional second arg also writes
   the digest. Runner lives in `ml-eda`; internals: `references/runner_internals.md`.
