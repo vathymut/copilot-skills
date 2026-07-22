@@ -209,90 +209,14 @@ compat-module templates with per-file annotations live in
 
 ## 7. Versioning Strategy
 
-### PEP 440 — The Standard
+PEP 440 canonical forms, SemVer mapping, dynamic (`setuptools_scm`) vs static versioning, version-specifier best practices for dependencies, and the version-bump → release flow all live in `references/versioning-strategy.md` — load it when the user asks about versioning.
 
-```
-Canonical form:  N[.N]+[{a|b|rc}N][.postN][.devN]
+**Two rules worth keeping inline (commonly missed):**
 
-Examples:
-  1.0.0          Stable release
-  1.0.0a1        Alpha (pre-release)
-  1.0.0b2        Beta
-  1.0.0rc1       Release candidate
-  1.0.0.post1    Post-release (e.g., packaging fix only)
-  1.0.0.dev1     Development snapshot (not for PyPI)
-```
+- **`setuptools_scm` CI:** always set `fetch-depth: 0` in every checkout step. Without full git history, tags aren't found and the version silently falls back to `0.0.0+dev`.
+- **Library deps:** prefer `"httpx>=0.24"` (minimum). Never pin exactly (`==`) or use `~=` in a library's `[project] dependencies — it breaks downstream resolution.
 
-### Semantic Versioning (recommended)
-
-```
-MAJOR.MINOR.PATCH
-
-MAJOR: Breaking API change (remove/rename public function/class/arg)
-MINOR: New feature, fully backward-compatible
-PATCH: Bug fix, no API change
-```
-
-### Dynamic versioning with setuptools_scm (recommended for git-tag workflows)
-
-```bash
-# How it works:
-git tag v1.0.0          →  installed version = 1.0.0
-git tag v1.1.0          →  installed version = 1.1.0
-(commits after tag)     →  version = 1.1.0.post1  (suffix stripped for PyPI)
-
-# In code — NEVER hardcode when using setuptools_scm:
-from importlib.metadata import version, PackageNotFoundError
-try:
-    __version__ = version("your-package")
-except PackageNotFoundError:
-    __version__ = "0.0.0-dev"    # Fallback for uninstalled dev checkouts
-```
-
-Required `pyproject.toml` config:
-```toml
-[tool.setuptools_scm]
-version_scheme = "post-release"
-local_scheme   = "no-local-version"   # Prevents +g<hash> from breaking PyPI uploads
-```
-
-**Critical:** always set `fetch-depth: 0` in every CI checkout step. Without full git history,
-`setuptools_scm` cannot find tags and the build version silently falls back to `0.0.0+dev`.
-
-### Static versioning (flit, hatchling manual, poetry)
-
-```python
-# your_package/__init__.py
-__version__ = "1.0.0"    # Update this before every release
-```
-
-### Version specifier best practices for dependencies
-
-```toml
-# In [project] dependencies:
-"httpx>=0.24"            # Minimum version — PREFERRED for libraries
-"httpx>=0.24,<1.0"       # Upper bound only when a known breaking change exists
-"httpx==0.27.0"          # Pin exactly ONLY in applications, NOT libraries
-
-# NEVER do this in a library — it breaks dependency resolution for users:
-# "httpx~=0.24.0"        # Too tight
-# "httpx==0.27.*"        # Fragile
-```
-
-### Version bump → release flow
-
-```bash
-# 1. Update CHANGELOG.md — move [Unreleased] entries to [x.y.z] - YYYY-MM-DD
-# 2. Commit the changelog
-git add CHANGELOG.md
-git commit -m "chore: prepare release vX.Y.Z"
-# 3. Tag and push — this triggers publish.yml automatically
-git tag vX.Y.Z
-git push origin main --tags
-# 4. Monitor GitHub Actions → verify on https://pypi.org/project/your-package/
-```
-
-For complete pyproject.toml templates for all four backends, see `references/pyproject-toml.md`.
+For complete `pyproject.toml` templates for all four backends, see `references/pyproject-toml.md`.
 
 ---
 

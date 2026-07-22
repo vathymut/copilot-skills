@@ -179,28 +179,18 @@ For `user` / `my-pick` / `B<N>`: write draft to
 
 Read the audit digest at `scratch/audit/<stem>/audit.md` (produced by
 `evaluate-ml-pipeline` § Audit) and convert actionable checks into Backlog-candidate rows.
-Full procedure is in `references/source-from-skore.md`.
+Full procedure, output contract, and stop conditions are in
+`references/source-from-skore.md` — load it when this branch runs.
 
 Output: a set of **Backlog-candidate rows** + a short human summary. The
 parent writes rows to `JOURNAL.md` Backlog and re-presents the sourcing menu.
 
-Stop conditions:
-
-- Don't write `journal/` files from this section.
-- Don't re-open the skore Project; read the digest as text.
-- Only `## Checks summary` rows drive Backlog candidates. Metrics summary is
-  context only.
-- Follow the `documentation_url` for each check with `WebFetch`; don't invent
-  mitigations from memory.
-- Dedup against existing Backlog rows by `Source` citation.
-- If the digest is inaccessible, return zero rows and explain why; recovery is
-  owned by `evaluate-ml-pipeline` § Audit.
-
 ## § 2b Source from user
 
 Source the next experiment proposal from the user — directly or via something
-they point at (article, issue, spec, repo). Full procedure is in
-`references/source-from-user.md`.
+they point at (article, issue, spec, repo). Full procedure, output contract,
+and stop conditions are in `references/source-from-user.md` — load it when this
+branch runs.
 
 Output: a user-confirmed **Proposal block**:
 
@@ -212,16 +202,6 @@ Proposal (from: user via <article-link | resource-link | free-text>):
   Method outline:  <prose; which file in src/<pkg>/ is touched>
   Open gaps:       <transfer risks, dep questions, domain assertions needing confirmation>
 ```
-
-Stop conditions:
-
-- Don't write `journal/` files from this section.
-- Don't infer source content from memory; fetch / read it.
-- Confirm before returning — free-text "hmm" is not approval.
-- Check `gh auth status` before any GitHub fetch.
-- Flag goal shifts against `JOURNAL.md` Status.
-- Gate new dependencies as `Open gaps`; don't silently add them.
-- List domain-specific assertions as `[needs user confirmation]` in `Open gaps`.
 
 ## § 3 Iterate on the design note + implement
 
@@ -330,10 +310,6 @@ strategy on behalf of the user.
 - `build-ml-pipeline` / `evaluate-ml-pipeline` — implementation chain
 - `evaluate-ml-pipeline` § Audit — § 4 digest
 - `python-api` / `python-env-manager` — symbols, installs, agent feature
-
-Sourcing was previously handled by the skore source branch and the user source branch;
-those contents now live in this skill's `references/source-from-skore.md` and
-`references/source-from-user.md`.
 
 ## References (load on demand)
 
