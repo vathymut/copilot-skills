@@ -37,7 +37,7 @@ For Windows setup, agent translation, instructions wiring, and troubleshooting, 
 
 ## Catalog
 
-For the complete list of 42 skills (0 routers, 42 leaf skills) and 3 agents, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md).
+For the complete list of 41 skills (0 routers, 41 leaf skills) and 3 agents, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md).
 
 For how the catalog is organized and how the two tools consume it differently, see [docs/architecture.md](./docs/architecture.md).
 

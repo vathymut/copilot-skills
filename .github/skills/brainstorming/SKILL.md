@@ -16,7 +16,7 @@ Route the work before invoking a sibling skill:
 - **New feature request** → `brainstorming` first (this skill; intent/design gate), then `writing-plans` (multi-step plan).
 - **Break into tickets, route clear** → `to-tickets` (single-session tracer-bullet breakdown).
 - **Large or uncertain effort, route genuinely unclear** → `wayfinder` (multi-session map).
-- **Plan already written** → `subagent-driven-development` (one subagent per task + two-stage review).
+- **Plan already written** → `writing-plans` (generates tasks) then execute tasks with TDD inline.
 - **Question to investigate** → `research` (primary sources → repo Markdown).
 - **Issues / external PRs to sort** → `triage` (state machine + agent-ready briefs).
 - **Throwaway design prototype** → `ponytail` (prototype mode).

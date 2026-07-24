@@ -60,7 +60,7 @@ This structure informs the task decomposition. Each task should produce self-con
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` to implement this plan task-by-task (it also carries the inline fallback for platforms without subagents). Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Implement tasks one at a time, each with a failing-test-first RED-GREEN-REFACTOR cycle. Steps use checkbox (`- [ ]`) syntax for tracking. After all tasks, run the full test suite and verify before claiming done.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -112,5 +112,5 @@ After saving the plan, hand off to execution:
 
 **"Plan complete and saved to `docs/plans/<filename>.md`."**
 
-- **REQUIRED SUB-SKILL:** Use `subagent-driven-development` to execute it.
-- It runs a fresh subagent per task with two-stage review by default, dispatches fully independent tasks in parallel, and falls back to inline execution when subagents are unavailable.
+- Implement tasks one at a time in order, each with TDD (RED-GREEN-REFACTOR). Run tests after each task. Do not proceed past a failing task.
+- For planning details and the task structure template, see `references/task-structure.md`.

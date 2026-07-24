@@ -36,7 +36,6 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 |---|---|
 | `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
 | `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions |
-| `subagent-driven-development` | Runs a written plan with a fresh subagent per task plus two-stage review |
 | `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
 | `test-driven-development` | Drives implementation via tests, before writing implementation code |
 | `triage` | Moves issues and PRs through triage roles and writes agent-ready briefs |
@@ -151,7 +150,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **42 skills** in `.github/skills/` (0 routers, 42 leaf skills)
+- **41 skills** in `.github/skills/` (0 routers, 41 leaf skills)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

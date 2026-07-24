@@ -49,7 +49,7 @@ Present title / Blocked by / What it delivers. Iterate on granularity and edges 
 
 Local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance criteria), or a real tracker using native blocking with the `ready-for-agent` label.
 
-Work the frontier one at a time with `subagent-driven-development`.
+Work the frontier one at a time with TDD (RED-GREEN-REFACTOR per task).
 
 ## Completion criteria
 
