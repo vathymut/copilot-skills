@@ -28,7 +28,6 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 |---|---|
 | `git-workflow` | Git workflow in one skill: commit (Conventional Commits), resolve merge/rebase conflicts, set up worktrees, and finish a development branch |
 | `github-copilot-starter` | Sets up Copilot configuration (instructions, agents, skills, workflows) for a new project |
-| `graphify` | Maps, documents, and answers questions about a codebase and its architecture as a knowledge graph |
 | `writing-great-skills` | Guidance for writing, editing, reviewing, or consolidating a skill |
 
 ## Engineering Discipline
@@ -41,7 +40,8 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
 | `test-driven-development` | Drives implementation via tests, before writing implementation code |
 | `triage` | Moves issues and PRs through triage roles and writes agent-ready briefs |
-| `wayfinder` | Plans a large body of work as a shared map of investigation tickets |
+| `to-tickets` | Breaks a plan, spec, or conversation into tracker tickets with blocking edges, in one session |
+| `wayfinder` | Charts a shared multi-session ticket map when the work is too big and the route is unclear |
 | `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
 
 ## Documentation & Specs

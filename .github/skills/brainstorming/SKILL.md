@@ -14,7 +14,8 @@ natural collaborative dialogue. Two branches share the same core loop: explore
 Route the work before invoking a sibling skill:
 
 - **New feature request** → `brainstorming` first (this skill; intent/design gate), then `writing-plans` (multi-step plan).
-- **Large or uncertain effort, route unclear** → `wayfinder` (tickets with blocking edges, or a multi-session map).
+- **Break into tickets, route clear** → `to-tickets` (single-session tracer-bullet breakdown).
+- **Large or uncertain effort, route genuinely unclear** → `wayfinder` (multi-session map).
 - **Plan already written** → `subagent-driven-development` (one subagent per task + two-stage review).
 - **Question to investigate** → `research` (primary sources → repo Markdown).
 - **Issues / external PRs to sort** → `triage` (state machine + agent-ready briefs).

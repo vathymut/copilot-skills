@@ -26,8 +26,8 @@ This skill is the default: a single multi-step plan document for a self-containe
 | Situation | Use |
 |---|---|
 | Self-contained multi-step feature (default) | **writing-plans** (this skill) |
-| Work to publish as tracker tickets with blocking edges | `wayfinder` (lightweight mode) |
-| Work too big for one session, wrapped in fog — decisions must be found before planning can even start | `wayfinder` (heavyweight; prefer this skill or `wayfinder` lightweight unless the destination is genuinely unclear) |
+| Work to publish as tracker tickets with blocking edges, route clear | `to-tickets` |
+| Work too big for one session, wrapped in fog — decisions must be found before planning can even start | `wayfinder` |
 
 ## Scope Check
 

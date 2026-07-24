@@ -1,38 +1,12 @@
 ---
 name: wayfinder
-description: Use when a piece of work is too large for one agent session and the route to the goal is unclear.
+description: Use when a piece of work is too large for one agent session and the route to the goal is genuinely unclear
 disable-model-invocation: true
 ---
 
 > **Reach for the lightest mode that fits.**
-> - **Lightweight** — break a plan/spec into tracer-bullet tickets with blocking edges, in one session (formerly the `to-tickets` skill).
-> - **Heavyweight** — chart a shared, multi-session ticket map when the work is too big for one session *and* the route to the destination is genuinely unclear. Reach for it last.
-
-## Lightweight mode — single-session tracer-bullet tickets
-
-Break a plan, spec, or conversation into **tickets** — tracer-bullet vertical
-slices, each declaring the tickets that **block** it. The destination is clear;
-you just want tracked, ordered work items.
-
-The issue tracker and triage label vocabulary should have been provided to you
-— if no tracker config has been provided, ask the user where issue tracker
-config / triage labels come from, or default to the local-markdown tracker.
-
-1. **Gather context** — work from the conversation; fetch any referenced spec
-   or issue and read its full body and comments.
-2. **Explore the codebase (optional)** — use the project's domain glossary and
-   respect ADRs; look for prefactoring opportunities.
-3. **Draft vertical slices** — each cuts a complete path through every layer
-   (schema, API, UI, tests), demoable on its own, sized to one context window.
-   Give each ticket its **blocking edges**. Wide refactors are the exception:
-   sequence them expand–contract, each batch its own ticket blocked by the
-   expand.
-4. **Quiz the user** — present title / Blocked by / What it delivers; iterate
-   on granularity and edges until approved.
-5. **Publish** — local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`
-   (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance
-   criteria), or a real tracker using native blocking with the `ready-for-agent`
-   label. Work the frontier one at a time with `subagent-driven-development`.
+> - **Lightweight** — break a plan/spec into tracer-bullet tickets with blocking edges, in one session. Use `to-tickets`.
+> - **Heavyweight (this skill)** — chart a shared, multi-session ticket map when the work is too big for one session *and* the route to the destination is genuinely unclear. Reach for it last.
 
 ## Heavyweight mode — multi-session map
 
@@ -56,20 +30,17 @@ The map is an **index**, not a store. It lists the decisions made and points at 
 
 **Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** The issue tracker should have been provided to you — if not, ask the user where issue tracker / triage labels come from, or default to the local-markdown tracker. Consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them.
 
-The map-body template, ticket template, ticket types, and the
-Fog-of-war / Out-of-scope conventions are moved to
-`references/map-conventions.md` — load it when you create or edit the map.
-
+The map-body template, ticket template, ticket types, and the Fog-of-war / Out-of-scope conventions are in `references/map-conventions.md` — load it when you create or edit the map.
 
 ## Invocation
 
-Two modes. Either way, **never resolve more than one ticket per session.**
+**Never resolve more than one ticket per session.**
 
 ### Chart the map
 
 User invokes with a loose idea.
 
-1. **Name the destination.** Run a `brainstorming` and `/domain-modeling` session to pin down what this map is finding its way to — the spec, decision, or change. The destination fixes the scope, so it's settled first.
+1. **Name the destination.** Run a `brainstorming` and `domain-modeling` session to pin down what this map is finding its way to — the spec, decision, or change. The destination fixes the scope, so it's settled first.
 2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** — the way to the destination is already clear, the whole journey small enough for one session — you don't need a map. Stop and ask the user how they'd like to proceed.
 3. **Create the map** (label `wayfinder:map`): Destination and Notes filled in, Decisions-so-far empty, the fog sketched into **Not yet specified**.
 4. **Create the tickets you can specify now** as child issues of the map — then wire blocking edges in a **second pass** (issues need ids before they can reference each other). Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog — the **Not yet specified** section.
@@ -81,7 +52,7 @@ User invokes with a map (URL or number). A ticket is **optional** — without on
 
 1. Load the **map** — the low-res view, not every ticket body.
 2. Choose the ticket. If the user named one, use it. Otherwise take the first frontier ticket in order. **Claim it**: assign it to yourself before any work.
-3. Resolve it — **zoom as needed**: fetch the full body of any related or closed ticket on demand; invoke the skills the `## Notes` block names. If in doubt, use `brainstorming` and `/domain-modeling`.
+3. Resolve it — **zoom as needed**: fetch the full body of any related or closed ticket on demand; invoke the skills the `## Notes` block names. If in doubt, use `brainstorming` and `domain-modeling`.
 4. Record the resolution: post the answer as a **resolution comment**, **close** the issue, and **append a context pointer** to the map's Decisions-so-far.
 5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals a ticket — this one or another — sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
 
