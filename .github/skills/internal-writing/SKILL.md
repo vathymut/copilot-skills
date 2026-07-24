@@ -6,24 +6,25 @@ disable-model-invocation: true
 
 # Internal Writing
 
-Draft internal communications and reviews in the right format. Pick the branch that matches the request.
+Draft internal communications and reviews.
+
+## When NOT to use
+
+- External/customer-facing communications
+- Technical documentation, API docs, changelogs
+- Marketing, sales, or press copy
+
+## Context
 
 | Branch | Use when |
 |---|---|
-| **meeting-minutes** | Write up a meeting, transcript, or raw notes into concise minutes. |
-| **performance-review** | Draft self-assessments, peer reviews, upward feedback, brag sheets, weekly updates, promotion packets. |
-| **internal-comms** | Write team updates (3P), company newsletters, FAQ answers, or other formatted internal messages. |
+| **meeting-minutes** | Meeting transcript, raw notes, or agenda needs concise minutes |
+| **performance-review** | Self-assessment, peer review, upward feedback, brag sheet, promotion packet |
+| **internal-comms** | Team update (3P), newsletter, FAQ answer, or other formatted internal message |
 
 ## Branch — meeting-minutes
 
 Produce concise minutes for internal meetings, prioritizing decisions and action items.
-
-### Intake
-
-- Title, date, duration, organizer
-- Attendees and absentees
-- Source: agenda, transcript, recording, or raw notes
-- Ask up to three clarifying questions if anything is missing.
 
 ### Output schema
 
@@ -68,10 +69,10 @@ Draft self-assessments, peer reviews, upward feedback, and evidence-backed brag 
 
 ### Workflow
 
-1. **Gather context** — ask up to 3 clarifying questions: review type, subject, review period.
-2. **Surface evidence** — pull contribution metrics from the team's work-analytics tool when available; otherwise mine git/GitHub PRs or ask the user for bullets. Do not fabricate metrics.
-3. **Draft** — use STAR for achievements and impact-first bullets for brag sheets.
-4. **Output** — present the draft with evidence summary, highlight `[NEEDS DETAIL]`, and save final drafts to `outputs/<year>/<month>/` with descriptive filenames.
+1. Gather context — review type, subject, period.
+2. Surface evidence — pull metrics or git/GitHub PRs; never fabricate.
+3. Draft — STAR for achievements, impact-first bullets for brag sheets.
+4. Output — present with evidence summary, mark `[NEEDS DETAIL]`, save to `outputs/<year>/<month>/`.
 
 ### Output schemas
 

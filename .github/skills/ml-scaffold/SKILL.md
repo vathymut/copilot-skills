@@ -15,64 +15,30 @@ After this, hand off to `iterate-ml-experiment` § 0.
 | No `src/` / `experiments/` / `journal/` | § Scaffold |
 | Read-only / "where are we?" | → `iterate-ml-experiment` § maintenance |
 
-## Stop conditions
+## Scaffold flow
 
-- **Detection wins.** Existing `pyproject.toml`, `pixi.toml`,
-  `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or
-  `reports/` → glue to the existing layout; no renames.
-- **Gates fire before files are written.** `G-PKG-NAME`,
-  `G-ENV-MGR`, `G-TABULAR`, `G-SKORE-MODE`. See `ml-conventions:references/ml-gates.md`.
-- **No design note, no experiment code.** Create only the placeholder
-  `journal/JOURNAL.md`; never write `experiments/NN_*.py` here.
-- **All Python execution goes to `scratch/`** — rule and command: see `ml-conventions:references/shared-ml-conventions.md` (scratch/ rule); authoritative owner `python-api`.
+1. **Detect** existing layout. If `pyproject.toml`, `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or `reports/` already exist, glue to the existing layout; no renames.
+2. **Resolve gates** `G-PKG-NAME`, `G-SKORE-MODE` (`local`|`hub`|`mlflow`), and `G-TABULAR`. See `ml-conventions:references/ml-gates.md` and `references/g_skore_mode.md`.
+3. **Delegate** `G-ENV-MGR` to `python-env-manager`.
+4. **Create layout** — `pyproject.toml`, manager manifest, `src/<pkg>/` skeletons, `experiments/`, `tests/smoke/`, `audit/`, `journal/`, `scratch/`, `reports/`, ruff config. Four-way stem pairing applies: `journal/NN_<short_name>.md`, `experiments/NN_<short_name>.py`, `tests/smoke/test_NN_<short_name>.py`, `audit/NN_<short_name>.py`.
+5. **Write placeholder** `journal/JOURNAL.md` (from `iterate-ml-experiment/templates/JOURNAL.md`) and return to `iterate-ml-experiment` § 0.
 
-## Pre-flight
+## Plan
+
+Re-emit this pre-flight checklist when asked:
 
 ```
 Pre-flight (ml-scaffold):
 - [ ] Layout detection: <existing | fresh>
-      Evidence: ls/Glob matched signal
 - [ ] G-PKG-NAME resolved
-      Evidence: AskUserQuestion id=<id> | JOURNAL.md
 - [ ] G-SKORE-MODE resolved
-      Evidence: AskUserQuestion id=<id> | JOURNAL.md
 - [ ] G-ENV-MGR delegated to python-env-manager
-      Evidence: handoff recorded
 - [ ] G-TABULAR delegated to data-science-python-stack
-      Evidence: AskUserQuestion id=<id> | JOURNAL.md
-- [ ] `pyproject.toml` + manager manifest + src/<pkg>/ skeletons written
-- [ ] Empty dirs created: experiments/, tests/smoke/, audit/, journal/, scratch/, reports/
-- [ ] Placeholder JOURNAL.md written from iterate-ml-experiment template
+- [ ] pyproject.toml + manager manifest + src/<pkg>/ skeletons written
+- [ ] Dirs created: experiments/, tests/smoke/, audit/, journal/, scratch/, reports/
+- [ ] Placeholder JOURNAL.md written
 - [ ] .gitignore asked for reports/; data/ not ignored wholesale
-- [ ] Pre-flight re-emitted with evidence before final message.
 ```
-
-## Scaffold flow
-
-1. Detect existing signals; glue if any.
-2. Resolve `G-PKG-NAME` via `AskUserQuestion`; record in JOURNAL.md.
-3. Resolve `G-SKORE-MODE` (`local` \| `hub` \| `mlflow`). Hub → workspace
-   name; MLflow → tracking URI. See `references/g_skore_mode.md`.
-4. Hand off to `python-env-manager` for `G-ENV-MGR`.
-5. Create `pyproject.toml`, manager manifest, and `src/<pkg>/` skeletons
-   from `templates/`.
-6. Create `experiments/`, `tests/smoke/`, `audit/`, `journal/`,
-   `scratch/`, `reports/`.
-7. Ask about `.gitignore` for `reports/`; never ignore `data/` as a whole.
-8. Write placeholder `journal/JOURNAL.md` from
-   `iterate-ml-experiment/templates/JOURNAL.md`.
-9. Write the ruff config: see `ml-conventions:references/shared-ml-conventions.md` (Ruff) for the command and `templates/ruff.toml` source.
-10. Return to `iterate-ml-experiment` § 0.
-
-## File rules
-
-- Four-way stem pairing:
-  `journal/NN_<short_name>.md`,
-  `experiments/NN_<short_name>.py`,
-  `tests/smoke/test_NN_<short_name>.py`,
-  `audit/NN_<short_name>.py`.
-- New experiment → new file. In-place edits reuse the same skore key —
-  flag this and ask.
 
 ## References
 

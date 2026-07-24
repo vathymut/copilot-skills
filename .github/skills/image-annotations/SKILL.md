@@ -29,7 +29,7 @@ Determine what needs highlighting — specific UI elements, changed regions, or 
 ## Step 2: Select annotation approach
 
 - **Single element**: use the reference snippet (rounded rect + leader line + label)
-- **Multiple elements**: use `annotate_image()` from [`references/annotate.py`](references/annotate.py) for automatic placement
+- **Multiple elements**: use `annotate_image()` (defined below) for automatic placement
 - **Before/after diff**: use `diff_images()` to find changed regions, then annotate
 
 For unfamiliar images, always run `grid_image()` first to get precise coordinates.
@@ -54,11 +54,26 @@ draw.text((x2+63, cy-60), 'label', fill=color, font=font, stroke_width=1, stroke
 **Multi-element algorithmic placement:**
 
 ```python
-from annotate import annotate_image
+def annotate_image(image_path, annotations, *, color='#FF9F1C', font=None):
+    from PIL import Image, ImageDraw, ImageFont
+    img = Image.open(image_path).convert('RGBA')
+    draw = ImageDraw.Draw(img)
+    font = font or ImageFont.load_default()
+    for ann in annotations:
+        x1, y1, x2, y2 = ann['elem']
+        label = ann['label']
+        cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+        lx, ly = x2 + 58, cy - 30
+        if ann.get('draw_box', False):
+            draw.rounded_rectangle([x1-18, y1-18, x2+18, y2+18], radius=14, outline=color, width=5)
+        draw.line([(x2+18, cy), (lx, ly)], fill=color, width=5)
+        draw.text((lx+5, ly-30), label, fill=color, font=font, stroke_width=1, stroke_fill=color)
+    return img
+
 result = annotate_image('screenshot.png', [
     {'elem': (560, 275, 635, 390), 'label': 'button', 'draw_box': True},
     {'elem': (105, 453, 236, 470), 'label': 'status text'},
-], debug=True)
+])
 result.save('annotated.png')
 ```
 
@@ -70,7 +85,5 @@ result.save('annotated.png')
 - Check that labels are close to their targets (short arrows, 25-80px)
 - Confirm all elements use consistent line thickness (~5px)
 - Verify rendering in the target platform
-
-For animated GIFs: use 2-frame pop-in fade at 10fps, variable frame duration (fast action: 100ms, pauses: 600-800ms), and place labels adjacent to targets.
 
 **Completion criterion:** Annotations clear, readable, and consistent.

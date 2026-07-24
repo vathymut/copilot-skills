@@ -20,36 +20,28 @@ Full citation workflow (Semantic Scholar API, DOI fetch, placeholder rules): [re
 
 ---
 
+## Setup
+
+Before drafting, run first-time setup:
+
+1. Explore the repo (README, results, `.bib` files, experiment configs)
+2. Confirm the one-sentence contribution with the scientist
+3. Identify the target venue (→ Conference Quick Reference below)
+
+---
+
 ## Core Principle
 
 **Be proactive. Deliver a draft, then iterate.**
 
-1. Explore the repo (README, results, existing `.bib` files, experiment configs)
-2. Confirm the one-sentence contribution with the scientist
-3. Deliver a complete first draft — flag uncertainties inline, don't block on them
-4. Iterate on feedback
+- Flag uncertainties inline, don't block on them
+- Iterate on feedback
 
 ---
 
 ## Paper Structure
 
-Write in this order. Each step: draft → share → revise.
-
-```
-- [ ] 1. One-sentence contribution (confirm with scientist)
-- [ ] 2. Figure 1
-- [ ] 3. Abstract (5-sentence formula)
-- [ ] 4. Introduction (1–1.5 pages max, contribution bullets, methods by p.2)
-- [ ] 5. Methods (pseudocode, all hyperparameters, reproducibility details)
-- [ ] 6. Experiments (state the claim each experiment tests; error bars required)
-- [ ] 7. Related Work (methodological grouping, not paper-by-paper)
-- [ ] 8. Limitations (required; honesty helps with reviewers)
-- [ ] 9. Conference checklist → [references/checklists.md](references/checklists.md)
-```
-
-**Time allocation** (Neel Nanda): abstract ≈ introduction ≈ figures ≈ everything else combined. Reviewers read in order: title → abstract → intro → figures.
-
-**Abstract formula** (Farquhar): (1) what you achieved, (2) why it's hard/important, (3) how you do it, (4) evidence, (5) best number.
+Write sections in the order specified by `references/paper-structure.md`. The reference defines the complete checklist (contribution → Figure 1 → Abstract → Introduction → Methods → Experiments → Related Work → Limitations → checklist) with timing notes and the abstract formula. Read it when you start drafting.
 
 ---
 
@@ -110,6 +102,7 @@ When cutting: move proofs to appendix, cite surveys instead of individual papers
 
 | Document | Contents |
 |----------|----------|
+| [references/paper-structure.md](references/paper-structure.md) | Section checklist, timing, abstract formula |
 | [references/citation-workflow.md](references/citation-workflow.md) | Semantic Scholar API, DOI→BibTeX, placeholder rules |
 | [references/writing-guide.md](references/writing-guide.md) | Gopen & Swan 7 principles, Perez micro-tips, Lipton word choice |
 | [references/checklists.md](references/checklists.md) | NeurIPS, ICML, ICLR, ACL, AAAI submission checklists |

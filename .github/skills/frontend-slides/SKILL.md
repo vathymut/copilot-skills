@@ -17,6 +17,14 @@ Create zero-dependency, animation-rich HTML presentations that run entirely in t
 
 See `references/design-aesthetics.md` for typography, color, motion, and background guidance.
 
+## No external assets
+
+Every deck is a single self-contained HTML file. **No** external scripts, stylesheets, images, fonts (use `@import` in CSS or data URIs), or build tools. Purge any HTML generator that emits `<script src="...">`, `<link rel="stylesheet" href="...">`, or separate assets. The file must work offline when opened from disk.
+
+## Preamble requirement
+
+Before generating any template or slide output, emit the full contents of `viewport-base.css` line‑for‑line as an inline `<style>` block. Do not summarize, minify, or omit.
+
 ## Flow
 
 Three phases: **Discover** → **Generate** → **Deliver**.

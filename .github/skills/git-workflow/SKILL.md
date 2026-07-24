@@ -7,20 +7,9 @@ allowed-tools: Bash
 
 # Git Workflow
 
-Pick the branch that matches the request. All branches are user-invoked.
+Opinionated conventions and workflows. Standard git operations (add, commit, diff, merge, rebase, log, status) are agent defaults and not documented here.
 
-- **commit** — conventional commit (with message-only mode)
-- **merge-conflict** — resolve an in-progress merge or rebase
-- **worktree** — set up an isolated workspace
-- **finish-branch** — verify tests, then merge / PR / keep / discard
-
-## Branch: commit
-
-Create standardized, semantic git commits using the Conventional Commits
-specification. Analyze the actual diff to determine type, scope, and message.
-Also drafts commit messages on demand from raw diffs or change descriptions.
-
-### Format
+## Conventional Commits
 
 ```
 <type>[optional scope]: <description>
@@ -30,61 +19,22 @@ Also drafts commit messages on demand from raw diffs or change descriptions.
 [optional footer(s)]
 ```
 
-### Workflow
-
-1. **Analyze diff**
-   ```bash
-   git diff --staged   # if files staged
-   git diff            # else working tree
-   git status --porcelain
-   ```
-2. **Stage files** (if needed): `git add <path>`, `git add -p`.
-   **Never commit secrets** (.env, credentials.json, private keys).
-3. **Generate message** — map the diff to a Conventional Commits type
-   (→ `references/commit-types.md`); one-line summary, present tense,
-   imperative mood, <72 chars. For logically separate changes, suggest
-   splitting. Subject/body/footer rules in `references/conventional-commits-guide.md`.
-4. **Execute**: `git commit -m "<type>[scope]: <description>"`.
-
-**Completion criteria:** commit created, no staged secrets, message follows
-conventional format.
+Types map (`references/commit-types.md`). One logical change per commit; imperative mood, <72‑char description. Reference issues (`Closes #123`).
 
 ### Message-only mode
 
-If the user asks for a message but not a commit: map to a type, produce the
-message in a copyable code block plus a one-line plain-English story summary,
-and do **not** stage or commit.
+User asks for a message but not a commit → produce a copyable code block + plain‑English story summary. Do not stage or commit.
 
-**Conventions:** one logical change per commit; imperative mood; reference
-issues (`Closes #123`, `Fixes #456`); description <72 chars.
+**Safety:** never update git config, run `--force`/hard reset without explicit request, skip hooks (`--no-verify`) unless asked, or force‑push to main. If a hook fails, fix and create a NEW commit (don't amend).
 
-**Safety:** NEVER update git config, run destructive commands (`--force`,
-hard reset) without explicit request, skip hooks (`--no-verify`) unless asked,
-or force-push to main/master. If a hook fails, fix and create a NEW commit
-(don't amend).
+## Fixup / squash (interactive rebase)
 
-## Branch: merge-conflict
+```bash
+git commit --fixup <SHA>   # mark as fixup
+GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash <base>
+```
 
-Resolve an in-progress git merge or rebase. **Never `--abort` without explicit
-user approval.**
-
-1. **See current state.** Read `git status`, the conflicted files, and recent history.
-2. **Find intent behind each side.** Read commit messages, PR/issue refs, and code to understand why each change was made.
-3. **Resolve each hunk.** Preserve both intents when possible. When they conflict, pick the side matching the merge's goal and note the trade-off. Do **not** invent new behavior.
-4. **Regenerate lockfiles** with the package manager if they conflict — do not hand-edit.
-5. **Run automated checks.** Compile/typecheck, then tests, then lint/format. Fix anything the merge broke.
-6. **Finalize.** Stage all resolved files and complete the merge/rebase; continue rebasing until done.
-
-**Completion criteria:** no conflict markers remain; working tree builds and
-relevant tests pass; resolution choices summarized for the user.
-
-## Branch: worktree
-
-Set up an isolated workspace — detect existing isolation (Step 0),
-create via native tool or `git worktree add` fallback (Step 1), project
-setup (Step 3), verify clean baseline (Step 4), and the red-flag rules.
-The full Step 0–4 procedure with the detection snippets is in
-`references/worktree.md` — load it when you actually set up the worktree.
+The `GIT_SEQUENCE_EDITOR=true` trick auto‑accepts the autosquash ordering without opening an editor. Verify with `git log --oneline` afterward.
 
 ## Branch: finish-branch
 

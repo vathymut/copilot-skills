@@ -29,17 +29,13 @@ config / triage labels come from, or default to the local-markdown tracker.
 
 Work from the conversation; fetch any referenced spec or issue and read its full body and comments.
 
-**Completion criterion:** you hold the spec, plan, or conversation the tickets will slice.
-
 ### 2. Explore the codebase (optional)
 
-Use the project's domain glossary and respect ADRs; look for prefactoring opportunities.
+Search for relevant source files, existing data models, API routes, and test patterns. Check `.github/instructions/` or `docs/` for project conventions. Use the project's domain glossary and respect ADRs; look for prefactoring opportunities.
 
 ### 3. Draft vertical slices
 
 Each cuts a complete path through every layer (schema, API, UI, tests), demoable on its own, sized to one context window. Give each ticket its **blocking edges**. Wide refactors are the exception: sequence them expand–contract, each batch its own ticket blocked by the expand.
-
-**Completion criterion:** every slice has a title, a "What to build", its blocking edges, and acceptance criteria.
 
 ### 4. Quiz the user
 
@@ -50,6 +46,22 @@ Present title / Blocked by / What it delivers. Iterate on granularity and edges 
 Local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance criteria), or a real tracker using native blocking with the `ready-for-agent` label.
 
 Work the frontier one at a time with TDD (RED-GREEN-REFACTOR per task).
+
+## Ticket template (use per ticket)
+
+```markdown
+# <Title>
+
+**What to build:** <one-line description>
+
+**Blocked by:** #<NN> (or None)
+
+**Acceptance criteria:**
+- [ ] <criterion 1>
+- [ ] <criterion 2>
+
+**Status:** ready-for-agent
+```
 
 ## Completion criteria
 

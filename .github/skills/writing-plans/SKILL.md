@@ -6,32 +6,27 @@ description: Use when a spec or requirements for a multi-step task exist, before
 
 # Writing Plans
 
-## Overview
+One plan per self-contained feature. A plan is a markdown file saved to `docs/plans/YYYY-MM-DD-<feature-name>.md` with: goal sentence, architecture sketch, file map, and bite-sized TDD tasks — a header, files list, then sequential steps each with failing test → verify fail → implement → verify pass → commit.
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. TDD. Frequent commits. Scope discipline (only plan what the spec actually needs — no speculative tasks) follows the YAGNI ladder in `ponytail`.
+Default to one plan per run. If the spec covers multiple independent subsystems, split into separate plans — one per subsystem. For mixed code/no-code tasks (e.g. config + script + docs), include all types in one plan; label each task's output format.
 
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+## Output format
 
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
+The deliverable is a single markdown file at `docs/plans/YYYY-MM-DD-<feature-name>.md` containing:
 
-**Context:** If working in an isolated worktree, it should already exist (created at execution time).
+- **Header block**: goal sentence, architecture sketch (2-3 sentences), tech stack
+- **File map**: every file to create or modify, with responsibility
+- **Sequential tasks**: each with RED → GREEN → REFACTOR, exact code, and `pytest` commands
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
-- (User preferences for plan location override this default)
+No placeholders, no TBDs, no "implement later". Every code block is complete.
 
 ## Which planning skill?
-
-This skill is the default: a single multi-step plan document for a self-contained feature. For other shapes, hand off:
 
 | Situation | Use |
 |---|---|
 | Self-contained multi-step feature (default) | **writing-plans** (this skill) |
 | Work to publish as tracker tickets with blocking edges, route clear | `to-tickets` |
-| Work too big for one session, wrapped in fog — decisions must be found before planning can even start | `wayfinder` |
-
-## Scope Check
-
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+| Work too big for one session, wrapped in fog | `wayfinder` |
 
 ## File Structure
 

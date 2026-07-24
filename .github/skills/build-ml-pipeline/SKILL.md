@@ -5,136 +5,41 @@ description: Use when declaring an ML pipeline with skrub and the source-to-X-ma
 
 # Build ML Pipeline (Declaration)
 
-Declarative shape of a Python ML pipeline from data source to
-predictor.
+Declarative shape of a Python ML pipeline from data source to predictor.
+Key terms (`X marker`, `predict grid`, `cross-row step`, `Layers 1/2/3`): see `references/layer_examples.md` § terminology.
 
-Key terms (`X marker`, `predict grid`, `cross-row step`, `Layers 1/2/3`)
-are introduced inline in Rule 2.
+## Decision flow
 
-## Canonical pipeline shape — IID flat-table
+**1 — Pick source binding pattern.** Root the pipeline on `skrub.var(...)` identifiers. `skrub.X(...)` / `skrub.y(...)` shortcut roots and materialized DataFrame roots are forbidden. See `references/source-binding.md`.
 
-The 90% case. Copy + adapt; replace `TARGET_COL` and the regressor.
-
-```python
-import skrub
-from sklearn.ensemble import HistGradientBoostingRegressor
-
-from <pkg>.data import TARGET_COL, load_raw
-
-
-def build_learner(data_dir_preview=None):
-    """Return the unfit learner (skrub SkrubLearner)."""
-    data_dir = (
-        skrub.var("data_dir", value=str(data_dir_preview))
-        if data_dir_preview is not None
-        else skrub.var("data_dir")
-    )
-
-    # Layer 1 + 2: load + mark X / y on the source frame.
-    # No cross-row feature steps → marker sits here.
-    data = data_dir.skb.apply_func(load_raw)
-    X = data.drop(columns=[TARGET_COL]).skb.mark_as_X()
-    y = data[TARGET_COL].skb.mark_as_y()
-
-    # Layer 3: estimator at the tail. Feature engineering (if any)
-    # chains between mark_as_X and the final .skb.apply.
-    predictions = X.skb.apply(
-        HistGradientBoostingRegressor(random_state=0), y=y
-    )
-    return predictions.skb.make_learner()
-```
-
-For history-dependent / panel / cold-start cases (≠ IID):
-→ `references/layer_examples.md` § history-dependent.
-
-For loader-baked-shift counter-example (what NOT to do):
-→ `references/layer_examples.md` § counter-example.
-
-## Stop conditions
-
-- **Missing dependency.** `import skrub` raising → `python-env-manager`.
-  Do not substitute `sklearn.Pipeline` / `make_pipeline` /
-  `FunctionTransformer`. See `ml-conventions:references/shared-ml-conventions.md`
-  (Missing dependency) for the no-substitute rule.
-- **Symbol from memory is forbidden.** Use `python-api` this turn.
-- **Splitter imports are out of scope.** Only `split_kwargs` at the
-  X marker.
-- **Python-stack defaults apply** — ruff, the `scratch/` execution rule, and harness-hint handling: see `ml-conventions:references/shared-ml-conventions.md`.
-
-## Core rules
-
-### Rule 1 — Skrub DataOps is the entry point
-
-Declare the pipeline as a `skrub.var(...)` graph rooted on source
-identifiers. `skrub.X(...)` / `skrub.y(...)` shortcut roots and
-materialized DataFrame roots are forbidden. Source binding details:
-`references/source-binding.md`.
-
-### Rule 2 — Mark the X early; featurize after
-
-The **X marker** (`.skb.mark_as_X()`) is the shared-vs-predict-specific
-boundary. The **predict grid** is the rows you want predictions for:
-- IID: the loaded frame itself.
-- Panel / time-series: a `(group, time)` set.
-
-Ask: *does any feature step look at rows other than the one currently
-being processed?*
+**2 — Place the X marker.** The X marker (`.skb.mark_as_X()`) is the shared-vs-predict-specific boundary. Ask: *does any feature step look at rows other than the one currently being processed?*
 
 | Answer | Marker placement |
 |---|---|
 | No (per-row math, stateful encoders that learn once and apply per-row) | On the loaded source frame |
 | Yes (lag, rolling, cross-row join, target shift) | Upstream of every cross-row step |
 
-**Layers 1 / 2 / 3:**
+Wire `split_kwargs={...}` at the marker for group/temporal structure. No `cv=` here.
 
-1. **Sources.** One `skrub.var(...)` per input identifier. Loaders are
-   pure functions of that identifier. No task-specific filters here.
-2. **Predict grid + X marker.** Rows = predict grid. `mark_as_X` /
-   `mark_as_y` go here. Target derivation requiring history belongs to
-   a stateful `BaseEstimator`.
-3. **Features after the marker.** History-dependent steps take the X
-   DataOp *and* relevant Layer-1 source DataOp(s) as extra arguments.
+**3 — Stateless vs stateful.** Litmus test: *Would output change if run on the training subset alone?* Yes → `.skb.apply(sklearn_estimator)` (stateful). No → `.skb.apply_func(pure_fn)` (stateless).
 
-Worked examples (IID, history-dependent, counter-example):
-`references/layer_examples.md`. Production-style alignment walkthrough:
-`.github/skills/python-api/references/pre_mark_alignment.md`.
+## Canonical shape — IID flat-table (90% case)
 
-A **cold-start row** has no in-slice history available. A late marker
-silently drops them at predict time. The smoke test in
-`evaluate-ml-pipeline` § Smoke proves correct placement by construction.
+```python
+import skrub
+from sklearn.ensemble import HistGradientBoostingRegressor
+from <pkg>.data import TARGET_COL, load_raw
 
-**Preview value** is an optional kwarg from the caller, never a
-relative-path literal in `pipeline.py`.
+def build_learner(data_dir_preview=None):
+    data_dir = skrub.var("data_dir", value=str(data_dir_preview)) if data_dir_preview is not None else skrub.var("data_dir")
+    data = data_dir.skb.apply_func(load_raw)
+    X = data.drop(columns=[TARGET_COL]).skb.mark_as_X()
+    y = data[TARGET_COL].skb.mark_as_y()
+    predictions = X.skb.apply(HistGradientBoostingRegressor(random_state=0), y=y)
+    return predictions.skb.make_learner()
+```
 
-**Cross-validation metadata** at the marker: if group or temporal
-structure exists, wire it in `split_kwargs={...}`. Do not use `cv=` here.
-
-### Rule 3 — Stateless → function; stateful → estimator
-
-- **Stateless:** output depends only on the current row and constants.
-  → `.skb.apply_func(pure_fn)`.
-- **Stateful:** learns from training data and reapplies to test.
-  → `.skb.apply(sklearn_estimator)`.
-
-The litmus test: *would output change if run on the training subset
-alone?* If yes, it is stateful.
-
-## Common patterns
-
-Short catalogue; look up exact symbols in `python-api`. Full code:
-`references/common_patterns.md`.
-
-1. Heterogeneous columns — skrub column selectors, not `ColumnTransformer`.
-2. Default starting point — `skrub.tabular_pipeline(...)` or
-   `TableVectorizer` + estimator.
-3. Multi-table inputs — one `skrub.var(...)` per table; join with
-   `Joiner` / `AggJoiner` / `MultiAggJoiner`.
-4. Meta-estimator tail — `StackingClassifier`,
-   `CalibratedClassifierCV`, `TransformedTargetRegressor`.
-5. Hyperparameter knobs — `skrub.choose_from` / `choose_int` /
-   `choose_float` / `optional`.
-6. Custom transformer — subclass `BaseEstimator` + `TransformerMixin`
-   only when stateful and no built-in fits.
+For history-dependent / panel / cold-start cases → `references/layer_examples.md`. Counter-example: same ref.
 
 ## Pre-flight
 
@@ -146,18 +51,35 @@ Pre-flight (build-ml-pipeline):
 - [ ] Source-binding pattern chosen (list each skrub.var)
 - [ ] X-marker placement decided (name the DataOp node)
 - [ ] (Cross-row only) Each cross-row step refs upstream history DataOp
-- [ ] Layer 1 audit passes constructive test (Rule 2)
 - [ ] Preview value as kwarg, not literal in pipeline.py
 - [ ] split_kwargs at X marker decided: groups | time | none
 - [ ] Smoke test wired (tests/smoke/test_NN_<short_name>.py)
 - [ ] Pre-flight re-emitted with evidence before final message.
 ```
 
+## Stop conditions
+
+- **Missing dependency.** `import skrub` fails → `python-env-manager`. No substitute.
+- **Symbol from memory is forbidden.** Use `python-api` this turn.
+- **Splitter imports are out of scope.** Only `split_kwargs` at the X marker.
+- **Python-stack defaults apply** — ruff, `scratch/` rule, harness hints: `ml-conventions:references/shared-ml-conventions.md`.
+
+## Common patterns
+
+1. Heterogeneous columns — skrub selectors, not `ColumnTransformer`.
+2. Default — `skrub.tabular_pipeline(...)` or `TableVectorizer` + estimator.
+3. Multi-table — one `skrub.var(...)` per table; `Joiner` / `AggJoiner` / `MultiAggJoiner`.
+4. Meta-estimator tail — `StackingClassifier`, `CalibratedClassifierCV`, `TransformedTargetRegressor`.
+5. Hyperparameters — `skrub.choose_from` / `choose_int` / `choose_float` / `optional`.
+6. Custom transformer — `BaseEstimator` + `TransformerMixin` only when stateful.
+
+Full code: `references/common_patterns.md`.
+
 ## References
 
 - `iterate-ml-experiment` — ownership map.
 - `ml-conventions:references/ml-gates.md` — gate registry.
 - `references/source-binding.md` — root-binding patterns.
-- `references/layer_examples.md` — IID, history-dependent, counter-example.
+- `references/layer_examples.md` — IID, history-dependent, counter-example, terminology.
 - `references/reproducibility.md` — persistence / reproducibility checks.
 - `references/common_patterns.md` — recurring pipeline shapes.

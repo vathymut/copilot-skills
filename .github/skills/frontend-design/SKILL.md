@@ -9,9 +9,24 @@ disable-model-invocation: true
 
 Build production-grade frontend components, pages, applications, or interactive artifacts with a distinctive, intentional aesthetic.
 
+## When NOT to use
+
+- **Quick prototypes / throwaway code** — this skill enforces a design bar that adds overhead for disposable work.
+- **Third-party design systems** (Material UI, Ant Design, Shadcn) — the skill's aesthetic-intentionality mandate conflicts with using pre-built component libraries. Use the library's own theming guide instead.
+- **Fixing an existing running site** — use `web-design-reviewer` instead. This skill is for greenfield creation only.
+
 ## Boundary
 
 **Greenfield creation only.** This skill builds new UI from scratch or from a brief. To *fix* an existing running site (layout, responsive, accessibility, visual-consistency issues in live code), use `web-design-reviewer` instead. Both share the same design bar: distinctive and intentional, **no generic AI-slop** (accidental gradients, fonts, layouts).
+
+## Tech-stack conventions (optional reference)
+
+When a framework or stack is specified, apply these defaults:
+- **HTML/CSS/JS** — vanilla, no build step unless stated
+- **React** — functional components, CSS modules or Tailwind
+- **Vue** — SFCs with `<script setup>`, scoped styles
+- **Accessibility** — WCAG 2.1 AA minimum, semantic HTML, focus management
+- **Responsive** — mobile-first breakpoints, fluid typography
 
 ## Steps
 
@@ -50,9 +65,16 @@ Match implementation complexity to the direction. Maximalist calls for detail; m
 - Every detail is intentional
 - Accessibility basics are met (contrast, focus states, semantic markup)
 
+### 5. Test
+
+- **Visual regression:** capture a screenshot of the built output and compare against the brief or reference design
+- **Accessibility audit:** run axe-core or Lighthouse for contrast, ARIA, focus-order issues
+- **Responsive check:** test at min 3 breakpoints (mobile, tablet, desktop)
+
 ## Completion criteria
 
 - Code is functional and production-grade
 - Aesthetic is distinctive, intentional, and cohesive
 - No accidental/generic patterns remain
 - Typography, colour, motion, and composition serve the chosen direction
+- Visual regression and accessibility audit passed

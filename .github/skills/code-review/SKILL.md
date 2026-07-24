@@ -7,94 +7,57 @@ description: Use when the user wants to review a diff, PR, branch, work-in-progr
 
 Three branches:
 
-- **Branch A — Three-axis review** (default): review the change against Standards, Spec, and Maintainability.
-- **Branch B — Request review**: dispatch a reviewer subagent before merging or after a major task.
-- **Branch C — Receive review**: evaluate feedback before implementing.
+- **Branch A — Five-factor review** (default)
+- **Branch B — Request review**: dispatch a reviewer subagent
+- **Branch C — Receive review**: evaluate feedback
 
-Default to Branch A unless the user asks for one of the others.
+Default to Branch A.
 
-## Branch A — Three-axis review
+## Branch A — Five-factor review
 
-Run Standards, Spec, and Maintainability as **parallel sub-agents**, then aggregate.
+Pin the diff (default `git diff origin/main...HEAD`), find the spec if any, then check each factor below.
 
-### 1. Pin the comparison
+### 1. Code Conventions
+Code follows project style and avoids known smells.
+- ☐ Documented convention violations (cite file + rule)
+- ☐ Baseline smells: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest
+- ☐ SQL diff → also load `references/sql-review.md`: injection (CRITICAL), anti-patterns, performance
+- ☐ Python diff → also load `references/python-standards.md`: correctness, type-safety, performance, style
+- ☐ Skip anything tooling already enforces; documented standards override baseline
 
-Find the diff the user wants reviewed. It may be a git range, a PR, or a set of files. If the user didn't specify one:
+### 2. Spec Alignment
+Change matches requirements without scope creep.
+- ☐ Requirements missing or partial
+- ☐ Behaviour not asked for (scope creep)
+- ☐ Implementation that looks wrong (quote spec)
+- ☐ No spec available → skip this factor
 
-- A git repo: default to `git diff origin/main...HEAD`.
-- A PR or branch: use the provided refs.
-- Individual files: compare the provided files against their last-known-good state or review them as-is.
+### 3. Correctness
+Logic is sound; edge cases handled.
+- ☐ Off-by-one and boundary errors in ranges
+- ☐ Unhandled error paths or silent failures
+- ☐ Wrong data types or implicit casts that lose precision
+- ☐ Race conditions or shared-mutation bugs
 
-Confirm the range resolves and is non-empty before spawning sub-agents.
+### 4. Maintainability
+Code is simple, minimal, and sustainable.
+- ☐ Code-judo moves that delete branches/layers
+- ☐ File crosses 1000 lines because of this change
+- ☐ New conditionals scattered across unrelated paths
+- ☐ Wrappers/casts/optionals hiding a simpler boundary
+- ☐ Feature logic leaking into shared paths or wrong layer
+- ☐ AI slop: verbose comments, defensive bloat, broad `except Exception`, unnecessary casts
+- ☐ Diff is the smallest working change
 
-### 2. Identify the spec source
+### 5. Security & Performance
+No vulnerabilities or regressions.
+- ☐ Secrets exposed in diff
+- ☐ SQL injection or command injection vectors
+- ☐ Missing input validation
+- ☐ Unnecessary allocations, N+1 queries, loop-invariant work
+- ☐ Missing caching on repeated expensive operations
 
-Look for the originating spec in this order:
-
-1. Issue/PR references in commit messages or the PR body.
-2. A path the user passed as an argument.
-3. A spec, PRD, or design doc under `docs/`, `specs/`, `.scratch/`, or matching the branch/feature name.
-4. If nothing is found, ask the user. If there is no spec, the Spec sub-agent skips and reports "no spec available".
-
-### 3. Identify the standards sources
-
-Look for repo conventions: `CODING_STANDARDS.md`, `CONTRIBUTING.md`, `STYLE.md`, linter configs, etc. If the repo documents nothing, use the smell baseline below.
-
-**Rules:**
-
-- Documented repo standards override the baseline.
-- Each smell is a judgement call, never a hard violation.
-- Skip anything tooling already enforces.
-
-**Smell baseline** (Fowler, _Refactoring_, ch. 3):
-
-- **Mysterious Name** → rename; if no honest name fits, the design is murky.
-- **Duplicated Code** → extract the shared shape.
-- **Feature Envy** → move the method onto the data it envies.
-- **Data Clumps** → bundle the fields/params into a type.
-- **Primitive Obsession** → give the domain concept its own small type.
-- **Repeated Switches** → replace with polymorphism or a shared map.
-- **Shotgun Surgery** → gather scattered edits into one module.
-- **Divergent Change** → split the module so each changes for one reason.
-- **Speculative Generality** → delete unused abstraction/parameters/hooks.
-- **Message Chains** → hide the walk behind one method.
-- **Middle Man** → cut it, call the target direct.
-- **Refused Bequest** → drop inheritance, use composition.
-
-### 4. Maintainability posture
-
-Load `references/maintainability-review.md` and give it to the Maintainability sub-agent as its brief.
-
-Leading questions:
-
-- Is there a **code-judo** move that deletes whole branches or layers?
-- Does any file cross **1000 lines** because of this change?
-- Are new conditionals scattered across unrelated paths?
-- Are wrappers, casts, or optionals hiding a simpler boundary?
-- Is feature logic leaking into shared paths or the wrong layer?
-- Are there patterns of AI-generated slop (verbose comments, defensive bloat, broad `except Exception`, unnecessary casts)?
-- Is the diff the smallest working change?
-
-### 5. Spawn sub-agents in parallel
-
-Use the `general-purpose` subagent. Each prompt includes the diff/range, the spec (if found), and the standards sources/baseline.
-
-**Standards sub-agent brief:**
-> Report per file/hunk (a) documented-standard violations (cite file + rule) and (b) baseline smells (name and quote the hunk). Distinguish hard violations from judgement calls; baseline smells are always judgement calls. Skip tooling-enforced issues. Under 400 words. When the diff is SQL, also load `references/sql-review.md` and report injection (CRITICAL), anti-pattern, and performance findings. When it is Python, load `references/python-standards.md` and report correctness, type-safety, performance, and style findings.
-
-**Spec sub-agent brief** (skip if no spec):
-> Report: requirements missing/partial, behaviour not asked for (scope creep), and implementations that look wrong. Quote the spec for each. Under 400 words.
-
-**Maintainability sub-agent brief:**
-> Report the highest-conviction structural findings. Prioritize code-judo simplifications, file-size regressions past 1000 lines, scattered special-case branching, abstraction bloat, boundary leaks, canonical-layer mistakes, and AI-generated slop. Quote each hunk. Under 400 words.
-
-### 6. Aggregate
-
-Present the reports under `## Standards`, `## Spec`, and `## Maintainability`. Do **not** merge or rerank across axes. End with one summary line per axis: total findings and the worst issue (if any).
-
-### Why separate axes
-
-A change can pass two axes and fail the third. Keeping the axes separate prevents one from masking another.
+Present findings per factor; end with one summary line per factor (total + worst issue). Do not merge or rerank across factors.
 
 ## Branch B — Request review
 

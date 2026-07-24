@@ -95,6 +95,12 @@ sheet['B10'] = '=SUM(B2:B9)'
      - `#DIV/0!`: Division by zero
      - `#VALUE!`: Wrong data type in formula
      - `#NAME?`: Unrecognized formula name
+7. **Validate** (required for files > 10 rows):
+   - **Row-wise type guards**: verify every cell in each row matches its expected dtype (numeric cells are numeric, date cells parse as dates, string cells are non-null)
+   - **Formula sanity**: for a sample of at least 3 derived/formula cells, recompute in Python and confirm the recalculated value matches the stored value within 0.01
+   - **Date preservation**: confirm date-formatted cells are actually `datetime` types (not strings that look like dates) and that serial-number dates are formatted with the correct number format
+   - **Range bounds**: check that `SUM`, `AVERAGE`, `COUNT` ranges don't include header rows or extend beyond the data
+   - Report all violations; fix before proceeding
 
 ### Creating / editing Excel files
 

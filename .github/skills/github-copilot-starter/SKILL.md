@@ -7,6 +7,11 @@ description: Use when the user says 'set up Copilot', 'configure Copilot', or 'c
 
 Scaffold Copilot configuration for a new project.
 
+## When NOT to use
+
+- The project already has custom Copilot/OpenCode config — this skill would overwrite it. Check for `.github/copilot-instructions.md`, `.opencode/opencode.json`, or `~/.config/opencode/skills/` first.
+- The user is not on GitHub (GitLab, Bitbucket, etc.) — Copilot config structure differs per platform.
+
 ## Steps
 
 1. **Detect tech stack**
@@ -17,9 +22,11 @@ Scaffold Copilot configuration for a new project.
    - GitHub Actions usage (yes/no)
 
 2. **Research patterns**
-   - Fetch community Copilot patterns from public sources (e.g. the
-     user's own preferred awesome-copilot fork, or any community
-     collection of instructions / agents / skills).
+   - Search for Copilot patterns from these concrete sources:
+     - `awesome-copilot` on GitHub (https://github.com/orgs/community/discussions?discussions_q=label%3ACopilot)
+     - GitHub's official `copilot-docs` repo (https://docs.github.com/en/copilot/using-github-copilot/creating-reusable-instructions)
+     - `dotgithub` community patterns (https://github.com/marketplace?type=actions&query=copilot)
+     - User's own `awesome-copilot` fork or internal patterns repo
    - Record attribution for every source you copy from.
 
 3. **Generate files**
@@ -36,6 +43,7 @@ Scaffold Copilot configuration for a new project.
    - `.agent.md` files have `description`, `tools`, and `model` frontmatter.
    - Workflow uses job name `copilot-setup-steps`.
    - Attribution comments are present where content was adapted.
+   - **Functional validation:** Open a file in VS Code and verify Copilot Chat loads the instruction files (check `.github/copilot-instructions.md` is referenced in the Copilot status indicator). For agents, confirm the agent appears in the Copilot Chat agent dropdown.
 
 ## Completion
 

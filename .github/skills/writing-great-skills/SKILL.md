@@ -3,25 +3,36 @@ name: writing-great-skills
 description: Use when writing, editing, reviewing, or consolidating a skill — especially when its description, predictability, or structure needs work, or before deploying a new or changed skill.
 ---
 
-# Writing Great Skills
+# Writing Great Skills — 6-Step Workflow
 
-A skill exists to wrangle determinism out of a stochastic system. **Predictability** — the agent taking the same _process_ every run, not producing the same output — is the root virtue; every lever below serves it.
+A skill exists to wrangle determinism out of a stochastic system. **Predictability** — the agent taking the same _process_ every run — is the root virtue.
 
-The vocabulary for achieving it — **context load**, **cognitive load**, **leading word**, **completion criterion**, **context pointer**, **branching**, and the five **failure modes** (premature completion, duplication, sediment, sprawl, no-op) — is defined in [`GLOSSARY.md`](GLOSSARY.md). Read it first when judging or shaping a skill.
+## Workflow
 
-## Workflow — TDD for skills
+### Step 1 — Read the glossary
+The vocabulary (context load, leading word, completion criterion, context pointer, failure modes) is in [`GLOSSARY.md`](GLOSSARY.md). Read it first.
 
-Writing skills IS Test-Driven Development applied to process documentation: write test cases (pressure scenarios with subagents), watch them fail (baseline), write the skill, watch tests pass (agents comply), refactor (close loopholes). The executable workflow lives in disclosed reference:
+### Step 2 — Write test cases first
+Treat the skill as TDD for process docs. Write pressure scenarios the skill must handle, then run them with a subagent to confirm they fail (RED baseline).
 
-- **The how-to** — TDD mapping, when to create a skill, SKILL.md structure, description/SDO writing, keyword coverage, token efficiency, cross-referencing, flowcharts, code examples, file organization, the Iron Law, testing all skill types, bulletproofing, match-the-form, RED-GREEN-REFACTOR, anti-patterns, and the creation checklist → [`references/writing-how-to.md`](references/writing-how-to.md)
-- **Subagent testing methodology** (pressure scenarios, pressure types, meta-testing) → [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md)
-- **Concise eval loop** → [`references/eval-workflow.md`](references/eval-workflow.md)
-- **Anthropic's official authoring best practices** → [`anthropic-best-practices.md`](anthropic-best-practices.md)
-- **Bulletproofing research basis** (authority, commitment, scarcity, social proof, unity) → [`persuasion-principles.md`](persuasion-principles.md)
-- **Eval tooling & schemas** → [`scripts/`](scripts), [`eval-viewer/`](eval-viewer), [`references/schemas.md`](references/schemas.md), [`references/platform-specific.md`](references/platform-specific.md)
+### Step 3 — Write the skill
+Follow the how-to in [`references/writing-how-to.md`](references/writing-how-to.md): structure, description/SDO, keywords, cross-referencing, flowchart, code examples, anti-patterns.
 
-**Start here to write or edit a skill:** open `references/writing-how-to.md` and follow it. A skill is done only after a failing-test baseline (RED) and a passing re-run (GREEN); the Iron Law applies to new skills _and_ edits — **no skill without a failing test first.**
+### Step 4 — Test (GREEN)
+Re-run your pressure scenarios. The skill passes only when the subagent follows the intended process.
 
-### Flowchart / graph rendering
+### Step 5 — Refactor
+Close loopholes, reduce token count, make every word pull weight. Bulletproofing research basis is in [`persuasion-principles.md`](persuasion-principles.md).
 
-To render a skill's flowcharts to SVG: `./render-graphs.js <skill-folder>` (or `--combine`). See `graphviz-conventions.dot` for style rules.
+### Step 6 — Render flowcharts
+`./render-graphs.js <skill-folder>` produces SVGs. See `graphviz-conventions.dot` for style rules.
+
+## Completion criteria
+
+- [ ] RED baseline: subagent fails without the skill
+- [ ] GREEN pass: subagent complies with the skill
+- [ ] No duplicate or sediment content
+- [ ] Every external reference points to existing docs (theory/reference material lives in `references/`)
+- [ ] Flowcharts rendered and checked in
+
+> Reference material (theory, eval tooling, platform-specifics, Anthropic best practices) lives in `references/` — load on demand, not here.

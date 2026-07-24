@@ -6,7 +6,7 @@ description: Use when the user wants to pin down domain terminology or a ubiquit
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the *active* discipline — challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill — that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Actively build and sharpen the project's domain model. The domain model lives in `CONTEXT.md` (glossary) and `docs/adr/` (architectural decisions).
 
 ## File structure
 
@@ -42,27 +42,15 @@ Create files lazily — only when you have something to write. If no `CONTEXT.md
 
 ## During the session
 
-### Challenge against the glossary
+1. **Load CONTEXT.md and cross-reference with incoming terms** — When the user uses a term, check it against the existing glossary. Call out conflicts immediately: "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
 
-When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
+2. **Challenge fuzzy language** — When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account' — do you mean the Customer or the User? Those are different things."
 
-### Sharpen fuzzy language
+3. **Discuss concrete scenarios** — Stress-test domain relationships with specific scenarios that probe edge cases and force precision about concept boundaries.
 
-When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account' — do you mean the Customer or the User? Those are different things."
+4. **Cross-reference with code** — When the user states how something works, check whether the code agrees. Surface contradictions: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"
 
-### Discuss concrete scenarios
-
-When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.
-
-### Cross-reference with code
-
-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"
-
-### Update CONTEXT.md inline
-
-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up — capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
-
-`CONTEXT.md` should be totally devoid of implementation details. Do not treat `CONTEXT.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
+5. **Update glossary inline** — When a term is resolved, update `CONTEXT.md` right there. Don't batch them up — capture as they happen. `CONTEXT.md` is a glossary and nothing else — devoid of implementation details, not a spec or scratch pad. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
 
 ### Offer ADRs sparingly
 

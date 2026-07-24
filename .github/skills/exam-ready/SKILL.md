@@ -5,17 +5,48 @@ description: Use when the user has study notes and/or a syllabus and wants exam-
 
 # exam-ready
 
+## When NOT to use
+
+- The user wants a summary or explanation, not exam prep. This skill produces study-and-practice material (definitions, MCQs, practice questions). If they just want a précis of their notes, use a different approach.
+- The material is purely procedural (e.g., a software tutorial) with no recall-based exam format.
+
+## Prioritization heuristic
+
+When time is constrained, order topics by:
+
+1. **Weightage** — if the syllabus gives mark/credit distribution, follow it.
+2. **Coverage** — topics that appear most in the provided study material (PDF page count, repetition across chapters).
+3. **Breadth** — foundational topics whose keywords recur in other topics.
+
+This order is the default. If the user states a different priority (e.g., "focus on chapters I'm weakest on"), follow that instead.
+
 ## Workflow
 
-1. **Parse inputs**: Read study material (PDF/notes) and syllabus. If study material missing, ask. If syllabus missing, ask. Completion: both inputs received.
+### 1. Parse inputs
+Read study material (PDF/notes) and syllabus. If study material missing, ask. If syllabus missing, ask.
 
-2. **Triage** (if time constraint given): Number topics by priority (weightage, coverage, breadth). Completion: priority list generated.
+**Sub-steps per topic:**
+- Identify the topic heading in the syllabus
+- Locate corresponding section in study material
+- Note any discrepancy between syllabus topic name and PDF content
 
-3. **Extract per topic**: For each syllabus topic, extract definition, key points, keywords, diagram description, exam-ready sentences, practice question. Follow output format below. Completion: every syllabus topic covered.
+### 2. Triage (if time constraint given)
+Number topics by priority using the heuristic above.
 
-4. **Cross-reference**: Flag keywords that appear across multiple topics. Completion: cross-references listed.
+### 3. Extract per topic
+For each syllabus topic, extract:
+- Definition (1 sentence)
+- Key points (3–5 bullet points)
+- Keywords
+- Diagram description (what it shows and what to label)
+- Exam-ready sentences or MCQ trick
+- Practice question
 
-5. **Deliver**: Present output in the format below. Completion: all topics delivered.
+### 4. Cross-reference
+Flag keywords that appear across multiple topics.
+
+### 5. Deliver
+Present output in the format below.
 
 ## Output format per topic
 

@@ -31,6 +31,18 @@ Use the Library quick reference table to find the essential overrides for the ta
 
 Run through the validation checklist at the bottom of this file before presenting the chart.
 
+### Step 5: Fix loop (repeat until clean)
+
+If any validation check fails, do NOT output the chart. Instead:
+
+1. **Audit** — report which checks failed, quoting the offending code/hunk.
+2. **Suggest fixes** — present concrete code changes (one per failed check).
+3. **User approves** — wait for approval before applying. Do not batch unapproved changes.
+4. **Apply** — make the approved edits.
+5. **Re-audit** — re-run the validation checklist. If any check still fails, loop back to step 1.
+
+The chart is ready only when all 20 checks pass.
+
 ---
 
 ## Universal rules

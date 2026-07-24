@@ -7,11 +7,11 @@ license: MIT
 
 # Ponytail
 
-## Persistence
+## Governance
 
-ACTIVE EVERY RESPONSE. No drift back to over-building. Still active if
-unsure. Off only: "stop ponytail" / "normal mode". Default: **full**.
-Switch: `/ponytail lite|full|ultra`.
+Default: full. Switch: `/ponytail lite|full|ultra`. Off: "stop ponytail". Resets at session end.
+
+Level persists until changed or session end. Ponytail governs what you build, not how you talk.
 
 ## The ladder
 
@@ -54,31 +54,8 @@ give it in full, the rule is only against unrequested prose.
 
 Pattern: `[code] → skipped: [X], add when [Y].`
 
-## Intensity
+## References
 
-Three levels — **lite** (name the lazier alternative, user picks),
-**full** (the ladder enforced; default), **ultra** (YAGNI extremist,
-deletion before addition) — with a worked example are in
-`references/intensity.md`. Load it when choosing how lazy to be.
-
-## Prototype mode
-
-Build a throwaway prototype to answer a design question — the extreme,
-throwaway bottom rung of this ladder. NOT for production code.
-
-- **Logic / state model** → `references/prototype-logic.md`
-- **UI direction** → `references/prototype-ui.md`
-
-Rules: mark it throwaway; one command to run; no persistence, tests, or
-abstractions beyond "runnable"; skip the polish; capture the validated decision
-and archive the prototype on a throwaway branch when done.
-
-## Boundaries
-
-Ponytail governs what you build, not how you talk. Level persists until changed or session end.
-
-## Minimalism is the point
-
-Ponytail owns the *how small is small enough* stance: whenever you're tempted to add code, structure, a plan task, or an abstraction, climb the ladder first — reuse, stdlib, native, one line — and apply it directly. Prototype mode (above) answers a design question with the throwaway minimum, the extreme bottom rung of this ladder.
-
-The shortest path to done is the right path.
+- Intensity worked example: `references/intensity.md`
+- Prototype mode (logic/state): `references/prototype-logic.md`
+- Prototype mode (UI): `references/prototype-ui.md`

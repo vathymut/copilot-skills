@@ -5,221 +5,87 @@ description: Use when a declared ML pipeline needs validation — cross-validati
 
 # Evaluate ML Pipeline
 
-Validate a declared pipeline. Three sub-tasks, in order:
-**evaluate** (CV report), **smoke** (predict-time structural proof),
-**audit** (read-only digest). The pipeline declaration is out of scope
-→ `build-ml-pipeline`.
+Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural proof), **audit** (read-only digest). Pipeline declaration → `build-ml-pipeline`.
 
-## Branches — which path this turn
+| Signal | Branch |
+|---|---|
+| Choose entry point / CV / run `experiments/NN_*.py` | Evaluate |
+| "write the smoke test" / smoke failure / late mark-as-X | Smoke |
+| "audit 02" / record outcome / digest report | Audit |
 
-| Signal | Path | Section |
-|---|---|---|
-| Choose entry point / CV / run `experiments/NN_*.py` | evaluate | § Evaluate |
-| "write the smoke test" / smoke failure / late mark-as-X | smoke | § Smoke |
-| "audit 02" / record outcome / digest the report | audit | § Audit |
+## Stop conditions — all branches
 
-## Stop conditions — read first
+- **Missing dependency.** `import skore` fails → `python-env-manager`. No `cross_val_score` fallback.
+- **Symbol from memory forbidden.** All symbols via `python-api`.
+- **`skore.evaluate` / `project.put` live only in `experiments/NN_*.py`.** Scratch/audit files are read-only.
+- **CV splitter is data-driven, not default-driven (G-CV-SPLITTER).** Read `split_kwargs` from X marker. Temporal → `AskUserQuestion`.
+- **No stratified splitters for class imbalance.**
+- **CV not sufficient for history-dependent pipelines.** Smoke must pass.
+- **Python-stack defaults** — `scratch/`, ruff, harness hints: `ml-conventions:references/shared-ml-conventions.md`.
+- **Audit is read-only.** No evaluate/put. `project.get(id)` by id, not key.
 
-- **Missing dependency.** `import skore` raises → invoke
-  `python-env-manager`. Do not drop back to `cross_val_score`,
-  `cross_validate`, `classification_report`, or hand-rolled prints.
-  See `ml-conventions:references/shared-ml-conventions.md` (Missing dependency).
-- **Symbol from memory is forbidden.** Every `skore`, `skrub`,
-  `sklearn` symbol this turn comes from `python-api`.
-- **`skore.evaluate(...)` and `project.put(...)` live only in
-  `experiments/NN_*.py`.** Scratch, audit, and one-off files are
-  read-only consumers; they lookup via `summarize()` → `get(id)`.
-- **CV splitter is data-driven, not default-driven (`G-CV-SPLITTER`).**
-  Read `split_kwargs` from the X marker; never reach for `KFold(5)`
-  out of habit. Temporal data → mandatory `AskUserQuestion` with the
-  four options in § Evaluate rule 3.
-- **No stratified splitters for class imbalance.** They compress
-  across-fold variance and produce over-confident error bars.
-- **CV is necessary but not sufficient for history-dependent
-  pipelines.** Lags, rolling windows, target shifts, or joins with
-  side history require a passing smoke test before the experiment can
-  be marked `done`.
-- **Python-stack defaults apply** — all execution to `scratch/`, ruff,
-  and harness-hint handling: see `ml-conventions:references/shared-ml-conventions.md`.
-- **Audit is read-only against the skore Project.** No `evaluate`,
-  no `put`, no writes to `data/` / `reports/` / `src/<pkg>/`.
-- **`project.get(...)` is by id, not key.** For hub, derive id from
-  the printed URL (`…/cross-validations/<N>` →
-  `skore:report:cross-validation:<N>`). For local/mlflow, read the
-  `"id"` column from `project.summarize()`.
-- **Harness "no clarifying questions" hints do not waive mandatory
-  `AskUserQuestion` gates.**
-
-## Pre-flight — emit before any code
+## Pre-flight
 
 ```
 Pre-flight (evaluate-ml-pipeline):
 - [ ] Branch: evaluate | smoke | audit
 - [ ] Tier 1 libs importable: sklearn, skrub, skore
-      Evidence: scratch/<ts>_check_tier1.py + run
-- [ ] `journal/NN_<short_name>.md` exists and ≥ approved;
-      `experiments/NN_<short_name>.py` exists (or n/a for re-audit)
-      Evidence: ls/Glob
-- [ ] python-api consulted for skore/sklearn/skrub symbols this turn
-      Evidence: Read/Write scratch/api/<lib>/<version>/<topic>.md
-- [ ] (Evaluate) split_kwargs at X marker read: <groups | time | none>
-- [ ] (Evaluate) Splitter chosen via rule 3: <name + reason>
-- [ ] (Evaluate) `skore.evaluate` / `project.put` call site is
-      `experiments/NN_<short_name>.py`
-- [ ] (Smoke) Test file stem: `tests/smoke/test_NN_<short_name>.py`
-- [ ] (Smoke) Hard assertion wired: `len(predictions) == n_predict_grid_rows`
-- [ ] (Smoke) Soft assertion wired or explicitly skipped
-- [ ] (Audit) Report present under key=<NN_short_name>
-      Evidence: project.summarize() this turn shows the row
-- [ ] (Audit) Read-only contract verified: no evaluate/put calls
-- [ ] Pre-flight re-emitted with evidence before final message.
+- [ ] python-api consulted for skore/sklearn/skrub symbols
+- [ ] (Evaluate) split_kwargs at X marker; splitter chosen
+- [ ] (Smoke) Test file: tests/smoke/test_NN_<short_name>.py
+- [ ] (Smoke) Hard + soft assertion wired
+- [ ] (Audit) Report present; read-only contract verified
+- [ ] Pre-flight re-emitted with evidence
 ```
 
 ## § Evaluate
 
-### Rule 1 — `skore.evaluate(...)` is the entry point
+**Trigger:** user chooses entry point, runs CV, or `experiments/NN_*.py` needs the evaluate call.
 
-Always pass `splitter=` explicitly. Omitted `splitter=` falls back to
-a single 80/20 holdout or a DataOp `cv=`; this stack does not declare
-`cv` at the marker, so omission silently breaks protocol.
+**Procedure:**
 
-Data-passing forms:
+1. Pass `splitter=` explicitly to `skore.evaluate(...)`. Omitted splitter silently falls back to holdout.
+2. Pick splitter via G-CV-SPLITTER: `groups` → `GroupKFold`; temporal → `AskUserQuestion` (`TimeSeriesSplit(gap=horizon)` default, `gap=0`, custom, or `KFold`); none → `KFold`.
+3. Use sklearn-style `skore.evaluate(estimator, X, y, splitter=...)` or env-dict-style for `SkrubLearner`.
+4. Escalate only if `evaluate` is too coarse: `EstimatorReport`, `CrossValidationReport`, `ComparisonReport`. Details: `references/reports.md`.
+5. Trust skore's metric defaults. Override only on user request.
 
-- sklearn-style: `skore.evaluate(estimator, X, y, splitter=...)`.
-- env-dict-style for `SkrubLearner`:
-  `skore.evaluate(learner, data={"X": X, "y": y, ...}, splitter=...)`.
-
-### Rule 2 — Escalate only when `evaluate` is too coarse
-
-- `EstimatorReport` — final fit on held-out data after CV.
-- `CrossValidationReport` — k-fold, per-fold artifacts.
-- `ComparisonReport` — ≥2 learners side-by-side.
-
-Details: `references/reports.md`.
-
-### Rule 3 — Pick the splitter from structural facts (`G-CV-SPLITTER`)
-
-| `split_kwargs` content | Splitter |
-|---|---|
-| `groups` | `GroupKFold` |
-| temporal ordering | `AskUserQuestion` — four options: `TimeSeriesSplit(gap=horizon)` (default), `TimeSeriesSplit(gap=0)` with warning, custom splitter, `KFold` ignoring time |
-| none | `KFold` (or `RepeatedKFold` for small/noisy data) |
-
-Avoid by default: stratified variants, `LeaveOneOut`,
-`LeaveOneGroupOut`. Reasoning: `references/cross-validation.md` § Avoid.
-
-### Rule 4 — Trust skore's metric defaults
-
-Override only on explicit user request. No pre-emptive `scoring=`.
-
-### Rule 5 — Custom splitter only when sklearn lacks it
-
-Small contract: `split` + `get_n_splits`. See
-`references/custom-splitter.md`.
+**Stop conditions:** Custom splitter? Small contract in `references/custom-splitter.md`. Avoid stratified/LOO/LeaveOneGroupOut. See `references/cross-validation.md`.
 
 ## § Smoke
 
-Write `tests/smoke/test_NN_<short_name>.py`: a diagnostic fixture +
-two assertions. The test uses **only** the predicting package's API
-(`skrub` + `sklearn.metrics`); no `skore` import, so it is portable.
+**Trigger:** user writes smoke test, smoke fails, or late mark-as-X diagnosed.
 
-### Hard assertion — row count
+**Procedure:**
 
-```python
-assert len(predictions) == n_predict_grid_rows
-```
+1. Write `tests/smoke/test_NN_<short_name>.py`. Template: `templates/smoke.py`.
+2. Hard assertion: `assert len(predictions) == n_predict_grid_rows`.
+3. Soft assertion: `assert smoke_mae < 3 * CV_MAE_MEAN` (CV_MAE_MEAN from design note).
+4. Use predicting package API only (`skrub` + `sklearn.metrics`). No `skore`.
+5. Fixture: predict env carries only predict-grid rows. See `references/smoke-fixtures.md`.
 
-A correctly placed X marker makes this pass trivially. A late marker
-silently drops cold-start rows and fails.
-
-### Soft assertion — NaN sanity
-
-```python
-smoke_mae = mean_absolute_error(y_true, predictions)
-assert smoke_mae < 3 * CV_MAE_MEAN
-```
-
-`CV_MAE_MEAN` is a literal hardcoded from the design note's headline.
-Opt-out only when ground truth is deliberately absent; leave a comment
-explaining why.
-
-### Fixture contract
-
-The predict env carries **only** the rows we want predictions for, with
-**no** pre-history padding. Three common source shapes and how to build
-them: `references/smoke-fixtures.md`.
-
-### Failure semantics
-
-- Hard failure → pipeline shape bug; route back to `build-ml-pipeline`.
-  Don't loosen the assertion, don't wrap, don't add `feature_steps=[]`.
-- Soft failure → values exist but are garbage (usually a history node
-  not resolved at predict time).
-- Failure blocks `done` in `iterate-ml-experiment`.
-
-Template: `templates/smoke.py`.
+**Stop conditions:** Hard failure → `build-ml-pipeline` (pipeline shape bug). Don't loosen assertion. Soft failure → history node not resolved at predict time. Failure blocks `done`.
 
 ## § Audit
 
-Per-experiment `# %%` file at `audit/NN_<short_name>.py`; executes to a
-markdown digest. Read-only.
+**Trigger:** user says "audit" or "record outcome", or G-RUN completed.
 
-### Allowed / forbidden
+**Procedure:**
 
-Allowed: open `skore.Project(...)`, `summarize()`, `get(id)`, every
-`report.*` accessor, read-only imports from `<pkg>`.
-Forbidden: `skore.evaluate(...)`, `project.put(...)`, any workspace
-mutation, monkey-patching.
+1. Write `audit/NN_<short_name>.py` from template `templates/audit.py`.
+2. Execute: `<agent-env-prefix> python ml-eda:scripts/run_cells.py audit/<stem>.py [scratch/audit/<stem>/audit.md]`.
+3. Full cell sequence in `templates/audit.py` (imports → open Project → summarize → get report → checks → metrics).
+4. Read-only: no `skore.evaluate`, no `project.put`.
 
-### Cell sequence
-
-1. Markdown docstring (read-only rule).
-2. Imports.
-3. Open Project as a bare expression.
-4. `project.summarize()`.
-5. `report = project.get(REPORT_ID)`; `report`.
-6. `report.checks.summarize().frame()`.
-7. `report.metrics.summarize().frame()`.
-
-`.frame()` is load-bearing on cells 6 and 7. Full examples:
-`references/cell_anatomy.md`.
-
-### Execution
-
-```bash
-<agent-env-prefix> python \
-  ml-eda:scripts/run_cells.py \
-  audit/<stem>.py [scratch/audit/<stem>/audit.md]
-```
-
-`<agent-env-prefix>` is the prefix that enters the project's
-`agent` env per `python-env-manager` (e.g. `pixi run -e agent`,
-`uv run --group agent`, `poetry run --only agent`,
-`hatch run -e agent`, `conda run -n <project>-agent`,
-`.venv/bin/python` if agent deps are in the single venv).
-Full resolution table:
-`python-env-manager:references/env_prefixes.md`.
-
-The runner always streams stdout; the optional second arg also writes
-  the digest. Runner lives in `ml-eda`; internals: `references/runner_internals.md`.
-
-### The digest feeds the loop
-
-`iterate-ml-experiment` reads `scratch/audit/<stem>/audit.md` as text
-to extract metrics and check `documentation_url`s. It never re-opens
-the Project.
-
-Template: `templates/audit.py`.
+**Stop conditions:** `project.get(id)` by id, not key. Runner streams stdout. Digest feeds `iterate-ml-experiment`. Runner details: `references/runner_internals.md`.
 
 ## References
 
-- `iterate-ml-experiment` — canonical ownership map.
-- `references/cross-validation.md` — splitter reasoning and avoid list.
+- `iterate-ml-experiment` — ownership map.
+- `references/cross-validation.md` — splitter reasoning.
 - `references/reports.md` — report escalation.
 - `references/custom-splitter.md` — custom splitter contract.
-- `references/metadata-routing.md` — routing `split_kwargs`.
-- `references/smoke-fixtures.md` — three fixture shapes.
-- `references/cell_anatomy.md` — concrete audit cell examples.
-- `references/runner_internals.md` — how the cell runner works.
-- `references/failure_modes.md` — audit smoke / audit recovery.
+- `references/metadata-routing.md` — `split_kwargs`.
+- `references/smoke-fixtures.md` — fixture shapes.
+- `references/failure_modes.md` — recovery.
 - `references/shortcuts.md` — forbidden shortcuts.

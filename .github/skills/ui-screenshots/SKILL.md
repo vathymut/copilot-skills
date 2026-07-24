@@ -5,27 +5,27 @@ description: Use when capturing screenshots of a running web app, Electron app, 
 
 # UI Screenshots
 
-Capture screenshots of web apps and graphical UIs during development to document visual changes. Also assembles captured frames into annotated animated GIF demos (formerly the `screen-recording` skill).
+Capture screenshots of web apps, Electron apps, or desktop windows. Also assembles frames into annotated animated GIF demos.
 
-## When to Use This Skill
+## Trigger → branch
 
-Use this skill when you need to:
-- Capture the current state of a running web app
-- Document a UI before and after a code change
-- Screenshot interactive states (tooltips, hovers, selected elements)
-- Capture specific sections of a page without re-screenshotting
-- Build an animated GIF demo from stepped frames (PRs, docs, release notes)
+| Target | Section |
+|---|---|
+| Web app (localhost) | Web app path |
+| Electron app (VS Code, etc.) | `references/desktop-recording.md` § Electron |
+| Desktop window (visible) | `references/desktop-recording.md` § mss+ctypes |
+| Animated GIF demo | `references/gif-assembly.md` |
 
-## Prerequisites
+## Pre-flight
 
-```bash
-pip install playwright Pillow -q
-playwright install chromium
-```
+- [ ] Dev server running (web) or target window open (desktop)
+- [ ] playwright + Pillow installed (`pip install playwright Pillow -q && playwright install chromium`)
+- [ ] (Desktop) mss installed: `pip install mss pillow -q`
+- [ ] (Electron) Node.js + `npm install playwright`
 
-## Core Workflow
+## Web app path
 
-### 1. Take a raw full-page screenshot
+### 1 — Capture full page
 
 ```python
 from playwright.async_api import async_playwright
@@ -35,223 +35,64 @@ async def capture(url="http://localhost:3000", out="screenshot-raw.png", width=1
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={"width": width, "height": height})
         await page.goto(url, wait_until="networkidle")
-        await page.wait_for_timeout(4000)  # let charts/animations render
+        await page.wait_for_timeout(4000)
         await page.screenshot(path=out, full_page=True)
         await browser.close()
 ```
 
-- Use a **tall viewport** (height=5000) so the page renders everything without scrolling
-- `wait_until="networkidle"` + `wait_for_timeout(4000)` ensures async charts load
-- `full_page=True` captures the entire scrollable content
+Tall viewport (height=5000) + `full_page=True` captures everything. `networkidle` + 4s timeout for async charts.
 
-### 2. View the raw image, then crop with PIL
-
-**Do NOT try to get perfect crops via Playwright's `clip` parameter.** It's unreliable with full-page captures.
+### 2 — Crop with PIL (not Playwright clip)
 
 ```python
 from PIL import Image
-
 img = Image.open("screenshot-raw.png")
-cropped = img.crop((left, top, right, bottom))  # adjust based on what you see
+cropped = img.crop((left, top, right, bottom))
 cropped.save("screenshot-final.png")
 ```
 
-1. Take the raw screenshot
-2. View it to see actual pixel positions
-3. Crop with PIL based on what you see
-4. View the result — if not right, re-crop (instant, no re-screenshot needed)
+Re-cropping is instant; re-screenshotting is slow. Get one good raw capture, slice it.
 
-### 3. Iterate on crop, not on capture
-
-- Re-screenshotting is slow (browser launch + page load + render wait)
-- Re-cropping is instant (just PIL)
-- Get one good raw capture, then slice it as many ways as needed
-
-### 4. Interactive states
+### 3 — Interactive states
 
 ```python
-element = page.locator("selector").first
-await element.hover()
-await page.wait_for_timeout(1000)  # let tooltip appear
+await page.locator("selector").first.hover()
+await page.wait_for_timeout(1000)
 await page.screenshot(path="screenshot-hover.png", full_page=True)
-```
 
-For "selected" state without hover effect, move the mouse away after clicking:
-
-```python
+# Selected state (no hover): click, move mouse away
 await element.click()
-await page.mouse.move(300, 300)  # move away so hover doesn't show
-await page.wait_for_timeout(500)
+await page.mouse.move(300, 300)
 await page.screenshot(path="screenshot-selected.png", full_page=True)
 ```
 
-### 5. Section-specific captures
-
-Crop different sections from a single full-page screenshot:
+### 4 — Section crops from one capture
 
 ```python
 img.crop((0, 200, 920, 900)).save("screenshot-header.png")
 img.crop((0, 900, 920, 1600)).save("screenshot-main.png")
 ```
 
-## Guidelines
+### Guidelines
 
-1. **Always capture before state BEFORE making any changes** — if you forget, you have to revert code to get a before shot
-2. **Before/after pairs must use the same viewport width and crop** — otherwise the comparison is useless
-3. **To get a "before" after you already changed code**: use `git checkout HEAD~1 -- <files>` to revert, screenshot, then `git checkout HEAD -- <files>` to restore
-4. **For interactive states**: capture before AND after for each state — don't assume the "normal" before covers all cases
-5. **Use `device_scale_factor=1`** in Playwright to force 1x pixels so screenshots match what users see at 100% zoom
-6. **Charts need extra wait time** — Plotly, D3, etc. render asynchronously; 4s minimum after networkidle
-7. **Narrow viewport reveals rendering bugs** — some border/alignment issues only appear at specific widths
+1. Capture BEFORE making changes (or `git checkout HEAD~1 -- <files>` to revert, screenshot, restore).
+2. Before/after pairs: same viewport width and crop.
+3. `device_scale_factor=1` for 1x pixels matching 100% zoom.
+4. Charts need 4s+ after networkidle (Plotly, D3).
+5. Narrow viewport reveals rendering bugs.
 
-## Non-Web App Screenshots
+## Desktop & Electron → references
 
-For desktop apps (VS, WPF, WinForms, console apps, terminals) where Playwright can't reach.
+- **Desktop windows (visible):** mss + ctypes. Code + setup in `references/desktop-recording.md`.
+- **Electron apps (VS Code):** Node.js Playwright Electron API (works minimized). Code + caveats in `references/desktop-recording.md`.
 
-### mss + ctypes (recommended for desktop windows)
+## Animated GIF demos → references
 
-Find a window by title via Win32 API, capture its region with `mss`. Tested at ~33ms per capture.
-
-```python
-import ctypes
-from ctypes import c_int, Structure, byref, windll
-import mss
-from PIL import Image
-
-user32 = windll.user32
-
-def find_window(title_contains):
-    """Find visible windows matching a title substring."""
-    results = []
-    WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
-    def cb(hwnd, _):
-        if user32.IsWindowVisible(hwnd):
-            buf = ctypes.create_unicode_buffer(256)
-            user32.GetWindowTextW(hwnd, buf, 256)
-            if title_contains.lower() in buf.value.lower():
-                results.append((hwnd, buf.value))
-        return True
-    user32.EnumWindows(WNDENUMPROC(cb), 0)
-    return results
-
-def capture_window(title_contains, output_path):
-    """Capture a window by title substring."""
-    windows = find_window(title_contains)
-    if not windows:
-        raise ValueError(f"No window matching '{title_contains}'")
-    hwnd = windows[0][0]
-
-    class RECT(Structure):
-        _fields_ = [('left', c_int), ('top', c_int), ('right', c_int), ('bottom', c_int)]
-    rect = RECT()
-    user32.GetWindowRect(hwnd, byref(rect))
-    w, h = rect.right - rect.left, rect.bottom - rect.top
-
-    with mss.mss() as sct:
-        shot = sct.grab({'left': rect.left, 'top': rect.top, 'width': w, 'height': h})
-        img = Image.frombytes('RGB', shot.size, shot.rgb)
-        img.save(output_path)
-        return img
-
-# Usage:
-capture_window('Visual Studio Code', 'vscode-capture.png')
-```
-
-**Prerequisites:** `pip install mss pillow`
-**Limitation:** Window must be visible (not behind other windows or minimized).
-
-### Electron apps (VS Code, etc.)
-
-**Node.js Playwright only** — Python Playwright has no `electron` API. Captures via CDP (Chrome DevTools Protocol), not from the screen — works even while minimized.
-
-```javascript
-const { _electron: electron } = require('playwright');
-const app = await electron.launch({
-    executablePath: 'C:\\Program Files\\Microsoft VS Code\\Code.exe',
-    args: ['--new-window', '--disable-extensions', '--user-data-dir=' + tmpDir]
-});
-const window = await app.firstWindow();
-await window.waitForLoadState('domcontentloaded');
-
-// Minimize immediately — captures still work via CDP
-await app.evaluate(({ BrowserWindow }) => {
-    BrowserWindow.getAllWindows()[0].minimize();
-});
-
-await window.screenshot({ path: 'capture.png' }); // works while minimized!
-await app.close();
-```
-
-**Critical**: `--user-data-dir=<temp>` is required or VS Code hands off to the existing instance and the launched process exits immediately.
-
-### Decision tree
-
-| Scenario | Tool | Notes |
-|---|---|---|
-| Web app (localhost) | Playwright | Proven, full DOM access |
-| Electron app (VS Code) | Playwright Electron (Node.js) | Works minimized via CDP |
-| Desktop app, visible window | mss + ctypes (find by title) | ~33ms per capture |
-| Desktop app, behind windows | Windows Graphics Capture API | Complex setup, Win10 1903+ |
-| Quick full-screen | mss | ~68ms |
+Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to `image-annotations`. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
 
 ## Limitations
 
-- Web capture requires a locally running app or accessible URL
-- Desktop capture (mss) requires the window to be visible and unobstructed
-- Electron capture requires Node.js Playwright (not Python)
-- Some SPAs with heavy client-side rendering may need custom wait logic beyond networkidle
-
-## Animated GIF demos (from captured frames)
-
-Create animated GIFs that show a feature or workflow in action — with annotations, variable timing, and proper pacing. Useful for PR descriptions, documentation, and release notes.
-
-**Prerequisites:**
-
-```bash
-pip install playwright Pillow imageio numpy scipy mss -q
-playwright install chromium
-```
-
-### 1–5. Code blocks (capture / assemble / annotate / fade)
-
-The verbatim Python for steps 1–5 lives in `references/gif-assembly.md` — load it just-in-time. The decision-relevant guidance stays inline below.
-
-- **Capture** (`references/gif-assembly.md` §1): Playwright `record_frames()` step-through.
-- **Assemble** (§2): use **imageio, not PIL** — PIL's encoder merges similar frames and kills the animation.
-- **Annotate** (§3): delegate to `image-annotations`' `annotate_image()` rather than re-implementing.
-- **Fade-in** (§4): at 10fps use 2 fade frames; at 30fps use 3–4. Simple pop-in beats easing at low FPS.
-
-### Variable frame timing
-
-Uniform timing feels too fast or too slow. Use variable durations:
-
-| Phase | Duration | Why |
-|-------|----------|-----|
-| Fast action (typing, clicking) | 100ms | Feels natural, keeps energy |
-| Pause after action | 600–800ms | Let the viewer process |
-| Hero/final message | 500ms+ | Takeaway needs time to land |
-
-### Guidelines
-
-- **Type → pause → annotate**: no annotation during fast action; pause first, then annotate.
-- **Hero message gets the biggest font** (64pt+); 38pt for details.
-- **GIF palette does not kill gradients** — 20 distinct alpha steps survive 256 colors.
-- **10fps minimum** for typing/interaction.
-- Build iteratively: frame sequence → annotations → timing.
-- **Test in isolation** before rebuilding the full demo (overlay a frame counter for debugging).
-
-### Format compatibility
-
-| Format | VS Code | GitHub | Browser |
-|--------|---------|--------|---------|
-| GIF | ✅ animates | ✅ | ✅ |
-| WebP | ⚠ static | ✅ | ✅ |
-| MP4 | ❌ broken | ⚠ | ✅ |
-
-GIF is the only universally supported animated format.
-
-### References
-
-- `references/gif-assembly.md` — verbatim capture / assemble / annotate / fade code (steps 1–5).
-- `references/cluster-detection.md` — `find_changed_clusters` to auto-locate changed regions for annotation.
-- `references/desktop-recording.md` — `mss` capture code and window-recording patterns for non-browser sources.
+- Web requires running app or accessible URL.
+- Desktop mss requires visible, unobstructed window.
+- Electron requires Node.js Playwright.
+- Heavy SPAs may need custom wait logic.
