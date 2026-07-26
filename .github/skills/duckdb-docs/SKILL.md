@@ -2,7 +2,7 @@
 disable-model-invocation: true
 name: duckdb-docs
 description: Use when the user needs DuckDB or DuckLake documentation, function syntax, or error explanations not already in the local cache.
-argument-hint: <question or keyword>
+argument-hint: "<question or keyword>"
 allowed-tools: Bash
 ---
 

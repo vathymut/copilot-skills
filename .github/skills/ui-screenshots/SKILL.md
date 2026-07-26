@@ -60,7 +60,7 @@ await page.locator("selector").first.hover()
 await page.wait_for_timeout(1000)
 await page.screenshot(path="screenshot-hover.png", full_page=True)
 
-# Selected state (no hover): click, move mouse away
+## Selected state (no hover): click, move mouse away
 await element.click()
 await page.mouse.move(300, 300)
 await page.screenshot(path="screenshot-selected.png", full_page=True)

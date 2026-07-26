@@ -25,8 +25,7 @@ mkdir -p "$HOME/.config/opencode"
 ln -sfn "$PWD/.github/skills" "$HOME/.config/opencode/skills"
 ```
 
-> [!CAUTION]
-> Do **not** symlink `.github/agents/` into OpenCode. Create OpenCode agents individually with `opencode agent create` instead.
+> **Warning:** Do **not** symlink `.github/agents/` into OpenCode. Create OpenCode agents individually with `opencode agent create` instead.
 
 For Windows setup, agent translation, instructions wiring, and troubleshooting, see [docs/install.md](./docs/install.md).
 

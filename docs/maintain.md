@@ -47,11 +47,10 @@ rm -rf .github/skills/<skill-name>
 Then update the README:
 
 1. Recount the skills using `find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l`.
-2. Update the skills badge and headline count in `README.md`.
+2. Update the skills count and headline in `README.md`.
 3. Remove the skill from the relevant domain table in `README.md`.
 
-> [!TIP]
-> Remove skills you no longer use. A smaller catalog is easier to navigate and faster to load.
+> **Tip:** Remove skills you no longer use. A smaller catalog is easier to navigate and faster to load.
 
 ## Sync skills from upstream
 
@@ -62,8 +61,7 @@ When refreshing from upstream repositories:
 3. Record the source in your commit message for provenance.
 4. Resolve duplicate copies. The Superpowers cache at `~/.cache/opencode/packages/.../superpowers/skills` is not canonical for this repo. Keep skills in `.github/skills/` only.
 
-> [!IMPORTANT]
-> If a skill exists in multiple upstream sources, compare content before overwriting any local customizations.
+> **Important:** If a skill exists in multiple upstream sources, compare content before overwriting any local customizations.
 
 ## Audit the catalog
 

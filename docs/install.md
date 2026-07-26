@@ -36,8 +36,7 @@ mklink /D "%USERPROFILE%\.copilot\agents" "<repo-path>\.github\agents"
 mklink /D "%USERPROFILE%\.copilot\instructions" "<repo-path>\.github\instructions"
 ```
 
-> [!TIP]
-> Enable `chat.useCustomizationsInParentRepositories` in VS Code so Copilot can also discover customizations from a parent repository. See the [VS Code customization docs](https://code.visualstudio.com/docs/copilot/customization/overview#_parent-repository-discovery).
+> **Tip:** Enable `chat.useCustomizationsInParentRepositories` in VS Code so Copilot can also discover customizations from a parent repository. See the [VS Code customization docs](https://code.visualstudio.com/docs/copilot/customization/overview#_parent-repository-discovery).
 
 ## Install for OpenCode
 
@@ -58,12 +57,11 @@ Verify discovery:
 opencode debug skill | rg '"name":'
 ```
 
-All 47 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
+All 41 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
 
 ### Agents
 
-> [!CAUTION]
-> Do **not** symlink `.github/agents/` into OpenCode. Copilot `.agent.md` frontmatter uses `tools` and `name`, which OpenCode cannot parse. Create agents individually in OpenCode format instead.
+> **Warning:** Do **not** symlink `.github/agents/` into OpenCode. Copilot `.agent.md` frontmatter uses `tools` and `name`, which OpenCode cannot parse. Create agents individually in OpenCode format instead.
 
 Use the interactive command:
 

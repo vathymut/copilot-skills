@@ -20,7 +20,7 @@ Install wires `.github/skills` into `~/.config/opencode/skills` via symlink. See
   echo "skills: $(find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
   echo "agents: $(find .github/agents -maxdepth 1 -type f | wc -l | tr -d ' ')"
   ```
-- When adding/removing skills, also update the README counts, badge, headline, and domain tables.
+- When adding/removing skills, also update the README counts, headline, and domain tables.
 - Skill provenance is recorded in commit messages. The Superpowers cache (`~/.cache/opencode/.../superpowers/skills`) is NOT canonical here; keep skills only in `.github/skills/`.
 
 ## Where to look
@@ -29,7 +29,6 @@ Install wires `.github/skills` into `~/.config/opencode/skills` via symlink. See
 - `docs/install.md`, `docs/use.md`, `docs/maintain.md` — operational detail.
 - `docs/catalog.md` — full inventory, provenance, and upstream sources.
 
-<!-- code-review-graph MCP tools -->
 ## MCP Tools: code-review-graph
 
 **IMPORTANT: This project has a knowledge graph. ALWAYS use the
