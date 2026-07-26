@@ -23,5 +23,4 @@ This repository is a **curated, versioned catalog of reusable skills and agents*
 
 ## Tooling notes
 
-- This repo carries a graphify knowledge graph in `graphify-out/`. For codebase questions, prefer `graphify query "<question>"` over raw `grep`. After editing code, run `graphify update .`.
 - Never symlink `.github/agents/` into OpenCode.
