@@ -1,7 +1,6 @@
 ---
 name: git-workflow
 description: Use when committing with Conventional Commits, resolving merge/rebase conflicts, setting up git worktrees, or finishing a development branch.
-disable-model-invocation: true
 allowed-tools: Bash
 ---
 

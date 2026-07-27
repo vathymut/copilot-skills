@@ -1,7 +1,6 @@
 ---
 name: mermaid-diagram-specialist
 description: Use when a diagram belongs in documentation as Mermaid — flowcharts, sequence diagrams, ERDs, or architecture and state diagrams. For data charts and figures, use tufte-data-viz instead.
-disable-model-invocation: true
 ---
 
 # Mermaid Diagram Specialist

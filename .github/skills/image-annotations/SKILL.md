@@ -1,7 +1,6 @@
 ---
 name: image-annotations
 description: Use when adding visual callouts — rectangles, arrows, labels, or color highlights — to PR screenshots, before/after diffs, diagrams, or animated GIF demo frames.
-disable-model-invocation: true
 ---
 
 # Image Annotations

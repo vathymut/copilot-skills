@@ -1,7 +1,6 @@
 ---
 name: frontend-slides
 description: Use when building a presentation as a single self-contained HTML file, converting PowerPoint to web, or enhancing an existing HTML deck.
-disable-model-invocation: true
 ---
 
 # Frontend Slides

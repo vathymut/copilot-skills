@@ -1,5 +1,4 @@
 ---
-disable-model-invocation: true
 name: to-tickets
 description: Use when a plan, spec, or conversation needs breaking into tracker tickets with blocking edges in a single session
 ---

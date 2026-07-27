@@ -1,7 +1,6 @@
 ---
 name: triage
 description: Use when the user invokes /triage or asks to sort, label, verify, or delegate issues and external PRs through a triage state machine.
-disable-model-invocation: true
 ---
 
 # Triage

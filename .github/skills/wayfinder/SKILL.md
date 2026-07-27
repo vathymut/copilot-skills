@@ -1,7 +1,6 @@
 ---
 name: wayfinder
 description: Use when a piece of work is too large for one agent session and the route to the goal is genuinely unclear
-disable-model-invocation: true
 ---
 
 > **Reach for the lightest mode that fits.**

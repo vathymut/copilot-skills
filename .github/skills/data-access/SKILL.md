@@ -1,7 +1,6 @@
 ---
 name: data-access
 description: Use when the user wants to read, profile, convert, SQL-query, or attach a local or remote data file with DuckDB for analysis — including geographic/spatial data (GeoJSON, Shapefile, GPKG, Overture Maps).
-disable-model-invocation: true
 argument-hint: "<command> <args> — commands: read, convert, s3, sql, spatial"
 allowed-tools: Bash
 ---

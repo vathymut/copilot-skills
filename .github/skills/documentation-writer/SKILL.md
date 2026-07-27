@@ -1,7 +1,6 @@
 ---
 name: documentation-writer
 description: Use when the user asks for docs — a tutorial, how-to guide, reference, or explanation.
-disable-model-invocation: true
 ---
 
 # Documentation Writer

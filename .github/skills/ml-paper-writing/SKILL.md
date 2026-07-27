@@ -1,5 +1,4 @@
 ---
-disable-model-invocation: true
 name: ml-paper-writing
 description: Use when drafting an ML/AI paper from a research repo, structuring arguments, verifying citations, or preparing a camera-ready submission for NeurIPS/ICML/ICLR/ACL/AAAI/COLM.
 ---

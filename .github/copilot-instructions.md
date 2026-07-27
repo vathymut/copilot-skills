@@ -9,7 +9,7 @@ This repository is a **curated, versioned catalog of reusable skills and agents*
 ## Project conventions
 
 - Skills are the unit of work here. Each skill lives in its own directory with a `SKILL.md` (and optional `references/`, `scripts/`).
-- Keep every `SKILL.md` frontmatter valid YAML with `name` and `description` as the baseline. `description` is the trigger — make it specific about when to use the skill. Add tool-specific fields only when needed: `disable-model-invocation` (suppress auto-triggering), `argument-hint` (OpenCode CLI hint), `allowed-tools` (Copilot tool constraints), `license` (license reference).
+- Keep every `SKILL.md` frontmatter valid YAML with `name` and `description` as the baseline. `description` is the trigger — make it specific about when to use the skill. Add tool-specific fields only when needed: `argument-hint` (OpenCode CLI hint), `allowed-tools` (Copilot tool constraints), `license` (license reference).
 - Agents are Copilot-only (`.agent.md`). Required frontmatter: `description`, `tools`, `model`.
 - Instructions files (`.instructions.md`) must contain guidance only — no code snippets — and valid `applyTo` globs.
 - Document provenance. Record upstream source and how a skill was adapted in commit messages and in `docs/catalog.md`.

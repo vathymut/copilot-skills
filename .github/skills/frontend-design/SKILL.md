@@ -2,7 +2,6 @@
 name: frontend-design
 description: Use when building new web components, pages, applications, posters, or interactive artifacts from scratch or a brief.
 license: Complete terms in LICENSE.txt
-disable-model-invocation: true
 ---
 
 # Frontend Design
