@@ -58,7 +58,10 @@ A user may ask you to create, edit, or analyze the contents of an .xlsx file. Yo
 ## Reading and analyzing data
 
 Use **pandas** for data analysis and bulk operations; **openpyxl** for
-formulas, formatting, and Excel-specific features.
+formulas, formatting, and Excel-specific features. pandas: specify dtypes
+(`dtype={'id': str}`), use `usecols` for large files, handle dates with
+`parse_dates`. openpyxl: use `read_only=True` / `write_only=True` for large
+files; formulas are preserved but not evaluated — use `scripts/recalc.py`.
 
 ```python
 import pandas as pd
@@ -90,11 +93,7 @@ sheet['B10'] = '=SUM(B2:B9)'
    - The script returns JSON with error details
    - If `status` is `errors_found`, check `error_summary` for specific error types and locations
    - Fix the identified errors and recalculate again
-   - Common errors to fix:
-     - `#REF!`: Invalid cell references
-     - `#DIV/0!`: Division by zero
-     - `#VALUE!`: Wrong data type in formula
-     - `#NAME?`: Unrecognized formula name
+   - Error types are enumerated in the **Zero Formula Errors** requirement above
 7. **Validate** (required for files > 10 rows):
    - **Row-wise type guards**: verify every cell in each row matches its expected dtype (numeric cells are numeric, date cells parse as dates, string cells are non-null)
    - **Formula sanity**: for a sample of at least 3 derived/formula cells, recompute in Python and confirm the recalculated value matches the stored value within 0.01
@@ -122,12 +121,3 @@ after `data_only=True` replaces formulas with values permanently.
 The `scripts/recalc.py` script returns JSON with `"status"`,
 `"total_errors"`, and `"error_summary"` (locations by error type).
 Fix errors and re-run until `status` is `success`.
-
-## Best Practices
-
-- **pandas**: data analysis, bulk operations, simple export.
-  Specify dtypes (`dtype={'id': str}`), use `usecols` for large
-  files, handle dates with `parse_dates`.
-- **openpyxl**: complex formatting, formulas, Excel-specific features.
-  Use `read_only=True` / `write_only=True` for large files.
-  Formulas are preserved but not evaluated — use `scripts/recalc.py`.

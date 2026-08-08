@@ -16,7 +16,7 @@ Load the referenced file at each step before proceeding.
 | Type | Entry point | Patterns |
 |---|---|---|
 | Utility library | Import API | `references/library-patterns.md` |
-| API client / SDK | Import API | `references/library-patterns.md` |
+| API client / SDK | Import API | `references/library-patterns.md`, `references/architecture-patterns.md` |
 | CLI tool | `[project.scripts]` | `references/library-patterns.md` |
 | Framework plugin | `[project.entry-points]` | `references/library-patterns.md` |
 | Mixed | primary type + secondary | `references/library-patterns.md` |

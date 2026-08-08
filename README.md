@@ -36,7 +36,7 @@ For Windows setup, agent translation, instructions wiring, and troubleshooting, 
 
 ## Catalog
 
-For the complete list of 41 skills (0 routers, 41 leaf skills) and 3 agents, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md).
+For the complete list of 41 skills (0 routers, 41 leaf skills) and 3 agents, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md). The repo also carries 4 repo-scoped graph-based skills under [`.claude/skills/`](./.claude/skills/) that are deliberately outside the catalog — see [Repo-scoped skills](./docs/catalog.md#repo-scoped-skills-not-in-the-installed-catalog).
 
 For how the catalog is organized and how the two tools consume it differently, see [docs/architecture.md](./docs/architecture.md).
 

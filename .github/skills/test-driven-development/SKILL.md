@@ -13,24 +13,7 @@ description: Use when implementing any feature or bugfix, before writing impleme
 
 ### RED — Write failing test
 
-One minimal test, one behavior, clear name, real code (no mocks unless unavoidable).
-
-<Good>
-```typescript
-test('retries failed operations 3 times', async () => {
-  let attempts = 0;
-  const operation = () => { attempts++; if (attempts < 3) throw new Error('fail'); return 'success'; };
-  const result = await retryOperation(operation);
-  expect(result).toBe('success'); expect(attempts).toBe(3);
-});
-```
-</Good>
-
-<Bad>
-```typescript
-test('retry works', async () => { /* mocks, vague name */ });
-```
-</Bad>
+One minimal test, one behavior, clear name, real code (no mocks unless unavoidable). Mock discipline and common test smells: `testing-anti-patterns.md`.
 
 ### Verify RED — Watch it fail
 
@@ -42,13 +25,6 @@ MANDATORY. Confirm: test fails (not errors), failure message is expected, fails 
 ### GREEN — Minimal code to pass
 
 Write simplest code that passes the test. Don't add features, refactor, or "improve" beyond the test.
-
-```typescript
-async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
-  for (let i = 0; i < 3; i++) { try { return await fn(); } catch (e) { if (i === 2) throw e; } }
-  throw new Error('unreachable');
-}
-```
 
 ### Verify GREEN — Watch it pass
 

@@ -12,9 +12,8 @@ text = "".join(page.extract_text() for page in reader.pages)
 # Merge
 writer = PdfWriter()
 for pdf_file in ["doc1.pdf", "doc2.pdf"]:
-    for page in PdfReader(pdf_file).pages:
-        writer.add_page(page)
-writer.write(open("merged.pdf", "wb"))
+    writer.append(pdf_file)          # appends all pages
+writer.write("merged.pdf")
 
 # Split
 reader = PdfReader("input.pdf")

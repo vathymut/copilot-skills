@@ -15,10 +15,7 @@ The loop on top of `experiments/`: what to try next, why, what counts as a resul
 | Not scaffolded (no `src/`, no `experiments/`) | Bootstrap → handoff | → `ml-scaffold`, then § 0 |
 | "what's next?" / "let's iterate" with ≥1 done row | Iterate (propose) | §§ 1–3 |
 | User names a Backlog row (`B2`) | Promote directly | → § 3 (no strategy skill) |
-| "mine the report" / "what does skore see?" | Skore source | `references/source-from-skore.md` |
-| "I want to try X" / article URL / issue | User source | `references/source-from-user.md` |
-| "give me ideas" / "you decide" | My-pick inline | AskUserQuestion, draft design note |
-| Open-ended "what's next?" | Present sourcing menu | `references/sourcing-menu.md` |
+| "what to try next" (skore report / user idea / my-pick / open-ended) | Sourcing menu | `references/sourcing-menu.md` |
 | "the run finished" / "log the result" | Iterate (record) | § 4 |
 | "where are we?" / "status?" / "compare X Y" | Read-only | `references/maintenance_modes.md` |
 | "let's pivot" / "abandon X" / "re-run X" | Pivot / Abandon | `references/maintenance_modes.md` |
@@ -56,7 +53,7 @@ Pre-flight (iterate-ml-experiment):
 - [ ] (§ 3) Build → evaluate → smoke chain ran
 - [ ] (§ 3) G-CV-SPLITTER resolved; G-RUN resolved
 - [ ] (§ 4) Status + JOURNAL row + Backlog + audit
-- [ ] python-api consulted for any new symbol
+- [ ] Shared gates (python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] Pre-flight re-emitted with evidence before final message.
 ```
 
@@ -128,14 +125,6 @@ Four-way hard pairing: `journal/NN_<short_name>.md` ↔ `experiments/NN_<short_n
 
 Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline`), decide layout (`ml-scaffold`), write commits/PRs, or pick sourcing strategy for the user.
 
-## Companion skills
-
-- `ml-scaffold` — layout + stem-pairing
-- `ml-eda` — bootstrap EDA
-- `build-ml-pipeline` / `evaluate-ml-pipeline` — implementation chain
-- `evaluate-ml-pipeline` § Audit — § 4 digest
-- `python-api` / `python-env-manager` — symbols, installs, agent feature
-
 ## References
 
 - `references/bootstrap.md` — full bootstrap + config gate table
@@ -147,6 +136,7 @@ Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline
 - `references/journal-shape.md` — artifact shapes
 - `references/forbidden-shortcuts.md` — common violations
 - `ml-conventions:references/shared-preflight-evidence.md` — evidence format
+- Companion skills: `ml-scaffold` (layout), `ml-eda` (EDA), `build-ml-pipeline` / `evaluate-ml-pipeline` (implementation chain), `evaluate-ml-pipeline` § Audit (§ 4 digest), `python-api` / `python-env-manager` (symbols, installs)
 
 ## Templates
 

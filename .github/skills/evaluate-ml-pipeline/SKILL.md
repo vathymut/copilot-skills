@@ -29,8 +29,7 @@ Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural pr
 ```
 Pre-flight (evaluate-ml-pipeline):
 - [ ] Branch: evaluate | smoke | audit
-- [ ] Tier 1 libs importable: sklearn, skrub, skore
-- [ ] python-api consulted for skore/sklearn/skrub symbols
+- [ ] Shared gates (Tier 1 libs, python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] (Evaluate) split_kwargs at X marker; splitter chosen
 - [ ] (Smoke) Test file: tests/smoke/test_NN_<short_name>.py
 - [ ] (Smoke) Hard + soft assertion wired
@@ -87,5 +86,6 @@ Pre-flight (evaluate-ml-pipeline):
 - `references/custom-splitter.md` — custom splitter contract.
 - `references/metadata-routing.md` — `split_kwargs`.
 - `references/smoke-fixtures.md` — fixture shapes.
+- `references/cell_anatomy.md` — audit cell anatomy (right/wrong shapes, `.frame()`, 7-cell sequence).
 - `references/failure_modes.md` — recovery.
 - `references/shortcuts.md` — forbidden shortcuts.

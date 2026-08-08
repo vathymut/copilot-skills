@@ -20,6 +20,15 @@ decision).
 | **Read/Write artifact** | File path + action | `Read experiments/01_baseline.py` |
 | **n/a** | Explicit reason why the box doesn't apply | `n/a — pip+venv project, no feature scopes` |
 
+## Shared boxes
+
+These pre-flight boxes are shared across the ML skills; consuming skills list
+one pointer box instead of re-listing them:
+
+- **Tier 1 libs importable** — `sklearn`, `skrub`, `skore` import cleanly in the project env.
+- **python-api consulted** — every symbol used this turn came from a lookup this turn (cache file, probe, or WebFetch), never from memory.
+- **Pre-flight re-emitted with evidence** — the final box, per the rule below.
+
 ## Re-emission rule
 
 The last box in every pre-flight is `Pre-flight re-emitted with evidence`. It

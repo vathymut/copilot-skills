@@ -13,7 +13,7 @@ A skill exists to wrangle determinism out of a stochastic system. **Predictabili
 The vocabulary (context load, leading word, completion criterion, context pointer, failure modes) is in [`GLOSSARY.md`](GLOSSARY.md). Read it first.
 
 ### Step 2 — Write test cases first
-Treat the skill as TDD for process docs. Write pressure scenarios the skill must handle, then run them with a subagent to confirm they fail (RED baseline).
+Treat the skill as TDD for process docs. Write pressure scenarios the skill must handle, then run them with a subagent to confirm they fail (RED baseline). Subagent evaluation protocol: [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md).
 
 ### Step 3 — Write the skill
 Follow the how-to in [`references/writing-how-to.md`](references/writing-how-to.md): structure, description/SDO, keywords, cross-referencing, flowchart, code examples, anti-patterns.
@@ -35,4 +35,4 @@ Close loopholes, reduce token count, make every word pull weight. Bulletproofing
 - [ ] Every external reference points to existing docs (theory/reference material lives in `references/`)
 - [ ] Flowcharts rendered and checked in
 
-> Reference material (theory, eval tooling, platform-specifics, Anthropic best practices) lives in `references/` — load on demand, not here.
+> Reference material lives in `references/` — load on demand, not here: [`references/eval-workflow.md`](references/eval-workflow.md) (eval tooling), [`references/schemas.md`](references/schemas.md) (skill schemas), [`references/platform-specific.md`](references/platform-specific.md) (platform specifics), [`anthropic-best-practices.md`](anthropic-best-practices.md) (theory), and the `agents/` subagents (`analyzer`, `comparator`, `grader`).

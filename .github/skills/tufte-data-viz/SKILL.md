@@ -87,9 +87,7 @@ Chart-type guidance (line/bar/scatter/time series/small multiples/sparklines/tab
 
 ## Anti-pattern detection
 
-When reviewing existing chart code, check for: legends (→ direct labels), pie charts (→ horizontal bars), 3D effects (→ flat 2D), dual y-axes (→ small multiples), heavy gridlines (→ remove or 0.1 opacity), rainbow palettes (→ gray + accent), gauge widgets (→ number + sparkline), gradient fills (→ solid color), rotated labels (→ flip axes or abbreviate), pure white/black backgrounds (→ `#fffff8`/`#151515`), hover-only information (→ tap/focus fallback), missing text alternatives (→ `aria-label`), color-only encoding (→ add shape/pattern).
-
-For the full table with per-library detection patterns and one-liner fixes, see `rules/anti-patterns.md`.
+When reviewing existing chart code, consult `rules/anti-patterns.md` — the full per-library detection table with one-liner fixes.
 
 ---
 

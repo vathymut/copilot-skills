@@ -39,38 +39,26 @@ Natural-language question → extract nouns, function names, SQL keywords. Drop 
 ### 5. Fetch and cache (single command)
 
 ```bash
-CACHE="$HOME/.duckdb/docs/CACHE_FILENAME"; REMOTE="REMOTE_URL"
-mkdir -p "$HOME/.duckdb/docs"
-[ -f "$CACHE" ] && [ "$(( $(date +%s) - $(stat -f %m "$CACHE") ))" -lt 172800 ] \
-  && echo "cache fresh" \
-  || duckdb -c "LOAD httpfs; LOAD fts; ATTACH '$REMOTE' AS r (READ_ONLY); COPY FROM DATABASE r TO '$CACHE.tmp';" \
-     && mv "$CACHE.tmp" "$CACHE"
+bash duckdb-docs:scripts/fetch-docs.sh "$HOME/.duckdb/docs/duckdb-docs.duckdb" "https://duckdb.org/data/docs-search.duckdb"
 ```
+
+For DuckLake: cache file `ducklake-docs.duckdb`, remote `https://ducklake.select/data/docs-search.duckdb`.
 
 If the fetch fails → network unavailable → report and fall through to 5‑b.
 
 #### 5‑b. Fallback: stream live from duckdb.org
 
 ```bash
-curl -s "https://duckdb.org/docs/api/query.html?query=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("SEARCH_QUERY"))')" \
-  | python3 -c "import sys,json,html; d=json.load(sys.stdin); [print(f\"### {r['title']}\\n{r['url']}\\n\\n{html.unescape(r['snippet'])}\") for r in d.get('results',[])]" 2>/dev/null \
-  || echo "Fallback unavailable; visit https://duckdb.org/docs"
+bash duckdb-docs:scripts/stream-live.sh "SEARCH_QUERY"
 ```
 
 ### 6. Search cached index (skip if fallback was used above)
 
 ```bash
-duckdb "$HOME/.duckdb/docs/CACHE_FILENAME" -readonly -json -c "
-LOAD fts;
-SELECT chunk_id, page_title, section, breadcrumb, url, version, text,
-       fts_main_docs_chunks.match_bm25(chunk_id, 'SEARCH_QUERY') AS score
-FROM docs_chunks
-WHERE score IS NOT NULL
-  AND version = 'VERSION'
-ORDER BY score DESC LIMIT 8;"
+bash duckdb-docs:scripts/search-docs.sh "$HOME/.duckdb/docs/duckdb-docs.duckdb" "SEARCH_QUERY" "VERSION"
 ```
 
-Remove `AND version = 'VERSION'` to search all versions. If no results → drop terms and retry; still empty → report none found and suggest duckdb.org/docs.
+Omit the version argument to search all versions. If no results → drop terms and retry; still empty → report none found and suggest duckdb.org/docs.
 
 ### 7. Present results
 

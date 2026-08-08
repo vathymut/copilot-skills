@@ -18,7 +18,7 @@ Opinionated conventions and workflows. Standard git operations (add, commit, dif
 [optional footer(s)]
 ```
 
-Types map (`references/commit-types.md`). One logical change per commit; imperative mood, <72‑char description. Reference issues (`Closes #123`).
+Types map (`references/commit-types.md`). One logical change per commit; imperative mood, <72‑char description. Reference issues (`Closes #123`). Full spec walkthrough: `references/conventional-commits-guide.md`.
 
 ### Message-only mode
 
@@ -34,6 +34,10 @@ GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash <base>
 ```
 
 The `GIT_SEQUENCE_EDITOR=true` trick auto‑accepts the autosquash ordering without opening an editor. Verify with `git log --oneline` afterward.
+
+## Branch: worktree-setup
+
+Set up an isolated workspace for development work. Full procedure (detect existing isolation → native tools → git fallback, submodule guard): `references/worktree.md`.
 
 ## Branch: finish-branch
 

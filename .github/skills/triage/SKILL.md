@@ -33,7 +33,7 @@ Full state-transition flow in `references/roles.md`.
 
 Apply these steps when triaging a specific issue or PR:
 
-1. **Gather context.** Read the full issue/PR (body, comments, labels, author, dates; for a PR, the diff too). Parse prior triage notes. Explore the codebase using the domain glossary, respecting ADRs. Run two checks: (a) **redundancy** — search for existing implementation by domain concept; if found, it's an already-implemented `wontfix`. (b) **prior rejection** — read `.out-of-scope/*.md` for matches.
+1. **Gather context.** Read the full issue/PR (body, comments, labels, author, dates; for a PR, the diff too). Parse prior triage notes. Explore the codebase using the domain glossary, respecting ADRs. Run two checks: (a) **redundancy** — search for existing implementation by domain concept; if found, it's an already-implemented `wontfix`. (b) **prior rejection** — read `.out-of-scope/*.md` for matches (convention: `OUT-OF-SCOPE.md`).
 
 2. **Recommend.** Tell the maintainer your category and state recommendation with reasoning, plus a codebase summary. Wait for direction.
 

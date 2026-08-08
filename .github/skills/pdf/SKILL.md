@@ -34,7 +34,7 @@ Choose based on the operation:
 
 Check that the library is installed; install if missing. For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), load [`forms.md`](forms.md) — it routes the bundled `scripts/` helpers. Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in [`reference.md`](reference.md).
 
-### Common code snippets (use directly for routine work)
+### Common code snippet (use directly for routine work)
 
 **Read text with pdfplumber:**
 ```python
@@ -44,26 +44,7 @@ with pdfplumber.open("input.pdf") as pdf:
         print(page.extract_text())
 ```
 
-**Merge PDFs with pypdf:**
-```python
-from pypdf import PdfWriter
-writer = PdfWriter()
-for f in ["a.pdf", "b.pdf"]:
-    writer.append(f)
-writer.write("merged.pdf")
-```
-
-**Split PDF with pypdf:**
-```python
-from pypdf import PdfReader, PdfWriter
-reader = PdfReader("input.pdf")
-for i, page in enumerate(reader.pages):
-    writer = PdfWriter()
-    writer.add_page(page)
-    writer.write(f"page_{i+1}.pdf")
-```
-
-More snippets in [`references/code-snippets.md`](references/code-snippets.md).
+All other snippets (merge, split, rotate, watermark, encrypt, create, OCR, CLI tools) live in [`references/code-snippets.md`](references/code-snippets.md).
 
 ## 3. Implement the operation
 

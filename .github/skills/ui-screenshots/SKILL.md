@@ -88,7 +88,7 @@ img.crop((0, 900, 920, 1600)).save("screenshot-main.png")
 
 ## Animated GIF demos → references
 
-Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to `image-annotations`. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
+Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to `image-annotations`; use its `diff_images()` to find changed regions between frames. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
 
 ## Limitations
 

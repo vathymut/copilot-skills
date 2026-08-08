@@ -1,6 +1,6 @@
 ---
 name: ml-eda
-description: Use when exploring a dataset for the first time in an ML workspace, before any model design note — bootstrap EDA, re-running eda.py, or answering a read-only data question.
+description: Use when exploring a dataset for the first time in an ML workspace, before any model design note — bootstrap EDA, re-running eda.py, or answering a read-only data question. For ad-hoc DuckDB reads/SQL outside the ML flow, use data-access instead.
 ---
 
 # ML EDA
@@ -36,7 +36,8 @@ Pre-flight (ml-eda):
 - [ ] G-TABULAR known (pandas | polars)
 - [ ] Raw data located
 - [ ] Agent feature available (delegate to python-env-manager if missing)
-- [ ] python-api consulted for symbols used this turn
+- [ ] Shared gates (python-api): `ml-conventions:references/shared-preflight-evidence.md`
+- [ ] Pre-flight re-emitted with evidence before final message.
 ```
 
 ## Constraints

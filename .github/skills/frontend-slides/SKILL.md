@@ -95,6 +95,8 @@ Optional export/share: see `references/export-rules.md`.
 
 ## Supporting files
 
+Author-facing docs for humans (not loaded by the agent): `README.md` — full workflow reference with examples.
+
 | File | Purpose |
 |---|---|
 | `STYLE_PRESETS.md` | 12 curated visual presets |

@@ -45,9 +45,8 @@ For history-dependent / panel / cold-start cases → `references/layer_examples.
 
 ```
 Pre-flight (build-ml-pipeline):
-- [ ] Tier 1 libs importable: sklearn, skrub, skore
+- [ ] Shared gates (Tier 1 libs, python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] Tabular library identified: pandas | polars
-- [ ] python-api consulted for skrub/sklearn symbols this turn
 - [ ] Source-binding pattern chosen (list each skrub.var)
 - [ ] X-marker placement decided (name the DataOp node)
 - [ ] (Cross-row only) Each cross-row step refs upstream history DataOp
