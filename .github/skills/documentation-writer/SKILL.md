@@ -33,4 +33,4 @@ Write documentation using the Diátaxis framework.
 - Include only what serves the user's goal.
 - No external sources unless the user provides a link.
 
-> **ADR (architectural decision records)** — see [`references/adr-workflow.md`](references/adr-workflow.md). The ADR workflow is extracted there to keep this skill focused on documentation writing.
+> **ADR (architectural decision records)** — see [`references/adr-template.md`](references/adr-template.md). The ADR workflow is extracted there to keep this skill focused on documentation writing.

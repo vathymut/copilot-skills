@@ -62,14 +62,16 @@ Key rules — full guide with examples: [references/writing-guide.md](references
 
 | Venue | Pages | Camera-ready | Required extras |
 |-------|-------|-------------|-----------------|
-| NeurIPS 2025 | 9 | +0 | Paper checklist; lay summary if accepted |
-| ICML 2026 | 8 | +1 | Broader Impact Statement |
-| ICLR 2026 | 9 | +1 | LLM usage disclosure |
-| ACL 2025 | 8 | varies | Limitations + Ethics sections |
-| AAAI 2026 | 7 | +1 | Strict style compliance (never edit `.sty`) |
-| COLM 2025 | 9 | +1 | Language model focus |
+| NeurIPS | 9 | +0 | Paper checklist; lay summary if accepted |
+| ICML | 8 | +1 | Broader Impact Statement |
+| ICLR | 9 | +1 | LLM usage disclosure |
+| ACL | 8 | varies | Limitations + Ethics sections |
+| AAAI | 7 | +1 | Strict style compliance (never edit `.sty`) |
+| COLM | 9 | +1 | Language model focus |
 
 Universal: double-blind, references don't count, LaTeX required, appendices unlimited.
+
+Page limits and deadlines change every cycle — verify against the venue's current Call for Papers before submitting.
 
 Templates in [templates/](templates/) — always copy the **entire** directory, not just `main.tex`.
 

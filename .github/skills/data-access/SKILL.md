@@ -7,7 +7,7 @@ allowed-tools: Bash
 
 # Data Access
 
-Read, profile, convert, and query local/remote data with DuckDB. Replaces former `read-file`, `convert-file`, `s3-explore`, and `query` skills.
+Read, profile, convert, and query local/remote data with DuckDB.
 
 ## Pre-flight
 

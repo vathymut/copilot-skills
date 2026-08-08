@@ -4,7 +4,7 @@ description: Use when authoring or running any ML workflow skill that shares cro
 ---
 
 > **This is a reference document consumed by other ML skills — not a standalone workflow.**
-> No trigger description; skills load this file directly for shared wording and gate conventions.
+> Skills load this file directly for shared wording and gate conventions.
 
 # ML Conventions — Reference
 

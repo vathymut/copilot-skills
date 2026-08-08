@@ -78,8 +78,8 @@ Document investigation, implement handling (retry, timeout, error message), add 
 
 ## Supporting techniques
 
-- `root-cause-tracing.md` — backward call-stack tracing
-- `defense-in-depth.md` — validation at multiple layers
-- `condition-based-waiting.md` — replace timeouts with polling
+- `references/root-cause-tracing.md` — backward call-stack tracing
+- `references/defense-in-depth.md` — validation at multiple layers
+- `references/condition-based-waiting.md` — replace timeouts with polling
 - `test-driven-development` — failing test creation (Phase 4.1)
-- `references/verify-before-claiming.md` — evidence before success claim
+- `test-driven-development:references/verify-before-claiming.md` — evidence before success claim

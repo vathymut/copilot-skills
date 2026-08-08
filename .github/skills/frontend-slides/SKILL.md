@@ -83,7 +83,7 @@ Before generating, read:
 - `animation-patterns.md` — animation reference
 - `references/generation-rules.md` — generation rules
 
-Requirements: single self-contained HTML file, all CSS/JS inline, include full `viewport-base.css`, use external fonts, detailed section comments. Respect `prefers-reduced-motion`.
+Requirements: single self-contained HTML file, all CSS/JS inline, include full `viewport-base.css`, fonts via `@import` or data URIs only (no external font files), detailed section comments. Respect `prefers-reduced-motion`.
 
 ## Phase 3: Deliver
 
