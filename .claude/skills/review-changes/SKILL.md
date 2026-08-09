@@ -1,11 +1,12 @@
 ---
 name: review-changes
-description: Perform a structured code review using change detection and impact
 ---
 
-## Review Changes
+# Review Changes
 
 Perform a thorough, risk-aware code review using the knowledge graph.
+
+Token budget and `get_minimal_context` rules: see `graph-efficiency.md` in this directory.
 
 ### Steps
 
@@ -18,12 +19,8 @@ Perform a thorough, risk-aware code review using the knowledge graph.
 ### Output Format
 
 Provide findings grouped by risk level (high/medium/low) with:
+
 - What changed and why it matters
 - Test coverage status
 - Suggested improvements
 - Overall merge recommendation
-
-## Token Efficiency Rules
-- ALWAYS start with `get_minimal_context(task="<your task>")` before any other graph tool.
-- Use `detail_level="minimal"` on all calls. Only escalate to "standard" when minimal is insufficient.
-- Target: complete any review/debug/refactor task in ≤5 tool calls and ≤800 total output tokens.

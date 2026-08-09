@@ -128,7 +128,7 @@ Agent definitions live under [`.github/agents/`](../.github/agents/).
 
 ## Repo-scoped skills (not in the installed catalog)
 
-These skills live under [`.claude/skills/`](../.claude/skills/) and are **not part of the catalog** — they are repo-scoped, not installed by the symlink: a session must run *inside this repo* to see them. They depend on the `code-review-graph` MCP server, which is configured only in this repo's `opencode.jsonc`. They overlap the catalog by design — they route through the knowledge graph (Tree-sitter + SQLite) instead of file scanning.
+These skills live under [`.claude/skills/`](../.claude/skills/) and are **not part of the catalog** — they are repo-scoped, not installed by the symlink: a session must run *inside this repo* to see them. They depend on the `code-review-graph` MCP server, which is configured only in this repo's `opencode.jsonc`. They overlap the catalog by design — they route through the knowledge graph (Tree-sitter + SQLite) instead of file scanning. They are user-invoked (no description), so they add no context load and never compete with their catalog counterparts for model invocation.
 
 | Skill | What it does | Catalog counterpart |
 |---|---|---|

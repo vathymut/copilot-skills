@@ -1,84 +1,13 @@
-# Python Standards
+# Python Review Standards
 
 Reference for `code-review` Branch A — Standards axis, when the change is
-Python. This file is the single source of truth for Python quality
-conventions: lint/format (ruff), docstrings (NumPyDoc), and the review
-checklist below. `code-review` itself stays stack-agnostic; the mechanics
-live here.
+Python. The review checklist below is the standard; lint/format execution
+mechanics belong to the writing skills that produce the code
+(`data-science-python-stack` for ML stacks, `python-pypi-package-builder` for
+libraries) — a reviewer reads against this bar, never runs the tooling.
 
-## Ruff — lint + format
-
-ruff is the single-tool lint + format (replaces `black` / `isort` /
-`flake8` / `pydocstyle`). Conventions and the canonical config are owned
-here, not by any particular stack skill.
-
-### Config location
-
-The config can live in either:
-
-- `ruff.toml` at the project root, **or**
-- the `[tool.ruff]` table inside `pyproject.toml`.
-
-Both are equivalent to ruff; use whichever the project already has and never
-hand-roll config from memory. A canonical starting point ships in
-`templates/ruff.toml` — read it this turn and write it verbatim (to
-`ruff.toml`, or the `[tool.ruff]` table of `pyproject.toml`), no ad-hoc
-edits. Verify with `ruff check --show-settings .`.
-
-### Stop conditions
-
-- **Do not configure a PostToolUse / PreToolUse hook for the linter.**
-  Manual runs only — hooks stall partial files.
-- **Do not silently substitute the tool.** If the project uses ruff, don't
-  fall back to `black` / `isort` / `flake8` / `pydocstyle`. If ruff is
-  missing, install it via the environment manager.
-- **One fix attempt per file, then surface.** Re-apply once; if the same
-  issue persists, stop and show diagnostics + diff.
-- **Lint only project-owned Python.** Skip vendored, generated, and
-  virtual-environment paths.
-- **Never write linter config from memory.** Read the bundled template and
-  write it verbatim.
-- **Don't globally suppress warnings** unless asked.
-- **Comments describe the domain problem, not the workflow.** Strip
-  skill/gate/runner meta from committed headers (see
-  `references/comment-contextualization.md`).
-
-### Post-edit run ("the ruff trio")
-
-For every Python file touched this turn, inside the project's environment
-manager, run the three-step sequence below in order. This sequence is
-referred to elsewhere in this skill as **"the ruff trio"** — for example
-in `references/comment-contextualization.md`, which is the documentation
-pass that follows the trio.
-
-```bash
-ruff format <files>
-ruff check --fix <files>
-ruff check <files>
-```
-
-1. **Format** — idempotent. 2. **Check --fix** — auto-fix imports, legacy
-syntax, bug patterns. 3. **Check** — final pass; apply the one-fix-per-file
-rule. If `D100`/`D103` warnings appear for `# %%` notebook cells, the
-per-file ignores in the config are not loaded.
-
-### NumPyDoc
-
-Public functions and classes carry NumPyDoc docstrings (`Parameters` /
-`Returns`, `Raises` when applicable). See `references/numpydoc.md`.
-
-### Recursive clean-up
-
-When asked to "clean all ruff/lint issues": read
-`references/recursive-ruff.md` and run that workflow (baseline → safe fix →
-format → unsafe fix → manual → loop until clean/blocked). Use `# noqa` only
-when justified and line-scoped. Mention pre-existing warnings so the user can
-decide.
-
-## Review checklist (correctness → style)
-
-Priority-ordered rules for Python code quality. Report findings grouped by
-severity (Critical / High / Medium).
+Report findings grouped by severity (Critical / High / Medium), priority-
+ordered as below.
 
 ## Correctness (CRITICAL)
 
@@ -181,18 +110,8 @@ def calculate_total(item_price: float, quantity: int) -> float:
 ```
 
 ### Docstrings
-```python
-def process_user_data(data: Dict[str, Any], config: ProcessConfig) -> ProcessResult:
-    """Process user data according to configuration.
 
-    Args:
-        data: Raw user data with 'user_id' and 'email' keys.
-        config: Processing configuration with transformations and rules.
-
-    Returns:
-        ProcessResult with transformed data and validation warnings.
-
-    Raises:
-        ValidationError: If required fields are missing.
-    """
-```
+Public functions and classes carry numpydoc docstrings (`Parameters` /
+`Returns` / `Raises`), enforced by ruff's `D` rules under the numpy
+convention. A bare one-line summary is NOT sufficient for public callable
+surfaces; private helpers (`_leading_underscore`) may omit docstrings.

@@ -42,16 +42,12 @@ Logic is sound; edge cases handled.
 
 ### 4. Maintainability
 Code is simple, minimal, and sustainable. Be ambitious — flag deep restructuring that simplifies the codebase.
-- ☐ Code-judo: can whole branches or layers be deleted rather than modified?
-- ☐ Deletion test: does each new module or abstraction earn its keep?
-- ☐ Shallow module: interface nearly as complex as what it wraps
-- ☐ Locality: understanding requires bouncing between scattered files
-- ☐ File crosses 1000 lines because of this change
-- ☐ New conditionals scattered across unrelated paths
-- ☐ Wrappers/casts/optionals hiding a simpler boundary
-- ☐ Feature logic leaking into shared paths or wrong layer
+- ☐ Code-judo: delete branches or layers rather than modify
+- ☐ Deletion test: each new module or abstraction earns its keep
+- ☐ Shallow module, locality (scattered files), file crosses 1000 lines, new conditionals in unrelated paths
+- ☐ Wrappers/casts/optionals hiding a simpler boundary; feature logic leaking into the wrong layer
 - ☐ AI slop: verbose comments, defensive bloat, broad `except Exception`, unnecessary casts
-- ☐ Structural concerns found → load `references/maintainability-review.md` for deeper standards. Report restructuring findings — do not implement.
+- ☐ Structural concerns → load `references/maintainability-review.md` for the deep standards. Report restructuring findings — do not implement.
 - ☐ Diff is the smallest working change
 
 ### 5. Security & Performance

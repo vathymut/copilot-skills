@@ -6,8 +6,8 @@ license: MIT
 
 # Refactor
 
-Improve code structure without changing external behavior. Branch A is the
-default path: change structure in small steps, always with tests.
+Improve code structure without changing external behavior. The default path:
+change structure in small steps, always with tests.
 
 **Not for:** rewrites from scratch, or code without tests. For architectural
 deepening (module interfaces, seams, testability), fold that work into the
