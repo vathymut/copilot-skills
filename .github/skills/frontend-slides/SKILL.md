@@ -18,7 +18,7 @@ See `references/design-aesthetics.md` for typography, color, motion, and backgro
 
 ## No external assets
 
-Every deck is a single self-contained HTML file. **No** external scripts, stylesheets, images, fonts (use `@import` in CSS or data URIs), or build tools. Purge any HTML generator that emits `<script src="...">`, `<link rel="stylesheet" href="...">`, or separate assets. The file must work offline when opened from disk.
+Every deck is a single self-contained HTML file. **No** external scripts, stylesheets, images, or build tools; **no** `<link>` or `<script src>`; fonts via `@import` (e.g. Google Fonts) or data URIs — never shipped font files. Purge any HTML generator that emits `<script src="...">`, `<link rel="stylesheet" href="...">`, or separate assets. The file must work offline when opened from disk.
 
 ## Preamble requirement
 
@@ -83,7 +83,7 @@ Before generating, read:
 - `animation-patterns.md` — animation reference
 - `references/generation-rules.md` — generation rules
 
-Requirements: single self-contained HTML file, all CSS/JS inline, include full `viewport-base.css`, fonts via `@import` or data URIs only (no external font files), detailed section comments. Respect `prefers-reduced-motion`.
+Requirements: single self-contained HTML file, all CSS/JS inline (full `viewport-base.css` — Preamble above), fonts via `@import` or data URIs only (no external font files), detailed section comments. Respect `prefers-reduced-motion`.
 
 ## Phase 3: Deliver
 
@@ -96,19 +96,3 @@ Optional export/share: see `references/export-rules.md`.
 ## Supporting files
 
 Author-facing docs for humans (not loaded by the agent): `README.md` — full workflow reference with examples.
-
-| File | Purpose |
-|---|---|
-| `STYLE_PRESETS.md` | 12 curated visual presets |
-| `bold-template-pack/selection-index.json` | Bold template metadata |
-| `themes/` | Built-in color/font themes |
-| `theme-showcase.pdf` | Visual theme catalog |
-| `viewport-base.css` | Mandatory fixed-stage CSS |
-| `html-template.md` | HTML structure and JS features |
-| `animation-patterns.md` | Animation snippets |
-| `references/design-aesthetics.md` | Aesthetic guidance |
-| `references/generation-rules.md` | Generation rules |
-| `references/export-rules.md` | Deployment and PDF export |
-| `scripts/extract-pptx.py` | PPT content extraction |
-| `scripts/deploy.sh` | Deploy to Vercel |
-| `scripts/export-pdf.sh` | Export to PDF |

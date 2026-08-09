@@ -81,7 +81,7 @@ this skill's folder. Only read ONE rule file per task. Essential config per libr
 - **Plotly** → `rules/plotly.md` — `showgrid=False`, `showlegend=False`, `plot_bgcolor='#fffff8'`, `zeroline=False`
 - **D3/SVG/HTML** → `rules/svg-html.md` — `.domain { display: none }`, no `<rect>` backgrounds, `stroke-opacity: 0.1` gridlines
 
-Chart-type guidance (line/bar/scatter/time series/small multiples/sparklines/tables/slopegraph/area/stacked/heatmap) and the color quick-reference table: see `rules/typography-and-color.md` (palettes, font stacks) and `rules/universal-rules.md` (rule 7/8).
+Chart-type guidance (line/bar/scatter/time series/small multiples/sparklines/tables/slopegraph/area/stacked/heatmap) and the color quick-reference table: see `rules/typography-and-color.md` (palettes, font stacks) and `rules/universal-rules.md` (rule 7/8). Cross-cutting: `rules/interactive-and-accessible.md` (progressive disclosure, WCAG, animation), `rules/small-multiples-sparklines.md` (layout patterns). Working examples in `examples/` — one per library, plus an inline SVG sparkline.
 
 ---
 
@@ -116,16 +116,3 @@ Before presenting any chart, verify:
 - [ ] Numbers are formatted for readability (abbreviations, separators, consistent precision)
 - [ ] A chart is warranted — the data couldn't be communicated as a sentence or table
 
----
-
-## Additional resources
-
-**Library rules** (read ONE per task): `rules/recharts.md`, `rules/echarts.md`, `rules/chartjs.md`, `rules/matplotlib.md`, `rules/plotly.md`, `rules/svg-html.md` — complete code examples, helpers, and theme registrations.
-
-**Cross-cutting** (read when specifically needed):
-- `rules/interactive-and-accessible.md` — progressive disclosure, WCAG, responsive, animation, dark mode
-- `rules/typography-and-color.md` — font loading, full palette tables, old-style figures
-- `rules/anti-patterns.md` — per-library detection heuristics and fixes
-- `rules/small-multiples-sparklines.md` — layout patterns for small multiples, sparklines, slopegraphs
-
-**Working examples** in `examples/` — one per library, plus an inline SVG sparkline.

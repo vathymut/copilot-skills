@@ -39,6 +39,7 @@ If two modes seem to match, pick the **read** mode first. Re-entering § 1 is a 
 - **After G-DESIGN, dispatch in order:** `build-ml-pipeline` → `evaluate-ml-pipeline` § Evaluate → § Smoke → assemble `experiments/NN_*.py`.
 - **Harness hints do NOT waive gates.**
 - **Post-hoc audit required before end of turn.**
+- **Forbidden shortcuts:** `references/forbidden-shortcuts.md`.
 
 ## Pre-flight
 
@@ -124,21 +125,3 @@ Four-way hard pairing: `journal/NN_<short_name>.md` ↔ `experiments/NN_<short_n
 ## What this skill does NOT do
 
 Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline`), decide layout (`ml-scaffold`), write commits/PRs, or pick sourcing strategy for the user.
-
-## References
-
-- `references/bootstrap.md` — full bootstrap + config gate table
-- `references/sourcing-menu.md` — sourcing menu verbatim
-- `references/source-from-skore.md` — skore source branch
-- `references/source-from-user.md` — user source branch
-- `references/record_outcome.md` — full § 4 procedure
-- `references/maintenance_modes.md` — compare/pivot/abandon/re-run
-- `references/journal-shape.md` — artifact shapes
-- `references/forbidden-shortcuts.md` — common violations
-- `ml-conventions:references/shared-preflight-evidence.md` — evidence format
-- Companion skills: `ml-scaffold` (layout), `ml-eda` (EDA), `build-ml-pipeline` / `evaluate-ml-pipeline` (implementation chain), `evaluate-ml-pipeline` § Audit (§ 4 digest), `python-api` / `python-env-manager` (symbols, installs)
-
-## Templates
-
-- `templates/JOURNAL.md` — index skeleton
-- `templates/experiment_design.md` — design note with Status block. Copy, don't rewrite.

@@ -15,7 +15,7 @@ AI-generated citations have a ~40% error rate. **Never write BibTeX from memory.
 - Cannot verify → mark `\cite{PLACEHOLDER_author2024_verify}` and tell the scientist ✅
 - Guessing a plausible reference → **never** ❌
 
-Full citation workflow (Semantic Scholar API, DOI fetch, placeholder rules): [references/citation-workflow.md](references/citation-workflow.md)
+Full citation workflow (Semantic Scholar API, DOI fetch, placeholder rules): [references/citation-workflow.md](references/citation-workflow.md). Bibliography: `references/sources.md`.
 
 ---
 
@@ -73,7 +73,7 @@ Universal: double-blind, references don't count, LaTeX required, appendices unli
 
 Page limits and deadlines change every cycle — verify against the venue's current Call for Papers before submitting.
 
-Templates in [templates/](templates/) — always copy the **entire** directory, not just `main.tex`.
+Templates in [templates/](templates/) — always copy the **entire** directory, not just `main.tex`. Venue submission checklists: `references/checklists.md`.
 
 ---
 
@@ -90,6 +90,8 @@ Templates in [templates/](templates/) — always copy the **entire** directory, 
 
 When cutting: move proofs to appendix, cite surveys instead of individual papers, combine tables, tighten prose.
 
+Rebuttal and reviewer evaluation criteria: `references/reviewer-guidelines.md`.
+
 ---
 
 ## Tables and Figures
@@ -97,16 +99,4 @@ When cutting: move proofs to appendix, cite surveys instead of individual papers
 - **Figures**: vector (PDF/EPS) for plots; raster (PNG 600 DPI) only for photos; colorblind-safe palette (Okabe-Ito); verify grayscale readability; captions must be self-contained
 - **Tables**: use `booktabs`; bold best value per metric; include direction symbols (↑/↓); consistent decimal precision
 
----
 
-## References
-
-| Document | Contents |
-|----------|----------|
-| [references/paper-structure.md](references/paper-structure.md) | Section checklist, timing, abstract formula |
-| [references/citation-workflow.md](references/citation-workflow.md) | Semantic Scholar API, DOI→BibTeX, placeholder rules |
-| [references/writing-guide.md](references/writing-guide.md) | Gopen & Swan 7 principles, Perez micro-tips, Lipton word choice |
-| [references/checklists.md](references/checklists.md) | NeurIPS, ICML, ICLR, ACL, AAAI submission checklists |
-| [references/reviewer-guidelines.md](references/reviewer-guidelines.md) | Evaluation criteria, scoring scales, rebuttal tips |
-| [references/sources.md](references/sources.md) | Full bibliography (Nanda, Farquhar, Steinhardt, et al.) |
-| [templates/](templates/) | LaTeX templates for all venues |

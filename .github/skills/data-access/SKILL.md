@@ -70,7 +70,7 @@ Always `LOAD httpfs;`. Directory → `read_blob('<URL>/*')`. File → `DESCRIBE 
 
 ## `sql` <SQL or question> [--file <path>] [--attach <dbpath>]
 
-**`--attach` setup:** resolve DB path, validate, resolve state dir (`.duckdb-skills/state.sql`), append `ATTACH IF NOT EXISTS` to state file, verify. Full procedure → `references/session-setup.md`.
+**`--attach` setup:** resolve DB path, validate, resolve state dir (`.duckdb-skills/state.sql`), append `ATTACH IF NOT EXISTS` to state file, verify. Full procedure → `references/session-setup.md`. Execution mode (sandboxed vs session): `references/sql-execution.md`.
 
 **Generate SQL:** NL input → `references/friendly-sql.md`. Session mode: fetch schema first. **Estimate result size** before execution: >1M rows w/o LIMIT → warn; >10 GB → warn. **Errors:** syntax → show + suggest; missing ext → `install-duckdb`; table not found → list tables; file not found → find + correct path; unclear → `duckdb-docs`.
 
@@ -95,12 +95,3 @@ Key patterns:
 **Principles:** bbox-filter first (Parquet pushdown), `geometry_always_xy = true`, use `ST_Distance_Spheroid` for real-world distances, CSV lat/lng → `ST_Point(longitude, latitude)`.
 
 On failure: missing duckdb → `install-duckdb`; missing ext → `INSTALL spatial`; S3 access → check creds; no Overture results → widen bbox.
-
-## References
-
-- `references/session-setup.md` — `--attach` procedure
-- `references/sql-macros.md` — `read_any` macro, remote protocol prefixes
-- `references/sql-execution.md` — sandboxed vs session mode
-- `references/friendly-sql.md` — NL→SQL generation
-- `references/functions.md` — spatial function syntax
-- `references/overture.md` — Overture Maps S3 paths and schema

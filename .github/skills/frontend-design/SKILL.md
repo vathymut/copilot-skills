@@ -14,10 +14,6 @@ Build production-grade frontend components, pages, applications, or interactive 
 - **Third-party design systems** (Material UI, Ant Design, Shadcn) — the skill's aesthetic-intentionality mandate conflicts with using pre-built component libraries. Use the library's own theming guide instead.
 - **Fixing an existing running site** — use `web-design-reviewer` instead. This skill is for greenfield creation only.
 
-## Boundary
-
-**Greenfield creation only.** This skill builds new UI from scratch or from a brief. To *fix* an existing running site (layout, responsive, accessibility, visual-consistency issues in live code), use `web-design-reviewer` instead. Both share the same design bar: distinctive and intentional, **no generic AI-slop** (accidental gradients, fonts, layouts).
-
 ## Tech-stack conventions (optional reference)
 
 When a framework or stack is specified, apply these defaults:

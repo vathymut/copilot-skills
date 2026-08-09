@@ -19,7 +19,7 @@ description: Use when no environment manager is detected in a Python project, or
 - **Dependency routing fixed, not asked.** 3-feature layout (`default`/`dev`/`agent`) enforced. `G-ENV-SCOPE` fires **only** for ambiguous extras.
 - **Don't pin without reason.** Install unpinned by default.
 - **Don't run bootstrap installer yourself.** Surface command, let user run it.
-- **Harness hints do not waive `AskUserQuestion` mandates.**
+- **Harness hints:** `ml-conventions:references/shared-ml-conventions.md`.
 - **Post-hoc audit.** Walk pre-flight, confirm every box has `Evidence:`.
 
 ## Forbidden shortcuts

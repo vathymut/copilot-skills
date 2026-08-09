@@ -12,10 +12,10 @@ the JOURNAL `## Data understanding (EDA)` entry.
 ## EDA flow
 
 1. If `data/eda.md` exists, read JOURNAL § EDA and ask whether to overwrite or skip.
-2. Resolve `G-EDA`: `run` or `skip`. Skip records `Status: skipped`.
+2. Resolve `G-EDA`: `run` or `skip` (gate registry: `ml-conventions:references/ml-gates.md`). Skip records `Status: skipped`.
 3. On run: copy `templates/eda.py`, substitute `<pkg>`, `<LOAD_RAW_DATA>`, `<TARGET_COLUMN>`, `<table>`.
 4. Execute via `python-env-manager` agent env: `python ml-eda:scripts/run_cells.py data/eda.py [scratch/eda/eda.md]`
-5. Read the digest and author `data/eda.md` from `templates/eda.md`.
+5. Read the digest and author `data/eda.md` from `templates/eda.md` (`data/eda.py` anatomy: `references/eda-file-contract.md`).
 6. Write `data/eda_<table>.html` (≥1).
 7. Update `journal/JOURNAL.md` § Data understanding (EDA).
 
@@ -51,12 +51,6 @@ Pre-flight (ml-eda):
 
 **EDA contract:**
 - `skrub.TableReport(..., verbose=0)` + `.json()` for facts; write HTML for the human.
-- End cells on text-friendly expressions, never bare `TableReport(df)`.
+- End cells on text-friendly expressions, never bare `TableReport(df)` (shared with audit: `references/cell_anatomy.md`).
 - Library-agnostic summaries only; the only pandas/polars-specific line is `RAW = <LOAD_RAW_DATA>`.
 - No model design, no splitter pick, no metric pick — only *implications* for those gates.
-
-## References
-
-- `ml-conventions:references/ml-gates.md` — gate registry.
-- `references/eda-file-contract.md` — `data/eda.py` anatomy.
-- `references/cell_anatomy.md` — bare-expression rules (shared with audit).

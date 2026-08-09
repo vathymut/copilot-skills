@@ -17,7 +17,7 @@ Pick shape by question type. Wrong shape burns a turn.
 | "Search symbols matching `foo*`" | **2b** LSP workspace symbol | ad-hoc |
 | "How does X work?" / "Which of A or B?" / "What does X return when arg=V?" | **3** narrative (WebFetch) | cache lands |
 
-Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough. Shape 3 when question depends on a *condition* over an argument. LSP shapes (1b/2b) require pyright + `pyrightconfig.json`; see `python-env-manager` § Agent feature.
+Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough. Shape 3 when question depends on a *condition* over an argument. LSP shapes (1b/2b) require pyright + `pyrightconfig.json`; see `python-env-manager` § Agent feature. LSP footguns: `references/shape1b_lsp_setup.md`.
 
 ## Stop conditions — read before any lookup
 
@@ -53,24 +53,13 @@ Pre-flight (python-api):
 
 ## Shapes (lookup procedure)
 
-Per-shape probe templates (Shape 0–3) live in `references/four-shapes.md`. Load it when you reach a lookup.
+Per-shape probe templates (Shape 0–3) live in `references/four-shapes.md`; probe code snippets: `references/probe_templates.md`. Load them when you reach a lookup.
 
 ## Cache file contract
 
-Format: `# <topic>` header, `Source:` line, `Probed:` date, `## Signature` (Shape 1), `## help()` / `## Docs extract` (verbatim), `## Usage` (Call / Don't call / Trap / Returns). Version subfolder = `<pkg>.__version__` exactly. Gitignored. Bootstrap turns → `references/bootstrap_cache.md`.
+Format: `# <topic>` header, `Source:` line, `Probed:` date, `## Signature` (Shape 1), `## help()` / `## Docs extract` (verbatim), `## Usage` (Call / Don't call / Trap / Returns). Version subfolder = `<pkg>.__version__` exactly. Gitignored. Bootstrap turns → `references/bootstrap_cache.md`. New-reference authoring: `references/authoring_protocol.md`.
 
 ## Stack orientation
 
-Tier-1 named entry points per library: `references/stack_orientation.md`. Consult before Shape 2.
+Tier-1 named entry points per library: `references/stack_orientation.md`. Consult before Shape 2. Interop notes (SkrubLearner + skore.evaluate, DataOps history pattern): `references/skrub_interop.md`, `references/pre_mark_alignment.md`.
 
-## References
-
-- `references/four-shapes.md` — Shape 0–3 probe templates
-- `references/probe_templates.md` — probe code snippets
-- `references/shape1b_lsp_setup.md` — LSP footguns
-- `references/stack_orientation.md` — per-library surface map
-- `references/named_traps.md` — version-specific renames
-- `references/bootstrap_cache.md` — bootstrap min cache
-- `references/authoring_protocol.md` — new reference authoring
-- `references/skrub_interop.md` — SkrubLearner + skore.evaluate
-- `references/pre_mark_alignment.md` — DataOps history pattern

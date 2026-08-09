@@ -30,13 +30,6 @@ license: Proprietary. LICENSE.txt has complete terms
 - Use cell references instead of hardcoded values in formulas
 - Example: Use =B5*(1+$B$6) instead of =B5*1.05
 
-#### Formula Error Prevention
-- Verify all cell references are correct
-- Check for off-by-one errors in ranges
-- Ensure consistent formulas across all projection periods
-- Test with edge cases (zero values, negative numbers)
-- Verify no unintended circular references
-
 #### Documentation Requirements for Hardcodes
 - Comment or in cells beside (if end of table). Format: "Source: [System/Document], [Date], [Specific Reference], [URL if applicable]"
 - Examples:
@@ -117,7 +110,7 @@ after `data_only=True` replaces formulas with values permanently.
 - [ ] **Multiple matches**: Search all occurrences, not just first
 - [ ] **Division by zero**: Check denominators before using `/` in formulas
 - [ ] **Cross-sheet references**: Use correct format (Sheet1!A1)
+- [ ] **No circular references**: Verify none are unintended
+- [ ] **Consistent formulas** across all projection periods
+- [ ] **Edge cases**: Test with zero values and negative numbers
 
-The `scripts/recalc.py` script returns JSON with `"status"`,
-`"total_errors"`, and `"error_summary"` (locations by error type).
-Fix errors and re-run until `status` is `success`.

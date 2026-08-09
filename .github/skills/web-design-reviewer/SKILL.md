@@ -9,7 +9,7 @@ Inspect a running website, identify visual and accessibility issues, then fix th
 
 ## Boundary
 
-**Fixes an existing running site only.** This skill diagnoses and repairs live UI in source code — it does not design new UI from a blank brief. To *build* new components/pages from scratch, use `frontend-design`. Hold the same design bar as that skill: distinctive and intentional, **no generic AI-slop** (accidental gradients, fonts, layouts). When fixing, respect the existing aesthetic direction rather than inventing a new one.
+**Fixes an existing running site only** — repairs live UI in source code; it does not design new UI from a blank brief (use `frontend-design` for that). Hold the same design bar: distinctive and intentional, **no generic AI-slop**; when fixing, respect the existing aesthetic direction rather than inventing a new one.
 
 ## Workflow
 

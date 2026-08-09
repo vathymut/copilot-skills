@@ -17,11 +17,7 @@ Opinionated stack — one library per job, four tiers plus agent feature:
 
 ## Competing libraries — general rule
 
-Whenever the stack offers two+ libraries for one job:
-1. `AskUserQuestion` before any import or install.
-2. Persist in JOURNAL.md Status — re-read on future sessions, don't re-ask.
-3. No silent default.
-Every row in the Tier 2 table must name an explicit `Default-on-no-preference`.
+The AskUserQuestion contract is in Stop conditions above. Every row in the Tier 2 table must name an explicit `Default-on-no-preference`.
 
 ## When to invoke
 

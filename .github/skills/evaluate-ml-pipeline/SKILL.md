@@ -23,6 +23,7 @@ Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural pr
 - **CV not sufficient for history-dependent pipelines.** Smoke must pass.
 - **Python-stack defaults** — `scratch/`, ruff, harness hints: `ml-conventions:references/shared-ml-conventions.md`.
 - **Audit is read-only.** No evaluate/put. `project.get(id)` by id, not key.
+- **Recovery and shortcuts:** `references/failure_modes.md`, `references/shortcuts.md`.
 
 ## Pre-flight
 
@@ -44,7 +45,7 @@ Pre-flight (evaluate-ml-pipeline):
 **Procedure:**
 
 1. Pass `splitter=` explicitly to `skore.evaluate(...)`. Omitted splitter silently falls back to holdout.
-2. Pick splitter via G-CV-SPLITTER: `groups` → `GroupKFold`; temporal → `AskUserQuestion` (`TimeSeriesSplit(gap=horizon)` default, `gap=0`, custom, or `KFold`); none → `KFold`.
+2. Pick splitter via G-CV-SPLITTER: `groups` → `GroupKFold`; temporal → `AskUserQuestion` (`TimeSeriesSplit(gap=horizon)` default, `gap=0`, custom, or `KFold`); none → `KFold`. `split_kwargs` mapping: `references/metadata-routing.md`.
 3. Use sklearn-style `skore.evaluate(estimator, X, y, splitter=...)` or env-dict-style for `SkrubLearner`.
 4. Escalate only if `evaluate` is too coarse: `EstimatorReport`, `CrossValidationReport`, `ComparisonReport`. Details: `references/reports.md`.
 5. Trust skore's metric defaults. Override only on user request.
@@ -73,19 +74,7 @@ Pre-flight (evaluate-ml-pipeline):
 
 1. Write `audit/NN_<short_name>.py` from template `templates/audit.py`.
 2. Execute: `<agent-env-prefix> python ml-eda:scripts/run_cells.py audit/<stem>.py [scratch/audit/<stem>/audit.md]`.
-3. Full cell sequence in `templates/audit.py` (imports → open Project → summarize → get report → checks → metrics).
+3. Full cell sequence in `templates/audit.py` (imports → open Project → summarize → get report → checks → metrics). Cell anatomy: `references/cell_anatomy.md`.
 4. Read-only: no `skore.evaluate`, no `project.put`.
 
 **Stop conditions:** `project.get(id)` by id, not key. Runner streams stdout. Digest feeds `iterate-ml-experiment`. Runner details: `references/runner_internals.md`.
-
-## References
-
-- `iterate-ml-experiment` — ownership map.
-- `references/cross-validation.md` — splitter reasoning.
-- `references/reports.md` — report escalation.
-- `references/custom-splitter.md` — custom splitter contract.
-- `references/metadata-routing.md` — `split_kwargs`.
-- `references/smoke-fixtures.md` — fixture shapes.
-- `references/cell_anatomy.md` — audit cell anatomy (right/wrong shapes, `.frame()`, 7-cell sequence).
-- `references/failure_modes.md` — recovery.
-- `references/shortcuts.md` — forbidden shortcuts.

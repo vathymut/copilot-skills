@@ -62,6 +62,7 @@ Pre-flight (build-ml-pipeline):
 - **Symbol from memory is forbidden.** Use `python-api` this turn.
 - **Splitter imports are out of scope.** Only `split_kwargs` at the X marker.
 - **Python-stack defaults apply** — ruff, `scratch/` rule, harness hints: `ml-conventions:references/shared-ml-conventions.md`.
+- **Ownership map:** `iterate-ml-experiment`.
 
 ## Common patterns
 
@@ -72,13 +73,4 @@ Pre-flight (build-ml-pipeline):
 5. Hyperparameters — `skrub.choose_from` / `choose_int` / `choose_float` / `optional`.
 6. Custom transformer — `BaseEstimator` + `TransformerMixin` only when stateful.
 
-Full code: `references/common_patterns.md`.
-
-## References
-
-- `iterate-ml-experiment` — ownership map.
-- `ml-conventions:references/ml-gates.md` — gate registry.
-- `references/source-binding.md` — root-binding patterns.
-- `references/layer_examples.md` — IID, history-dependent, counter-example, terminology.
-- `references/reproducibility.md` — persistence / reproducibility checks.
-- `references/common_patterns.md` — recurring pipeline shapes.
+Full code: `references/common_patterns.md`. Persistence / reproducibility checks: `references/reproducibility.md`.
