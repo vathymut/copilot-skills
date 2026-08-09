@@ -15,7 +15,7 @@ Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural pr
 
 ## Stop conditions — all branches
 
-- **Missing dependency.** `import skore` fails → `python-env-manager`. No `cross_val_score` fallback.
+- **Missing dependency.** `import skore` fails → `python-stack-env`. No `cross_val_score` fallback.
 - **Symbol from memory forbidden.** All symbols via `python-api`.
 - **`skore.evaluate` / `project.put` live only in `experiments/NN_*.py`.** Scratch/audit files are read-only.
 - **CV splitter is data-driven, not default-driven (G-CV-SPLITTER).** Read `split_kwargs` from X marker. Temporal → `AskUserQuestion`.

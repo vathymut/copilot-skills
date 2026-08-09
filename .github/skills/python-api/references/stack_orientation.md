@@ -93,8 +93,8 @@ finds the right submodule.
 
   Source: https://docs.skore.probabl.ai/stable/reference/api/skore.Project.html
   (skore 0.18.0). The mode choice for this stack's workspaces is
-  owned by `ml-scaffold` § "G-SKORE-MODE"; the install
-  variant per mode is owned by `python-env-manager` § "Tier 1
+  owned by `iterate-ml-experiment` § 0.5 (G-SKORE-MODE); the install
+  variant per mode is owned by `python-stack-env` § "Tier 1
   install: skore variant per mode".
 
 `dir(skore)` for top-level; `dir(report)` and

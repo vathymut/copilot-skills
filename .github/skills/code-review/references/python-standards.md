@@ -3,7 +3,7 @@
 Reference for `code-review` Branch A — Standards axis, when the change is
 Python. The review checklist below is the standard; lint/format execution
 mechanics belong to the writing skills that produce the code
-(`data-science-python-stack` for ML stacks, `python-pypi-package-builder` for
+(`python-stack-env` for ML stacks, `python-pypi-package-builder` for
 libraries) — a reviewer reads against this bar, never runs the tooling.
 
 Report findings grouped by severity (Critical / High / Medium), priority-

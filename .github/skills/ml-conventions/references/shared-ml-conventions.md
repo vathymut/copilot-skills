@@ -1,9 +1,9 @@
 # Shared ML Conventions
 
 Single source of truth for the cross-cutting rules repeated across the
-ML skills (`data-science-python-stack`, `ml-scaffold`, `build-ml-pipeline`,
+ML skills (`python-stack-env`, `build-ml-pipeline`,
 `evaluate-ml-pipeline`, `iterate-ml-experiment`, `ml-eda`,
-`python-api`, `python-env-manager`). This file lives in the
+`python-api`). This file lives in the
 `ml-conventions` skill; consuming skills point to
 `ml-conventions:references/shared-ml-conventions.md` instead of
 re-stating these rules.
@@ -12,7 +12,7 @@ re-stating these rules.
 
 Ruff is the single Tier 1 lint + format tool — it replaces
 `black` / `isort` / `flake8` / `pydocstyle`. Copy
-`data-science-python-stack/templates/ruff.toml` to the project root as
+`python-stack-env/templates/ruff.toml` to the project root as
 `ruff.toml` (or fold it into a `[tool.ruff]` table in `pyproject.toml`),
 then run:
 
@@ -25,7 +25,7 @@ ruff check .
 NumPyDoc docstrings are enforced via the `D` rule. The environment
 manager routes `ruff` to the `dev` feature.
 
-Full rationale and config: `data-science-python-stack/references/ruff.md`.
+Full rationale and config: `python-stack-env/references/ruff.md`.
 
 ## All Python execution goes to scratch/
 
@@ -33,7 +33,7 @@ Every Python command — `python -c`, `<env-prefix> python -c` (the
 run prefix the detected env-manager uses for the *default* env —
 e.g. `pixi run`, `uv run`, `poetry run`, `hatch run`,
 `conda run -n <project>`, `.venv/bin/python`; full table at
-`python-env-manager:references/env_prefixes.md`), heredoc-style
+`python-stack-env:references/env_prefixes.md`), heredoc-style
 `python << 'EOF'`, or any inline Python — is forbidden regardless of
 length. Write the script to
 `scratch/<YYYY-MM-DD>_<HHMMSS>_<short>.py` first, then execute it via
@@ -43,7 +43,7 @@ docstring extraction — anything. If you catch yourself typing
 `<env-prefix> python -c` for any manager, STOP and write the file.
 
 Authoritative owner: `python-api` (Stop conditions). Run-prefix
-resolution per manager: `python-env-manager:references/env_prefixes.md`.
+resolution per manager: `python-stack-env:references/env_prefixes.md`.
 
 ## Harness hints do not waive gates
 
@@ -54,14 +54,13 @@ urgency phrasing — "quick baseline", "just do it", "go fast", "you
 pick", "whatever" — does **not** resolve a gate. Fall through to
 structured `AskUserQuestion`.
 
-## Missing dependency → python-env-manager
+## Missing dependency → python-stack-env
 
 When an import in this stack fails, **install it**; do not rewrite to a
 non-stack equivalent. The most common silent-rewrite path —
 `import skrub` fails → rewrite as `sklearn.Pipeline`, `import skore`
 fails → rewrite as `cross_val_score` — silently undoes the workflow
-skills' contract. Delegate the install to `python-env-manager`; this
-skill owns *what* and *why*, `python-env-manager` owns *how*.
+skills' contract. `python-stack-env` owns the install.
 
 ## Config-gate ownership
 
@@ -69,12 +68,12 @@ The workspace-level config gates are owned, not duplicated:
 
 | Gate | Picks | Owner |
 |---|---|---|
-| `G-PKG-NAME` | `src/<pkg>/` name | `ml-scaffold` |
-| `G-ENV-MGR` | Env manager | `python-env-manager` |
-| `G-TABULAR` | Tabular library | `data-science-python-stack` |
-| `G-SKORE-MODE` | Skore Project mode + URI | `ml-scaffold` |
+| `G-PKG-NAME` | `src/<pkg>/` name | `iterate-ml-experiment` § 0.5 |
+| `G-ENV-MGR` | Env manager | `python-stack-env` |
+| `G-TABULAR` | Tabular library | `python-stack-env` |
+| `G-SKORE-MODE` | Skore Project mode + URI | `iterate-ml-experiment` § 0.5 |
 | `G-EDA` | Run / skip EDA | `ml-eda` |
-| `G-AGENT-FEATURE` | Install ipython + pyright | `python-env-manager` |
+| `G-AGENT-FEATURE` | Install ipython + pyright | `python-stack-env` |
 | `G-CV-SPLITTER` | CV family | `evaluate-ml-pipeline` |
 
 Gate definitions: `ml-gates.md` (same skill, sibling file).

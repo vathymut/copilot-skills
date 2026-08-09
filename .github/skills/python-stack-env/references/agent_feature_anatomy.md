@@ -23,7 +23,7 @@ A project-scoped install of two agent-only tools plus a config:
 - **`pyrightconfig.json`** at the project root, with
   `<PYTHON_PATH>` substituted for the lsp env's interpreter.
 
-The deps themselves are catalogued in `data-science-python-stack`
+The deps themselves are catalogued in `python-stack-env`
 under the "agent feature" category — separate from Tier 1
 mandatory because not every workspace uses the audit flow or the
 LSP integration. This skill owns *where they get installed*.
@@ -125,7 +125,7 @@ second arg `<dst.md>` to also write to a file.
 ## `pyrightconfig.json` — bundled template
 
 Lives at
-`.github/skills/python-env-manager/templates/pyrightconfig.json`.
+`.github/skills/python-stack-env/templates/pyrightconfig.json`.
 One placeholder the install step substitutes:
 
 - `<PYTHON_PATH>` — interpreter of the lsp env (manager-specific).

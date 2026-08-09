@@ -14,8 +14,8 @@ a fresh workspace.
 - G-SKORE-MODE has resolved (SKILL.md § "Tier 1 install: skore
   variant per mode" reads the `skore mode:` row).
 - G-TABULAR has resolved (the tabular library pick lives in
-  `ml-scaffold` § G-TABULAR).
-- G-PKG-NAME has resolved (`ml-scaffold` § G-PKG-NAME).
+  `iterate-ml-experiment` § 0.5 (G-TABULAR)).
+- G-PKG-NAME has resolved (`iterate-ml-experiment` § 0.5 (G-PKG-NAME)).
 
 ## The 9 steps (pixi)
 
@@ -92,7 +92,7 @@ keeping the `mlflow>=3` pin for the mlflow variant. See SKILL.md
 table.
 
 If G-SKORE-MODE hasn't fired yet at bootstrap time (rare —
-`ml-scaffold` fires it alongside G-PKG-NAME and
+`iterate-ml-experiment` § 0.5 fires it alongside G-PKG-NAME and
 G-TABULAR), route back to that skill before issuing the install
 command. `ruff` / `pytest` / `jupyterlab` / `ipykernel` are added
 by step 3 (the `[feature.dev]` declaration); `ipython` / `pyright`
@@ -106,7 +106,7 @@ to rebuild graphviz's plugin cache — see SKILL.md § "skrub install
 
 ### 5. Add the tabular library
 
-Per G-TABULAR (`ml-scaffold`):
+Per G-TABULAR (`iterate-ml-experiment` § 0.5):
 
 - pandas branch: `pixi add pandas pyarrow`
 - polars branch: `pixi add polars`
@@ -133,7 +133,7 @@ with `× URL requirement must be preceded by a package name`.
 
 ```bash
 sed -e 's|<PYTHON_PATH>|.pixi/envs/lsp/bin/python|g' \
-    .github/skills/python-env-manager/templates/pyrightconfig.json \
+    .github/skills/python-stack-env/templates/pyrightconfig.json \
     > ./pyrightconfig.json
 ```
 

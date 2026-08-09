@@ -59,4 +59,4 @@ Only offer to create an ADR when all three are true:
 2. **Surprising without context** — a future reader will wonder "why did they do it this way?"
 3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
 
-If any of the three is missing, skip the ADR. When all three hold, write it as an ADR (Architectural Decision Record): a short doc with title, status, context, decision, and consequences, numbered sequentially (e.g. `ADR-0007`).
+If any of the three is missing, skip the ADR. When all three hold, write it as an ADR (Architectural Decision Record): a short doc with title, status, context, decision, and consequences, numbered sequentially (e.g. `ADR-0007`). Format template: [`references/adr-template.md`](references/adr-template.md).

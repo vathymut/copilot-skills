@@ -24,13 +24,4 @@
 | Resize | `browser_resize` | Responsive testing |
 | Console | `browser_console_messages` | Detect JS errors |
 
-## Other Compatible Browser Automation Tools
-
-| Tool | Features |
-|------|----------|
-| Selenium | Broad browser support, multi-language support |
-| Puppeteer | Chrome/Chromium focused, Node.js |
-| Cypress | Easy integration with E2E testing |
-| WebDriver BiDi | Standardized next-generation protocol |
-
-The same workflow can be implemented with these tools. As long as they provide the necessary capabilities (navigation, screenshot, DOM retrieval), the choice of tool is flexible.
+Screenshot capture is owned by `ui-screenshots`; this MCP layer is for DOM/console inspection only.

@@ -1,6 +1,6 @@
 ---
 name: iterate-ml-experiment
-description: Use when managing the ML experiment loop — proposing the next experiment, recording a finished run, or comparing and pivoting experiments in an ml-scaffold workspace.
+description: Use when managing the ML experiment loop — scaffolding a workspace, proposing the next experiment, recording a finished run, or comparing and pivoting experiments.
 ---
 
 # Iterate ML Experiment
@@ -12,7 +12,7 @@ The loop on top of `experiments/`: what to try next, why, what counts as a resul
 | Signal | Mode | Section |
 |---|---|---|
 | JOURNAL.md missing / placeholder / 0 History rows | Bootstrap | § 0 |
-| Not scaffolded (no `src/`, no `experiments/`) | Bootstrap → handoff | → `ml-scaffold`, then § 0 |
+| Not scaffolded (no `src/`, no `experiments/`) | Bootstrap → handoff | → § 0.5, then § 0 |
 | "what's next?" / "let's iterate" with ≥1 done row | Iterate (propose) | §§ 1–3 |
 | User names a Backlog row (`B2`) | Promote directly | → § 3 (no strategy skill) |
 | "what to try next" (skore report / user idea / my-pick / open-ended) | Sourcing menu | `references/sourcing-menu.md` |
@@ -37,7 +37,7 @@ If two modes seem to match, pick the **read** mode first. Re-entering § 1 is a 
 - **Outcomes recorded, not narrated.** Land in JOURNAL.md + Status.
 - **Prior experiments stay reproducible.** Smoke test going red = broken.
 - **After G-DESIGN, dispatch in order:** `build-ml-pipeline` → `evaluate-ml-pipeline` § Evaluate → § Smoke → assemble `experiments/NN_*.py`.
-- **Harness hints do NOT waive gates.**
+- **Harness hints do not waive gates:** `ml-conventions:references/shared-ml-conventions.md`.
 - **Post-hoc audit required before end of turn.**
 - **Forbidden shortcuts:** `references/forbidden-shortcuts.md`.
 
@@ -48,6 +48,7 @@ Pre-flight (iterate-ml-experiment):
 - [ ] Mode: bootstrap | iterate-propose | iterate-record | read-only
 - [ ] Last experiment + status: <NN_name> | n/a — bootstrap
 - [ ] (Bootstrap) Config gates fired: G-PKG-NAME, G-ENV-MGR, G-TABULAR, G-SKORE-MODE
+- [ ] (§ 0.5) Layout detected: <existing | fresh>; scaffold gates G-PKG-NAME, G-SKORE-MODE, G-TABULAR resolved
 - [ ] (Bootstrap) G-EDA fired: run / skip
 - [ ] Design note drafted or Backlog enriched
 - [ ] G-DESIGN: user approved
@@ -62,7 +63,7 @@ Pre-flight (iterate-ml-experiment):
 
 `JOURNAL.md` missing/placeholder/0 History rows. Full procedure: `references/bootstrap.md`.
 
-1. Scaffold first if needed (no `src/`/`experiments/`/`journal/`) → `ml-scaffold`, return when placeholder exists.
+1. Scaffold first if needed (no `src/`/`experiments/`/`journal/`) → § 0.5, return when placeholder exists.
 2. Rewrite `JOURNAL.md` from `templates/JOURNAL.md`.
 3. Derive goal from `data/README.md`; propose one sentence.
 4. G-EDA: dispatch `ml-eda`. Gate: run / skip (skip records `Status: skipped`).
@@ -71,6 +72,18 @@ Pre-flight (iterate-ml-experiment):
 7. Exit once baseline approved. Audit lands at § 4.
 
 **Bootstrap skips sourcing menu — NOT config gates.** Gate table (G-PKG-NAME, G-ENV-MGR, G-TABULAR, G-SKORE-MODE, G-EDA, G-AGENT-FEATURE, G-DESIGN, G-CV-SPLITTER, G-RUN): `references/bootstrap.md`. Free-text "quick baseline" / "you pick" do NOT resolve any gate.
+
+## § 0.5 Scaffold (missing workspace)
+
+**Trigger:** no `src/` / `experiments/` / `journal/` — also the entry point for "start a new ML workspace".
+
+1. **Detect** existing layout. If `pyproject.toml`, `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or `reports/` already exist, glue to the existing layout; no renames.
+2. **Resolve gates** `G-PKG-NAME`, `G-SKORE-MODE` (`local`|`hub`|`mlflow`), `G-TABULAR`. See `ml-conventions:references/ml-gates.md` and `references/g_skore_mode.md`.
+3. **Delegate** `G-ENV-MGR` and the editable-workspace install to `python-stack-env`.
+4. **Create layout** — `pyproject.toml`, manager manifest, `src/<pkg>/` skeletons, `experiments/`, `tests/smoke/`, `audit/`, `journal/`, `scratch/`, `reports/`, ruff config. Four-way stem pairing applies: `journal/NN_<short_name>.md`, `experiments/NN_<short_name>.py`, `tests/smoke/test_NN_<short_name>.py`, `audit/NN_<short_name>.py`. Full steps: `references/scaffold_steps.md`.
+5. **Write placeholder** `journal/JOURNAL.md` (one-line placeholder; rewritten from `templates/JOURNAL.md` at § 0) and return to § 0.
+
+Scaffold violations: `references/forbidden-shortcuts.md` § Scaffold.
 
 ## § 1 Session start (iterate mode)
 
@@ -124,4 +137,4 @@ Four-way hard pairing: `journal/NN_<short_name>.md` ↔ `experiments/NN_<short_n
 
 ## What this skill does NOT do
 
-Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline`), decide layout (`ml-scaffold`), write commits/PRs, or pick sourcing strategy for the user.
+Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline`), write commits/PRs, or pick sourcing strategy for the user.

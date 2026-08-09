@@ -5,7 +5,7 @@ description: Use when a spec or requirements for a multi-step task exist, before
 
 # Writing Plans
 
-One plan per self-contained feature. A plan is a markdown file saved to `docs/plans/YYYY-MM-DD-<feature-name>.md` with: goal sentence, architecture sketch, file map, and bite-sized TDD tasks — a header, files list, then sequential steps each with failing test → verify fail → implement → verify pass → commit.
+One plan per self-contained feature. A plan is a markdown file saved to `docs/plans/YYYY-MM-DD-<feature-name>.md` with: goal sentence, architecture sketch, file map, and bite-sized TDD tasks — a header, files list, then sequential steps, each one RED-GREEN-REFACTOR cycle per `test-driven-development` (failing test → verify fail → implement → verify pass → commit).
 
 Default to one plan per run. If the spec covers multiple independent subsystems, split into separate plans — one per subsystem. For mixed code/no-code tasks (e.g. config + script + docs), include all types in one plan; label each task's output format.
 
@@ -15,7 +15,7 @@ The deliverable is a single markdown file at `docs/plans/YYYY-MM-DD-<feature-nam
 
 - **Header block**: goal sentence, architecture sketch (2-3 sentences), tech stack
 - **File map**: every file to create or modify, with responsibility
-- **Sequential tasks**: each with RED → GREEN → REFACTOR, exact code, and `pytest` commands
+- **Sequential tasks**: each one RED-GREEN-REFACTOR cycle per `test-driven-development`, with exact code and `pytest` commands
 
 No placeholders, no TBDs, no "implement later". Every code block is complete.
 
@@ -29,12 +29,7 @@ This structure informs the task decomposition. Each task should produce self-con
 
 ## Bite-Sized Task Granularity
 
-**Each step is one action (2-5 minutes):**
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+Each step is one action (2-5 minutes). The cycle is `test-driven-development`'s: write the failing test, watch it fail, implement the minimal code, watch it pass, commit.
 
 ## Plan Document Header
 

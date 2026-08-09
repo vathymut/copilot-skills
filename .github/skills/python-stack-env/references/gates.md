@@ -48,7 +48,7 @@ Free-text resolution: explicit `default` or a feature name resolves;
    `uv sync --all-groups`; poetry → `poetry install --with <X>`;
    others → re-create.
 5. **Update `JOURNAL.md`**: append `<X>` to `optional features:`.
-6. **Verify**: `bash .github/skills/python-env-manager/scripts/verify_layout.sh`.
+6. **Verify**: `bash .github/skills/python-stack-env/scripts/verify_layout.sh`.
 
 Skipping step 3 or 4 → pyright doesn't index `<X>` because `lsp`
 doesn't compose it. User sees "unresolved import" on valid code.

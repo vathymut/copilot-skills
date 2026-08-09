@@ -113,7 +113,7 @@ candidates).
 
 The Project init form depends on the workspace's `skore mode:`
 decision (recorded in `JOURNAL.md` Status `Workspace decisions`;
-gate owned by `ml-scaffold` § "G-SKORE-MODE"). Three
+gate owned by `iterate-ml-experiment` § 0.5 (G-SKORE-MODE)). Three
 forms; pick the one matching the workspace:
 
 ```python
@@ -227,7 +227,7 @@ project = skore.Project(
     name="load-forecast",
     mode="local",
     workspace=str(PROJECT_ROOT / "reports"),
-)  # local-mode form; see `ml-scaffold` § "G-SKORE-MODE" for hub
+)  # local-mode form; see `iterate-ml-experiment` § 0.5 (G-SKORE-MODE) for hub
 
 # %% [markdown]
 # ## Learner

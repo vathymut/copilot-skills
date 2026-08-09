@@ -35,7 +35,7 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | Skill | What it does |
 |---|---|
 | `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
-| `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions |
+| `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions (ADRs) |
 | `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
 | `test-driven-development` | Drives implementation via tests, before writing implementation code |
 | `triage` | Moves issues and PRs through triage roles and writes agent-ready briefs |
@@ -47,7 +47,7 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 
 | Skill | What it does |
 |---|---|
-| `documentation-writer` | Writes software docs using the Diátaxis framework (tutorial, how-to, reference, explanation) and architectural decision records (ADRs) |
+| `documentation-writer` | Writes software docs using the Diátaxis framework (tutorial, how-to, reference, explanation) |
 
 ## Research & Academic
 
@@ -63,14 +63,12 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | Skill | What it does |
 |---|---|
 | `build-ml-pipeline` | Declares ML pipelines as skrub DataOps graphs, stopping at the predictor |
-| `data-science-python-stack` | Opinionated Python library stack and usage rules for data-science / ML work |
 | `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
-| `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments |
+| `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments; also scaffolds the workspace layout (§ 0.5 Scaffold, formerly `ml-scaffold`) and bootstraps the journal |
 | `ml-conventions` | Single source of truth for the cross-cutting rules shared by the ML skills (ruff, scratch/, harness hints, missing-dependency contract, gate registry, pre-flight evidence format) |
 | `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
-| `ml-scaffold` | Scaffolds an ML experiment workspace: layout, file pairing, config gates |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
-| `python-env-manager` | Detects the project's Python environment manager and routes packages to the right feature (dev/agent/default) for install; defers failed-import triage to `data-science-python-stack` |
+| `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs); merger of `data-science-python-stack` + `python-env-manager` |
 
 ## Data Engineering & Packaging
 
@@ -163,7 +161,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **41 skills** in `.github/skills/` (0 routers, 41 leaf skills)
+- **39 skills** in `.github/skills/` (0 routers, 39 leaf skills)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

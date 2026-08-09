@@ -18,8 +18,8 @@ self-contained.
 | Reference | Owns | Consumed by |
 |---|---|---|
 | `references/shared-ml-conventions.md` | Ruff, scratch/ execution, harness hints, missing-dependency contract, config-gate ownership | every ML skill |
-| `references/ml-gates.md` | Canonical gate names, owners, valid answers, immutability & harness-override rules | `ml-scaffold`, `ml-eda`, `build-ml-pipeline`, `evaluate-ml-pipeline`, `iterate-ml-experiment` |
-| `references/shared-preflight-evidence.md` | Pre-flight `Evidence:` row shapes + shared boxes + re-emission rule | `build-ml-pipeline`, `evaluate-ml-pipeline`, `ml-eda`, `iterate-ml-experiment`, `python-env-manager` |
+| `references/ml-gates.md` | Canonical gate names, owners, valid answers, immutability & harness-override rules | `iterate-ml-experiment`, `ml-eda`, `build-ml-pipeline`, `evaluate-ml-pipeline` |
+| `references/shared-preflight-evidence.md` | Pre-flight `Evidence:` row shapes + shared boxes + re-emission rule | `build-ml-pipeline`, `evaluate-ml-pipeline`, `ml-eda`, `iterate-ml-experiment`, `python-stack-env` |
 
 ## Conventions
 

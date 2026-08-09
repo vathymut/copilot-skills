@@ -46,10 +46,10 @@ Copy `templates/pyproject.toml` to the project root, substituting
 already declares the package via `[project]` + a build backend's
 package-discovery section.
 
-**Then hand off to `python-env-manager` § "Editable workspace
-package"** for the actual install. Do NOT run the install
-command yourself — that skill owns env-manager picks (G-ENV-MGR)
-and the per-manager install command.
+**Then hand off to `python-stack-env` (editable workspace package:
+`python-stack-env:references/editable_workspace.md`)** for the actual
+install. Do NOT run the install command yourself — that skill owns
+env-manager picks (G-ENV-MGR) and the per-manager install command.
 
 ## Step 4 — Create `src/<pkg>/`
 
@@ -86,8 +86,8 @@ Per-experiment placeholders land later via `evaluate-ml-pipeline § Smoke`
 (called from `iterate-ml-experiment` § 3 once a design note is
 approved).
 
-Verify `pytest` is on the manifest (per `data-science-python-stack`
-§ Tier 1); if not, hand off to `python-env-manager` to add it.
+Verify `pytest` is on the manifest (per `python-stack-env`
+§ Tier 1); if not, hand off to `python-stack-env` to add it.
 
 ## Step 7 — Placeholder `journal/JOURNAL.md`
 
@@ -153,7 +153,7 @@ entirety.
 
 **Never ignore the whole `data/` folder.** The EDA deliverables
 (`data/eda.py`, `data/eda.md`, `data/eda_*.html`, owned by
-`ml-scaffold § EDA`) live under `data/` and must stay committable; a
+`ml-eda § EDA`) live under `data/` and must stay committable; a
 `data/` (whole-folder) ignore makes them silently untracked, and a
 naive `!data/eda.md` negation does NOT re-include them when the
 parent directory is ignored. If raw **inputs** must be kept out of
@@ -161,7 +161,7 @@ git (large / local-only), ignore specific input paths instead
 (`data/raw/`, `data/*.parquet`, …) and ask the user first. If an
 existing `.gitignore` already ignores the whole `data/`, surface the
 fix (switch to specific input patterns) rather than silently editing.
-`ml-scaffold § EDA` re-checks this at EDA time
+`ml-eda § EDA` re-checks this at EDA time
 (`git check-ignore data/eda.md`).
 
 ## Step 11 — `ruff.toml` + first ruff pass

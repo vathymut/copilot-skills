@@ -43,8 +43,8 @@ changes.
   mutually exclusive modes: `local` (artifacts on disk), `hub`
   (artifacts on Skore Hub), `mlflow` (artifacts in an MLflow
   tracking server). The mode is a workspace-level decision owned by
-  `ml-scaffold` § "G-SKORE-MODE". The exact install
-  command for each mode lives in `python-env-manager` § "Tier 1
+  `iterate-ml-experiment` § 0.5 (G-SKORE-MODE). The exact install
+  command for each mode lives in `python-stack-env` § "Tier 1
   install: skore variant per mode" — this skill only records *what*
   to install, not *how*. Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format, Tier 1
@@ -56,7 +56,7 @@ changes.
   passing `tests/smoke/test_NN_<short_name>.py` before its row
   in `JOURNAL.md` can flip to `done`; pytest is what runs that
   test, so the dependency is non-negotiable even on workspaces
-  that haven't authored any tests yet. `python-env-manager` routes
+  that haven't authored any tests yet. `python-stack-env` routes
   pytest to the `dev` feature.
 
 ## Tier 2 — Competing-library jobs (user choice)
@@ -183,7 +183,7 @@ the conversion to/from notebook format when needed.
 
 - [`jupyterlab`](references/jupyterlab.md) + [`ipykernel`](references/ipykernel.md)
   — **ambient in the `dev` feature** (alongside `ruff` + `pytest`,
-  per `python-env-manager` § "Where does the package belong?").
+  per `python-stack-env` § "Where does the package belong?").
   Always installed; no per-project ask. The reference pages
   describe the tools' role, not an opt-in install.
 - [`jupytext`](references/jupytext.md) — **Tier 3 opt-in**: sync

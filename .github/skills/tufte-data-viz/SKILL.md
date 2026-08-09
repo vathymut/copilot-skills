@@ -56,16 +56,6 @@ The anti-pattern checklist and validation checklist below stay inline; the libra
 quick-reference, chart-type guidance, and color tables are summarized here and expanded
 in `rules/`.
 
-**Rule headlines (full text + examples in `rules/universal-rules.md`):**
-
-1. Remove top/right borders · 2. Direct labels, not legends · 3. No gridlines by default
-· 4. Range-frame axes · 5. No 3D · 6. No pie unless requested · 7. Aspect ~1.5:1
-· 8. Gray first, accent selectively · 9. Off-white bg (`#fffff8`/`#151515`) · 10. Serif for data
-· 11. No dual y-axes (use small multiples) · 12. Annotate the notable · 13. Show comparison context
-· 14. Minimal tooltips · 15. Progressive disclosure over static density · 16. Accessible by default
-· 17. Responsive, not just resized · 18. Animate to explain · 19. Dark mode first-class
-· 20. Titles assert findings · 21. Format numbers for humans · 22. Don't chart what a sentence can say
-
 ---
 
 ## Library quick reference
@@ -100,6 +90,7 @@ Before presenting any chart, verify:
 - [ ] Gridlines removed or horizontal-only at opacity <= 0.12
 - [ ] Aspect ratio approximately 1.5:1
 - [ ] Background is `#fffff8` (light) or `#151515` (dark), not pure white/black
+- [ ] Dark mode styled first-class: palette parity and contrast, not white-UI-in-a-dark-shell
 - [ ] Serif font for data labels and titles
 - [ ] Default series color is gray (`#666`); color used only for emphasis
 - [ ] No 3D effects, no pie chart (unless explicitly requested)

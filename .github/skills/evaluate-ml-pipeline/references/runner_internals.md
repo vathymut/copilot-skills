@@ -5,7 +5,7 @@ shell setup, environment fixes, per-cell capture. Cross-referenced
 from SKILL.md § "Audit".
 
 `run_cells.py` is a **generic** jupytext cell runner: it is owned by
-`ml-scaffold` and shared by the audit path here. It is content-
+`iterate-ml-experiment` and shared by the audit path here. It is content-
 agnostic — it knows nothing about skore reports or TableReports.
 Keep it that way: any change here must serve both callers, never
 hard-code audit-specific behaviour.
@@ -165,5 +165,5 @@ cell.
 - Changing the output target (stdout, file, both, neither).
 
 **Always update the SKILL.md § Audit execution contract, the
-`ml-scaffold` skill, and this reference together** — they're paired
+`iterate-ml-experiment` skill, and this reference together** — they're paired
 documentation.

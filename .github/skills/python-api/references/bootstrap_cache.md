@@ -39,7 +39,7 @@ carry forward. The cache file records the *conclusion*; the next
 agent reads it and skips the round-trip.
 
 `<env-prefix>` resolution per manager is in
-`python-env-manager:references/env_prefixes.md` (single source of
+`python-stack-env:references/env_prefixes.md` (single source of
 truth, including the uv `default-groups` gotcha — bare `uv run` may
 or may not include the `agent` group depending on the project's
 `[tool.uv]` config; use `uv run --group agent` when a probe needs

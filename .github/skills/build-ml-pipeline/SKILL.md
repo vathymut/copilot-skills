@@ -58,7 +58,7 @@ Pre-flight (build-ml-pipeline):
 
 ## Stop conditions
 
-- **Missing dependency.** `import skrub` fails → `python-env-manager`. No substitute.
+- **Missing dependency.** `import skrub` fails → `python-stack-env`. No substitute.
 - **Symbol from memory is forbidden.** Use `python-api` this turn.
 - **Splitter imports are out of scope.** Only `split_kwargs` at the X marker.
 - **Python-stack defaults apply** — ruff, `scratch/` rule, harness hints: `ml-conventions:references/shared-ml-conventions.md`.

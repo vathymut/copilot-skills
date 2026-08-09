@@ -35,9 +35,9 @@ mid-project (e.g. DL is added), the matching skill fires its
 `AskUserQuestion`, then this block gets a new row.
 
 Owning skills:
-  - tabular library     → data-science-python-stack § Tier 2
-  - env manager + scope → python-env-manager
-  - package name        → ml-scaffold
+  - tabular library     → python-stack-env § Tier 2
+  - env manager + scope → python-stack-env
+  - package name        → iterate-ml-experiment § 0.5
   - CV splitter family  → evaluate-ml-pipeline
 -->
 

@@ -14,7 +14,7 @@ the JOURNAL `## Data understanding (EDA)` entry.
 1. If `data/eda.md` exists, read JOURNAL § EDA and ask whether to overwrite or skip.
 2. Resolve `G-EDA`: `run` or `skip` (gate registry: `ml-conventions:references/ml-gates.md`). Skip records `Status: skipped`.
 3. On run: copy `templates/eda.py`, substitute `<pkg>`, `<LOAD_RAW_DATA>`, `<TARGET_COLUMN>`, `<table>`.
-4. Execute via `python-env-manager` agent env: `python ml-eda:scripts/run_cells.py data/eda.py [scratch/eda/eda.md]`
+4. Execute via `python-stack-env` agent env: `python ml-eda:scripts/run_cells.py data/eda.py [scratch/eda/eda.md]`
 5. Read the digest and author `data/eda.md` from `templates/eda.md` (`data/eda.py` anatomy: `references/eda-file-contract.md`).
 6. Write `data/eda_<table>.html` (≥1).
 7. Update `journal/JOURNAL.md` § Data understanding (EDA).
@@ -35,7 +35,7 @@ Pre-flight (ml-eda):
 - [ ] G-EDA resolved: run | skip (AskUserQuestion)
 - [ ] G-TABULAR known (pandas | polars)
 - [ ] Raw data located
-- [ ] Agent feature available (delegate to python-env-manager if missing)
+- [ ] Agent feature available (delegate to python-stack-env if missing)
 - [ ] Shared gates (python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] Pre-flight re-emitted with evidence before final message.
 ```
@@ -46,7 +46,7 @@ Pre-flight (ml-eda):
 - EDA precedes model design. Fire during `iterate-ml-experiment` § 0 before `journal/01_baseline.md`.
 - EDA is read-only against raw data. Never rewrite input files. Cleaning belongs in `build-ml-pipeline`.
 - Deliverables live under `<project>/data/`. Raw source may be anywhere.
-- Agent feature required to execute. Missing → delegate to `python-env-manager`.
+- Agent feature required to execute. Missing → delegate to `python-stack-env`.
 - All Python execution goes to `scratch/` — see `ml-conventions:references/shared-ml-conventions.md`.
 
 **EDA contract:**

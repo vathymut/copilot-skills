@@ -19,9 +19,9 @@ column of `project.summarize()` for the matching key row.
 
 **Cause:** Agent feature not installed.
 
-**Recovery:** Delegate to `python-env-manager`; never `pip install`
+**Recovery:** Delegate to `python-stack-env`; never `pip install`
 here. Request via `G-AGENT-FEATURE` (binary: install / skip); resume
-only when python-env-manager returns "ready".
+only when python-stack-env returns "ready".
 
 ## Cell renders as `<Display object at 0x…>`
 

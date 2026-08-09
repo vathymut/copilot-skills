@@ -15,7 +15,7 @@ Inspect a running website, identify visual and accessibility issues, then fix th
 
 1. **Gather context** — URL, framework (package.json, config files), styling method (tailwind, modules, scss, styled). No source access → report findings only.
 
-2. **Capture screenshots** at 375px, 768px, 1280px, 1920px. Full-page first, then crop. `device_scale_factor=1`. Wait for async content. See `references/tooling.md` for browser setup and `references/screenshots/` for capture recipes.
+2. **Capture screenshots** at 375px, 768px, 1280px, 1920px — delegate capture to `ui-screenshots` (full-page first, then crops; desktop/Electron targets too). Inspect the DOM and console via the browser tooling in `references/tooling.md`.
 
 3. **Inspect** layout, responsive behaviour, accessibility, and visual consistency. See `references/visual-checklist.md` for the full checklist.
 

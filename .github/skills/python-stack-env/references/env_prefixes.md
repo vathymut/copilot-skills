@@ -30,7 +30,7 @@ which packages live where.
 
 ## How to resolve in a turn
 
-1. Open `python-env-manager` and run its Detection table
+1. Open `python-stack-env` and run its Detection table
    (`SKILL.md` § Detection) to identify the manager.
 2. Read the matching row above for the prefix your step needs.
 3. Use the default column for `<env-prefix>`, the agent column for

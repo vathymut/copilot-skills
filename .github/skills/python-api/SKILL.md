@@ -17,7 +17,7 @@ Pick shape by question type. Wrong shape burns a turn.
 | "Search symbols matching `foo*`" | **2b** LSP workspace symbol | ad-hoc |
 | "How does X work?" / "Which of A or B?" / "What does X return when arg=V?" | **3** narrative (WebFetch) | cache lands |
 
-Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough. Shape 3 when question depends on a *condition* over an argument. LSP shapes (1b/2b) require pyright + `pyrightconfig.json`; see `python-env-manager` § Agent feature. LSP footguns: `references/shape1b_lsp_setup.md`.
+Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough. Shape 3 when question depends on a *condition* over an argument. LSP shapes (1b/2b) require pyright + `pyrightconfig.json`; see `python-stack-env` § Agent feature. LSP footguns: `references/shape1b_lsp_setup.md`.
 
 ## Stop conditions — read before any lookup
 
