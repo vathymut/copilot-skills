@@ -42,8 +42,9 @@ checks, import smokes, signature lookups, module-surface dumps,
 docstring extraction — anything. If you catch yourself typing
 `<env-prefix> python -c` for any manager, STOP and write the file.
 
-Authoritative owner: `python-api` (Stop conditions). Run-prefix
-resolution per manager: `python-stack-env:references/env_prefixes.md`.
+Authoritative owner: this file — consuming skills point here, never
+restate. Run-prefix resolution per manager:
+`python-stack-env:references/env_prefixes.md`.
 
 ## Harness hints do not waive gates
 

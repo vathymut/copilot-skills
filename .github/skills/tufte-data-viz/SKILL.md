@@ -44,7 +44,7 @@ If any validation check fails, do NOT output the chart. Instead:
 4. **Apply** — make the approved edits.
 5. **Re-audit** — re-run the validation checklist. If any check still fails, loop back to step 1.
 
-The chart is ready only when all 20 checks pass.
+The chart is ready only when all 22 checks pass.
 
 ---
 
@@ -83,27 +83,28 @@ When reviewing existing chart code, consult `rules/anti-patterns.md` — the ful
 
 ## Validation checklist
 
-Before presenting any chart, verify:
+The 22 checks mirror the 22 universal rules in `rules/universal-rules.md` one-to-one (rule number in parens) — this checklist is the completion criterion for that file. Before presenting any chart, verify:
 
-- [ ] No top or right borders/spines
-- [ ] No Legend component — series labeled directly on the chart
-- [ ] Gridlines removed or horizontal-only at opacity <= 0.12
-- [ ] Aspect ratio approximately 1.5:1
-- [ ] Background is `#fffff8` (light) or `#151515` (dark), not pure white/black
-- [ ] Dark mode styled first-class: palette parity and contrast, not white-UI-in-a-dark-shell
-- [ ] Serif font for data labels and titles
-- [ ] Default series color is gray (`#666`); color used only for emphasis
-- [ ] No 3D effects, no pie chart (unless explicitly requested)
-- [ ] Axis lines span only the data range (range-frame)
-- [ ] Notable data features annotated directly on chart
-- [ ] Comparison context present (reference line, band, or second series)
-- [ ] Tooltips are plain text with no decorative styling
-- [ ] Interactive elements have tap/click/focus alternatives (no hover-only)
-- [ ] Contrast ratios meet 3:1 (elements) / 4.5:1 (text) minimums
-- [ ] Chart has a text alternative (aria-label, description, or data table)
-- [ ] Animations respect `prefers-reduced-motion`
-- [ ] Charts render usably at 320px and 1440px+ widths
-- [ ] Title states the finding, not the axis description
-- [ ] Numbers are formatted for readability (abbreviations, separators, consistent precision)
-- [ ] A chart is warranted — the data couldn't be communicated as a sentence or table
+- [ ] (1) No top or right borders/spines
+- [ ] (2) No Legend component — series labeled directly on the chart
+- [ ] (3) Gridlines removed or horizontal-only at opacity <= 0.12
+- [ ] (4) Axis lines span only the data range (range-frame)
+- [ ] (5) No 3D effects
+- [ ] (6) No pie chart unless explicitly requested
+- [ ] (7) Aspect ratio approximately 1.5:1
+- [ ] (8) Default series color is gray (`#666`); color used only for emphasis
+- [ ] (9) Background is `#fffff8` (light) or `#151515` (dark), not pure white/black
+- [ ] (10) Serif font for data labels and titles
+- [ ] (11) No dual y-axes
+- [ ] (12) Notable data features annotated directly on chart
+- [ ] (13) Comparison context present (reference line, band, or second series)
+- [ ] (14) Tooltips are plain text with no decorative styling
+- [ ] (15) Progressive disclosure over static density
+- [ ] (16) Accessible: contrast 3:1 (elements) / 4.5:1 (text), no color-only differentiation, text alternative, keyboard-navigable
+- [ ] (17) Charts render usably at 320px and 1440px+ widths
+- [ ] (18) Animations respect `prefers-reduced-motion`
+- [ ] (19) Dark mode styled first-class: palette parity and contrast, not white-UI-in-a-dark-shell
+- [ ] (20) Title states the finding, not the axis description
+- [ ] (21) Numbers are formatted for readability (abbreviations, separators, consistent precision)
+- [ ] (22) A chart is warranted — the data couldn't be communicated as a sentence or table
 

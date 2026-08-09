@@ -22,7 +22,7 @@ Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough
 ## Stop conditions — read before any lookup
 
 - **No symbols from memory.** Every symbol must come from a lookup *this turn* — cache file, probe, or WebFetch. Recognition does not count. Named traps: `references/named_traps.md`.
-- **All Python execution goes to `scratch/<ts>_<short>.py`. No exceptions.** No `<env-prefix> python -c`, no heredoc, no inline Python of any length. Write the file, then run it. This includes version checks, import smokes, and signature lookups.
+- **All Python execution goes to `scratch/<ts>_<short>.py`. No exceptions.** Contract (forbidden forms, filename pattern, scope): `ml-conventions:references/shared-ml-conventions.md` § All Python execution goes to scratch/.
 - **A probe without a cache write is not a completed lookup.** Turn must produce `scratch/api/<lib>/<version>/<topic>.md` on disk. Inline `inspect.signature` / `pydoc.render_doc` / `help()` does NOT satisfy "python-api consulted".
 - **`pydoc.render_doc`, not `__doc__`.** `__doc__` is empty/misleading on properties, descriptors, and decorated callables.
 - **Never fabricate probe results.** Blank or `<pending>` until executed. Shape 3: verbatim extracts only, no paraphrase.

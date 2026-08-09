@@ -20,9 +20,8 @@ you just want tracked, ordered work items.
 
 ## Steps
 
-The issue tracker and triage label vocabulary should have been provided to you
-— if no tracker config has been provided, ask the user where issue tracker
-config / triage labels come from, or default to the local-markdown tracker.
+Tracker and triage-label conventions (resolve tracker, local-markdown fallback):
+`.github/instructions/issue-tracker.instructions.md`.
 
 ### 1. Gather context
 

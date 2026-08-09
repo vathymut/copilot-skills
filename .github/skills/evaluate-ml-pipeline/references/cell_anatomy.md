@@ -58,18 +58,13 @@ report = skore.evaluate(learner, ...)        # ← read-only contract violated
 project.put("01_baseline", report)           # ← duplicates the row; pollutes summarize()
 ```
 
-### Cell-execution semantics (notebook-style)
+### Cell-execution semantics (shared contract)
 
-- The **last expression** of a code cell is auto-displayed if it's
-  a bare expression (no assignment, no statement keyword, no
-  `print`).
-- Rich `_repr_html_` is preferred over `__repr__` when both exist
-  in JupyterLab / VS Code. **The runner does NOT request
-  `_repr_html_`** — it captures `repr(result.result)` only. Use
-  `.frame()` on Display objects to get a text-readable repr.
-- Assignment-only / statement-only cells produce **no output and
-  no error** — they execute silently. This is the right shape for
-  setup cells (imports, `REPORT_ID = …`, etc.).
+The runner semantics — last bare expression auto-displays, no
+`print()`, statement-only cells are fine, `repr(result.result)` is
+captured (not `_repr_html_`) — are owned by the runner:
+`ml-eda:references/cell_anatomy.md` § Runner semantics. The audit
+examples below are this template's illustrations of that contract.
 
 ## The 7-cell template sequence
 
@@ -173,10 +168,3 @@ the agent reads the values from there.
 When a human opens the audit `.py` as a notebook in their editor,
 the rich HTML view still works — `.frame()` doesn't suppress it; it
 just adds a text-readable path for the agent.
-
-## Statement-only cells are fine
-
-Don't pad them with `print(repr(...))` to "force" output. The
-template's "Imports" cell and the `REPORT_ID = ...` setup line
-are statement-only by design; they produce no output section in
-the digest. That's the right shape.

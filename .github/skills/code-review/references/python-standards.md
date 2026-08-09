@@ -115,3 +115,4 @@ Public functions and classes carry numpydoc docstrings (`Parameters` /
 `Returns` / `Raises`), enforced by ruff's `D` rules under the numpy
 convention. A bare one-line summary is NOT sufficient for public callable
 surfaces; private helpers (`_leading_underscore`) may omit docstrings.
+Ruff config is owned by `python-stack-env` (`python-stack-env/templates/ruff.toml`).

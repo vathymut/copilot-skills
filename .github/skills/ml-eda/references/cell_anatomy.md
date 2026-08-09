@@ -62,7 +62,14 @@ summary = json.loads(report.json())
 `verbose=0` is load-bearing too: the default `verbose=1` prints
 per-column progress into the cell's `stdout:` section.
 
-## Bare expressions, not `print()`
+## Runner semantics (shared with audit cells)
+
+The `run_cells.py` runner is shared with `evaluate-ml-pipeline` § Audit — this contract applies to both `data/eda.py` and `audit/NN_*.py`:
+
+- The **last expression** of a code cell is auto-displayed if it's a bare expression (no assignment, no statement keyword, no `print`).
+- **Bare expressions, not `print()`** — a `print()` lands in `stdout:` mixed with noise; a bare expression lands in the cell's `output:` section and the digest reads it.
+- **Statement-only cells are fine** — assignments, `write_html(...)`, `mkdir(...)`, `import` produce no `output:` section. That's the right shape for setup cells; don't pad them with `print(repr(...))`.
+- The runner captures `repr(result.result)` — it does **not** request `_repr_html_`. Rich Display objects (`.summarize()` etc.) need `.frame()` to get a text-readable repr.
 
 ```python
 # WRONG — lands in stdout, mixed with other noise, harder to scan
@@ -73,10 +80,6 @@ print(summary["n_rows"])
 # RIGHT — captured in the cell's **output:** section
 {"n_rows": summary.get("n_rows")}
 ```
-
-Statement-only cells (assignments, `write_html(...)`,
-`EDA_DIR.mkdir(...)`) are fine — they just produce no `output:`
-section. Put the value you want to read on the **last** line.
 
 ## Cell-by-cell, with downstream mapping
 

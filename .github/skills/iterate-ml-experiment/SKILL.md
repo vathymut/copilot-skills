@@ -36,7 +36,6 @@ If two modes seem to match, pick the **read** mode first. Re-entering § 1 is a 
 - **Approval is explicit.** Ambiguous → re-ask. Never silent yes.
 - **Outcomes recorded, not narrated.** Land in JOURNAL.md + Status.
 - **Prior experiments stay reproducible.** Smoke test going red = broken.
-- **After G-DESIGN, dispatch in order:** `build-ml-pipeline` → `evaluate-ml-pipeline` § Evaluate → § Smoke → assemble `experiments/NN_*.py`.
 - **Harness hints do not waive gates:** `ml-conventions:references/shared-ml-conventions.md`.
 - **Post-hoc audit required before end of turn.**
 - **Forbidden shortcuts:** `references/forbidden-shortcuts.md`.
@@ -71,7 +70,7 @@ Pre-flight (iterate-ml-experiment):
 6. User approves or amends — not invent.
 7. Exit once baseline approved. Audit lands at § 4.
 
-**Bootstrap skips sourcing menu — NOT config gates.** Gate table (G-PKG-NAME, G-ENV-MGR, G-TABULAR, G-SKORE-MODE, G-EDA, G-AGENT-FEATURE, G-DESIGN, G-CV-SPLITTER, G-RUN): `references/bootstrap.md`. Free-text "quick baseline" / "you pick" do NOT resolve any gate.
+**Bootstrap skips sourcing menu — NOT config gates.** Free-text "quick baseline" / "you pick" do NOT resolve any gate. Gate table (G-PKG-NAME, G-ENV-MGR, G-TABULAR, G-SKORE-MODE, G-EDA, G-AGENT-FEATURE, G-DESIGN, G-CV-SPLITTER, G-RUN): `references/bootstrap.md`.
 
 ## § 0.5 Scaffold (missing workspace)
 
@@ -80,7 +79,7 @@ Pre-flight (iterate-ml-experiment):
 1. **Detect** existing layout. If `pyproject.toml`, `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or `reports/` already exist, glue to the existing layout; no renames.
 2. **Resolve gates** `G-PKG-NAME`, `G-SKORE-MODE` (`local`|`hub`|`mlflow`), `G-TABULAR`. See `ml-conventions:references/ml-gates.md` and `references/g_skore_mode.md`.
 3. **Delegate** `G-ENV-MGR` and the editable-workspace install to `python-stack-env`.
-4. **Create layout** — `pyproject.toml`, manager manifest, `src/<pkg>/` skeletons, `experiments/`, `tests/smoke/`, `audit/`, `journal/`, `scratch/`, `reports/`, ruff config. Four-way stem pairing applies: `journal/NN_<short_name>.md`, `experiments/NN_<short_name>.py`, `tests/smoke/test_NN_<short_name>.py`, `audit/NN_<short_name>.py`. Full steps: `references/scaffold_steps.md`.
+4. **Create layout** — `pyproject.toml`, manager manifest, `src/<pkg>/` skeletons, `experiments/`, `tests/smoke/`, `audit/`, `journal/`, `scratch/`, `reports/`, ruff config. Four-way stem pairing (see Files and pairing rule). Full steps: `references/scaffold_steps.md`.
 5. **Write placeholder** `journal/JOURNAL.md` (one-line placeholder; rewritten from `templates/JOURNAL.md` at § 0) and return to § 0.
 
 Scaffold violations: `references/forbidden-shortcuts.md` § Scaffold.

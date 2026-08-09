@@ -1,6 +1,6 @@
 ---
 name: build-ml-pipeline
-description: Use when declaring an ML pipeline with skrub and the source-to-X-marker-to-estimator shape is needed, or when an import, dependency, or symbol is uncertain.
+description: Use when declaring an ML pipeline with skrub and the source-to-X-marker-to-estimator shape is needed.
 ---
 
 # Build ML Pipeline (Declaration)

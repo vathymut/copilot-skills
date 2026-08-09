@@ -69,6 +69,6 @@ Every map and ticket is an issue, so it has a **name** — its title. In everyth
 ### The Map
 The map is a single issue on this repo's issue tracker, labelled `wayfinder:map` — the canonical artifact. Its tickets are child issues of the map. The map is an **index**, not a store.
 
-**Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** The issue tracker should have been provided to you — if not, ask the user where issue tracker / triage labels come from, or default to the local-markdown tracker. Consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them.
+**Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** Resolve the tracker per `.github/instructions/issue-tracker.instructions.md`, then consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them.
 
 > Map templates (map-body template, ticket template, ticket types, Fog-of-war, Out-of-scope conventions) live in `references/map-conventions.md` — load on demand.
