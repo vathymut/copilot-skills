@@ -1,11 +1,11 @@
 ---
 name: ui-screenshots
-description: Use when capturing screenshots of a running web app, Electron app, or desktop window during development — full-page, interactive states, before/after pairs, section crops — or assembling them into an annotated animated GIF/video demo.
+description: Use when capturing screenshots of a running web app, Electron app, or desktop window during development — full-page, interactive states, before/after pairs, section crops — or assembling them into an annotated animated GIF/video demo. Also use when adding visual callouts — rectangles, arrows, labels, or color highlights — to screenshots, PR images, or diagrams.
 ---
 
 # UI Screenshots
 
-Capture screenshots of web apps, Electron apps, or desktop windows. Also assembles frames into annotated animated GIF demos.
+Capture screenshots of web apps, Electron apps, or desktop windows; annotate them with callouts; assemble frames into animated GIF demos.
 
 ## Trigger → branch
 
@@ -14,6 +14,7 @@ Capture screenshots of web apps, Electron apps, or desktop windows. Also assembl
 | Web app (localhost) | Web app path |
 | Electron app (VS Code, etc.) | `references/desktop-recording.md` § Electron |
 | Desktop window (visible) | `references/desktop-recording.md` § mss+ctypes |
+| Annotate an existing screenshot/diagram | Annotate |
 | Animated GIF demo | `references/gif-assembly.md` |
 
 ## Pre-flight
@@ -81,6 +82,46 @@ img.crop((0, 900, 920, 1600)).save("screenshot-main.png")
 4. Charts need 4s+ after networkidle (Plotly, D3).
 5. Narrow viewport reveals rendering bugs.
 
+## Annotate
+
+Add visual callouts — rectangles, arrows, labels, highlights — to screenshots and diagrams. Prereq: `pip install Pillow numpy`.
+
+### Color rules
+
+- **Orange (`#FF9F1C`)** — highlights, new features, "look here"
+- **Red (`#E63946`)** — only for bugs, errors, or removed things
+
+### Targets
+
+Check image dimensions first (`Image.open(path).size`) — HiDPI screenshots are larger than they appear. For unfamiliar images, run `grid_image()` first to get precise coordinates.
+
+### Approaches
+
+- **Single element** — inline snippet: rounded rect + leader line + label (below)
+- **Multiple elements** — `annotate_image()` from `references/annotate.py` (copy alongside your script) for automatic placement
+- **Before/after diff** — `diff_images()` from `references/annotate.py` finds changed regions, then annotate
+- **GIF demo frames** — `references/gif-assembly.md` § Annotate frames
+
+**Single-element snippet:**
+
+```python
+from PIL import Image, ImageDraw, ImageFont
+
+font = ImageFont.truetype('Inkfree.ttf', 36)  # or load_default()
+color = '#FF9F1C'
+draw = ImageDraw.Draw(img)
+draw.rounded_rectangle([x1-18, y1-18, x2+18, y2+18], radius=14, outline=color, width=5)
+draw.line([x2+18, cy, x2+58, cy-30], fill=color, width=5)
+draw.text((x2+63, cy-60), 'label', fill=color, font=font, stroke_width=1, stroke_fill=color)
+```
+
+### Verify
+
+- Run with `debug=True` on first annotation of a new image
+- Labels close to their targets (short arrows, 25–80px)
+- Consistent line thickness (~5px); no overlapping elements
+- Confirm rendering in the target platform
+
 ## Desktop & Electron → references
 
 - **Desktop windows (visible):** mss + ctypes. Code + setup in `references/desktop-recording.md`.
@@ -88,7 +129,7 @@ img.crop((0, 900, 920, 1600)).save("screenshot-main.png")
 
 ## Animated GIF demos → references
 
-Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to `image-annotations`; use its `diff_images()` to find changed regions between frames. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
+Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to § Annotate; use `references/annotate.py`'s `diff_images()` to find changed regions between frames. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
 
 ## Limitations
 

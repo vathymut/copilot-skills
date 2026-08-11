@@ -81,9 +81,8 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 
 | Skill | What it does |
 |---|---|
-| `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB; also spatial/geographic queries (distances, GeoJSON, Overture Maps) |
+| `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB; also spatial/geographic queries (distances, GeoJSON, Overture Maps) and DuckDB extension/CLI installation |
 | `duckdb-docs` | Searches DuckDB and DuckLake docs via a locally cached full-text index |
-| `install-duckdb` | Installs or updates DuckDB extensions |
 
 ## Frontend & Creative
 
@@ -91,10 +90,9 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 |---|---|
 | `frontend-design` | Creates distinctive, production-grade frontend interfaces and artifacts |
 | `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
-| `image-annotations` | Annotates screenshots and diagrams with callouts, arrows, and highlights using PIL |
 | `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
 | `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
-| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops); also annotated animated GIF demos from captured frames |
+| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops); annotates them with callouts (rectangles, arrows, labels); assembles annotated animated GIF demos from captured frames |
 
 ## Communication
 
@@ -161,7 +159,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **39 skills** in `.github/skills/` (0 routers, 39 leaf skills)
+- **37 skills** in `.github/skills/` (0 routers, 37 leaf skills)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

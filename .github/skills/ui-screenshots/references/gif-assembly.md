@@ -45,19 +45,19 @@ iio.imwrite("demo.gif", frames, duration=durations, loop=0)
 
 ## 3. Annotate frames
 
-Apply callouts to specific frames using the `image-annotations` skill's `annotate_image()`. For each frame needing a rectangle, arrow, or label, delegate rather than re-implementing the drawing:
+Apply callouts to specific frames using the `annotate_image()` from `references/annotate.py`. For each frame needing a rectangle, arrow, or label, delegate rather than re-implementing the drawing:
 
 ```python
 import importlib.util
 from pathlib import Path
 from PIL import Image
 
-# Load annotate.py from the sibling image-annotations skill regardless of cwd.
+# Load annotate.py from this skill's references dir regardless of cwd.
 def _load_annotate():
     candidates = [
-        Path(__file__).resolve().parent.parent.parent / "image-annotations" / "references" / "annotate.py",
-        Path.home() / ".config/opencode/skills/image-annotations/references/annotate.py",
-        Path.home() / ".copilot/skills/image-annotations/references/annotate.py",
+        Path(__file__).resolve().parent.parent / "references" / "annotate.py",
+        Path.home() / ".config/opencode/skills/ui-screenshots/references/annotate.py",
+        Path.home() / ".copilot/skills/ui-screenshots/references/annotate.py",
     ]
     for p in candidates:
         if p.exists():
@@ -65,7 +65,7 @@ def _load_annotate():
             mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)
             return mod
-    raise SystemExit("image-annotations/references/annotate.py not found; install the image-annotations skill")
+    raise SystemExit("ui-screenshots/references/annotate.py not found; install the ui-screenshots skill")
 
 annotate = _load_annotate()
 annotate_image = annotate.annotate_image

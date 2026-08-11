@@ -28,12 +28,13 @@ Pre-flight (data-access):
 | `s3` | List/preview/query S3/R2/GCS/MinIO |
 | `sql` | Run SQL ad-hoc or against session database |
 | `spatial` | Geographic/spatial queries |
+| `install` | Install/update DuckDB extensions or the CLI |
 
 ---
 
 ## `read` <filename or URL> [question]
 
-Resolve bare filename via `find "$PWD" -name "$1" -not -path '*/.git/*'`. Run `read_any` macro from `references/sql-macros.md`. Fail: missing `duckdb` → `install-duckdb`; missing extension → `INSTALL` + `LOAD`; wrong reader → use correct `read_*`.
+Resolve bare filename via `find "$PWD" -name "$1" -not -path '*/.git/*'`. Run `read_any` macro from `references/sql-macros.md`. Fail: missing `duckdb` → § install; missing extension → `INSTALL` + `LOAD`; wrong reader → use correct `read_*`.
 
 Answer: schema, row count, sample rows, notable patterns.
 
@@ -72,7 +73,7 @@ Always `LOAD httpfs;`. Directory → `read_blob('<URL>/*')`. File → `DESCRIBE 
 
 **`--attach` setup:** resolve DB path, validate, resolve state dir (`.duckdb-skills/state.sql`), append `ATTACH IF NOT EXISTS` to state file, verify. Full procedure → `references/session-setup.md`. Execution mode (sandboxed vs session): `references/sql-execution.md`.
 
-**Generate SQL:** NL input → `references/friendly-sql.md`. Session mode: fetch schema first. **Estimate result size** before execution: >1M rows w/o LIMIT → warn; >10 GB → warn. **Errors:** syntax → show + suggest; missing ext → `install-duckdb`; table not found → list tables; file not found → find + correct path; unclear → `duckdb-docs`.
+**Generate SQL:** NL input → `references/friendly-sql.md`. Session mode: fetch schema first. **Estimate result size** before execution: >1M rows w/o LIMIT → warn; >10 GB → warn. **Errors:** syntax → show + suggest; missing ext → § install; table not found → list tables; file not found → find + correct path; unclear → `duckdb-docs`.
 
 **Present:** show output. >100 rows → note truncation. NL questions → one-line interpretation.
 
@@ -94,4 +95,19 @@ Key patterns:
 
 **Principles:** bbox-filter first (Parquet pushdown), `geometry_always_xy = true`, use `ST_Distance_Spheroid` for real-world distances, CSV lat/lng → `ST_Point(longitude, latitude)`.
 
-On failure: missing duckdb → `install-duckdb`; missing ext → `INSTALL spatial`; S3 access → check creds; no Overture results → widen bbox.
+On failure: missing duckdb → § install; missing ext → `INSTALL spatial`; S3 access → check creds; no Overture results → widen bbox.
+
+---
+
+## `install` [ext1 ext2@repo ...] [--update]
+
+Install or upgrade DuckDB extensions; upgrade the CLI. Extension args: `name` → `INSTALL name;`; `name@repo` → `INSTALL name FROM repo;`.
+
+| Flag | Mode | DuckDB invocation |
+|------|------|-------------------|
+| (none) | Install | `duckdb :memory: -c "INSTALL <ext1>; INSTALL <ext2> FROM <repo2>;"` |
+| `--update` | Update CLI + extensions | Check CLI version first (below), then `duckdb :memory: -c "UPDATE EXTENSIONS;"` |
+
+Locate: `DUCKDB=$(command -v duckdb)`. Not found → tell the user to install it (brew, `curl -fsSL https://install.duckdb.org | sh`, or winget), then stop.
+
+**CLI upgrade (`--update`):** compare `CURRENT=$(duckdb --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')` against `LATEST=$(curl -fsSL https://duckdb.org/data/latest_stable_version.txt)`. Different → ask before upgrading: macOS `brew upgrade duckdb`; Linux `curl -fsSL https://install.duckdb.org | sh`; Windows `winget upgrade DuckDB.cli`. Re-verify with `duckdb --version`.

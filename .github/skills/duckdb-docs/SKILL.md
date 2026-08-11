@@ -17,7 +17,7 @@ Query: `$@`
 command -v duckdb
 ```
 
-If not → delegate to `install-duckdb`, then continue.
+If not → `data-access` § install, then continue.
 
 ### 2. What version of DuckDB?
 
