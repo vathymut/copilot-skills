@@ -60,6 +60,8 @@ Key rules — full guide with examples: [references/writing-guide.md](references
 
 ## Conference Quick Reference
 
+Snapshot only — verify against the venue's current Call for Papers before submitting (limits change every cycle). Full table lives in `references/conference-quick-ref.md`.
+
 | Venue | Pages | Camera-ready | Required extras |
 |-------|-------|-------------|-----------------|
 | NeurIPS | 9 | +0 | Paper checklist; lay summary if accepted |
@@ -69,11 +71,7 @@ Key rules — full guide with examples: [references/writing-guide.md](references
 | AAAI | 7 | +1 | Strict style compliance (never edit `.sty`) |
 | COLM | 9 | +1 | Language model focus |
 
-Universal: double-blind, references don't count, LaTeX required, appendices unlimited.
-
-Page limits and deadlines change every cycle — verify against the venue's current Call for Papers before submitting.
-
-Templates in [templates/](templates/) — always copy the **entire** directory, not just `main.tex`. Venue submission checklists: `references/checklists.md`.
+Universal: double-blind, references don't count, LaTeX required, appendices unlimited. Templates in [templates/](templates/) — always copy the **entire** directory, not just `main.tex`. Venue submission checklists: `references/checklists.md`.
 
 ---
 

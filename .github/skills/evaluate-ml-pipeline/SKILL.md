@@ -19,7 +19,7 @@ Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural pr
 - **Symbol from memory forbidden.** All symbols via `python-api`.
 - **`skore.evaluate` / `project.put` live only in `experiments/NN_*.py`.** Scratch/audit files are read-only.
 - **CV splitter is data-driven, not default-driven (G-CV-SPLITTER).** Read `split_kwargs` from X marker. Temporal → `AskUserQuestion`.
-- **No stratified splitters for class imbalance.**
+- **No stratified splitters for class imbalance** — use `KFold`/`GroupKFold` even when imbalanced; stratification leaks distribution. See `references/cross-validation.md`.
 - **CV not sufficient for history-dependent pipelines.** Smoke must pass.
 - **Python-stack defaults** — `scratch/`, ruff, harness hints: `ml-conventions:references/shared-ml-conventions.md`.
 - **Audit is read-only.** No evaluate/put. `project.get(id)` by id, not key.
@@ -27,15 +27,16 @@ Three sub-tasks: **evaluate** (CV report), **smoke** (predict-time structural pr
 
 ## Pre-flight
 
+Shared gates → `ml-conventions:references/shared-preflight-evidence.md` (don't duplicate that contract here).
+
 ```
 Pre-flight (evaluate-ml-pipeline):
 - [ ] Branch: evaluate | smoke | audit
-- [ ] Shared gates (Tier 1 libs, python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] (Evaluate) split_kwargs at X marker; splitter chosen
 - [ ] (Smoke) Test file: tests/smoke/test_NN_<short_name>.py
 - [ ] (Smoke) Hard + soft assertion wired
 - [ ] (Audit) Report present; read-only contract verified
-- [ ] Pre-flight re-emitted with evidence
+- [ ] Plus shared gates from ml-conventions; re-emit with evidence
 ```
 
 ## § Evaluate

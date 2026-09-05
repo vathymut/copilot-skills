@@ -24,7 +24,7 @@ Write documentation using the Diátaxis framework.
 ## Workflow
 
 1. **Clarify** — document type, audience, user goal, scope. Ask if any are missing.
-2. **Propose an outline** — wait for approval.
+2. **Propose an outline** — wait for approval. For outline templates per type, see `references/outline-templates.md` (Diátaxis-specific scaffolds).
 3. **Write** — use the project's tone and terminology. Don't copy from source files unless asked.
 
 ## Principles
@@ -34,3 +34,9 @@ Write documentation using the Diátaxis framework.
 - No external sources unless the user provides a link.
 
 > **Architectural decision records (ADRs)** are owned by `domain-modeling` — use that skill when a decision needs recording.
+
+## Completion criteria
+
+- [ ] Document type, audience, goal, and scope clarified
+- [ ] Outline proposed and approved before drafting
+- [ ] Draft follows Diátaxis structure for the chosen type and uses project terminology

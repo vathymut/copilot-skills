@@ -16,7 +16,7 @@ Default to Branch A. Three branches:
 1. **Pin the diff** — default `git diff origin/main...HEAD`.
 2. **Load conditioned references** — SQL diff → `references/sql-review.md`, Python diff → `references/python-standards.md`.
 3. **Find the spec** if any, then check each factor below.
-At the end, present findings per factor with one summary line each (total + worst issue). Do not merge or rerank across factors.
+At the end, present findings per factor with one summary line for the worst issue only. Do not merge or rerank across factors.
 
 ### 1. Code Conventions
 Code follows project style and avoids known smells.
@@ -87,3 +87,9 @@ Use when the user pastes review feedback or says "address feedback".
 - No performative agreement ("You're absolutely right", "Great point").
 - Check YAGNI for "implement properly" suggestions: if the code isn't used, propose removal.
 - Reply to inline comments in the inline thread, not as a top-level comment.
+
+## Completion criteria
+
+- [ ] Diff pinned (`origin/main...HEAD` or explicit SHAs) and conditioned references loaded
+- [ ] Findings reported per factor with worst-issue summary; no cross-factor reranking
+- [ ] Branch B/C: reviewer dispatched or feedback triaged item-by-item with verification

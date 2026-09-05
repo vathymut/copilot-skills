@@ -22,12 +22,12 @@ Scaffold Copilot configuration for a new project.
    - GitHub Actions usage (yes/no)
 
 2. **Research patterns**
-   - Search for Copilot patterns from these concrete sources:
-     - `awesome-copilot` on GitHub (https://github.com/orgs/community/discussions?discussions_q=label%3ACopilot)
-     - GitHub's official `copilot-docs` repo (https://docs.github.com/en/copilot/using-github-copilot/creating-reusable-instructions)
-     - `dotgithub` community patterns (https://github.com/marketplace?type=actions&query=copilot)
-     - User's own `awesome-copilot` fork or internal patterns repo
-   - Record attribution for every source you copy from.
+    - Search for Copilot patterns from these concrete sources (verify URLs still resolve — if one 404s, skip and note it):
+      - `awesome-copilot` — https://github.com/github/awesome-copilot
+      - GitHub's official `copilot-docs` — https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
+      - GitHub Marketplace Copilot actions — https://github.com/marketplace?type=actions&query=copilot
+      - User's own `awesome-copilot` fork or internal patterns repo
+    - Record attribution for every source you copy from.
 
 3. **Generate files**
    - `.github/copilot-instructions.md`
@@ -44,6 +44,12 @@ Scaffold Copilot configuration for a new project.
    - Workflow uses job name `copilot-setup-steps`.
    - Attribution comments are present where content was adapted.
    - **Functional validation:** Open a file in VS Code and verify Copilot Chat loads the instruction files (check `.github/copilot-instructions.md` is referenced in the Copilot status indicator). For agents, confirm the agent appears in the Copilot Chat agent dropdown.
+
+## Completion criteria
+
+- [ ] No existing Copilot/OpenCode config overwritten without user confirmation
+- [ ] Files generated from `references/file-templates.md` + `references/workflow-templates.md` with `applyTo` frontmatter
+- [ ] Validation checks above pass (instructions, agents, workflow, attribution, functional VS Code check)
 
 ## Completion
 

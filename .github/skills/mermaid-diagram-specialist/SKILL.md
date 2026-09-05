@@ -33,6 +33,11 @@ Run through [mermaid.live](https://mermaid.live) or the platform renderer; fix a
 
 **Completion criterion:** Diagram renders correctly in the target platform.
 
+## When NOT to use
+
+- The data is a chart/figure with numeric comparison — use `tufte-data-viz`.
+- A rendered image already exists and the source isn't needed — don't re-derive.
+
 ## Step 4: Present
 
 Deliver the mermaid code block in markdown. If the platform doesn't render mermaid natively, note that [mermaid.live](https://mermaid.live) can be used for preview and export.

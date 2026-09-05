@@ -5,6 +5,8 @@ allowed-tools:
   - Read
   - Glob
   - Grep
+  - Bash
+  - Write
 ---
 
 # Tufte Data Visualization
@@ -50,28 +52,20 @@ The chart is ready only when all 22 checks pass.
 
 ## Universal rules
 
-The 22 universal rules (static principles, screen extensions, content/formatting) live in
-`rules/universal-rules.md` — load them when you are authoring or auditing a chart.
-The anti-pattern checklist and validation checklist below stay inline; the library
-quick-reference, chart-type guidance, and color tables are summarized here and expanded
-in `rules/`.
-
----
+The 22 universal rules live in `rules/universal-rules.md` — load that file when you are authoring or auditing a chart (don't inline them here).
 
 ## Library quick reference
 
-The universal rules above are sufficient for most charts. For complete code examples and
-library-specific helpers, read the appropriate rule file from the `rules/` directory in
-this skill's folder. Only read ONE rule file per task. Essential config per library:
+For complete code examples and library-specific helpers, read **one** rule file from `rules/` matching the target library. Quick pointers:
 
-- **Recharts** → `rules/recharts.md` — `<CartesianGrid stroke="none" />`, remove `<Legend />`, `<YAxis axisLine={false} tickLine={false} />`, `<Line dot={false} strokeWidth={1.5} />`
-- **ECharts** → `rules/echarts.md` — `splitLine: { show: false }`, `legend: { show: false }`, `grid: { show: false }`, `endLabel` on series
-- **Chart.js** → `rules/chartjs.md` — `grid: { display: false }`, `border: { display: false }`, `plugins.legend.display: false`, `chartjs-plugin-datalabels`
-- **matplotlib** → `rules/matplotlib.md` — `spines['top'].set_visible(False)`, `spines['right'].set_visible(False)`, `spines['bottom'].set_bounds(min, max)`, `font.family: serif`
-- **Plotly** → `rules/plotly.md` — `showgrid=False`, `showlegend=False`, `plot_bgcolor='#fffff8'`, `zeroline=False`
-- **D3/SVG/HTML** → `rules/svg-html.md` — `.domain { display: none }`, no `<rect>` backgrounds, `stroke-opacity: 0.1` gridlines
+- **Recharts** → `rules/recharts.md`
+- **ECharts** → `rules/echarts.md`
+- **Chart.js** → `rules/chartjs.md`
+- **matplotlib** → `rules/matplotlib.md`
+- **Plotly** → `rules/plotly.md`
+- **D3/SVG/HTML** → `rules/svg-html.md`
 
-Chart-type guidance (line/bar/scatter/time series/small multiples/sparklines/tables/slopegraph/area/stacked/heatmap) and the color quick-reference table: see `rules/typography-and-color.md` (palettes, font stacks) and `rules/universal-rules.md` (rule 7/8). Cross-cutting: `rules/interactive-and-accessible.md` (progressive disclosure, WCAG, animation), `rules/small-multiples-sparklines.md` (layout patterns). Working examples in `examples/` — one per library, plus an inline SVG sparkline.
+Chart-type guidance and color tables: `rules/typography-and-color.md` + `rules/universal-rules.md`. Cross-cutting: `rules/interactive-and-accessible.md`, `rules/small-multiples-sparklines.md`. Examples in `examples/`.
 
 ---
 
@@ -83,28 +77,5 @@ When reviewing existing chart code, consult `rules/anti-patterns.md` — the ful
 
 ## Validation checklist
 
-The 22 checks mirror the 22 universal rules in `rules/universal-rules.md` one-to-one (rule number in parens) — this checklist is the completion criterion for that file. Before presenting any chart, verify:
-
-- [ ] (1) No top or right borders/spines
-- [ ] (2) No Legend component — series labeled directly on the chart
-- [ ] (3) Gridlines removed or horizontal-only at opacity <= 0.12
-- [ ] (4) Axis lines span only the data range (range-frame)
-- [ ] (5) No 3D effects
-- [ ] (6) No pie chart unless explicitly requested
-- [ ] (7) Aspect ratio approximately 1.5:1
-- [ ] (8) Default series color is gray (`#666`); color used only for emphasis
-- [ ] (9) Background is `#fffff8` (light) or `#151515` (dark), not pure white/black
-- [ ] (10) Serif font for data labels and titles
-- [ ] (11) No dual y-axes
-- [ ] (12) Notable data features annotated directly on chart
-- [ ] (13) Comparison context present (reference line, band, or second series)
-- [ ] (14) Tooltips are plain text with no decorative styling
-- [ ] (15) Progressive disclosure over static density
-- [ ] (16) Accessible: contrast 3:1 (elements) / 4.5:1 (text), no color-only differentiation, text alternative, keyboard-navigable
-- [ ] (17) Charts render usably at 320px and 1440px+ widths
-- [ ] (18) Animations respect `prefers-reduced-motion`
-- [ ] (19) Dark mode styled first-class: palette parity and contrast, not white-UI-in-a-dark-shell
-- [ ] (20) Title states the finding, not the axis description
-- [ ] (21) Numbers are formatted for readability (abbreviations, separators, consistent precision)
-- [ ] (22) A chart is warranted — the data couldn't be communicated as a sentence or table
+The 22 checks mirror `rules/universal-rules.md` one-to-one — this is the completion criterion. Load the checklist from `rules/universal-rules.md` § Validation and verify all 22 before presenting any chart. Do not present until all pass; on failure follow § Fix loop above.
 

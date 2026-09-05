@@ -1,10 +1,9 @@
 ---
 name: ml-conventions
-description: Use when authoring or running any ML workflow skill that shares cross-cutting rules — ruff config, the scratch/ execution rule, harness-hint handling, the missing-dependency contract, the workspace gate registry, or the pre-flight evidence format.
 ---
 
 > **This is a reference document consumed by other ML skills — not a standalone workflow.**
-> Skills load this file directly for shared wording and gate conventions.
+> No `description` — this skill is **user-invoked only** (zero context load). Other ML skills load it via `ml-conventions:references/...` context pointers. Do not invoke directly unless authoring a new ML skill.
 
 # ML Conventions — Reference
 

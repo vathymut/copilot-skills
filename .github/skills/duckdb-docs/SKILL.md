@@ -30,6 +30,8 @@ Run `duckdb --version`. If ≥1.2.0, use the DuckDB docs search index. If <1.2.0
 | **DuckDB docs** | `https://duckdb.org/data/docs-search.duckdb` | `duckdb-docs.duckdb` | `lts`, `current`, `blog` | Default |
 | **DuckLake docs** | `https://ducklake.select/data/docs-search.duckdb` | `ducklake-docs.duckdb` | `stable`, `preview` | Query mentions DuckLake |
 
+URLs live in `scripts/fetch-docs.sh` — this table is an index, not the source of truth if the upstream moves.
+
 Default version = `lts`. Switch to `current` for nightly features, `blog` for background posts. Omit version filter when unsure.
 
 ### 4. Extract search terms
@@ -73,3 +75,9 @@ Per result:
 ```
 
 After all chunks, synthesize a concise answer to `$@`. If chunks answer directly, lead with the answer before sources.
+
+## Completion criteria
+
+- [ ] DuckDB version checked; correct index chosen (or fallback streamed)
+- [ ] Cache fetched if missing/stale; search executed with extracted terms
+- [ ] Results presented per chunk with source URL; concise synthesis given

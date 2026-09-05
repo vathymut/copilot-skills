@@ -44,11 +44,24 @@ Once answered, route to the appropriate artifact template:
 | **Planning doc / design doc** | `references/design-doc-template.md` |
 | **Research ideation** | `references/research-ideation.md` |
 
+## When NOT to use
+
+- The user reported a clear bug with a failing test and wants a direct fix — use `systematic-debugging` → `test-driven-development`.
+- The request is a throwaway prototype or spike explicitly marked as disposable — use `ponytail` prototype mode or a `spike` doc (`references/spike-template.md`) and skip the full design loop.
+- The plan/spec is already approved and the user said "implement now" — go straight to `writing-plans`.
+
 ## Hard gate
 
-Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until the user has approved a design or research proposal. This applies to every project regardless of perceived simplicity.
+Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until the user has approved a design or research proposal. Exception: a time-boxed spike (`references/spike-template.md`) or a `research` investigation may run in parallel when the design question is blocked.
 
 Every project goes through this process. "Simple" projects are where unexamined assumptions cause the most wasted work.
+
+## Completion criteria
+
+- [ ] Purpose, scope, success, constraints, and approach preferences asked (one at a time)
+- [ ] Artifact type chosen and template loaded from `references/`
+- [ ] Draft produced and user approval received before any implementation dispatch
+- [ ] Routing decision recorded (next skill: `writing-plans`, `wayfinder`, `research`, or `to-tickets`)
 
 ## Key principles
 

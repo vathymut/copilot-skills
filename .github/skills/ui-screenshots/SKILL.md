@@ -5,17 +5,25 @@ description: Use when capturing screenshots of a running web app, Electron app, 
 
 # UI Screenshots
 
-Capture screenshots of web apps, Electron apps, or desktop windows; annotate them with callouts; assemble frames into animated GIF demos.
+Capture screenshots of web apps, Electron apps, or desktop windows; annotate them with callouts; assemble frames into animated GIF demos. Router — pick one branch, load only its references.
+
+## When NOT to use
+
+- Need a design review/fix for a running site — use `web-design-reviewer` (it delegates capture here).
+- Need a new greenfield UI — use `frontend-design`.
+- No running app/window to capture — nothing to screenshot.
 
 ## Trigger → branch
 
-| Target | Section |
+| Target | Section | Load |
 |---|---|
-| Web app (localhost) | Web app path |
-| Electron app (VS Code, etc.) | `references/desktop-recording.md` § Electron |
-| Desktop window (visible) | `references/desktop-recording.md` § mss+ctypes |
-| Annotate an existing screenshot/diagram | Annotate |
-| Animated GIF demo | `references/gif-assembly.md` |
+| Web app (localhost) | Web app path | this file § Web app path |
+| Electron app (VS Code, etc.) | `references/desktop-recording.md` § Electron | `references/desktop-recording.md` |
+| Desktop window (visible) | `references/desktop-recording.md` § mss+ctypes | `references/desktop-recording.md` |
+| Annotate an existing screenshot/diagram | Annotate | `references/annotate.py` |
+| Animated GIF demo | `references/gif-assembly.md` | `references/gif-assembly.md` |
+
+> Only load the references for the chosen branch — annotate vs capture vs gif are mutually exclusive.
 
 ## Pre-flight
 
@@ -130,6 +138,13 @@ draw.text((x2+63, cy-60), 'label', fill=color, font=font, stroke_width=1, stroke
 ## Animated GIF demos → references
 
 Full procedure (capture → assemble → annotate → fade): `references/gif-assembly.md`. Use imageio (not PIL). Delegate annotation to § Annotate; use `references/annotate.py`'s `diff_images()` to find changed regions between frames. Variable frame timing: 100ms typing, 600–800ms pause, 500ms+ hero. GIF is the only universally supported animated format.
+
+## Completion criteria
+
+- [ ] Branch chosen before capture; only its references loaded
+- [ ] Full-page raw captured at correct viewport, recropped via PIL (not re-screenshotted)
+- [ ] Before/after pairs use identical viewport + crop; interactive states captured separately
+- [ ] Annotations use `#FF9F1C` for highlights / `#E63946` only for bugs, `debug=True` on first run
 
 ## Limitations
 

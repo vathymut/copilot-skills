@@ -43,9 +43,10 @@ For history-dependent / panel / cold-start cases → `references/layer_examples.
 
 ## Pre-flight
 
+Shared gates → `ml-conventions:references/shared-preflight-evidence.md` (don't duplicate that contract here).
+
 ```
 Pre-flight (build-ml-pipeline):
-- [ ] Shared gates (Tier 1 libs, python-api): `ml-conventions:references/shared-preflight-evidence.md`
 - [ ] Tabular library identified: pandas | polars
 - [ ] Source-binding pattern chosen (list each skrub.var)
 - [ ] X-marker placement decided (name the DataOp node)
@@ -53,7 +54,7 @@ Pre-flight (build-ml-pipeline):
 - [ ] Preview value as kwarg, not literal in pipeline.py
 - [ ] split_kwargs at X marker decided: groups | time | none
 - [ ] Smoke test wired (tests/smoke/test_NN_<short_name>.py)
-- [ ] Pre-flight re-emitted with evidence before final message.
+- [ ] Plus shared gates from ml-conventions; re-emit with evidence before final message.
 ```
 
 ## Stop conditions

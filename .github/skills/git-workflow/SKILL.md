@@ -8,6 +8,20 @@ allowed-tools: Bash
 
 Opinionated conventions and workflows. Standard git operations (add, commit, diff, merge, rebase, log, status) are agent defaults and not documented here.
 
+## When to use vs. plain git
+
+| Signal | Action |
+|---|---|
+| Committing with Conventional Commits, interactive fixup, or asking for a commit message only | This skill (§ Conventional Commits) |
+| Setting up an isolated workspace | This skill § worktree-setup (`references/worktree.md`) |
+| Finishing a branch (merge/PR/cleanup) | This skill § finish-branch (`references/finish-branch.md`) |
+| Simple `git status`/`diff`/`log` or a one-liner the user dictated | Plain git — don't invoke this skill |
+
+## When NOT to use
+
+- The user pasted an exact git command to run — run it, don't re-interpret through this skill.
+- The repo has its own `CONTRIBUTING.md` commit convention that conflicts — follow the repo's convention and note the divergence.
+
 ## Conventional Commits
 
 ```
@@ -71,3 +85,10 @@ GIT_COMMON=$(cd "$(git rev-parse --git-common-dir)" 2>/dev/null && pwd -P)
 tests on the result; never delete work without typed confirmation; never
 force-push without explicit request; never remove a worktree you didn't create;
 never run `git worktree remove` from inside the worktree (cd to main root first).
+
+## Completion criteria
+
+- [ ] Commit message follows Conventional Commits (type/scope/description, <72 chars, imperative) or message-only block produced
+- [ ] Fixup/squash verified via `git log --oneline`
+- [ ] worktree-setup: isolation detected, `references/worktree.md` procedure followed
+- [ ] finish-branch: tests green, environment detected, user picked option, cleanup done per Step 6

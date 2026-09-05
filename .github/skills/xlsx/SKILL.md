@@ -1,7 +1,6 @@
 ---
 name: xlsx
 description: Use when the deliverable is a spreadsheet (.xlsx) the user wants created, edited, analyzed, or cleaned.
-license: Proprietary. LICENSE.txt has complete terms
 ---
 
 # XLSX creation, editing, and analysis
@@ -12,7 +11,14 @@ license: Proprietary. LICENSE.txt has complete terms
 - **Zero formula errors** — every deliverable ships with ZERO formula errors (`#REF!`, `#DIV/0!`, `#VALUE!`, `#N/A`, `#NAME?`).
 - **Preserve existing templates** — when updating, study and EXACTLY match existing format, style, and conventions. Existing template conventions ALWAYS override these guidelines.
 
+## When NOT to use
+
+- The output is not a spreadsheet (CSV/Parquet is sufficient) — don't force `.xlsx`.
+- Only reading/analyzing an existing sheet without editing — use `data-access` (`read` via DuckDB `excel` extension) instead.
+
 ## Financial models
+
+Only apply this section when the user explicitly requests a financial model — don't impose it on simple spreadsheets.
 
 - Color coding standards and number formatting: `references/color-coding.md`.
 - **Assumptions placement** — all assumptions (growth rates, margins, multiples) in separate cells; formulas use cell references, never hardcoded values: `=B5*(1+$B$6)` not `=B5*1.05`.

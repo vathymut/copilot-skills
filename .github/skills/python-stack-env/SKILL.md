@@ -1,6 +1,6 @@
 ---
 name: python-stack-env
-description: Use when a Python import fails in a data-science or ML project, two or more libraries compete for one job (tabular DL, plotting, serving) and a choice is needed, no environment manager is detected, or a package must be routed to the right feature (dev/agent/default) for install.
+description: Use when a Python import fails or you need to choose between competing libraries (plotting, serving, tabular DL) or route a package to the correct feature (dev/agent/default).
 ---
 
 # Python Stack & Environment Manager

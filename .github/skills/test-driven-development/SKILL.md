@@ -37,6 +37,10 @@ MANDATORY. Confirm: test passes, other tests still pass, output pristine. Test f
 
 Remove duplication, improve names, extract helpers. Keep tests green. Don't add behavior.
 
+### REFACTOR — Commit
+
+Commit the green step: `git commit -m "feat: <behavior> (RED-GREEN)"` or per `git-workflow` Conventional Commits. One behavior per commit.
+
 ### Repeat
 
 Next failing test for next feature.

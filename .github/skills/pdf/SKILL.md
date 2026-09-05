@@ -32,7 +32,7 @@ Choose based on the operation:
 | Forms | pypdf | pdf-lib (JS) |
 | Encrypt/decrypt | pypdf | qpdf (CLI) |
 
-Check that the library is installed; install if missing. For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), load [`forms.md`](forms.md) — it routes the bundled `scripts/` helpers. Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in [`reference.md`](reference.md).
+Check that the library is installed; install if missing. For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), load [`forms.md`](./forms.md) — it routes the bundled `scripts/` helpers. Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in [`reference.md`](./reference.md). If `forms.md` is missing, fall back to `pypdf` field APIs directly.
 
 ### Common code snippet (use directly for routine work)
 
@@ -60,7 +60,7 @@ Write a script that:
 - Spot-check content (e.g., page count, extracted text sample, table row count)
 - Report results to the user
 
-## Completion checklist
+## Completion criteria
 
 - [ ] Operation type and input/output files identified
 - [ ] Tool selected and available in the environment

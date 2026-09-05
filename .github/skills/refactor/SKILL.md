@@ -50,6 +50,12 @@ Adds a written plan step before the local refactor steps above:
 
 Then follow Local refactor steps 1-4.
 
+## When NOT to use
+
+- Greenfield feature work — use `test-driven-development` + `ponytail` (scope discipline lives there; this skill only reshapes structure).
+- Production code without tests — add tests first (use `test-driven-development`), then refactor.
+- Rewrites from scratch.
+
 ## Constraints
 
 - **Behavior is preserved** — refactoring changes structure, not behavior.
@@ -60,3 +66,10 @@ Then follow Local refactor steps 1-4.
 ### When not to refactor
 
 Code that works and won't change again, or production code without tests (add tests first).
+
+## Completion criteria
+
+- [ ] Code smell named and scoped to local or multi-file plan
+- [ ] Tests present and green before first structural edit
+- [ ] Each step is one edit → tests green → commit
+- [ ] Full test suite + type checker green, behavior unchanged

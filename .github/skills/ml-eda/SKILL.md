@@ -28,6 +28,8 @@ the JOURNAL `## Data understanding (EDA)` entry.
 
 ## Pre-flight
 
+Shared gates → `ml-conventions:references/shared-preflight-evidence.md` (don't duplicate that contract here).
+
 ```
 Pre-flight (ml-eda):
 - [ ] Trigger: bootstrap-G-EDA | user-request | data-changed
@@ -36,8 +38,7 @@ Pre-flight (ml-eda):
 - [ ] G-TABULAR known (pandas | polars)
 - [ ] Raw data located
 - [ ] Agent feature available (delegate to python-stack-env if missing)
-- [ ] Shared gates (python-api): `ml-conventions:references/shared-preflight-evidence.md`
-- [ ] Pre-flight re-emitted with evidence before final message.
+- [ ] Plus shared gates from ml-conventions; re-emit with evidence
 ```
 
 ## Constraints

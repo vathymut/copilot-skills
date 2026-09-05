@@ -22,7 +22,7 @@ Every deck is a single self-contained HTML file. **No** external scripts, styles
 
 ## Preamble requirement
 
-Before generating any template or slide output, emit the full contents of `viewport-base.css` line‑for‑line as an inline `<style>` block. Do not summarize, minify, or omit.
+Before generating any deck, `Read` the full `viewport-base.css` and embed it line-for-line as an inline `<style>` block. Do not summarize, minify, or omit. Cache the file content for the session — don't re-read it per slide.
 
 ## Flow
 

@@ -5,7 +5,7 @@ description: Use when the user wants internal prose drafted — meeting minutes,
 
 # Internal Writing
 
-Draft internal communications and reviews.
+Draft internal communications and reviews. This is a router — pick one branch, then load only its references.
 
 ## When NOT to use
 
@@ -13,13 +13,16 @@ Draft internal communications and reviews.
 - Technical documentation, API docs, changelogs
 - Marketing, sales, or press copy
 
-## Context
+## Workflow — pick branch first
 
-| Branch | Use when |
+| Signal | Branch | Load |
 |---|---|
-| **meeting-minutes** | Meeting transcript, raw notes, or agenda needs concise minutes |
-| **performance-review** | Self-assessment, peer review, upward feedback, brag sheet, promotion packet |
-| **internal-comms** | Team update (3P), newsletter, FAQ answer, or other formatted internal message |
+| Meeting transcript / raw notes / agenda | **meeting-minutes** | `references/minutes-schema.md` |
+| Self-assessment / peer / upward / brag sheet / promotion | **performance-review** | `references/output-schemas.md` |
+| Team update (3P) / newsletter / FAQ / general comms | **internal-comms** | `examples/3p-updates.md` etc. |
+| Unsure | Ask: "minutes, review, or comms?" — one question, then route | — |
+
+> Only load the references for the chosen branch — don't preload all three.
 
 ## Branch — meeting-minutes
 
@@ -102,3 +105,9 @@ Write internal communications following the formats in `examples/`.
 - The draft matches the selected guideline's formatting and tone.
 - All required sections are present.
 - The user confirms the draft is ready to send.
+
+## Top-level completion criteria
+
+- [ ] Branch chosen before any drafting (no mixing branches)
+- [ ] Only the chosen branch's references loaded
+- [ ] Branch-specific completion criteria met (see above)

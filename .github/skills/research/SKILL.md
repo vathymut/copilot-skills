@@ -10,7 +10,9 @@ description: Use when the user wants a topic investigated, docs or API facts gat
 
 ## Workflow
 
-Spin up a **background agent** to do the research, so you keep working while it reads.
+Prefer a **background agent** (`Task` general) when the task is large enough to benefit from parallelism; otherwise research inline — the fallback is direct source reading (no agent required). OpenCode and Copilot runners differ here, so don't hard-require `Task`.
+
+Spin up the researcher to do the work, so you keep working while it reads.
 
 Its job:
 

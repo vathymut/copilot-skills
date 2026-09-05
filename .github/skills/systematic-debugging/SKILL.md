@@ -72,9 +72,28 @@ Complete each phase before proceeding to the next.
 - Each fix reveals a new problem in a different place
 - Human partner says: "Is that not happening?" / "Will it show us...?" / "Stop guessing" / "Ultrathink this"
 
+## Evidence template (Phase 1 Done)
+
+Before leaving Phase 1, record:
+
+```
+Root cause: <file:line + function> — <why it produces symptom>
+Repro: <command or steps> — <consistent? yes/no>
+Boundary logs: <layer>: in=<...> out=<...> propagated=<yes/no>
+```
+
+Keep it to 4 lines. If you can't fill it, you haven't finished Phase 1.
+
 ## When "No Root Cause" Found
 
 Document investigation, implement handling (retry, timeout, error message), add monitoring. But 95% of "no root cause" is incomplete investigation.
+
+## Completion criteria
+
+- [ ] Root cause stated with file:line and causal chain to symptom
+- [ ] Reproduction steps recorded (or evidence that it's non-reproducible and why)
+- [ ] Hypothesis tested with single-variable minimal change
+- [ ] Fix verified via failing-test-first (`test-driven-development`) and no regressions
 
 ## Supporting techniques
 

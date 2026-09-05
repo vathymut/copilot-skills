@@ -42,6 +42,8 @@ If two modes seem to match, pick the **read** mode first. Re-entering § 1 is a 
 
 ## Pre-flight
 
+Shared gates → `ml-conventions:references/shared-preflight-evidence.md` (don't duplicate that contract here).
+
 ```
 Pre-flight (iterate-ml-experiment):
 - [ ] Mode: bootstrap | iterate-propose | iterate-record | read-only
@@ -54,8 +56,7 @@ Pre-flight (iterate-ml-experiment):
 - [ ] (§ 3) Build → evaluate → smoke chain ran
 - [ ] (§ 3) G-CV-SPLITTER resolved; G-RUN resolved
 - [ ] (§ 4) Status + JOURNAL row + Backlog + audit
-- [ ] Shared gates (python-api): `ml-conventions:references/shared-preflight-evidence.md`
-- [ ] Pre-flight re-emitted with evidence before final message.
+- [ ] Plus shared gates from ml-conventions; re-emit with evidence before final message.
 ```
 
 ## § 0 Bootstrap (first session)
@@ -74,7 +75,7 @@ Pre-flight (iterate-ml-experiment):
 
 ## § 0.5 Scaffold (missing workspace)
 
-**Trigger:** no `src/` / `experiments/` / `journal/` — also the entry point for "start a new ML workspace".
+**Trigger:** no `src/` / `experiments/` / `journal/` — also the entry point for "start a new ML workspace". This section is retained for context; full scaffold ownership lives in `references/scaffold_steps.md` (delegate `G-ENV-MGR` to `python-stack-env`).
 
 1. **Detect** existing layout. If `pyproject.toml`, `src/<pkg>/`, `experiments/`, `journal/`, `tests/`, `audit/`, or `reports/` already exist, glue to the existing layout; no renames.
 2. **Resolve gates** `G-PKG-NAME`, `G-SKORE-MODE` (`local`|`hub`|`mlflow`), `G-TABULAR`. See `ml-conventions:references/ml-gates.md` and `references/g_skore_mode.md`.
@@ -82,7 +83,7 @@ Pre-flight (iterate-ml-experiment):
 4. **Create layout** — `pyproject.toml`, manager manifest, `src/<pkg>/` skeletons, `experiments/`, `tests/smoke/`, `audit/`, `journal/`, `scratch/`, `reports/`, ruff config. Four-way stem pairing (see Files and pairing rule). Full steps: `references/scaffold_steps.md`.
 5. **Write placeholder** `journal/JOURNAL.md` (one-line placeholder; rewritten from `templates/JOURNAL.md` at § 0) and return to § 0.
 
-Scaffold violations: `references/forbidden-shortcuts.md` § Scaffold.
+Scaffold violations: `references/forbidden-shortcuts.md` § Scaffold. Future: extract to standalone `scaffold-ml-workspace` skill if this section grows.
 
 ## § 1 Session start (iterate mode)
 

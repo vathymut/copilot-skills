@@ -7,7 +7,13 @@ allowed-tools: Bash
 
 # Data Access
 
-Read, profile, convert, and query local/remote data with DuckDB.
+Read, profile, convert, and query local/remote data with DuckDB. For geographic/spatial work (GeoJSON/Shapefile/Overture), load `references/spatial.md` (extracted from § spatial below).
+
+## When NOT to use
+
+- The question is about a DuckDB SQL function or syntax in the abstract — use `duckdb-docs`.
+- The data exploration is the one-time bootstrap before an ML experiment — use `ml-eda` (then this skill is available afterwards for ad-hoc SQL).
+- No DuckDB available and the file is tiny (few KB) — plain `Read`/`pandas` is faster than installing DuckDB.
 
 ## Pre-flight
 
@@ -21,14 +27,14 @@ Pre-flight (data-access):
 
 ## Commands
 
-| Command | Use when |
+| Command | Use when | Loads |
 |---|---|
-| `read` | Read/profile a local or remote data file |
-| `convert` | Convert between formats |
-| `s3` | List/preview/query S3/R2/GCS/MinIO |
-| `sql` | Run SQL ad-hoc or against session database |
-| `spatial` | Geographic/spatial queries |
-| `install` | Install/update DuckDB extensions or the CLI |
+| `read` | Read/profile a local or remote data file | `references/sql-macros.md` |
+| `convert` | Convert between formats | `references/sql-macros.md` |
+| `s3` | List/preview/query S3/R2/GCS/MinIO | `references/sql-macros.md` |
+| `sql` | Run SQL ad-hoc or against session database | `references/session-setup.md`, `references/sql-execution.md` |
+| `spatial` | Geographic/spatial queries | `references/spatial.md` + `references/overture.md` |
+| `install` | Install/update DuckDB extensions or the CLI | — |
 
 ---
 
@@ -81,21 +87,15 @@ Always `LOAD httpfs;`. Directory → `read_blob('<URL>/*')`. File → `DESCRIBE 
 
 ## `spatial` <question or file> [context]
 
-Geographic/spatial queries using DuckDB `spatial` extension + Overture Maps.
-
-Always start with:
-```sql
-LOAD spatial; SET geometry_always_xy = true;
-```
-
-Key patterns:
-- Real-world places / POIs / buildings / roads (no user file) → Overture Maps: `references/overture.md`.
-- Distance / containment / conversion → `references/functions.md`.
-- Density / hotspots → H3 hex binning: `INSTALL h3 FROM community; LOAD h3;`.
-
-**Principles:** bbox-filter first (Parquet pushdown), `geometry_always_xy = true`, use `ST_Distance_Spheroid` for real-world distances, CSV lat/lng → `ST_Point(longitude, latitude)`.
+Geographic/spatial queries using DuckDB `spatial` extension + Overture Maps. Full procedure → `references/spatial.md`.
 
 On failure: missing duckdb → § install; missing ext → `INSTALL spatial`; S3 access → check creds; no Overture results → widen bbox.
+
+## Completion criteria
+
+- [ ] File/schema/row-count/sample reported for `read`/`s3`, or SQL output shown with truncation note
+- [ ] Conversion reports input/output/size/row-count; remote inputs use protocol setup from `references/sql-macros.md`
+- [ ] Spatial queries start with `LOAD spatial; SET geometry_always_xy = true;` and bbox-filter first
 
 ---
 

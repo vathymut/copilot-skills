@@ -51,6 +51,18 @@ Create files lazily — only when you have something to write. If no `CONTEXT.md
 
 5. **Update glossary inline** — When a term is resolved, update `CONTEXT.md` right there. Don't batch them up — capture as they happen. `CONTEXT.md` is a glossary and nothing else — devoid of implementation details, not a spec or scratch pad. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
 
+## When NOT to use
+
+- The task is pure implementation with an already-approved spec — glossary is stable, don't re-open terms.
+- The user wants a quick throwaway prototype — model churn outweighs precision.
+
+## Completion criteria
+
+- [ ] Incoming terms cross-checked against `CONTEXT.md` / `CONTEXT-MAP.md` (conflicts surfaced inline)
+- [ ] Fuzzy terms challenged and canonical term proposed
+- [ ] Resolved terms written to `CONTEXT.md` immediately (format: `CONTEXT-FORMAT.md`)
+- [ ] ADR offered only when all three sparingly criteria below hold
+
 ### Offer ADRs sparingly
 
 Only offer to create an ADR when all three are true:

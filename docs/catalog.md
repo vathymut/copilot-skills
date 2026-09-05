@@ -12,7 +12,7 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 ## Routers
 
-None. The catalog has no user-invoked routers — every skill is a leaf skill reachable by name or auto-triggered by request. The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
+One user-invoked reference router (`ml-conventions` — no `description`, loads `ml-conventions:references/...` via context pointers). Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
 
 ## Code Quality & Security
 
@@ -65,10 +65,10 @@ None. The catalog has no user-invoked routers — every skill is a leaf skill re
 | `build-ml-pipeline` | Declares ML pipelines as skrub DataOps graphs, stopping at the predictor |
 | `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
 | `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments; also scaffolds the workspace layout (§ 0.5 Scaffold, formerly `ml-scaffold`) and bootstraps the journal |
-| `ml-conventions` | Single source of truth for the cross-cutting rules shared by the ML skills (ruff, scratch/, harness hints, missing-dependency contract, gate registry, pre-flight evidence format) |
+| `ml-conventions` | **User-invoked reference** — single source of truth for cross-cutting ML rules (ruff, scratch/, harness hints, missing-dependency, gate registry, pre-flight) — not directly invoked |
 | `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
-| `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs); merger of `data-science-python-stack` + `python-env-manager` |
+| `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs) |
 
 ## Data Engineering & Packaging
 
@@ -159,7 +159,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **37 skills** in `.github/skills/` (0 routers, 37 leaf skills)
+- **37 skills** in `.github/skills/` (1 user-invoked reference `ml-conventions`, 36 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

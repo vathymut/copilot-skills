@@ -77,10 +77,16 @@ Present output in the format below.
 
 ## Rules
 
-- Stay strictly within the provided material. Do not add outside knowledge under any circumstance.
+- Prefer the provided material; if you must add outside context to make a point accurate, mark it `[EXTERNAL]` and keep it minimal.
 - If exam type is MCQ, replace "Write this in your exam" with "MCQ trick".
 - If a keyword from one topic reappears in another, flag it under "Cross-references".
 - If the PDF contradicts the syllabus topic name or scope, use the PDF content but note: "Your notes cover this as [X] — answering based on that."
 - Keep everything short. The student is cramming, not researching.
 
 Prioritization without a given weightage follows the heuristic above.
+
+## Completion criteria
+
+- [ ] Syllabus topics parsed and matched to study-material sections
+- [ ] Per-topic blocks produced (definition, key points, keywords, diagram, exam sentence/MCQ trick, practice Q)
+- [ ] Cross-references flagged and prioritization applied

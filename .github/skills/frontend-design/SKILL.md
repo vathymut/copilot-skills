@@ -1,7 +1,6 @@
 ---
 name: frontend-design
 description: Use when building new web components, pages, applications, posters, or interactive artifacts from scratch or a brief.
-license: Complete terms in LICENSE.txt
 ---
 
 # Frontend Design
@@ -10,7 +9,7 @@ Build production-grade frontend components, pages, applications, or interactive 
 
 ## When NOT to use
 
-- **Quick prototypes / throwaway code** — this skill enforces a design bar that adds overhead for disposable work.
+- **Quick prototypes / throwaway code** — this skill enforces a design bar that adds overhead for disposable work. Use `ponytail` prototype mode instead.
 - **Third-party design systems** (Material UI, Ant Design, Shadcn) — the skill's aesthetic-intentionality mandate conflicts with using pre-built component libraries. Use the library's own theming guide instead.
 - **Fixing an existing running site** — use `web-design-reviewer` instead. This skill is for greenfield creation only.
 
