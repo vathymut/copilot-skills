@@ -122,19 +122,6 @@ Autonomous Copilot Chat personas. Invoked with `@<agent-name>` and given a goal.
 
 Agent definitions live under [`.github/agents/`](../.github/agents/).
 
-## Repo-scoped skills (not in the installed catalog)
-
-These skills live under [`.claude/skills/`](../.claude/skills/) and are **not part of the catalog** — they are repo-scoped, not installed by the symlink: a session must run *inside this repo* to see them. They depend on the `code-review-graph` MCP server, which is configured only in this repo's `opencode.jsonc`. They overlap the catalog by design — they route through the knowledge graph (Tree-sitter + SQLite) instead of file scanning. They are user-invoked (no description), so they add no context load and never compete with their catalog counterparts for model invocation.
-
-| Skill | What it does | Catalog counterpart |
-|---|---|---|
-| `explore-codebase` | Navigates and understands codebase structure via the knowledge graph | `systematic-debugging` (principles), none for graph tooling |
-| `debug-issue` | Graph-powered navigation for systematic debugging | `systematic-debugging` |
-| `refactor-safely` | Dependency-analysis-driven safe refactoring | `refactor` |
-| `review-changes` | Change-detection + impact-driven structured review | `code-review` |
-
-These stay out of `.github/skills/` because their workflows assume the graph MCP is present; the catalog skills are tool-agnostic. Revisit this split if the graph tooling becomes generally available.
-
 ## Upstream sources
 
 Skills and agents in this catalog are adapted from the following sources:
