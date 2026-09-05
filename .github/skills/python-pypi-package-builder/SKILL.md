@@ -7,6 +7,12 @@ description: Use when building, testing, linting, versioning, or publishing a pr
 
 Create, scaffold, or publish a Python package to PyPI. Also: set up `pyproject.toml`, CI, linting, versioning.
 
+## When NOT to use
+
+- Need to fix a failing import or choose a library for a job (plotting/serving) — use `python-stack-env`.
+- Building a one-off script or ML experiment package — use `iterate-ml-experiment` § 0.5 scaffold; this skill is for publishable libraries.
+- Project is not Python — this skill only handles `pyproject.toml` Python packaging.
+
 ## Decision chain
 
 Load the referenced file at each step before proceeding.
@@ -64,3 +70,15 @@ Scaffold script: `python skills/python-pypi-package-builder/scripts/scaffold.py 
 - **Don't infer the package type.** Ask the user if unclear.
 - **Don't skip TestPyDI for first release.**
 - **Don't publish without CI (Trusted Publishing recommended).**
+
+## Completion criteria
+
+- [ ] Package type identified (ask if unclear) and folder layout chosen (`src/` vs flat)
+- [ ] Build backend selected with `pyproject.toml` from `references/pyproject-toml.md`
+- [ ] Scaffold passes `python -m build` and `ruff check` / `mypy`
+- [ ] TestPyPI dry-run succeeds before PyPI publish; Trusted Publishing configured
+
+## Related skills
+
+- `python-stack-env` — manager detection and env setup before packaging.
+- `python-api` — verify signatures after scaffold.

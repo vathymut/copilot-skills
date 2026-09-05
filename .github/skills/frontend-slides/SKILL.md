@@ -7,6 +7,13 @@ description: Use when building a presentation as a single self-contained HTML fi
 
 Create zero-dependency, animation-rich HTML presentations that run entirely in the browser. Single HTML files with inline CSS/JS, fixed 16:9 stage, no build tools.
 
+## When NOT to use
+
+- Need a data chart/figure with numeric comparison — use `tufte-data-viz`.
+- Need a new web page/app beyond slides — use `frontend-design`.
+- Need a diagram for docs — use `mermaid-diagram-specialist`.
+- Need a quick throwaway deck — use `ponytail` prototype mode instead of full design bar.
+
 ## Core invariants
 
 - **Fixed 16:9 stage (1920×1080).** Every slide lives on a fixed canvas that scales uniformly to the viewport. It may letterbox/pillarbox; it must not reflow content for mobile.
@@ -93,6 +100,19 @@ Requirements: single self-contained HTML file, all CSS/JS inline (full `viewport
 
 Optional export/share: see `references/export-rules.md`.
 
+## Completion criteria
+
+- [ ] Preamble: full `viewport-base.css` embedded inline; no external `<link>`/`<script src>`
+- [ ] Style chosen from `STYLE_PRESETS.md` previews (or custom theme applied); single HTML file only
+- [ ] Content fits stage — no scroll/overflow/overlap; dense content split across slides
+- [ ] `prefers-reduced-motion` respected; file opens offline from disk
+
 ## Supporting files
 
 Author-facing docs for humans (not loaded by the agent): `README.md` — full workflow reference with examples.
+
+## Related skills
+
+- `frontend-design` — non-slide web pages/apps.
+- `tufte-data-viz` — charts inside slides.
+- `mermaid-diagram-specialist` — diagrams inside slides.

@@ -7,6 +7,12 @@ description: Use when a spec or requirements for a multi-step task exist, before
 
 One plan per self-contained feature. A plan is a markdown file saved to `docs/plans/YYYY-MM-DD-<feature-name>.md` with: goal sentence, architecture sketch, file map, and bite-sized TDD tasks — a header, files list, then sequential steps, each one RED-GREEN-REFACTOR cycle per `test-driven-development` (failing test → verify fail → implement → verify pass → commit).
 
+## When NOT to use
+
+- Need tracer-bullet tickets with blocking edges right now — use `to-tickets`.
+- Route is genuinely unclear / multi-session fog — use `wayfinder`.
+- Single-bug fix with no multi-step decomposition — go straight to `systematic-debugging` → `test-driven-development`.
+
 Default to one plan per run. If the spec covers multiple independent subsystems, split into separate plans — one per subsystem. For mixed code/no-code tasks (e.g. config + script + docs), include all types in one plan; label each task's output format.
 
 ## Output format
@@ -29,7 +35,7 @@ This structure informs the task decomposition. Each task should produce self-con
 
 ## Bite-Sized Task Granularity
 
-Each step is one action (2-5 minutes). The cycle is `test-driven-development`'s: write the failing test, watch it fail, implement the minimal code, watch it pass, commit.
+Each step is one action (2-5 minutes). Code tasks follow `test-driven-development`: failing test → verify fail → minimal impl → verify pass → commit. Doc/config tasks use draft → review instead of TDD (note output format: `docs`, `config`, `script`).
 
 ## Plan Document Header
 
@@ -38,7 +44,7 @@ Each step is one action (2-5 minutes). The cycle is `test-driven-development`'s:
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** Implement tasks one at a time, each with a failing-test-first RED-GREEN-REFACTOR cycle. Steps use checkbox (`- [ ]`) syntax for tracking. After all tasks, run the full test suite and verify before claiming done.
+> **For agentic workers:** Implement tasks one at a time. Code tasks: failing-test-first RED-GREEN-REFACTOR; doc/config tasks: draft→review. Steps use checkbox (`- [ ]`) syntax. After all tasks, run the full test suite and verify before claiming done.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -92,3 +98,15 @@ After saving the plan, hand off to execution:
 
 - Implement tasks one at a time in order, each with TDD (RED-GREEN-REFACTOR). Run tests after each task. Do not proceed past a failing task.
 - For planning details and the task structure template, see `references/task-structure.md`.
+
+## Related skills
+
+- `to-tickets` / `wayfinder` — tickets vs fog vs plan.
+- `test-driven-development` — each task is a RED-GREEN-REFACTOR cycle.
+- `ponytail` — scope discipline per task.
+
+## Completion criteria
+
+- [ ] Plan at `docs/plans/YYYY-MM-DD-<name>.md` with header, file map, bite-sized tasks (code tasks TDD, doc tasks draft→review)
+- [ ] No placeholders (`TBD`/`TODO`/"handle edge cases"); every step has complete code + `pytest` command
+- [ ] Self-review passed (spec coverage, placeholder scan, type consistency)

@@ -7,6 +7,28 @@ description: Use when a Python import fails or you need to choose between compet
 
 Opinionated Python stack (one library per job) **and** environment management (manager detection, feature routing, install commands). This skill owns *what*, *why*, and *how*; detailed contracts live in the reference map below.
 
+## When NOT to use
+
+- Need API signature/docstring for an already-installed package — use `python-api`.
+- Need to read/query a data file — use `data-access`.
+- Building/deploying a non-Python service.
+
+
+## Gates (one-line)
+
+| Gate | Owner | Meaning |
+|---|---|---|
+| G-PKG-NAME | `iterate-ml-experiment` §0.5 | Python package name |
+| G-ENV-MGR | `python-stack-env` | Env manager (pixi/uv/poetry/…) |
+| G-TABULAR | `iterate-ml-experiment` §0.5 | `pandas` vs `polars` |
+| G-SKORE-MODE | `iterate-ml-experiment` §0.5 | `local`/`hub`/`mlflow` |
+| G-EDA | `ml-eda` / `iterate-ml-experiment` §0 | `run`/`skip` |
+| G-DESIGN | `iterate-ml-experiment` §3 | Design note approved? |
+| G-CV-SPLITTER | `evaluate-ml-pipeline` §Evaluate | Splitter derived from `split_kwargs` |
+| G-RUN | `iterate-ml-experiment` §3 | Run now vs leave for later |
+
+Full wording: `ml-conventions:references/ml-gates.md`. Harness hints never waive `AskUserQuestion` gates.
+
 ## Next-step pointers
 
 | Came here from… | After install, next is… |
@@ -29,6 +51,7 @@ Opinionated Python stack (one library per job) **and** environment management (m
 - **Opened earlier ≠ gates passed.** Reading this skill is not firing it.
 - **Harness hints do not waive gates:** `ml-conventions:references/shared-ml-conventions.md`.
 - **Post-hoc audit.** Walk pre-flight, confirm every box has `Evidence:`.
+- **Harness / non-interactive default.** When `AskUserQuestion` cannot run (CI/harness), use non-interactive defaults: `matplotlib` for plotting, `FastAPI` for serving, `skrub`/`sklearn` for tabular, and persist the choice in `journal/JOURNAL.md` with `source: harness-default` (do not treat as user approval).
 
 ## Library tiers
 
@@ -86,3 +109,15 @@ Evidence format: `ml-conventions:references/shared-preflight-evidence.md`.
 | Manager + feature scope + install command syntax | this skill |
 | skore mode variant | `iterate-ml-experiment` decides mode; this skill executes |
 | Gate registry wording | `ml-conventions` |
+
+## Related skills
+
+- `python-api` — verify symbols after install.
+- `iterate-ml-experiment` — delegates G-ENV-MGR here.
+- `ml-eda` — delegate agent feature install.
+
+## Completion criteria
+
+- [ ] Manager detected (`pixi→uv→poetry→...→none`); `G-ENV-MGR` resolved
+- [ ] Tier classification correct; competing libs gated via `AskUserQuestion` (or harness default noted)
+- [ ] Install command surfaced (not run if bootstrap); rerun pre-flight with `Evidence:`

@@ -1,9 +1,14 @@
 ---
 name: exam-ready
 description: Use when the user has study notes and/or a syllabus and wants exam-ready material — definitions, key points, practice questions, or MCQ strategies.
+allowed-tools: Read, Glob, Grep, Bash, Write
 ---
 
 # exam-ready
+
+## Audience
+
+Students with notes/syllabus cramming for a recall exam (not casual readers).
 
 ## When NOT to use
 
@@ -23,7 +28,7 @@ This order is the default. If the user states a different priority (e.g., "focus
 ## Workflow
 
 ### 1. Parse inputs
-Read study material (PDF/notes) and syllabus. If study material missing, ask. If syllabus missing, ask.
+Read study material (PDF/notes) and syllabus. If study material missing, ask. If syllabus missing, ask. Verify PDF extraction: if page count is 0 or text is garbled, report and ask for a re-upload — don't hallucinate.
 
 **Sub-steps per topic:**
 - Identify the topic heading in the syllabus
@@ -90,3 +95,8 @@ Prioritization without a given weightage follows the heuristic above.
 - [ ] Syllabus topics parsed and matched to study-material sections
 - [ ] Per-topic blocks produced (definition, key points, keywords, diagram, exam sentence/MCQ trick, practice Q)
 - [ ] Cross-references flagged and prioritization applied
+
+## Related skills
+
+- `pdf` — extract study material before triage.
+- `research` — investigate ambiguous syllabus topics.

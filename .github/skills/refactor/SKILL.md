@@ -73,3 +73,9 @@ Code that works and won't change again, or production code without tests (add te
 - [ ] Tests present and green before first structural edit
 - [ ] Each step is one edit → tests green → commit
 - [ ] Full test suite + type checker green, behavior unchanged
+
+## Related skills
+
+- `ponytail` — scope: smallest slice; this skill: best structure for that slice.
+- `test-driven-development` — mandatory failing-test-first when adding behavior after refactor.
+- `systematic-debugging` — fix root cause before reshaping.

@@ -32,8 +32,8 @@ Scaffold Copilot configuration for a new project.
 3. **Generate files**
    - `.github/copilot-instructions.md`
    - `.github/instructions/{language,testing,security,documentation,performance,code-review}.instructions.md`
-   - `.github/skills/*/SKILL.md`
-   - `.github/agents/*.agent.md`
+   - `.github/skills/<new-skill>/SKILL.md` — **only** when creating a *new* skill; never overwrite the catalog at `.github/skills/` when this repo *is* the catalog (ask first if `.github/skills/` already exists)
+   - `.github/agents/*.agent.md` — only for *new* agents; skip if `.github/agents/` exists unless user confirms overwrite
    - `.github/workflows/copilot-setup-steps.yml` if Actions are used
 
    Use templates from [`references/file-templates.md`](references/file-templates.md) and [`references/workflow-templates.md`](references/workflow-templates.md). Keep `.instructions.md` files high-level — no code snippets.
@@ -58,3 +58,8 @@ Provide the user with:
 - Usage examples for skills and agents
 - Customization tips
 - Testing recommendations
+
+## Related skills
+
+- `writing-great-skills` — author skills installed here.
+- `documentation-writer` — instructions are guidance, not code.

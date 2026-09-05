@@ -3,6 +3,11 @@ name: systematic-debugging
 description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
 ---
 
+## When NOT to use
+
+- Greenfield feature with no bug — use `test-driven-development` (with `ponytail` for scope).
+- Proactive code review — use `code-review`.
+
 # Systematic Debugging
 
 **Core principle:** Find root cause before attempting fixes. Symptom fixes are failure.
@@ -57,7 +62,7 @@ Complete each phase before proceeding to the next.
 
 **Objective:** Fix root cause, not symptom, with verification.
 
-1. Create failing test case (simplest reproduction) before fixing. Use `test-driven-development`.
+1. Create failing test case (simplest reproduction) before fixing. Use `test-driven-development` — this RED precedes any fix code from Phases 1-3; delete speculative patches before the TDD cycle.
 2. Implement single fix — one change, no "while I'm here" improvements.
 3. Verify fix — test passes, no other tests broken.
 4. If fix doesn't work: < 3 attempts → return to Phase 1. ≥ 3 → STOP and question architecture (is the pattern sound, or are you fixing symptoms of a wrong design?). Discuss with your human partner.
@@ -102,3 +107,9 @@ Document investigation, implement handling (retry, timeout, error message), add 
 - `references/condition-based-waiting.md` — replace timeouts with polling
 - `test-driven-development` — failing test creation (Phase 4.1)
 - `test-driven-development:references/verify-before-claiming.md` — evidence before success claim
+
+## Related skills
+
+- `test-driven-development` — failing-test-first fix at Phase 4.
+- `refactor` — reshape after root cause fixed.
+- `ponytail` — minimal fix at shared function (not per caller).

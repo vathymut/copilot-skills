@@ -3,6 +3,12 @@ name: python-api
 description: Use when a Python symbol's signature, docstring, or behaviour against the installed version is needed — before writing code, debugging a KeyError/AttributeError, or resolving a version-specific rename.
 ---
 
+## When NOT to use
+
+- Need to choose between competing libraries (plotting, serving, tabular DL) — use `python-stack-env`.
+- Need to read/query data files — use `data-access`.
+- Import just failed — use `python-stack-env` to install; return here after.
+
 ## Entry table — question → shape → next step
 
 Pick shape by question type. Wrong shape burns a turn.
@@ -65,3 +71,14 @@ Format: `# <topic>` header, `Source:` line, `Probed:` date, `## Signature` (Shap
 
 Tier-1 named entry points per library: `references/stack_orientation.md`. Consult before Shape 2. Interop notes (SkrubLearner + skore.evaluate, DataOps history pattern): `references/skrub_interop.md`, `references/pre_mark_alignment.md`.
 
+
+## Related skills
+
+- `python-stack-env` — install + env before lookup.
+- `build-ml-pipeline` / `evaluate-ml-pipeline` — verify estimators via this skill.
+
+## Completion criteria
+
+- [ ] Version resolved and cache listed (Shape 0)
+- [ ] Probe executed and cache file written to `scratch/api/<lib>/<version>/<topic>.md`
+- [ ] No symbol from memory — every name backed by lookup this turn

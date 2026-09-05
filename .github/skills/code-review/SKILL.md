@@ -3,6 +3,11 @@ name: code-review
 description: Use when reviewing code — diffs, PRs, branches, WIP, or SQL — or when requesting or responding to code review.
 ---
 
+## When NOT to use
+
+- Trivial formatting/linter-only diff — tooling already enforces; skip review.
+- No diff to pin (nothing changed).
+
 # Code Review
 
 Default to Branch A. Three branches:
@@ -16,7 +21,7 @@ Default to Branch A. Three branches:
 1. **Pin the diff** — default `git diff origin/main...HEAD`.
 2. **Load conditioned references** — SQL diff → `references/sql-review.md`, Python diff → `references/python-standards.md`.
 3. **Find the spec** if any, then check each factor below.
-At the end, present findings per factor with one summary line for the worst issue only. Do not merge or rerank across factors.
+At the end, present findings per factor with one summary line for the worst issue per factor. Then add one overall `CRITICAL` line at top if any factor has a security/correctness blocker that should outrank style — do not merge non-critical factors.
 
 ### 1. Code Conventions
 Code follows project style and avoids known smells.
@@ -93,3 +98,9 @@ Use when the user pastes review feedback or says "address feedback".
 - [ ] Diff pinned (`origin/main...HEAD` or explicit SHAs) and conditioned references loaded
 - [ ] Findings reported per factor with worst-issue summary; no cross-factor reranking
 - [ ] Branch B/C: reviewer dispatched or feedback triaged item-by-item with verification
+
+## Related skills
+
+- `systematic-debugging` — root cause before review fix.
+- `refactor` — structural concerns flagged, not implemented.
+- `triage` — PR as issue-with-code.

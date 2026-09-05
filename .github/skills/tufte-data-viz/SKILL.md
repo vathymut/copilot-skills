@@ -9,6 +9,11 @@ allowed-tools:
   - Write
 ---
 
+## When NOT to use
+
+- Doc diagram (flowchart/ERD/sequence) — use `mermaid-diagram-specialist`.
+- Slide deck with fixed stage — use `frontend-slides` (charts inside decks still use this skill for chart logic).
+
 # Tufte Data Visualization
 
 Apply Edward Tufte's principles whenever generating or reviewing code that renders data visually. This skill covers chart generation, not slide/presentation design.
@@ -50,9 +55,15 @@ The chart is ready only when all 22 checks pass.
 
 ---
 
-## Universal rules
+## Universal rules (5 most-violated inline)
 
-The 22 universal rules live in `rules/universal-rules.md` — load that file when you are authoring or auditing a chart (don't inline them here).
+1. **Data-ink max** — erase non-data ink (gridlines, borders) unless needed.
+2. **No chartjunk / 3D** — never use 3D or decorative gradients.
+3. **No truncated axes** — bar baselines at zero; line axes show context.
+4. **No dual axes** — split into small multiples instead.
+5. **Direct labeling** — label data in place, not via distant legend.
+
+Full 22 rules: `rules/universal-rules.md` — load that file when authoring/auditing (don't inline all here).
 
 ## Library quick reference
 
@@ -75,7 +86,13 @@ When reviewing existing chart code, consult `rules/anti-patterns.md` — the ful
 
 ---
 
-## Validation checklist
+## Completion criteria (Validation checklist)
 
 The 22 checks mirror `rules/universal-rules.md` one-to-one — this is the completion criterion. Load the checklist from `rules/universal-rules.md` § Validation and verify all 22 before presenting any chart. Do not present until all pass; on failure follow § Fix loop above.
 
+
+## Related skills
+
+- `mermaid-diagram-specialist` — doc diagrams vs data charts.
+- `frontend-slides` / `frontend-design` — charts inside pages/decks.
+- `data-access` — query data before visualizing.

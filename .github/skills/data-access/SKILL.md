@@ -93,9 +93,16 @@ On failure: missing duckdb → § install; missing ext → `INSTALL spatial`; S3
 
 ## Completion criteria
 
-- [ ] File/schema/row-count/sample reported for `read`/`s3`, or SQL output shown with truncation note
-- [ ] Conversion reports input/output/size/row-count; remote inputs use protocol setup from `references/sql-macros.md`
-- [ ] Spatial queries start with `LOAD spatial; SET geometry_always_xy = true;` and bbox-filter first
+- [ ] `read`/`s3`/`sql` → file/schema/row-count/sample or SQL output with truncation note (>100 rows noted, >1M rows warned)
+- [ ] `convert` → input/output/size/row-count reported; remote inputs use protocol setup from `references/sql-macros.md`
+- [ ] `spatial` → starts with `LOAD spatial; SET geometry_always_xy = true;` and bbox-filter first
+- [ ] `install` → extension installed via `INSTALL`/`LOAD` and verified with `SELECT * FROM duckdb_extensions()`
+
+## Related skills
+
+- `duckdb-docs` — function syntax when `data-access` reports unknown function.
+- `ml-eda` — one-time bootstrap EDA (this skill handles ad-hoc SQL after).
+- `xlsx` — read-only `.xlsx` via `excel` extension; `pdf` for PDF inputs.
 
 ---
 

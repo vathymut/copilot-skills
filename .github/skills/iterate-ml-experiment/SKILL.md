@@ -7,6 +7,29 @@ description: Use when managing the ML experiment loop — scaffolding a workspac
 
 The loop on top of `experiments/`: what to try next, why, what counts as a result, how the trail is recorded.
 
+## When NOT to use
+
+- You need ad-hoc SQL/profile of a file — use `data-access`.
+- You need to look up a single Python symbol — use `python-api`.
+- You want to declare a single pipeline without the journal/backlog loop — use `build-ml-pipeline` directly.
+- Data is not tabular (text/image/audio) — this loop assumes `pandas`/`polars` tables with `skrub`.
+
+
+## Gates (one-line)
+
+| Gate | Owner | Meaning |
+|---|---|---|
+| G-PKG-NAME | `iterate-ml-experiment` §0.5 | Python package name |
+| G-ENV-MGR | `python-stack-env` | Env manager (pixi/uv/poetry/…) |
+| G-TABULAR | `iterate-ml-experiment` §0.5 | `pandas` vs `polars` |
+| G-SKORE-MODE | `iterate-ml-experiment` §0.5 | `local`/`hub`/`mlflow` |
+| G-EDA | `ml-eda` / `iterate-ml-experiment` §0 | `run`/`skip` |
+| G-DESIGN | `iterate-ml-experiment` §3 | Design note approved? |
+| G-CV-SPLITTER | `evaluate-ml-pipeline` §Evaluate | Splitter derived from `split_kwargs` |
+| G-RUN | `iterate-ml-experiment` §3 | Run now vs leave for later |
+
+Full wording: `ml-conventions:references/ml-gates.md`. Harness hints never waive `AskUserQuestion` gates.
+
 ## Flow at a glance
 
 | Signal | Mode | Section |
@@ -138,3 +161,17 @@ Four-way hard pairing: `journal/NN_<short_name>.md` ↔ `experiments/NN_<short_n
 ## What this skill does NOT do
 
 Run experiments, explore data (`ml-eda`), edit pipeline code (`build-ml-pipeline`), write commits/PRs, or pick sourcing strategy for the user.
+
+## Related skills
+
+- `ml-eda` — G-EDA at §0 before baseline.
+- `build-ml-pipeline` / `evaluate-ml-pipeline` — implementation chain §3.
+- `python-stack-env` — manager + env setup.
+- `python-api` — verify signatures.
+
+## Completion criteria
+
+- [ ] Mode correct (bootstrap/iterate/record/read-only); JOURNAL.md read first
+- [ ] Design note `journal/NN_*.md` approved before `experiments/NN_*.py` created
+- [ ] Implementation chain: build → evaluate → smoke (with `python-api`)
+- [ ] Outcome landed in `journal/JOURNAL.md` + Status + History + Backlog hygiene

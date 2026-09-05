@@ -1,9 +1,14 @@
 ---
 name: ml-conventions
+description: Use when authoring a new ML skill that needs shared gates, ruff/scratch conventions, or the ML pre-flight evidence contract.
 ---
 
-> **This is a reference document consumed by other ML skills — not a standalone workflow.**
-> No `description` — this skill is **user-invoked only** (zero context load). Other ML skills load it via `ml-conventions:references/...` context pointers. Do not invoke directly unless authoring a new ML skill.
+> **Reference skill — not model-invoked.** This skill never auto-triggers on user tasks. Other ML skills load it via `ml-conventions:references/...` context pointers. Invoke directly only when authoring a new ML skill. Excluded from model routing; counts as 1 of 37 dirs but 0 of 36 auto-trigger skills.
+
+## When NOT to use
+
+- You are implementing a feature — consume this via `ml-conventions:references/...` from `iterate-ml-experiment`/`build-ml-pipeline` etc., not directly.
+- You are the model routing a user task — this skill never auto-triggers.
 
 # ML Conventions — Reference
 
@@ -42,3 +47,12 @@ The shared `Evidence:` row contract is in `references/shared-preflight-evidence.
   discretionary clarifications.
 - **Inventing a new gate name.** Add to `references/ml-gates.md` first;
   do not silently introduce a `G-*` constant in a consuming skill.
+## Related skills
+
+- `iterate-ml-experiment` — primary consumer of gates.
+- `build-ml-pipeline` / `evaluate-ml-pipeline` / `ml-eda` / `python-stack-env` / `python-api` — gate consumers.
+
+## Completion criteria
+
+- [ ] Consuming skill points here instead of restating rule
+- [ ] No new `G-*` invented without updating `references/ml-gates.md`

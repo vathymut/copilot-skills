@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when the user wants to explore intent and design before building, write a PRD/spec, or generate research directions — or a piece of work needs routing across planning, design, or development-workflow skills. This is the default planning entry point.
+description: Use when exploring intent and design before building — PRDs, specs, or research directions. Default planning entry point.
 ---
 
 # Brainstorming Ideas Into Designs
@@ -52,9 +52,7 @@ Once answered, route to the appropriate artifact template:
 
 ## Hard gate
 
-Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until the user has approved a design or research proposal. Exception: a time-boxed spike (`references/spike-template.md`) or a `research` investigation may run in parallel when the design question is blocked.
-
-Every project goes through this process. "Simple" projects are where unexamined assumptions cause the most wasted work.
+Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until the user has approved a design or research proposal. Exceptions: (1) a time-boxed spike (`references/spike-template.md`), (2) a `research` investigation when blocked, or (3) the user said "implement now" / "skip design" / the task is labeled throwaway (`ponytail` prototype) / single-bug fix via `systematic-debugging`. Every project benefits from this loop; for <1 day tasks use the fast-track: one question → one paragraph decision → proceed.
 
 ## Completion criteria
 
@@ -69,3 +67,10 @@ Every project goes through this process. "Simple" projects are where unexamined 
 - YAGNI ruthlessly; explore alternatives
 - Incremental validation (approval before moving on)
 - Be flexible — go back and clarify when needed
+
+## Related skills
+
+- `writing-plans` — next after approval.
+- `to-tickets` — when route is clear, skip plan.
+- `wayfinder` — when route is foggy.
+- `research` — investigate open question before deciding.

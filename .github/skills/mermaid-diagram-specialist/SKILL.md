@@ -1,6 +1,7 @@
 ---
 name: mermaid-diagram-specialist
 description: Use when a diagram belongs in documentation as Mermaid — flowcharts, sequence diagrams, ERDs, or architecture and state diagrams. For data charts and figures, use tufte-data-viz instead.
+allowed-tools: Read, Glob, Grep, Bash, Write
 ---
 
 # Mermaid Diagram Specialist
@@ -25,7 +26,7 @@ Consult [`references/syntax.md`](references/syntax.md) for the selected type's s
 
 Write the diagram code following these principles: simplicity (under 20 nodes), clear labels, consistent flow direction, subgraphs for grouping, and notes for complex logic. Keep diagram source in markdown files, not images.
 
-**Completion criterion:** Valid mermaid syntax that renders without errors.
+**Completion criterion:** `mmdc --stdin < diagram.mmd` or `mermaid.live` renders without error; no broken links in subgraph labels.
 
 ## Step 3: Validate
 
@@ -43,3 +44,15 @@ Run through [mermaid.live](https://mermaid.live) or the platform renderer; fix a
 Deliver the mermaid code block in markdown. If the platform doesn't render mermaid natively, note that [mermaid.live](https://mermaid.live) can be used for preview and export.
 
 **Completion criterion:** Diagram delivered, rendering confirmed.
+
+## Related skills
+
+- `tufte-data-viz` — numeric charts, not doc diagrams.
+- `frontend-slides` — diagrams inside decks.
+- `documentation-writer` — docs that contain diagrams.
+
+## Completion criteria
+
+- [ ] Diagram type chosen via table; syntax from `references/syntax.md`
+- [ ] `mmdc`/mermaid.live renders clean; <20 nodes, clear labels
+- [ ] Delivered as markdown code block with preview link

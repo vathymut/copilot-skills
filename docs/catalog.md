@@ -12,7 +12,7 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 ## Routers
 
-One user-invoked reference router (`ml-conventions` — no `description`, loads `ml-conventions:references/...` via context pointers). Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
+One reference skill (`ml-conventions` — standalone description for authoring new ML skills; other ML skills load `ml-conventions:references/...` via context pointers, never auto-triggered). Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation. Local fallback for `to-tickets` is `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (see `docs/architecture.md`).
 
 ## Code Quality & Security
 
@@ -65,7 +65,7 @@ One user-invoked reference router (`ml-conventions` — no `description`, loads 
 | `build-ml-pipeline` | Declares ML pipelines as skrub DataOps graphs, stopping at the predictor |
 | `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
 | `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments; also scaffolds the workspace layout (§ 0.5 Scaffold, formerly `ml-scaffold`) and bootstraps the journal |
-| `ml-conventions` | **User-invoked reference** — single source of truth for cross-cutting ML rules (ruff, scratch/, harness hints, missing-dependency, gate registry, pre-flight) — not directly invoked |
+| `ml-conventions` | **Reference** — cross-cutting ML rules (ruff, scratch/, harness hints, missing-dependency, gate registry, pre-flight) — only for authoring new ML skills |
 | `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
 | `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs) |
@@ -92,7 +92,7 @@ One user-invoked reference router (`ml-conventions` — no `description`, loads 
 | `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
 | `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
 | `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
-| `ui-screenshots` | Captures web/Electron/desktop app screenshots during development (full-page, interactive states, before/after, crops); annotates them with callouts (rectangles, arrows, labels); assembles annotated animated GIF demos from captured frames |
+| `ui-screenshots` | Captures web/Electron/desktop screenshots and annotates them with callouts; assembles GIF demos |
 
 ## Communication
 
@@ -114,11 +114,11 @@ To read a skill's full instructions, open the matching file under [`.github/skil
 
 Autonomous Copilot Chat personas. Invoked with `@<agent-name>` and given a goal.
 
-| Agent | Purpose |
-|---|---|
-| `debug` | Finds and fixes bugs in your application |
-| `janitor` | Cleanup, simplification, and tech-debt remediation |
-| `swe-subagent` | Senior engineer subagent for implementation tasks |
+| Agent | Purpose | Loads skills |
+|---|---|---|
+| `debug` | Finds and fixes bugs in your application | `systematic-debugging` → `test-driven-development` |
+| `janitor` | Cleanup, simplification, and tech-debt remediation | `refactor` + `ponytail` |
+| `swe-subagent` | Senior engineer subagent for implementation tasks | `test-driven-development` + `systematic-debugging` |
 
 Agent definitions live under [`.github/agents/`](../.github/agents/).
 

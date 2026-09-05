@@ -1,6 +1,7 @@
 ---
 name: pdf
 description: Use when the user needs to read, extract, merge, split, rotate, create, watermark, encrypt, or OCR a PDF file.
+allowed-tools: Read, Bash, Write
 ---
 
 Process PDFs by identifying the operation, selecting the right tool, implementing, and verifying output.
@@ -32,7 +33,7 @@ Choose based on the operation:
 | Forms | pypdf | pdf-lib (JS) |
 | Encrypt/decrypt | pypdf | qpdf (CLI) |
 
-Check that the library is installed; install if missing. For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), load [`forms.md`](./forms.md) — it routes the bundled `scripts/` helpers. Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in [`reference.md`](./reference.md). If `forms.md` is missing, fall back to `pypdf` field APIs directly.
+Check that the library is installed; install if missing. For the **forms** workflow (detect fillable fields, extract field info, fill, annotate), use `pypdf` field APIs directly (`AcroForm` / `update_page_form_field_values`). If a bundled `forms.md` reference is added to this skill in the future, load it for `scripts/` helpers. Advanced / second-tier libraries (`pypdfium2`, etc.) are documented in `references/` when present.
 
 ### Common code snippet (use directly for routine work)
 
@@ -68,3 +69,8 @@ Write a script that:
 - [ ] Output file exists and is non-empty
 - [ ] Content spot-checked (page count, text sample, table row count)
 - [ ] User informed of results
+
+## Related skills
+
+- `xlsx` — sibling file-doc skill (share zero-error bar).
+- `data-access` — read `.pdf` table via DuckDB fallback when needed.

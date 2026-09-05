@@ -16,6 +16,11 @@ you just want tracked, ordered work items.
 - Someone said "turn this into tickets"
 - The route to the goal is clear; you just need it sliced and ordered
 
+## When NOT to use
+
+- Route is genuinely unclear / multi-session fog — use `wayfinder` (heavyweight).
+- Single bug fix with no multi-step decomposition — use `systematic-debugging`.
+
 **Don't use when** the route to the destination is genuinely unclear — that's `wayfinder` (heavyweight multi-session mode).
 
 ## Steps
@@ -41,7 +46,7 @@ Present title / Blocked by / What it delivers. Iterate on granularity and edges 
 
 ### 5. Publish
 
-Local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance criteria), or a real tracker using native blocking with the `ready-for-agent` label.
+Local files under `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (title, What to build, Blocked by, `Status: ready-for-agent`, acceptance criteria), or a real tracker using native blocking with the `ready-for-agent` label. Local fallback is documented in `docs/catalog.md` § Routers and `docs/architecture.md` — not tracker-specific.
 
 Work the frontier one at a time; each task is a RED-GREEN-REFACTOR cycle per `test-driven-development`.
 
@@ -68,3 +73,9 @@ Work the frontier one at a time; each task is a RED-GREEN-REFACTOR cycle per `te
 - [ ] Blocking edges wired between dependent tickets
 - [ ] User approved the breakdown
 - [ ] Tickets published to tracker or local files
+
+## Related skills
+
+- `wayfinder` — when route unclear, not tracible slices.
+- `writing-plans` — one feature plan; this skill: many tickets from spec.
+- `triage` — similar tracker work but for incoming issues.

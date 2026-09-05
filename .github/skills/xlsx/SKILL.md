@@ -1,6 +1,7 @@
 ---
 name: xlsx
 description: Use when the deliverable is a spreadsheet (.xlsx) the user wants created, edited, analyzed, or cleaned.
+allowed-tools: Read, Bash, Write
 ---
 
 # XLSX creation, editing, and analysis
@@ -48,7 +49,7 @@ sheet['B10'] = '=SUM(B2:B9)'
 2. **Create/Load** — new workbook or existing file.
 3. **Modify** — add/edit data, formulas, and formatting.
 4. **Save** — write to file.
-5. **Recalculate formulas (MANDATORY IF USING FORMULAS):** `python scripts/recalc.py output.xlsx` (LibreOffice recalculates; the script auto-configures it on first run, including sandboxed environments via `scripts/office/soffice.py`).
+5. **Recalculate formulas (MANDATORY IF USING FORMULAS):** `python scripts/recalc.py output.xlsx` (LibreOffice recalculates; the script auto-configures it on first run, including sandboxed environments via `scripts/office/soffice.py`). If `soffice` unavailable, warn: "LibreOffice missing — shipped with `data_only=False`; install LibreOffice or `brew install --cask libreoffice` to recalc."
 6. **Verify and fix errors** — the script returns JSON: if `status` is `errors_found`, check `error_summary` for error types/locations, fix, recalculate again. Error types enumerated in Zero Formula Errors above.
 7. **Validate (required for files > 10 rows):**
    - **Row-wise type guards** — every cell matches its expected dtype (numeric cells numeric, date cells parse, string cells non-null)
@@ -72,3 +73,14 @@ sheet['B10'] = '=SUM(B2:B9)'
 - [ ] **Edge cases**: test with zero values and negative numbers
 
 > Reading `data_only=True` returns calculated values, but **saving after `data_only=True` replaces formulas with values permanently.**
+
+## Completion criteria
+
+- [ ] Zero formula errors — `scripts/recalc.py` returns `ok` (or `errors_found` fixed and rerun)
+- [ ] Formulas not hardcodes — derived cells contain `=` references, not static numbers
+- [ ] Type guards passed for files >10 rows (numeric/date/string + formula sanity ±0.01)
+
+## Related skills
+
+- `data-access` — read-only `.xlsx` via DuckDB `excel` extension.
+- `pdf` — similar file-doc deliverable (share validation rigor).

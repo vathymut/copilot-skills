@@ -1,6 +1,7 @@
 ---
 name: frontend-design
 description: Use when building new web components, pages, applications, posters, or interactive artifacts from scratch or a brief.
+allowed-tools: Read, Glob, Grep, Bash, Write
 ---
 
 # Frontend Design
@@ -72,3 +73,9 @@ Match implementation complexity to the direction. Maximalist calls for detail; m
 - No accidental/generic patterns remain
 - Typography, colour, motion, and composition serve the chosen direction
 - Visual regression and accessibility audit passed
+
+## Related skills
+
+- `web-design-reviewer` — fix existing; this skill: greenfield.
+- `ui-screenshots` — capture verification.
+- `tufte-data-viz` — charts inside pages.

@@ -7,6 +7,12 @@ description: Use when the user invokes /triage or asks to sort, label, verify, o
 
 Move issues on the project issue tracker through a small state machine of triage roles.
 
+## When NOT to use
+
+- You were asked to implement a fix, not triage it — use `systematic-debugging` → `test-driven-development`.
+- Breaking a spec into ordered tickets — use `to-tickets`.
+- Planning when the route is unclear — use `wayfinder`.
+
 If this repo treats external pull requests as a request surface (see the issue-tracker conventions in `.github/instructions/issue-tracker.instructions.md`), triage covers them too: **a PR is an issue with attached code** — same roles, same states, same machine, with a few deltas marked "for a PR" below. Resolve a bare `#42` to an issue or PR per the tracker config.
 
 Every comment or issue posted to the issue tracker during triage **must** start with this disclaimer:
@@ -80,3 +86,15 @@ Capture everything resolved during grilling under "established so far". Question
 ## Resuming a previous session
 
 If prior triage notes exist, read them, check whether the reporter has answered outstanding questions, and present an updated picture before continuing. Don't re-ask resolved questions.
+
+## Related skills
+
+- `to-tickets` — spec → tickets; this skill: inbox → ready-for-agent.
+- `wayfinder` — multi-session fog map.
+- `code-review` — PR review after triage.
+
+## Completion criteria
+
+- [ ] Issue/PR context gathered (body, diff, prior notes); redundancy + prior-rejection checked
+- [ ] Category + state recommended with reasoning; maintainer direction received
+- [ ] Outcome applied with disclaimer header and correct label (`ready-for-agent`/`needs-info`/`wontfix` etc.)

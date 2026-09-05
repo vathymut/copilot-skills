@@ -1,6 +1,6 @@
 ---
 name: ui-screenshots
-description: Use when capturing screenshots of a running web app, Electron app, or desktop window during development — full-page, interactive states, before/after pairs, section crops — or assembling them into an annotated animated GIF/video demo. Also use when adding visual callouts — rectangles, arrows, labels, or color highlights — to screenshots, PR images, or diagrams.
+description: Use when capturing a screenshot or GIF of a running app, or annotating an existing image with callouts.
 ---
 
 # UI Screenshots
@@ -152,3 +152,9 @@ Full procedure (capture → assemble → annotate → fade): `references/gif-ass
 - Desktop mss requires visible, unobstructed window.
 - Electron requires Node.js Playwright.
 - Heavy SPAs may need custom wait logic.
+
+## Related skills
+
+- `web-design-reviewer` — delegates capture here, then fixes.
+- `frontend-design` — greenfield UI (no screenshot to capture).
+- `tufte-data-viz` — charts vs screenshots.

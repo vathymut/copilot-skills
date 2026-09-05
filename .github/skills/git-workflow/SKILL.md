@@ -92,3 +92,8 @@ never run `git worktree remove` from inside the worktree (cd to main root first)
 - [ ] Fixup/squash verified via `git log --oneline`
 - [ ] worktree-setup: isolation detected, `references/worktree.md` procedure followed
 - [ ] finish-branch: tests green, environment detected, user picked option, cleanup done per Step 6
+
+## Related skills
+
+- `test-driven-development` — tests green before finish-branch.
+- `code-review` — request review before merge.

@@ -7,6 +7,12 @@ description: Use when implementing any feature or bugfix, before writing impleme
 
 **Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.
 
+## When NOT to use
+
+- Exploring an unknown domain where the right API is unclear — use `ponytail` spike or `research` first, then TDD the settled shape.
+- Fixing a pure doc/config typo with no behavior — still write a trivial assertion that the rendered output contains the fix.
+- Refactoring with no behavior change — use `refactor`; tests already cover behavior.
+
 **The Iron Law:** NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST. Write code before the test? Delete it. Start over. No exceptions — don't keep it as "reference", don't "adapt", don't look at it. Implement fresh from tests.
 
 ## The Four Phases
@@ -18,7 +24,8 @@ One minimal test, one behavior, clear name, real code (no mocks unless unavoidab
 ### Verify RED — Watch it fail
 
 ```bash
-npm test path/to/test.test.ts
+npm test path/to/test.test.ts   # JS/TS
+pytest path/to/test_file.py -v  # Python
 ```
 MANDATORY. Confirm: test fails (not errors), failure message is expected, fails because feature missing (not typos). Test passes? You're testing existing behavior — fix test.
 
@@ -29,7 +36,8 @@ Write simplest code that passes the test. Don't add features, refactor, or "impr
 ### Verify GREEN — Watch it pass
 
 ```bash
-npm test path/to/test.test.ts
+npm test path/to/test.test.ts   # JS/TS
+pytest path/to/test_file.py -v  # Python
 ```
 MANDATORY. Confirm: test passes, other tests still pass, output pristine. Test fails? Fix code, not test.
 
@@ -57,7 +65,7 @@ Next failing test for next feature.
 
 **REFACTOR:** Extract validation for multiple fields if needed.
 
-## Verification Checklist
+## Completion criteria (Verification Checklist)
 
 - [ ] Every new function/method has a test
 - [ ] Watched each test fail before implementing (feature missing, not typo)
@@ -102,3 +110,9 @@ Target 100% on changed lines. Each missing line = test to write or dead code to 
 Production code → test exists and failed first
 Otherwise → not TDD
 ```
+
+## Related skills
+
+- `systematic-debugging` — root cause before RED.
+- `refactor` — structure improvement after GREEN.
+- `git-workflow` — commit per RED-GREEN cycle.

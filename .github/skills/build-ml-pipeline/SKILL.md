@@ -8,6 +8,28 @@ description: Use when declaring an ML pipeline with skrub and the source-to-X-ma
 Declarative shape of a Python ML pipeline from data source to predictor.
 Key terms (`X marker`, `predict grid`, `cross-row step`, `Layers 1/2/3`): see `references/layer_examples.md` § terminology.
 
+## When NOT to use
+
+- Single-table IID data without joins or cross-row features — plain `sklearn.Pipeline` or `sklearn.compose.ColumnTransformer` is simpler; this skill adds skrub overhead.
+- You need to run cross-validation right now — use `evaluate-ml-pipeline` after declaring.
+- No `skrub`/`sklearn` stack — route to `python-stack-env` first.
+
+
+## Gates (one-line)
+
+| Gate | Owner | Meaning |
+|---|---|---|
+| G-PKG-NAME | `iterate-ml-experiment` §0.5 | Python package name |
+| G-ENV-MGR | `python-stack-env` | Env manager (pixi/uv/poetry/…) |
+| G-TABULAR | `iterate-ml-experiment` §0.5 | `pandas` vs `polars` |
+| G-SKORE-MODE | `iterate-ml-experiment` §0.5 | `local`/`hub`/`mlflow` |
+| G-EDA | `ml-eda` / `iterate-ml-experiment` §0 | `run`/`skip` |
+| G-DESIGN | `iterate-ml-experiment` §3 | Design note approved? |
+| G-CV-SPLITTER | `evaluate-ml-pipeline` §Evaluate | Splitter derived from `split_kwargs` |
+| G-RUN | `iterate-ml-experiment` §3 | Run now vs leave for later |
+
+Full wording: `ml-conventions:references/ml-gates.md`. Harness hints never waive `AskUserQuestion` gates.
+
 ## Decision flow
 
 **1 — Pick source binding pattern.** Root the pipeline on `skrub.var(...)` identifiers. `skrub.X(...)` / `skrub.y(...)` shortcut roots and materialized DataFrame roots are forbidden. See `references/source-binding.md`.
@@ -75,3 +97,17 @@ Pre-flight (build-ml-pipeline):
 6. Custom transformer — `BaseEstimator` + `TransformerMixin` only when stateful.
 
 Full code: `references/common_patterns.md`. Persistence / reproducibility checks: `references/reproducibility.md`.
+
+## Completion criteria
+
+- [ ] `skrub.var` source binding chosen; X marker placed per decision flow with `split_kwargs`
+- [ ] Stateless (`apply_func`) vs stateful (`apply`) correct per litmus test
+- [ ] `build_learner(data_dir_preview=None)` returns `skb.make_learner()`; no shortcut roots
+- [ ] Pre-flight emitted with evidence; symbols verified via `python-api`
+
+## Related skills
+
+- `evaluate-ml-pipeline` — next: CV + smoke after declaration.
+- `iterate-ml-experiment` — orchestrates this + evaluate + smoke.
+- `python-stack-env` — missing `skrub`/`sklearn`.
+- `ml-eda` — run before first pipeline.

@@ -1,11 +1,28 @@
 ---
 name: domain-modeling
 description: Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs the domain model maintained.
+allowed-tools: Read, Glob, Grep, Bash, Write
 ---
 
 # Domain Modeling
 
 Actively build and sharpen the project's domain model. The domain model lives in `CONTEXT.md` (glossary) and `docs/adr/` (architectural decisions).
+
+## Example glossary (2 terms)
+
+```md
+# Order Context
+
+Ordering for physical goods.
+
+## Language
+
+**Order**:
+Placed by a Customer, contains Line Items. _Avoid_: Purchase, Transaction.
+
+**Fulfillment**:
+Picking + packing + shipping an Order. _Avoid_: Delivery (means arrival).
+```
 
 ## File structure
 
@@ -72,3 +89,9 @@ Only offer to create an ADR when all three are true:
 3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
 
 If any of the three is missing, skip the ADR. When all three hold, write it as an ADR (Architectural Decision Record): a short doc with title, status, context, decision, and consequences, numbered sequentially (e.g. `ADR-0007`). Format template: [`references/adr-template.md`](references/adr-template.md).
+
+## Related skills
+
+- `brainstorming` — explore intent before locking language.
+- `documentation-writer` — prose docs; this skill owns `CONTEXT.md`/`docs/adr/`.
+- `to-tickets` / `wayfinder` — respect glossary/ADRs when slicing.

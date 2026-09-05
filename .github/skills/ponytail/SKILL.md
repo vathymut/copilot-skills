@@ -5,6 +5,11 @@ argument-hint: "[lite|full|ultra]"
 license: MIT
 ---
 
+## When NOT to use
+
+- Restructuring existing code without behavior change — use `refactor`.
+- Root-cause debugging with evidence gathering — use `systematic-debugging` (ponytail fixes at shared function after cause is known).
+
 # Ponytail
 
 ## Governance
@@ -54,8 +59,21 @@ give it in full, the rule is only against unrequested prose.
 
 Pattern: `[code] → skipped: [X], add when [Y].`
 
+## Completion criteria
+
+- [ ] Ladder climbed after reading affected code; higher rung taken among ties
+- [ ] No speculative abstraction/config/factory added; reused existing codebase code where found
+- [ ] Deliberate simplification marked with `ponytail:` comment including ceiling/upgrade path
+- [ ] Output is code first + ≤3 lines "skipped / add when" (unless user asked for prose)
+
 ## References
 
 - Intensity worked example: `references/intensity.md`
 - Prototype mode (logic/state): `references/prototype-logic.md`
 - Prototype mode (UI): `references/prototype-ui.md`
+
+## Related skills
+
+- `refactor` — restructuring existing code (ponytail is for new code).
+- `writing-plans` — scope discipline per plan; ponytail governs minimal slice per task.
+- `systematic-debugging` — root cause before lazy fix.

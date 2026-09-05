@@ -5,6 +5,11 @@ argument-hint: "<question or keyword>"
 allowed-tools: Bash
 ---
 
+## When NOT to use
+
+- Need to read/profile a data file — use `data-access`.
+- Need EDA before first ML experiment — use `ml-eda`.
+
 You are helping the user find relevant DuckDB or DuckLake documentation.
 
 Query: `$@`
@@ -25,12 +30,12 @@ Run `duckdb --version`. If ≥1.2.0, use the DuckDB docs search index. If <1.2.0
 
 ### 3. Choose the data source
 
-| Index | Remote URL | Cache file | Versions | Use when |
-|-------|-----------|------------|----------|----------|
-| **DuckDB docs** | `https://duckdb.org/data/docs-search.duckdb` | `duckdb-docs.duckdb` | `lts`, `current`, `blog` | Default |
-| **DuckLake docs** | `https://ducklake.select/data/docs-search.duckdb` | `ducklake-docs.duckdb` | `stable`, `preview` | Query mentions DuckLake |
+| Index | Cache file | Versions | Use when |
+|-------|------------|----------|----------|
+| **DuckDB docs** | `duckdb-docs.duckdb` | `lts`, `current`, `blog` | Default |
+| **DuckLake docs** | `ducklake-docs.duckdb` | `stable`, `preview` | Query mentions DuckLake |
 
-URLs live in `scripts/fetch-docs.sh` — this table is an index, not the source of truth if the upstream moves.
+Remote URLs and cache paths are defined in `scripts/fetch-docs.sh` — treat that script as source of truth (upstream URL may move).
 
 Default version = `lts`. Switch to `current` for nightly features, `blog` for background posts. Omit version filter when unsure.
 
@@ -41,10 +46,10 @@ Natural-language question → extract nouns, function names, SQL keywords. Drop 
 ### 5. Fetch and cache (single command)
 
 ```bash
-bash duckdb-docs:scripts/fetch-docs.sh "$HOME/.duckdb/docs/duckdb-docs.duckdb" "https://duckdb.org/data/docs-search.duckdb"
+bash duckdb-docs:scripts/fetch-docs.sh "$HOME/.duckdb/docs/duckdb-docs.duckdb"
 ```
 
-For DuckLake: cache file `ducklake-docs.duckdb`, remote `https://ducklake.select/data/docs-search.duckdb`.
+For DuckLake: `bash duckdb-docs:scripts/fetch-docs.sh "$HOME/.duckdb/docs/ducklake-docs.duckdb"` (script selects URL).
 
 If the fetch fails → network unavailable → report and fall through to 5‑b.
 
@@ -81,3 +86,7 @@ After all chunks, synthesize a concise answer to `$@`. If chunks answer directly
 - [ ] DuckDB version checked; correct index chosen (or fallback streamed)
 - [ ] Cache fetched if missing/stale; search executed with extracted terms
 - [ ] Results presented per chunk with source URL; concise synthesis given
+
+## Related skills
+
+- `data-access` — data file work that prompted the docs lookup; install DuckDB via `data-access` § install.

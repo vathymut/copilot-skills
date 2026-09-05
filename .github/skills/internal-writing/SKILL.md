@@ -111,3 +111,8 @@ Write internal communications following the formats in `examples/`.
 - [ ] Branch chosen before any drafting (no mixing branches)
 - [ ] Only the chosen branch's references loaded
 - [ ] Branch-specific completion criteria met (see above)
+
+## Related skills
+
+- `documentation-writer` — external/software docs.
+- `ml-paper-writing` — academic papers, not internal prose.

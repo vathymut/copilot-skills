@@ -7,6 +7,13 @@ description: Use when drafting an ML/AI paper from a research repo, structuring 
 
 Expert guidance for **NeurIPS, ICML, ICLR, ACL, AAAI, COLM**. For systems venues (OSDI, NSDI, ASPLOS, SOSP), use the venue's own authoring guidelines instead.
 
+## When NOT to use
+
+- Need internal prose (minutes, reviews, updates) — use `internal-writing`.
+- Need software docs (tutorials/how-tos) — use `documentation-writer`.
+- No research repo or contribution yet — use `brainstorming` → `research` to establish one first.
+- Paper is for a non-ML venue without LaTeX — use venue template directly.
+
 ## ⚠️ CRITICAL: Never Hallucinate Citations
 
 AI-generated citations have a ~40% error rate. **Never write BibTeX from memory. Always fetch programmatically.**
@@ -16,6 +23,8 @@ AI-generated citations have a ~40% error rate. **Never write BibTeX from memory.
 - Guessing a plausible reference → **never** ❌
 
 Full citation workflow (Semantic Scholar API, DOI fetch, placeholder rules): [references/citation-workflow.md](references/citation-workflow.md). Bibliography: `references/sources.md`.
+
+**Post-draft check:** `grep -R "PLACEHOLDER" --include="*.tex" --include="*.bib" .` must return 0 lines before submission; any `\\cite{PLACEHOLDER` is a blocker.
 
 ---
 
@@ -98,3 +107,15 @@ Rebuttal and reviewer evaluation criteria: `references/reviewer-guidelines.md`.
 - **Tables**: use `booktabs`; bold best value per metric; include direction symbols (↑/↓); consistent decimal precision
 
 
+
+## Related skills
+
+- `research` — source gathering before writing.
+- `internal-writing` — internal prose, not papers.
+- `documentation-writer` — software docs.
+
+## Completion criteria
+
+- [ ] Contribution one-liner + venue confirmed; no BibTeX hallucinated
+- [ ] `grep -R PLACEHOLDER` returns 0; all cites fetched via CrossRef/arXiv
+- [ ] Draft sections follow `references/paper-structure.md` order with venue limits respected

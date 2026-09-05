@@ -65,3 +65,9 @@ Because of these differences, only the skills directory is symlinked directly fr
 - Prefer upstream skills that follow the standard `skills/<name>/SKILL.md` layout.
 - Avoid duplicating skills from the Superpowers cache into `.github/skills/`.
 - When a skill exists in multiple upstream sources, keep the version that best matches your team's conventions.
+
+## Tracker fallback (local vs hosted)
+
+- `to-tickets` writes to `.scratch/<feature-slug>/issues/<NN>-<slug>.md` when no tracker is configured; otherwise it uses native blocking with `ready-for-agent`.
+- `wayfinder` owns `wayfinder:map` issues; only create a map when fog surfaced (else `to-tickets`).
+- See `.github/instructions/issue-tracker.instructions.md` for per-tracker bindings.

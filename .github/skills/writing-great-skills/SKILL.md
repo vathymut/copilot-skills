@@ -3,6 +3,11 @@ name: writing-great-skills
 description: Use when writing, editing, reviewing, or consolidating a skill — especially when its description, predictability, or structure needs work, or before deploying a new or changed skill.
 ---
 
+## When NOT to use
+
+- Writing software docs (tutorial/how-to) — use `documentation-writer`.
+- Writing internal prose — use `internal-writing`.
+
 # Writing Great Skills — 6-Step Workflow
 
 A skill exists to wrangle determinism out of a stochastic system. **Predictability** — the agent taking the same _process_ every run — is the root virtue.
@@ -36,3 +41,8 @@ Close loopholes, reduce token count, make every word pull weight. Bulletproofing
 - [ ] Flowcharts rendered and checked in
 
 > Reference material lives in `references/` — load on demand, not here: [`references/eval-workflow.md`](references/eval-workflow.md) (eval tooling), [`references/schemas.md`](references/schemas.md) (skill schemas), [`references/platform-specific.md`](references/platform-specific.md) (platform specifics), [`anthropic-best-practices.md`](anthropic-best-practices.md) (theory), and the `agents/` subagents (`analyzer`, `comparator`, `grader`).
+
+## Related skills
+
+- `github-copilot-starter` — scaffolds where new skill lands.
+- `documentation-writer` — prose inside skill refs.
