@@ -12,7 +12,7 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 ## Routers
 
-One reference skill (`ml-conventions` — standalone description for authoring new ML skills; other ML skills load `ml-conventions:references/...` via context pointers, never auto-triggered). Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation. Local fallback for `to-tickets` is `.scratch/<feature-slug>/issues/<NN>-<slug>.md` (see `docs/architecture.md`).
+Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
 
 ## Code Quality & Security
 
@@ -20,7 +20,6 @@ One reference skill (`ml-conventions` — standalone description for authoring n
 |---|---|
 | `ponytail` | Forces the laziest minimal solution for any coding task, with optional intensity levels and a throwaway prototype mode |
 | `refactor` | Improves code structure without changing behavior — cleans up, breaks down large functions, removes code smells |
-| `web-design-reviewer` | Inspects a running site to fix design, layout, responsive, and accessibility issues |
 
 ## Development Workflow & Git
 
@@ -28,7 +27,6 @@ One reference skill (`ml-conventions` — standalone description for authoring n
 |---|---|
 | `git-workflow` | Git workflow in one skill: commit (Conventional Commits), resolve merge/rebase conflicts, set up worktrees, and finish a development branch |
 | `github-copilot-starter` | Sets up Copilot configuration (instructions, agents, skills, workflows) for a new project |
-| `writing-great-skills` | Guidance for writing, editing, reviewing, or consolidating a skill |
 
 ## Engineering Discipline
 
@@ -38,9 +36,6 @@ One reference skill (`ml-conventions` — standalone description for authoring n
 | `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions (ADRs) |
 | `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
 | `test-driven-development` | Drives implementation via tests, before writing implementation code |
-| `triage` | Moves issues and PRs through triage roles and writes agent-ready briefs |
-| `to-tickets` | Breaks a plan, spec, or conversation into tracker tickets with blocking edges, in one session |
-| `wayfinder` | Charts a shared multi-session ticket map when the work is too big and the route is unclear |
 | `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
 
 ## Documentation & Specs
@@ -53,20 +48,14 @@ One reference skill (`ml-conventions` — standalone description for authoring n
 
 | Skill | What it does |
 |---|---|
-| `brainstorming` | Explores intent and design before creative work; default planning/development-workflow entry point (folded-in `planning` router points at plans, wayfinder, subagents) |
-| `exam-ready` | Prepares exam-ready study material from notes and a syllabus |
+| `brainstorming` | Explores intent and design before creative work; default planning/development-workflow entry point (folded-in `planning` router points at plans and subagents) |
 | `ml-paper-writing` | Writes publication-ready ML/AI papers for top venues |
 | `research` | Investigates a question against high-trust primary sources and captures findings as Markdown |
 
-## ML Experimentation
+## Python Stack & Environment
 
 | Skill | What it does |
 |---|---|
-| `build-ml-pipeline` | Declares ML pipelines as skrub DataOps graphs, stopping at the predictor |
-| `evaluate-ml-pipeline` | Evaluates and audits an ML pipeline: CV report, predict-time proof, digest |
-| `iterate-ml-experiment` | Drives the propose-approve-implement-record loop for ML experiments; also scaffolds the workspace layout (§ 0.5 Scaffold, formerly `ml-scaffold`) and bootstraps the journal |
-| `ml-conventions` | **Reference** — cross-cutting ML rules (ruff, scratch/, harness hints, missing-dependency, gate registry, pre-flight) — only for authoring new ML skills |
-| `ml-eda` | Runs a one-time bootstrap EDA before the first ML experiment design note |
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
 | `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs) |
 
@@ -82,7 +71,6 @@ One reference skill (`ml-conventions` — standalone description for authoring n
 | Skill | What it does |
 |---|---|
 | `data-access` | Reads, profiles, converts, and queries local or remote data files with DuckDB; also spatial/geographic queries (distances, GeoJSON, Overture Maps) and DuckDB extension/CLI installation |
-| `duckdb-docs` | Searches DuckDB and DuckLake docs via a locally cached full-text index |
 
 ## Frontend & Creative
 
@@ -146,7 +134,7 @@ Skills and agents in this catalog are adapted from the following sources:
 
 ## Counts
 
-- **37 skills** in `.github/skills/` (1 user-invoked reference `ml-conventions`, 36 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
+- **25 skills** in `.github/skills/` (25 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:
