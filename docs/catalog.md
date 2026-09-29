@@ -34,6 +34,8 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 |---|---|
 | `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
 | `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions (ADRs) |
+| `grill-me` | User-invoked router that sharpens a plan via the `grilling` interview |
+| `grilling` | Relentlessly interviews the user round-by-round to stress-test a plan or decision |
 | `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
 | `test-driven-development` | Drives implementation via tests, before writing implementation code |
 | `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
@@ -79,6 +81,7 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 | `frontend-design` | Creates distinctive, production-grade frontend interfaces and artifacts |
 | `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
 | `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
+| `show-me` | Explains the current topic visually — pseudocode, call/component trees, Mermaid, diff-shape sketches, focused HTML artifacts |
 | `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
 | `ui-screenshots` | Captures web/Electron/desktop screenshots and annotates them with callouts; assembles GIF demos |
 
@@ -87,6 +90,7 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 | Skill | What it does |
 |---|---|
 | `internal-writing` | Writes internal prose: minutes, reviews, brag sheets, updates, FAQs |
+| `unslop` | Removes AI writing patterns via audit or two-pass rewrite (diagnosis then reconstruction) |
 
 ## Documents & Files
 
@@ -131,10 +135,12 @@ Skills and agents in this catalog are adapted from the following sources:
 | `mattpocock/skills` | Skill-writing principles and reference vocabulary |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
 | `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
+| `humanlayer/skills` | Visual-explanation skill (`show-me`: diagrams, code-shape sketches, HTML artifacts) |
+| `theclaymethod/unslop` | AI-slop detection and humanizing rewrite (MIT, v2.3.0) |
 
 ## Counts
 
-- **25 skills** in `.github/skills/` (25 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
+- **28 skills** in `.github/skills/` (28 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:
