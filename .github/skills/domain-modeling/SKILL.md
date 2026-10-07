@@ -92,6 +92,5 @@ If any of the three is missing, skip the ADR. When all three hold, write it as a
 
 ## Related skills
 
-- `brainstorming` — explore intent before locking language.
 - `documentation-writer` — prose docs; this skill owns `CONTEXT.md`/`docs/adr/`.
-- `to-tickets` / `wayfinder` — respect glossary/ADRs when slicing.
+- `writing-plans` — plans argue from the glossary/ADRs; respect them when scoping tasks.

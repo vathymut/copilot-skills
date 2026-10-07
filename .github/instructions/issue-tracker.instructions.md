@@ -5,7 +5,7 @@ description: "Shared issue-tracker and triage-label conventions for ticket-relat
 
 # Issue tracker conventions
 
-Shared by `to-tickets`, `wayfinder`, and `triage`. Consuming skills point
+Shared ticket conventions for any skill that breaks work into trackable tickets. Consuming skills point
 here instead of restating the convention.
 
 ## Resolving the tracker
@@ -21,7 +21,7 @@ When no real tracker is configured, tickets live as local files:
 
 - Location: `.scratch/<feature-slug>/issues/<NN>-<slug>.md`
 - Ticket shape: title, "What to build", "Blocked by", "Status:
-  ready-for-agent", acceptance criteria (see `to-tickets` for the template)
+  ready-for-agent", acceptance criteria
 - Blocking edges are declared as `Blocked by:` references between files
 
 ## External PRs

@@ -68,6 +68,5 @@ Because of these differences, only the skills directory is symlinked directly fr
 
 ## Tracker fallback (local vs hosted)
 
-- `to-tickets` writes to `.scratch/<feature-slug>/issues/<NN>-<slug>.md` when no tracker is configured; otherwise it uses native blocking with `ready-for-agent`.
-- `wayfinder` owns `wayfinder:map` issues; only create a map when fog surfaced (else `to-tickets`).
+- When no tracker is configured, tickets live as local files at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`; otherwise use native blocking with `ready-for-agent`.
 - See `.github/instructions/issue-tracker.instructions.md` for per-tracker bindings.

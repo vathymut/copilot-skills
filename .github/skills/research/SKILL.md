@@ -34,6 +34,6 @@ Primary (owns claim): official docs, source code, RFC/spec. Secondary: blog summ
 
 ## Related skills
 
-- `brainstorming` — ideation before investigation.
+- `grilling` — sharpen the question before investigating.
 - `ml-paper-writing` — academic source handling.
 - `domain-modeling` — keep language consistent.

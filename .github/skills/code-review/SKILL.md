@@ -103,4 +103,3 @@ Use when the user pastes review feedback or says "address feedback".
 
 - `systematic-debugging` — root cause before review fix.
 - `refactor` — structural concerns flagged, not implemented.
-- `triage` — PR as issue-with-code.

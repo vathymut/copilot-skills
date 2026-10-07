@@ -11,7 +11,7 @@ Expert guidance for **NeurIPS, ICML, ICLR, ACL, AAAI, COLM**. For systems venues
 
 - Need internal prose (minutes, reviews, updates) — use `internal-writing`.
 - Need software docs (tutorials/how-tos) — use `documentation-writer`.
-- No research repo or contribution yet — use `brainstorming` → `research` to establish one first.
+- No research repo or contribution yet — use `research` to establish one first.
 - Paper is for a non-ML venue without LaTeX — use venue template directly.
 
 ## ⚠️ CRITICAL: Never Hallucinate Citations
