@@ -1,103 +1,66 @@
 ---
 name: code-review
-description: Use when reviewing code — diffs, PRs, branches, WIP, or SQL — or when requesting or responding to code review.
+description: Use when reviewing code or SQL statements, when pasted review feedback needs triaging, or when an independent reviewer check is requested.
 ---
 
-## When NOT to use
+# Code Review
+
+## Overview
+
+Pin the diff, apply every factor, produce the verdict. Verify before judging:
+report findings and reshape nothing during review.
+
+## When to Use
+
+- Unmerged changes need a verdict: branch, PR, WIP, or staged work.
+- SQL statements need injection, anti-pattern, and performance review.
+- Pasted reviewer comments need verifying and triaging.
+- A reviewer check is requested before merge, refactor, or after a hard fix.
+
+When NOT to use:
 
 - Trivial formatting/linter-only diff — tooling already enforces; skip review.
 - No diff to pin (nothing changed).
 
-# Code Review
+## Quick Reference
 
-Default to Branch A. Three branches:
+| Branch | Fires when | Reaches |
+|---|---|---|
+| A — review | unmerged code or SQL is present, no pasted feedback, no reviewer asked | `references/five-factors.md` |
+| B — reviewer check | a reviewer or subagent is asked for | `references/code-reviewer.md` |
+| C — triage feedback | pasted reviewer comments are present | `references/receive-feedback.md` |
 
-- **Branch A — Five-factor review** (default)
-- **Branch B — Request review**: dispatch a reviewer subagent
-- **Branch C — Receive review**: evaluate feedback
+Match in order C → B → A: pasted feedback present beats reviewer asked,
+which beats the default review.
 
-## Branch A — Five-factor review
+## Implementation
 
-1. **Pin the diff** — default `git diff origin/main...HEAD`.
-2. **Load conditioned references** — SQL diff → `references/sql-review.md`, Python diff → `references/python-standards.md`.
-3. **Find the spec** if any, then check each factor below.
-At the end, present findings per factor with one summary line for the worst issue per factor. Then add one overall `CRITICAL` line at top if any factor has a security/correctness blocker that should outrank style — do not merge non-critical factors.
+1. Pin the diff using the first predicate that holds: PR context →
+   `gh pr diff`; branch → merge-base against `origin/main` or `main`;
+   otherwise `git status` plus `git diff HEAD` (and `--cached` if staged).
+   Done when: base and head are named and the working-tree state is recorded.
+2. Load only the refs this run reaches: always the rubric
+   (`references/five-factors.md`); SQL statements → `references/sql-review.md`;
+   Python files → `references/python-standards.md`; structural concerns →
+   `references/maintainability-review.md`; reviewer asked →
+   `references/code-reviewer.md`; pasted feedback →
+   `references/receive-feedback.md`.
+   Done when: the rubric is loaded and no unfired ref is in context.
+3. Run the matched branch to its verdict.
+   Done when: Branch A — every factor applied, per-factor summary plus
+   **Ready to merge?** Yes | No | With fixes; Branch B — reviewer dispatched
+   via `Task` (`general`) where available, otherwise reviewed inline with the
+   same rubric; Branch C — every item verified with file:line reasoning and
+   legwork (tests run) shown.
 
-### 1. Code Conventions
-Code follows project style and avoids known smells.
-- ☐ Documented convention violations (cite file + rule)
-- ☐ Baseline smells: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest
-- ☐ SQL diff → check injection (CRITICAL), anti-patterns, performance
-- ☐ Python diff → check correctness, type-safety, performance, style
-- ☐ Skip what tooling already enforces; documented standards override baseline
+## Common Mistakes
 
-### 2. Spec Alignment
-Change matches requirements without scope creep.
-- ☐ Requirements missing or partial
-- ☐ Behaviour not asked for (scope creep)
-- ☐ Implementation that looks wrong (quote spec)
-- ☐ No spec available → skip this factor
-
-### 3. Correctness
-Logic is sound; edge cases handled.
-- ☐ Off-by-one and boundary errors in ranges
-- ☐ Unhandled error paths or silent failures
-- ☐ Wrong data types or implicit casts that lose precision
-- ☐ Race conditions or shared-mutation bugs
-
-### 4. Maintainability
-Code is simple, minimal, and sustainable. Be ambitious — flag deep restructuring that simplifies the codebase.
-- ☐ Code-judo: delete branches or layers rather than modify
-- ☐ Deletion test: each new module or abstraction earns its keep
-- ☐ Shallow module, locality (scattered files), file crosses 1000 lines, new conditionals in unrelated paths
-- ☐ Wrappers/casts/optionals hiding a simpler boundary; feature logic leaking into the wrong layer
-- ☐ AI slop: verbose comments, defensive bloat, broad `except Exception`, unnecessary casts
-- ☐ Structural concerns → load `references/maintainability-review.md` for the deep standards. Report restructuring findings — do not implement.
-- ☐ Diff is the smallest working change
-
-### 5. Security & Performance
-No vulnerabilities or regressions.
-- ☐ Secrets exposed in diff
-- ☐ SQL injection or command injection vectors
-- ☐ Missing input validation
-- ☐ Unnecessary allocations, N+1 queries, loop-invariant work
-- ☐ Missing caching on repeated expensive operations
-
-## Branch B — Request review
-
-Use when the user says "request review", "review before merge", or "have someone review this".
-
-1. **Pin SHAs:** `BASE_SHA=$(git merge-base origin/main HEAD)`, `HEAD_SHA=$(git rev-parse HEAD)`.
-2. **Dispatch a reviewer subagent** via `Task` (`general`) using `references/code-reviewer.md`. Fill `{DESCRIPTION}`, `{PLAN_OR_REQUIREMENTS}`, `{BASE_SHA}`, `{HEAD_SHA}`.
-3. **Act on feedback:** fix Critical immediately, Important before proceeding, note Minor, push back with reasoning if wrong.
-
-Run before every merge. Also valuable when stuck, before refactoring, or after a complex bug fix.
-
-## Branch C — Receive review
-
-Use when the user pastes review feedback or says "address feedback".
-
-**Core principle:** verify before implementing.
-
-**Process:**
-
-1. Read all feedback without reacting.
-2. Restate each item in your own words; clarify unclear items first.
-3. Verify against the codebase before changing anything.
-4. Push back if the suggestion is wrong for this codebase or conflicts with prior decisions.
-5. Implement one item at a time; test each. Order: blocking issues, simple fixes, complex fixes.
-
-**Rules:**
-
-- No performative agreement ("You're absolutely right", "Great point").
-- Check YAGNI for "implement properly" suggestions: if the code isn't used, propose removal.
-- Reply to inline comments in the inline thread, not as a top-level comment.
-
-## Completion criteria
-
-- [ ] Diff pinned (`origin/main...HEAD` or explicit SHAs) and conditioned references loaded
-- [ ] Findings reported per factor with worst-issue summary; no cross-factor reranking
-- [ ] Branch B/C: reviewer dispatched or feedback triaged item-by-item with verification
+| What goes wrong | Fix |
+|---|---|
+| Verdict reranked across factors; style outshouts a blocker | Keep per-factor summaries; the verdict follows the severest issue, the order of factors never changes |
+| Injection filed under conventions | File all injection in Factor 5; Factor 1 holds smells and style only |
+| Review reshapes code instead of reporting it | Flag restructuring with file:line and stop; the smallest working change is a finding, not an edit |
+| Vague praise or agreement without a reason | Name the specific strength or technical reason, or say nothing |
 
 ## Related skills
 
