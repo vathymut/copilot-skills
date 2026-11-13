@@ -52,7 +52,7 @@ Then follow Local refactor steps 1-4.
 
 ## When NOT to use
 
-- Greenfield feature work — use `test-driven-development` + `ponytail` (scope discipline lives there; this skill only reshapes structure).
+- Greenfield feature work — scope it with `writing-plans`, then `test-driven-development` (this skill only reshapes structure).
 - Production code without tests — add tests first (use `test-driven-development`), then refactor.
 - Rewrites from scratch.
 
@@ -76,6 +76,6 @@ Code that works and won't change again, or production code without tests (add te
 
 ## Related skills
 
-- `ponytail` — scope: smallest slice; this skill: best structure for that slice.
+- `writing-plans` — scope: smallest slice; this skill: best structure for that slice.
 - `test-driven-development` — mandatory failing-test-first when adding behavior after refactor.
 - `systematic-debugging` — fix root cause before reshaping.

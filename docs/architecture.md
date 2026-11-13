@@ -30,11 +30,11 @@ Each skill is a directory:
 
 The catalog contains three kinds of skills:
 
-1. **User-invoked routers** — called directly by name, dispatch the user to the right leaf skill. A router earns its place only when it points at *user-invoked* leaf skills (which the agent can't auto-discover); routing model-invoked skills adds load without payoff. The catalog currently has **no** user-invoked routers: the former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
-2. **Model-invoked skills** — triggered automatically by matching requests, often based on `description` frontmatter. Examples: `systematic-debugging`, `test-driven-development`.
-3. **Orchestrators** — model-invoked skills that do light work and then hand off to a subskill. Example: `iterate-ml-experiment` dispatches to `evaluate-ml-pipeline` for the audit stage.
+1. **User-invoked routers** — called directly by name, dispatch the user to the right leaf skill. A router earns its place only when it points at *user-invoked* leaf skills (which the agent can't auto-discover). The catalog currently has a small number of user-invoked/branching skills (for example `grill-me` dispatches to `grilling`); former routers such as `planning`, `docs`, `duckdb`, and `frontend` were retired or consolidated.
+2. **Model-invoked skills** — triggered automatically by matching requests, often based on `description` frontmatter. Examples: `refactor`, `code-review`, `data-access`.
+3. **Orchestrators/branch routers** — skills that do light routing or coordination and then hand off to references/subskills (for example `git-workflow`, `data-access`, `internal-writing`, `ui-screenshots`).
 
-Most skills are leaf skills: they are invoked by name and execute the task themselves.
+Most skills are leaf skills: they execute the task themselves.
 
 ## Agent layout
 

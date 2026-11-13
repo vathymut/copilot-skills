@@ -105,7 +105,6 @@ If either list is non-empty, add or remove rows in `docs/catalog.md` and update 
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
 | `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
-| `DietrichGebert/ponytail` | YAGNI-first lazy senior dev philosophy and over-engineering review |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
 | `mattpocock/skills` | Skill-writing principles and reference vocabulary |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |

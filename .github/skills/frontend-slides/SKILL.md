@@ -12,7 +12,7 @@ Create zero-dependency, animation-rich HTML presentations that run entirely in t
 - Need a data chart/figure with numeric comparison — use `tufte-data-viz`.
 - Need a new web page/app beyond slides — use `frontend-design`.
 - Need a diagram for docs — use `mermaid-diagram-specialist`.
-- Need a quick throwaway deck — use `ponytail` prototype mode instead of full design bar.
+- Need a quick throwaway deck — skip the design bar and ship a minimal single-file deck instead.
 
 ## Core invariants
 

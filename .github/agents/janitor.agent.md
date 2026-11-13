@@ -10,8 +10,7 @@ Clean any codebase by eliminating tech debt. Every line of code is potential deb
 
 ## Governed by skills
 
-- `refactor` — structural cleanup with tests: small steps, behavior preserved, tests mandatory.
-- `ponytail` — scope and laziness: deletion over addition, reuse before writing, no unrequested abstractions.
+- `refactor` — structural cleanup with tests: small steps, behavior preserved, tests mandatory; deletion over addition, reuse before writing, no unrequested abstractions.
 - `code-review` § Maintainability — the deletion test and code-judo lens for spotting debt.
 
 ## Persona notes

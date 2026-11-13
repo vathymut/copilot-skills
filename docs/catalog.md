@@ -6,19 +6,15 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 ## How to read this catalog
 
-- **Routers** are user-invoked dispatchers. Type the router name to be pointed at the right leaf skill — use them when you know the area but not the exact skill.
-- **Leaf skills** do the actual work. Many are also triggered automatically by OpenCode or Copilot based on your request.
+- **Leaf skills** do the actual work. Many are triggered automatically by OpenCode or Copilot based on your request.
+- **User-invoked / routing skills** can be invoked directly and may dispatch to a more specific workflow or reference (for example `grill-me` → `grilling`, and branch-routing inside `data-access`, `git-workflow`, `internal-writing`, `ui-screenshots`).
 - **Agents** are autonomous Copilot Chat personas given a goal, not a single task.
-
-## Routers
-
-Three catalog skills act as branch routers internally and were narrowed in this pass: `data-access` (6 commands now routed per-table), `git-workflow` (Conventional Commits / worktree / finish-branch routed), `ui-screenshots` / `internal-writing` (mutually-exclusive branches). The former `planning` router was folded into `brainstorming` (now the default planning entry point), and the earlier `docs`, `duckdb`, and `frontend` routers were retired during catalog consolidation.
 
 ## Code Quality & Security
 
 | Skill | What it does |
 |---|---|
-| `ponytail` | Forces the laziest minimal solution for any coding task, with optional intensity levels and a throwaway prototype mode |
+| `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
 | `refactor` | Improves code structure without changing behavior — cleans up, breaks down large functions, removes code smells |
 
 ## Development Workflow & Git
@@ -26,19 +22,14 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 | Skill | What it does |
 |---|---|
 | `git-workflow` | Git workflow in one skill: commit (Conventional Commits), resolve merge/rebase conflicts, set up worktrees, and finish a development branch |
-| `github-copilot-starter` | Sets up Copilot configuration (instructions, agents, skills, workflows) for a new project |
 
 ## Engineering Discipline
 
 | Skill | What it does |
 |---|---|
-| `code-review` | Reviews code, workflow, and feedback; can request a reviewer subagent |
 | `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions (ADRs) |
-| `grill-me` | User-invoked router that sharpens a plan via the `grilling` interview |
+| `grill-me` | User-invoked entry point that sharpens a plan via the `grilling` interview |
 | `grilling` | Relentlessly interviews the user round-by-round to stress-test a plan or decision |
-| `systematic-debugging` | Structured debugging workflow for any bug or test failure, before proposing fixes |
-| `test-driven-development` | Drives implementation via tests, before writing implementation code |
-| `writing-plans` | Turns a spec or requirements into a multi-step implementation plan |
 
 ## Documentation & Specs
 
@@ -50,7 +41,6 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 
 | Skill | What it does |
 |---|---|
-| `brainstorming` | Explores intent and design before creative work; default planning/development-workflow entry point (folded-in `planning` router points at plans and subagents) |
 | `ml-paper-writing` | Writes publication-ready ML/AI papers for top venues |
 | `research` | Investigates a question against high-trust primary sources and captures findings as Markdown |
 
@@ -59,14 +49,8 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 | Skill | What it does |
 |---|---|
 | `python-api` | Looks up and caches installed Python package APIs against the installed version |
-| `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs) |
-
-## Data Engineering & Packaging
-
-| Skill | What it does |
-|---|---|
 | `python-pypi-package-builder` | Builds, tests, lints, versions, and publishes a Python library to PyPI |
-| `xlsx` | Creates, edits, analyzes, and cleans spreadsheet files |
+| `python-stack-env` | Opinionated Python stack (library tiers, competing-library contract) plus environment management (manager detection, feature routing, installs) |
 
 ## DuckDB & Data Files
 
@@ -80,7 +64,6 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 |---|---|
 | `frontend-design` | Creates distinctive, production-grade frontend interfaces and artifacts |
 | `frontend-slides` | Builds animation-rich HTML presentations from scratch or from PowerPoint |
-| `mermaid-diagram-specialist` | Creates flowcharts, sequence diagrams, ERDs, and architecture visualizations as Mermaid |
 | `show-me` | Explains the current topic visually — pseudocode, call/component trees, Mermaid, diff-shape sketches, focused HTML artifacts |
 | `tufte-data-viz` | Applies Tufte principles for clean, screen-first data visualizations |
 | `ui-screenshots` | Captures web/Electron/desktop screenshots and annotates them with callouts; assembles GIF demos |
@@ -90,13 +73,6 @@ Three catalog skills act as branch routers internally and were narrowed in this 
 | Skill | What it does |
 |---|---|
 | `internal-writing` | Writes internal prose: minutes, reviews, brag sheets, updates, FAQs |
-| `unslop` | Removes AI writing patterns via audit or two-pass rewrite (diagnosis then reconstruction) |
-
-## Documents & Files
-
-| Skill | What it does |
-|---|---|
-| `pdf` | Reads, merges, splits, rotates, creates, watermarks, encrypts, or OCRs PDFs |
 
 ---
 
@@ -108,9 +84,9 @@ Autonomous Copilot Chat personas. Invoked with `@<agent-name>` and given a goal.
 
 | Agent | Purpose | Loads skills |
 |---|---|---|
-| `debug` | Finds and fixes bugs in your application | `systematic-debugging` → `test-driven-development` |
-| `janitor` | Cleanup, simplification, and tech-debt remediation | `refactor` + `ponytail` |
-| `swe-subagent` | Senior engineer subagent for implementation tasks | `test-driven-development` + `systematic-debugging` |
+| `debug` | Finds and fixes bugs in your application | (systematic debug workflow; no skill dependencies) |
+| `janitor` | Cleanup, simplification, and tech-debt remediation | `refactor` |
+| `swe-subagent` | Senior engineer subagent for implementation tasks | `refactor` |
 
 Agent definitions live under [`.github/agents/`](../.github/agents/).
 
@@ -130,17 +106,15 @@ Skills and agents in this catalog are adapted from the following sources:
 | `openai/openai-agents-python` | OpenAI agents SDK patterns |
 | `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
-| `DietrichGebert/ponytail` | YAGNI-first lazy senior dev philosophy and over-engineering review |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
 | `mattpocock/skills` | Skill-writing principles and reference vocabulary |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
 | `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
 | `humanlayer/skills` | Visual-explanation skill (`show-me`: diagrams, code-shape sketches, HTML artifacts) |
-| `theclaymethod/unslop` | AI-slop detection and humanizing rewrite (MIT, v2.3.0) |
 
 ## Counts
 
-- **28 skills** in `.github/skills/` (28 model-invoked; plus 3 internal branch-routers: `data-access`, `git-workflow`, `ui-screenshots`/`internal-writing`)
+- **19 skills** in `.github/skills/`
 - **3 agents** in `.github/agents/`
 
 To update these counts, run:

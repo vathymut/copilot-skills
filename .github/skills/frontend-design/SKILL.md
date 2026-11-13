@@ -10,9 +10,9 @@ Build production-grade frontend components, pages, applications, or interactive 
 
 ## When NOT to use
 
-- **Quick prototypes / throwaway code** — this skill enforces a design bar that adds overhead for disposable work. Use `ponytail` prototype mode instead.
+- **Quick prototypes / throwaway code** — this skill enforces a design bar that adds overhead for disposable work. Ship minimal markup directly instead.
 - **Third-party design systems** (Material UI, Ant Design, Shadcn) — the skill's aesthetic-intentionality mandate conflicts with using pre-built component libraries. Use the library's own theming guide instead.
-- **Fixing an existing running site** — use `web-design-reviewer` instead. This skill is for greenfield creation only.
+- **Fixing an existing running site** — this skill is for greenfield creation only. Capture with `ui-screenshots`, review with `code-review`, then fix.
 
 ## Tech-stack conventions (optional reference)
 
@@ -76,6 +76,5 @@ Match implementation complexity to the direction. Maximalist calls for detail; m
 
 ## Related skills
 
-- `web-design-reviewer` — fix existing; this skill: greenfield.
 - `ui-screenshots` — capture verification.
 - `tufte-data-viz` — charts inside pages.

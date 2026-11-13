@@ -9,7 +9,7 @@ Capture screenshots of web apps, Electron apps, or desktop windows; annotate the
 
 ## When NOT to use
 
-- Need a design review/fix for a running site — use `web-design-reviewer` (it delegates capture here).
+- Need a design review/fix for a running site — capture here, then review with `code-review`.
 - Need a new greenfield UI — use `frontend-design`.
 - No running app/window to capture — nothing to screenshot.
 
@@ -155,6 +155,6 @@ Full procedure (capture → assemble → annotate → fade): `references/gif-ass
 
 ## Related skills
 
-- `web-design-reviewer` — delegates capture here, then fixes.
+- `code-review` — review the captured state, then fix.
 - `frontend-design` — greenfield UI (no screenshot to capture).
 - `tufte-data-viz` — charts vs screenshots.
