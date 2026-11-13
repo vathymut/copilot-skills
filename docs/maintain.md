@@ -1,6 +1,6 @@
 # Maintain the catalog
 
-This guide covers the routine tasks for keeping the skill and agent catalog useful and up to date.
+This guide covers the routine tasks for keeping the skill catalog useful and up to date.
 
 ## Add a skill manually
 
@@ -21,20 +21,6 @@ Add optional subdirectories as needed:
 ```
 
 Follow the conventions in `writing-great-skills` when authoring new skills.
-
-## Add an agent
-
-Add a file under `.github/agents/<name>.agent.md`. Use the frontmatter schema expected by GitHub Copilot:
-
-```yaml
----
-name: <name>
-description: <short description>
-tools: []
----
-```
-
-Do not symlink this file into OpenCode. OpenCode agents use a different frontmatter schema. See [Install the catalog](./install.md) for how to create OpenCode agents.
 
 ## Remove a skill
 
@@ -86,7 +72,6 @@ comm -23 \
 
 # Counts (should match README and catalog "Counts")
 echo "skills: $(find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
-echo "agents: $(find .github/agents -maxdepth 1 -type f | wc -l | tr -d ' ')"
 ```
 
 If either list is non-empty, add or remove rows in `docs/catalog.md` and update the counts in both `docs/catalog.md` and `README.md`.
@@ -97,8 +82,7 @@ If either list is non-empty, add or remove rows in `docs/catalog.md` and update 
 |---|---|
 | `github/awesome-copilot` | Primary source for general-purpose skills |
 | `anthropics/skills` | Claude-oriented patterns and workflows |
-| `obra/superpowers` | Specialized agent and agentic workflow skills |
-| `wshobson/agents` | Domain-focused agent definitions |
+| `obra/superpowers` | Specialized agentic workflow skills |
 | `davila7/claude-code-templates` | Code-focused templates |
 | `Shubhamsaboo/awesome-llm-apps` | LLM application patterns |
 | `agno-agi/agno` | Agno framework skills |

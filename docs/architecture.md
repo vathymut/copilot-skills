@@ -9,7 +9,6 @@ Both GitHub Copilot and OpenCode can read the same skill definitions. Keeping on
 | File type | Shared? | Notes |
 |---|---|---|
 | `.github/skills/<name>/SKILL.md` | Yes | Copilot fields are ignored by OpenCode |
-| `.github/agents/*.agent.md` | No | Copilot only. OpenCode uses a different schema |
 | `.github/instructions/*.md` | Mostly | Paths differ; OpenCode config references them explicitly |
 
 ## Skill layout
@@ -36,28 +35,15 @@ The catalog contains three kinds of skills:
 
 Most skills are leaf skills: they execute the task themselves.
 
-## Agent layout
-
-Agents live under `.github/agents/` as `.agent.md` files:
-
-```text
-.github/agents/
-  debug.agent.md
-  janitor.agent.md
-  swe-subagent.agent.md
-```
-
-These files define personas, tools, and goals for autonomous Copilot Chat agents. They are not shared with OpenCode because the frontmatter schemas are incompatible.
-
 ## The OpenCode difference
 
 OpenCode treats skills, agents, and instructions as separate discovery types:
 
 - Skills are discovered from `~/.config/opencode/skills/`, `.opencode/skills/`, `.claude/skills/`, and `.agents/skills/`.
-- Agents use a `description`, `mode`, `model`, `permission`, and `prompt` frontmatter.
+- Agents use a `description`, `mode`, `model`, `permission`, and `prompt` frontmatter. This catalog does not define agents; create them individually with `opencode agent create` if needed.
 - Instructions are referenced from `~/.config/opencode/opencode.json`.
 
-Because of these differences, only the skills directory is symlinked directly from this repo into OpenCode. Agents must be recreated in OpenCode format, and instructions must be referenced by path.
+Because of these differences, only the skills directory is symlinked directly from this repo into OpenCode, and instructions must be referenced by path.
 
 ## Catalog maintenance considerations
 

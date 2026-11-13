@@ -4,21 +4,19 @@ Compact guidance for OpenCode sessions in this repo.
 
 ## What this repo is
 
-A versioned catalog of reusable skills and agents, consumed by two tools differently:
+A versioned catalog of reusable skills, consumed by two tools differently:
 
 - `.github/skills/<name>/SKILL.md` — shared by GitHub Copilot and OpenCode (OpenCode ignores Copilot-only frontmatter fields).
-- `.github/agents/*.agent.md` — GitHub Copilot only. OpenCode uses a different schema (`opencode agent create`); never symlink these into OpenCode.
 - `.github/instructions/` — referenced explicitly from `opencode.json`.
 
-Install wires `.github/skills` into `~/.config/opencode/skills` via symlink. See `README.md` for the exact commands and the Windows/agent caveats.
+Install wires `.github/skills` into `~/.config/opencode/skills` via symlink. See `README.md` for the exact commands and the Windows caveats.
 
 ## Maintenance gotchas (these drift and need manual fixes)
 
-- The skill/agent counts and domain tables in `README.md` and `docs/catalog.md` are maintained by hand and go stale after consolidation. Catch drift with:
+- The skill counts and domain tables in `README.md` and `docs/catalog.md` are maintained by hand and go stale after consolidation. Catch drift with:
   ```bash
   comm -23 <(ls .github/skills | sort) <(grep -oE '`[a-z0-9-]+`' docs/catalog.md | tr -d '`' | sort -u)
   echo "skills: $(find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
-  echo "agents: $(find .github/agents -maxdepth 1 -type f | wc -l | tr -d ' ')"
   ```
 - When adding/removing skills, also update the README counts, headline, and domain tables.
 - Skill provenance is recorded in commit messages. The Superpowers cache (`~/.cache/opencode/.../superpowers/skills`) is NOT canonical here; keep skills only in `.github/skills/`.

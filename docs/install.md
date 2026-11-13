@@ -1,6 +1,6 @@
 # Install the catalog
 
-This guide makes this repository the single source of truth for skills and agents in both GitHub Copilot and OpenCode.
+This guide makes this repository the single source of truth for skills in both GitHub Copilot and OpenCode.
 
 ## Prerequisites
 
@@ -16,9 +16,8 @@ Make the catalog globally available across all VS Code sessions by symlinking th
 
 ```bash
 mkdir -p "$HOME/.copilot"
-rm -rf "$HOME/.copilot/skills" "$HOME/.copilot/agents" "$HOME/.copilot/instructions"
+rm -rf "$HOME/.copilot/skills" "$HOME/.copilot/instructions"
 ln -s "$PWD/.github/skills" "$HOME/.copilot/skills"
-ln -s "$PWD/.github/agents" "$HOME/.copilot/agents"
 ln -s "$PWD/.github/instructions" "$HOME/.copilot/instructions"
 ```
 
@@ -29,10 +28,8 @@ Run as Administrator, replacing `<repo-path>` with the absolute path to this rep
 ```cmd
 if not exist "%USERPROFILE%\.copilot" mkdir "%USERPROFILE%\.copilot"
 rmdir /S /Q "%USERPROFILE%\.copilot\skills"
-rmdir /S /Q "%USERPROFILE%\.copilot\agents"
 rmdir /S /Q "%USERPROFILE%\.copilot\instructions"
 mklink /D "%USERPROFILE%\.copilot\skills" "<repo-path>\.github\skills"
-mklink /D "%USERPROFILE%\.copilot\agents" "<repo-path>\.github\agents"
 mklink /D "%USERPROFILE%\.copilot\instructions" "<repo-path>\.github\instructions"
 ```
 
@@ -40,7 +37,7 @@ mklink /D "%USERPROFILE%\.copilot\instructions" "<repo-path>\.github\instruction
 
 ## Install for OpenCode
 
-OpenCode discovers skills, agents, and instructions from `~/.config/opencode/`, `.opencode/`, `.claude/`, and `.agents/` directories.
+OpenCode discovers skills and instructions from `~/.config/opencode/`, `.opencode/`, `.claude/`, and `.agents/` directories.
 
 ### Skills
 
@@ -57,19 +54,7 @@ Verify discovery:
 opencode debug skill | rg '"name":'
 ```
 
-All 41 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
-
-### Agents
-
-> **Warning:** Do **not** symlink `.github/agents/` into OpenCode. Copilot `.agent.md` frontmatter uses `tools` and `name`, which OpenCode cannot parse. Create agents individually in OpenCode format instead.
-
-Use the interactive command:
-
-```bash
-opencode agent create
-```
-
-Choose **global** when asked where to save. To reuse the prompt from a Copilot agent, read the matching `.github/agents/*.agent.md` file and translate the content into OpenCode format.
+All 19 skills in this catalog load in OpenCode without modification. OpenCode uses `name` and `description` frontmatter and ignores the GitHub Copilot fields.
 
 ### Instructions
 
@@ -92,5 +77,5 @@ For other configuration options, see the [OpenCode config documentation](https:/
 
 ## Next steps
 
-- [Invoke your first skill and agent](./use.md)
+- [Invoke your first skill](./use.md)
 - [Learn how the catalog is organized](./architecture.md)

@@ -2,13 +2,12 @@
 
 This is the reference list of every skill and agent in this repository. Use it to find a skill by domain or name, and to see at a glance what each one does.
 
-Skills and agents are sourced from upstream repositories and then edited, consolidated, or rewritten to match my own workflows. See [Upstream sources](#upstream-sources) for the main origins.
+Skills are sourced from upstream repositories and then edited, consolidated, or rewritten to match my own workflows. See [Upstream sources](#upstream-sources) for the main origins.
 
 ## How to read this catalog
 
 - **Leaf skills** do the actual work. Many are triggered automatically by OpenCode or Copilot based on your request.
 - **User-invoked / routing skills** can be invoked directly and may dispatch to a more specific workflow or reference (for example `grill-me` → `grilling`, and branch-routing inside `data-access`, `git-workflow`, `internal-writing`, `ui-screenshots`).
-- **Agents** are autonomous Copilot Chat personas given a goal, not a single task.
 
 ## Code Quality & Security
 
@@ -78,28 +77,15 @@ Skills and agents are sourced from upstream repositories and then edited, consol
 
 To read a skill's full instructions, open the matching file under [`.github/skills/<skill-name>/SKILL.md`](../.github/skills/).
 
-## Agents
-
-Autonomous Copilot Chat personas. Invoked with `@<agent-name>` and given a goal.
-
-| Agent | Purpose | Loads skills |
-|---|---|---|
-| `debug` | Finds and fixes bugs in your application | (systematic debug workflow; no skill dependencies) |
-| `janitor` | Cleanup, simplification, and tech-debt remediation | `refactor` |
-| `swe-subagent` | Senior engineer subagent for implementation tasks | `refactor` |
-
-Agent definitions live under [`.github/agents/`](../.github/agents/).
-
 ## Upstream sources
 
-Skills and agents in this catalog are adapted from the following sources:
+Skills in this catalog are adapted from the following sources:
 
 | Source | Notes |
 |---|---|
 | `github/awesome-copilot` | Primary source for general-purpose skills |
 | `anthropics/skills` | Claude-oriented patterns and workflows |
-| `obra/superpowers` | Specialized agent and agentic workflow skills |
-| `wshobson/agents` | Domain-focused agent definitions |
+| `obra/superpowers` | Specialized agentic workflow skills |
 | `davila7/claude-code-templates` | Code-focused templates |
 | `Shubhamsaboo/awesome-llm-apps` | LLM application patterns |
 | `agno-agi/agno` | Agno framework skills |
@@ -115,11 +101,9 @@ Skills and agents in this catalog are adapted from the following sources:
 ## Counts
 
 - **19 skills** in `.github/skills/`
-- **3 agents** in `.github/agents/`
 
 To update these counts, run:
 
 ```bash
 find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l
-find .github/agents -maxdepth 1 -type f | wc -l
 ```

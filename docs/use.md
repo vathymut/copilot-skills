@@ -1,20 +1,19 @@
 # Use the catalog
 
-This tutorial walks through installing a skill from an upstream source, invoking a local skill, and running an agent.
+This tutorial walks through installing a skill from an upstream source and invoking it locally.
 
 ## What you will learn
 
 - How to install a skill from GitHub into this catalog
 - How to invoke a skill in GitHub Copilot Chat
 - How to invoke a skill in OpenCode
-- How to invoke an agent in GitHub Copilot Chat
 
 ## Before you start
 
 Complete [Install the catalog](./install.md) first. You should have:
 
 - This repository cloned locally
-- `.github/skills` and `.github/agents` symlinked into `~/.copilot` for Copilot
+- `.github/skills` symlinked into `~/.copilot` for Copilot
 - `.github/skills` symlinked into `~/.config/opencode/skills` for OpenCode
 
 ## Install a skill from an upstream repository
@@ -70,21 +69,6 @@ For example:
 
 OpenCode reads the same `SKILL.md` file as Copilot, ignoring the GitHub-specific frontmatter.
 
-## Run an agent in GitHub Copilot Chat
-
-Agents are invoked with `@<agent-name>` and are given a goal rather than a single task.
-
-1. Open Copilot Chat.
-2. Type `@debug` followed by the problem description.
-
-For example:
-
-```text
-@debug My pytest suite fails with a missing module error after I moved a file.
-```
-
-The `debug` agent will investigate your codebase, propose fixes, and run tests if you approve.
-
 ## Daily workflow
 
 After the first setup, the most common actions are:
@@ -93,7 +77,6 @@ After the first setup, the most common actions are:
 |---|---|
 | Count local skills | `find .github/skills -mindepth 1 -maxdepth 1 -type d | wc -l` |
 | List skill entry files | `find .github/skills -name SKILL.md` |
-| List agents | `find .github/agents -name '*.agent.md'` |
 | Add a skill manually | `mkdir -p .github/skills/<skill-name>` then add `SKILL.md` |
 | Remove a skill | `rm -rf .github/skills/<skill-name>` |
 
