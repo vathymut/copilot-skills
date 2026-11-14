@@ -28,7 +28,7 @@ Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough
 ## Stop conditions — read before any lookup
 
 - **No symbols from memory.** Every symbol must come from a lookup *this turn* — cache file, probe, or WebFetch. Recognition does not count. Named traps: `references/named_traps.md`.
-- **All Python execution goes to `scratch/<ts>_<short>.py`.** See `ml-conventions:references/shared-ml-conventions.md` § All Python execution goes to scratch/ (don't duplicate that contract here).
+- **All Python execution goes to `scratch/<ts>_<short>.py`.** Never run lookup probes inline.
 - **A probe without a cache write is not a completed lookup.** Turn must produce `scratch/api/<lib>/<version>/<topic>.md` on disk. Inline `inspect.signature` / `pydoc.render_doc` / `help()` does NOT satisfy "python-api consulted".
 - **`pydoc.render_doc`, not `__doc__`.** `__doc__` is empty/misleading on properties, descriptors, and decorated callables.
 - **Never fabricate probe results.** Blank or `<pending>` until executed. Shape 3: verbatim extracts only, no paraphrase.
@@ -46,7 +46,7 @@ Shape 1b (fast, type sig + first paragraph) → Shape 1 (full pydoc) fallthrough
 
 ## Pre-flight
 
-Shared gates → `ml-conventions:references/shared-preflight-evidence.md` (don't duplicate that contract here).
+Shared gates → pre-flight contract in this skill's Pre-flight section (evidence required per box).
 
 ```
 Pre-flight (python-api):
@@ -75,7 +75,6 @@ Tier-1 named entry points per library: `references/stack_orientation.md`. Consul
 ## Related skills
 
 - `python-stack-env` — install + env before lookup.
-- `build-ml-pipeline` / `evaluate-ml-pipeline` — verify estimators via this skill.
 
 ## Completion criteria
 

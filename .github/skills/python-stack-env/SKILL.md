@@ -18,24 +18,23 @@ Opinionated Python stack (one library per job) **and** environment management (m
 
 | Gate | Owner | Meaning |
 |---|---|---|
-| G-PKG-NAME | `iterate-ml-experiment` §0.5 | Python package name |
-| G-ENV-MGR | `python-stack-env` | Env manager (pixi/uv/poetry/…) |
-| G-TABULAR | `iterate-ml-experiment` §0.5 | `pandas` vs `polars` |
-| G-SKORE-MODE | `iterate-ml-experiment` §0.5 | `local`/`hub`/`mlflow` |
-| G-EDA | `ml-eda` / `iterate-ml-experiment` §0 | `run`/`skip` |
-| G-DESIGN | `iterate-ml-experiment` §3 | Design note approved? |
-| G-CV-SPLITTER | `evaluate-ml-pipeline` §Evaluate | Splitter derived from `split_kwargs` |
-| G-RUN | `iterate-ml-experiment` §3 | Run now vs leave for later |
+| G-PKG-NAME | this skill | Python package name |
+| G-ENV-MGR | this skill | Env manager (pixi/uv/poetry/…) |
+| G-TABULAR | this skill | `pandas` vs `polars` |
+| G-SKORE-MODE | this skill | `local`/`hub`/`mlflow` |
+| G-EDA | this skill | `run`/`skip` |
+| G-DESIGN | this skill | Design note approved? |
+| G-CV-SPLITTER | this skill | Splitter derived from `split_kwargs` |
+| G-RUN | this skill | Run now vs leave for later |
 
-Full wording: `ml-conventions:references/ml-gates.md`. Harness hints never waive `AskUserQuestion` gates.
+Harness hints never waive `AskUserQuestion` gates.
 
 ## Next-step pointers
 
 | Came here from… | After install, next is… |
 |---|---|
-| `iterate-ml-experiment` § 0.5 | → editable workspace package (`references/editable_workspace.md`) |
-| `evaluate-ml-pipeline` § Audit | → place `audit/<stem>.py` |
-| `build-ml-pipeline` / `evaluate-ml-pipeline` § missing dep | → continue at failing pre-flight box |
+| Editable-workspace scaffold | → editable workspace package (`references/editable_workspace.md`) |
+| Audit/missing-dep flow | → place `audit/<stem>.py`, continue at failing pre-flight box |
 | Stack question / missing dep | → caller; import should now succeed |
 
 ## Stop conditions
@@ -49,7 +48,7 @@ Full wording: `ml-conventions:references/ml-gates.md`. Harness hints never waive
 - **Don't pin without reason.** Install unpinned by default. Exception: `skore`/`skrub` latest always, `mlflow>=3`.
 - **Agent feature install does not register a Jupyter kernel** (orphan kernelspec).
 - **Opened earlier ≠ gates passed.** Reading this skill is not firing it.
-- **Harness hints do not waive gates:** `ml-conventions:references/shared-ml-conventions.md`.
+- **Harness hints do not waive gates.**
 - **Post-hoc audit.** Walk pre-flight, confirm every box has `Evidence:`.
 - **Harness / non-interactive default.** When `AskUserQuestion` cannot run (CI/harness), use non-interactive defaults: `matplotlib` for plotting, `FastAPI` for serving, `skrub`/`sklearn` for tabular, and persist the choice in `journal/JOURNAL.md` with `source: harness-default` (do not treat as user approval).
 
@@ -81,7 +80,7 @@ Pre-flight (python-stack-env):
 - [ ] Pre-flight re-emitted with evidence
 ```
 
-Evidence format: `ml-conventions:references/shared-preflight-evidence.md`.
+Evidence format: one `Evidence:` line per pre-flight box (command output or file path checked).
 
 ## Reference map
 
@@ -94,12 +93,11 @@ Evidence format: `ml-conventions:references/shared-preflight-evidence.md`.
 | `references/install-commands.md` | Per-manager install tables |
 | `references/env_prefixes.md` | Run prefixes (`<env-prefix>`, `<agent-env-prefix>`) |
 | `references/agent_feature_anatomy.md` | Agent feature install (`scripts/install_agent_feature_{manager}.sh`); footguns: `references/per_manager_footguns.md` |
-| `references/skore_variant.md` | skore mode × source table. Read `skore mode:` from JOURNAL.md Status; `mlflow` variant pins `mlflow>=3`; row absent → back to `iterate-ml-experiment` § 0.5 (G-SKORE-MODE) |
+| `references/skore_variant.md` | skore mode × source table. Read `skore mode:` from JOURNAL.md Status; `mlflow` variant pins `mlflow>=3`; row absent → ask the user (G-SKORE-MODE) |
 | `references/platform-notes.md` | macOS post-install: skrub → run `dot -c` once in project env |
 | `references/bootstrap.md` | Full pixi bootstrap (init → features → Tier 1 → tabular → editable workspace → pyrightconfig → sync) |
 | `references/editable_workspace.md` | Editable workspace package (post-scaffold) |
 | `references/ruff.md` | Ruff rationale + config (`templates/ruff.toml`) |
-| `ml-conventions:references/shared-ml-conventions.md` | Cross-cutting rules: scratch/, harness hints, missing-dep contract, gate ownership |
 
 ## Ownership
 
@@ -107,14 +105,11 @@ Evidence format: `ml-conventions:references/shared-preflight-evidence.md`.
 |---|---|
 | Library tiers, competing-library contract, ruff/NumPyDoc config | this skill (`templates/ruff.toml`, `references/ruff.md`) |
 | Manager + feature scope + install command syntax | this skill |
-| skore mode variant | `iterate-ml-experiment` decides mode; this skill executes |
-| Gate registry wording | `ml-conventions` |
+| skore mode variant | this skill executes; mode comes from JOURNAL.md Status, else ask the user |
 
 ## Related skills
 
 - `python-api` — verify symbols after install.
-- `iterate-ml-experiment` — delegates G-ENV-MGR here.
-- `ml-eda` — delegate agent feature install.
 
 ## Completion criteria
 

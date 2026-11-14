@@ -9,10 +9,10 @@ when debugging a failed install.
 
 A project-scoped install of two agent-only tools plus a config:
 
-- **`ipython`** — powers the shared in-process cell runner at
-  `ml-eda:scripts/run_cells.py` via
-  `InteractiveShell.run_cell`. Used by `evaluate-ml-pipeline § Audit` (audit
-  files) and `ml-eda` (`data/eda.py`). No kernel
+- **`ipython`** — powers in-process cell running via
+  `InteractiveShell.run_cell` (a shared cell-runner script in the
+  project). Used for audit
+  files and EDA cell scripts. No kernel
   registration, no notebook conversion.
 - **`pyright`** — powers the opencode LSP integration for Python
   files. Surfaces import / type / undefined-symbol diagnostics in
@@ -83,39 +83,40 @@ Per-manager footgun catalogue: `references/per_manager_footguns.md`.
 
 ## Post-install: how to invoke the shared cell runner
 
-The same runner executes both `audit/<stem>.py` (evaluate-ml-pipeline § Audit)
-and `data/eda.py` (ml-eda) — swap the file argument. The
-examples below show an audit file; for EDA pass `data/eda.py`.
+The same runner executes any cell-style script — audit (`audit/<stem>.py`)
+or EDA (`data/eda.py`) — swap the file argument. The examples below
+show an audit file; for EDA pass `data/eda.py`. `<scripts-dir>` is
+wherever the project keeps its cell-runner script.
 
 ```bash
 # pixi
 pixi run -e agent python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 
 # uv
 uv run --group agent python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 
 # poetry
 poetry run python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 
 # hatch
 hatch run agent:python \
-  .github/skills/ml-eda/scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 
 # conda
 conda run -n <project>-agent python \
-  ml-eda:scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 
 # pip + venv
 .venv-agent/bin/python \
-  ml-eda:scripts/run_cells.py \
+  <scripts-dir>/run_cells.py \
   audit/<stem>.py
 ```
 

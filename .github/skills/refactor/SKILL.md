@@ -52,8 +52,8 @@ Then follow Local refactor steps 1-4.
 
 ## When NOT to use
 
-- Greenfield feature work — scope it with `writing-plans`, then `test-driven-development` (this skill only reshapes structure).
-- Production code without tests — add tests first (use `test-driven-development`), then refactor.
+- Greenfield feature work — scope the smallest slice first, then build it test-first (this skill only reshapes structure).
+- Production code without tests — add tests first, then refactor.
 - Rewrites from scratch.
 
 ## Constraints
@@ -76,6 +76,4 @@ Code that works and won't change again, or production code without tests (add te
 
 ## Related skills
 
-- `writing-plans` — scope: smallest slice; this skill: best structure for that slice.
-- `test-driven-development` — mandatory failing-test-first when adding behavior after refactor.
-- `systematic-debugging` — fix root cause before reshaping.
+- `code-review` — request a review after a non-trivial refactor.

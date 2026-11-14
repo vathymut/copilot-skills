@@ -81,9 +81,9 @@ declarations in the graph. Common shapes:
 | `skrub.var("predict_grid")`, `skrub.var("history_source")` | `data={"predict_grid": grid, "history_source": "/path"}` |
 
 For source-bound vars (paths), pass an absolute path — the same path
-used for `learner.skb.preview()` if you set that up. See
-`build-ml-pipeline/references/source-binding.md` for the source-vs-
-materialized binding decision.
+used for `learner.skb.preview()` if you set that up. Source-bound
+vars keep the data's provenance attached; use them when the data is
+recomputed between fit and predict.
 
 ## What `evaluate` returns
 
@@ -106,14 +106,14 @@ installed skore version — the dispatch table can evolve.
 ## Persisting to the Project store
 
 Every report goes under a **stable key** in the workspace's
-`skore.Project` so future runs can read it back (the
-`evaluate-ml-pipeline § Audit` skill renders each report to a markdown
+`skore.Project` so future runs can read it back (the audit step
+renders each report to a markdown
 digest, and the skore source branch mines that digest for Backlog
 candidates).
 
 The Project init form depends on the workspace's `skore mode:`
 decision (recorded in `JOURNAL.md` Status `Workspace decisions`;
-gate owned by `iterate-ml-experiment` § 0.5 (G-SKORE-MODE)). Three
+user decision, G-SKORE-MODE). Three
 forms; pick the one matching the workspace:
 
 ```python
@@ -227,7 +227,7 @@ project = skore.Project(
     name="load-forecast",
     mode="local",
     workspace=str(PROJECT_ROOT / "reports"),
-)  # local-mode form; see `iterate-ml-experiment` § 0.5 (G-SKORE-MODE) for hub
+)  # local-mode form; see G-SKORE-MODE for hub
 
 # %% [markdown]
 # ## Learner
@@ -281,12 +281,8 @@ version — the kwargs differ between `EstimatorReport` (uses
 
 - `python-api/references/pre_mark_alignment.md` — the 3-layer
   DataOps pattern that produces the `SkrubLearner` consumed here.
-- `build-ml-pipeline/references/source-binding.md` — when to use
-  source-bound vars vs materialized `(X, y)` bindings.
-- `evaluate-ml-pipeline` — the methodology side: cross-validator
-  choice, default metrics, structural metadata (`split_kwargs`).
 - the skore source branch — reads the audit digest at
-  `scratch/audit/<stem>/audit.md` (produced by `evaluate-ml-pipeline § Audit`)
+  `scratch/audit/<stem>/audit.md` (produced by the audit step)
   and converts each `issue` / `tip` row from the report's
   `checks.summarize()` into a Backlog candidate, following the
   check's `documentation_url` for the mitigation.

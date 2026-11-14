@@ -27,7 +27,7 @@ the history DataOp passed as an extra argument so the join sees the
 full history regardless of fold membership.
 
 The smoke test in `tests/smoke/test_NN_*.py` is the executable proof
-of this pattern (see `evaluate-ml-pipeline § Smoke`). A pipeline that
+of this pattern. A pipeline that
 follows the pattern passes structurally; one that doesn't fails with
 a row-count mismatch.
 
@@ -213,7 +213,7 @@ binding via `skore.evaluate(learner, data={"data_dir": ...}, ...)`
   feature set at predict time (no upstream reference needed), the
   3-layer overhead is unnecessary.
 
-The smoke-test row-count assertion in `evaluate-ml-pipeline § Smoke` still
+The smoke-test row-count assertion still
 fires for IID pipelines as a basic sanity check, but the
 diagnostic-by-construction property only matters for the cross-row
 case described here.
@@ -223,9 +223,9 @@ case described here.
 - `python-api/references/skrub_interop.md` — how the
   `SkrubLearner` produced by this pattern integrates with
   `skore.evaluate`.
-- `build-ml-pipeline/references/source-binding.md` — why source-bound
-  vars (Layer 1) are preferred over materialized `(X, y)` roots.
-- `build-ml-pipeline` § "Common patterns" rule 2 — the parent skill's
-  short version of this same pattern.
-- `evaluate-ml-pipeline § Smoke` — the executable proof that a pipeline
-  followed the pattern (or didn't).
+- Source-bound vars (Layer 1) are preferred over materialized
+  `(X, y)` roots — they keep the data's provenance attached.
+- The executable proof that a pipeline
+  followed the pattern (or didn't) is the audit step's digest:
+  a pipeline built from materialized roots fails predict-time
+  checks on held-out columns.

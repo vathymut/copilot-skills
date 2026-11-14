@@ -93,4 +93,3 @@ If any of the three is missing, skip the ADR. When all three hold, write it as a
 ## Related skills
 
 - `documentation-writer` — prose docs; this skill owns `CONTEXT.md`/`docs/adr/`.
-- `writing-plans` — plans argue from the glossary/ADRs; respect them when scoping tasks.

@@ -95,5 +95,5 @@ never run `git worktree remove` from inside the worktree (cd to main root first)
 
 ## Related skills
 
-- `test-driven-development` — tests green before finish-branch.
+- Tests must be green before finish-branch.
 - `code-review` — request review before merge.

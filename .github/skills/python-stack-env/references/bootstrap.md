@@ -13,9 +13,9 @@ a fresh workspace.
   SKILL.md § "Install commands — by manager").
 - G-SKORE-MODE has resolved (SKILL.md § "Tier 1 install: skore
   variant per mode" reads the `skore mode:` row).
-- G-TABULAR has resolved (the tabular library pick lives in
-  `iterate-ml-experiment` § 0.5 (G-TABULAR)).
-- G-PKG-NAME has resolved (`iterate-ml-experiment` § 0.5 (G-PKG-NAME)).
+- G-TABULAR has resolved (the tabular library pick is a user
+  decision, G-TABULAR).
+- G-PKG-NAME has resolved (user decision, G-PKG-NAME).
 
 ## The 9 steps (pixi)
 
@@ -91,9 +91,9 @@ keeping the `mlflow>=3` pin for the mlflow variant. See SKILL.md
 § "Tier 1 install: skore variant per mode" for the full source-aware
 table.
 
-If G-SKORE-MODE hasn't fired yet at bootstrap time (rare —
-`iterate-ml-experiment` § 0.5 fires it alongside G-PKG-NAME and
-G-TABULAR), route back to that skill before issuing the install
+If G-SKORE-MODE hasn't fired yet at bootstrap time (rare — it
+normally fires alongside G-PKG-NAME and
+G-TABULAR), ask the user before issuing the install
 command. `ruff` / `pytest` / `jupyterlab` / `ipykernel` are added
 by step 3 (the `[feature.dev]` declaration); `ipython` / `pyright`
 are added by step 3 (the `[feature.agent]` declaration). No
@@ -106,7 +106,7 @@ to rebuild graphviz's plugin cache — see SKILL.md § "skrub install
 
 ### 5. Add the tabular library
 
-Per G-TABULAR (`iterate-ml-experiment` § 0.5):
+Per G-TABULAR:
 
 - pandas branch: `pixi add pandas pyarrow`
 - polars branch: `pixi add polars`

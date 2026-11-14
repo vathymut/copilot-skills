@@ -88,7 +88,8 @@ fitted estimators, reports, params, metrics, plots. In the default
 with the code.
 
 The Project supports **three mutually exclusive backends**, picked
-once per workspace at `iterate-ml-experiment` § 0.5 (G-SKORE-MODE):
+once per workspace as a user decision (G-SKORE-MODE, recorded in
+JOURNAL.md Status):
 `local` (folder on disk), `hub` (Skore Hub, `skore[hub]`), and
 `mlflow` (push reports to an MLflow tracking server via
 `skore.Project(mode="mlflow", tracking_uri=...)`, `skore[mlflow]`).

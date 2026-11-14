@@ -90,3 +90,28 @@ Abbreviate large numbers: $1.2M not $1,200,000. Use thousand separators for mid-
 
 If the data is 1–2 numbers, write a sentence with inline context ("Revenue was $4.2M, up 23% from Q2"). If the data is a simple ranking of 3–5 items, consider a table. Charts earn their space by revealing patterns, trends, or distributions that text and tables cannot. A chart of two bars is almost always worse than a sentence.
 
+## Validation checklist
+
+Before presenting any chart, verify:
+
+- [ ] No top or right borders/spines
+- [ ] No Legend component — series labeled directly on the chart
+- [ ] Gridlines removed or horizontal-only at opacity ≤ 0.12
+- [ ] Aspect ratio approximately 1.5:1
+- [ ] Background is `#fffff8` (light) or `#151515` (dark), not pure white/black
+- [ ] Serif font for data labels and titles
+- [ ] Default series color is gray (`#666`); color used only for emphasis
+- [ ] No 3D effects, no pie chart (unless explicitly requested)
+- [ ] Axis lines span only the data range (range-frame)
+- [ ] Notable data features annotated directly on chart
+- [ ] Comparison context present (reference line, band, or second series)
+- [ ] Tooltips are plain text with no decorative styling
+- [ ] Interactive elements have tap/click/focus alternatives (no hover-only)
+- [ ] Contrast ratios meet 3:1 (elements) / 4.5:1 (text) minimums
+- [ ] Chart has a text alternative (aria-label, description, or data table)
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Charts render usably at 320px and 1440px+ widths
+- [ ] Title states the finding, not the axis description
+- [ ] Numbers are formatted for readability (abbreviations, separators, consistent precision)
+- [ ] A chart is warranted — the data couldn't be communicated as a sentence or table
+

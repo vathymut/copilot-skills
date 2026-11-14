@@ -50,7 +50,7 @@ finds the right submodule.
   expose `.metrics` (with `.summarize().frame()` for the task-
   appropriate headline metrics), `.checks` (with
   `.summarize().frame()` for the automated `passed` / `issue` /
-  `tip` walk — the surface `evaluate-ml-pipeline § Audit` renders and
+  `tip` walk — the surface the audit step renders and
   the skore source branch mines via the digest), and `.inspection`
   (for feature importance / coefficients where the estimator
   supports it).
@@ -93,7 +93,7 @@ finds the right submodule.
 
   Source: https://docs.skore.probabl.ai/stable/reference/api/skore.Project.html
   (skore 0.18.0). The mode choice for this stack's workspaces is
-  owned by `iterate-ml-experiment` § 0.5 (G-SKORE-MODE); the install
+  a user decision (G-SKORE-MODE); the install
   variant per mode is owned by `python-stack-env` § "Tier 1
   install: skore variant per mode".
 

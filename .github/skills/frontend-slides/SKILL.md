@@ -11,7 +11,6 @@ Create zero-dependency, animation-rich HTML presentations that run entirely in t
 
 - Need a data chart/figure with numeric comparison — use `tufte-data-viz`.
 - Need a new web page/app beyond slides — use `frontend-design`.
-- Need a diagram for docs — use `mermaid-diagram-specialist`.
 - Need a quick throwaway deck — skip the design bar and ship a minimal single-file deck instead.
 
 ## Core invariants
@@ -41,7 +40,17 @@ Three phases: **Discover** → **Generate** → **Deliver**.
 
 - **New presentation:** continue below.
 - **PPT conversion:** extract content with `scripts/extract-pptx.py <input.pptx> <output_dir>`, confirm with the user, then continue to style selection.
-- **Enhance existing HTML:** read the file, then follow the same rules while preserving the fixed stage. Before adding content, check density limits; if overflow is likely, split into new slides.
+- **Enhance existing HTML:** read the file, then follow the Mode C modification rules below.
+
+### Mode C: modification rules (enhancing existing decks)
+
+Fixed-stage fitting is the biggest risk when editing:
+
+1. **Before adding content:** count existing elements and check against density limits.
+2. **Adding images:** fit them inside the 1920×1080 stage. If the slide already has max content, split into two slides first.
+3. **Adding text:** max 4–6 bullets per slide; over the limit → continuation slides.
+4. **After ANY modification, verify:** the stage remains 16:9, no text overflows its card, no panels overlap, and screenshots look correct at 1280×720 plus one phone viewport.
+5. **Proactively reorganize:** if modifications will cause overflow, split content automatically and inform the user — don't wait to be asked.
 
 ### Content questions
 
@@ -69,15 +78,26 @@ Read `STYLE_PRESETS.md` and `bold-template-pack/selection-index.json` (if it exi
 
 Save previews to `.frontend-slides/slide-previews/` (style-a.html, style-b.html, style-c.html) and open them for the user.
 
-**Ask:** Which style do you prefer? A / B / C / mix elements / create a custom theme.
+**Preview mix rules:** default mix is 1 safe preset from `STYLE_PRESETS.md`, at least 1 bold template from `bold-template-pack/selection-index.json`, and 1 wildcard (second bold template or a self-generated custom design — pick whichever creates the strongest contrast for this occasion, audience, and mood). For conservative/high-stakes decks make the safe preset especially restrained and the wildcard authoritative rather than decorative; for expressive decks make the wildcard adventurous and context-specific. If bold-template matches feel weak, use the wildcard as a custom design instead of forcing a template.
 
-### Custom themes
+**Bold template selection rules:** match purpose and mood against `mood`, `tone`, `best_for`, `avoid_for`, `formality`, `density`, and `scheme` (treat `best_for` examples as soft signals, not industry filters). After shortlisting candidates, read only those candidates' `preview.md` files (from the `preview_md` paths in the selection index) — and only for title-slide previews. Do not read any full `design.md` until the user picks the final template.
 
-If the user wants a custom theme, or wants to apply one of the built-in theme palettes from `themes/` / `theme-showcase.pdf`:
+**Custom wildcard design rules:** no generic AI-slop patterns, no default font/color/layout choices, no purple-gradient-on-white clichés, no cookie-cutter card look. Match the user's stated occasion, audience, mood, and density — the design must feel authored for this deck. Commit to a visual thesis: distinctive typography, a committed palette, a recognizable layout system, one strong atmospheric device. Keep it feasible for a full deck (the preview must imply a system that expands into section/content/quote/closing slides).
 
-1. Read the chosen `themes/<name>.md` file (or the custom description).
-2. Apply its colors and fonts consistently across the deck.
-3. Ensure contrast and readability.
+**Preview authenticity rules (NON-NEGOTIABLE):**
+
+- Every style preview must look like a real first slide from the user's deck, not a diagnostic card.
+- Never render internal workflow text on a slide: no `preview`, `generated from`, `preview.md`, `template`, `preset`, `style option`, `Option A/B/C`, file names, paths, or source-doc labels.
+- Never render template names or slug names on the slide itself — they belong only in the message to the user.
+- Never render user requirement notes as slide content ("sharp and provocative", "safe option", "audience: …") unless the user explicitly wants that exact phrase in the deck.
+- If the slide needs chrome, use real deck chrome only: deck title, section title, date, author, page number, or a genuine content phrase from the user's material.
+- Before opening previews, inspect the visible text and revise if any internal metadata appears.
+
+**Ask:** Which style do you prefer? A / B / C / mix elements / create a custom design.
+
+### Custom design direction
+
+If the user wants a custom design (or "mix elements"), treat their description plus the wildcard rules above as the design recipe: apply its colors and fonts consistently across the deck, and ensure contrast and readability.
 
 ## Phase 2: Generate
 
@@ -103,7 +123,7 @@ Optional export/share: see `references/export-rules.md`.
 ## Completion criteria
 
 - [ ] Preamble: full `viewport-base.css` embedded inline; no external `<link>`/`<script src>`
-- [ ] Style chosen from `STYLE_PRESETS.md` previews (or custom theme applied); single HTML file only
+- [ ] Style chosen from `STYLE_PRESETS.md` / bold-template previews (or a custom design applied); previews pass the authenticity check; single HTML file only
 - [ ] Content fits stage — no scroll/overflow/overlap; dense content split across slides
 - [ ] `prefers-reduced-motion` respected; file opens offline from disk
 
@@ -115,4 +135,3 @@ Author-facing docs for humans (not loaded by the agent): `README.md` — full wo
 
 - `frontend-design` — non-slide web pages/apps.
 - `tufte-data-viz` — charts inside slides.
-- `mermaid-diagram-specialist` — diagrams inside slides.

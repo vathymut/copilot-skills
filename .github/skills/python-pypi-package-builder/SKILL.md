@@ -10,7 +10,7 @@ Create, scaffold, or publish a Python package to PyPI. Also: set up `pyproject.t
 ## When NOT to use
 
 - Need to fix a failing import or choose a library for a job (plotting/serving) — use `python-stack-env`.
-- Building a one-off script or ML experiment package — use `iterate-ml-experiment` § 0.5 scaffold; this skill is for publishable libraries.
+- Building a one-off script or experiment package — scaffold a minimal package yourself; this skill is for publishable libraries.
 - Project is not Python — this skill only handles `pyproject.toml` Python packaging.
 
 ## Decision chain

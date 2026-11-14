@@ -46,5 +46,4 @@ Write documentation using the Diátaxis framework.
 ## Related skills
 
 - `domain-modeling` — ADRs and ubiquitous language; this skill stays on prose docs.
-- `mermaid-diagram-specialist` — diagrams inside docs.
 - `tufte-data-viz` — charts inside docs.

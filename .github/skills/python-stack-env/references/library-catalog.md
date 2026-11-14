@@ -8,12 +8,11 @@ evaluates the result and persists it as a project on disk. The
 fourth, `ruff`, owns lint + format and is non-negotiable: every
 project Claude touches should pass `ruff check`. The fifth,
 `pytest`, runs the smoke test that every approved experiment
-must have per the `evaluate-ml-pipeline` § Smoke contract — without
-pytest the smoke-test gate can't enforce
+must have — without pytest the smoke-test gate can't enforce
 predict-time correctness, so pytest stays mandatory even when
 no other tests have been written yet. Each is named explicitly
-even when transitively present, because the workflow skills
-(`build-ml-pipeline`, `evaluate-ml-pipeline`) depend on them
+even when transitively present, because downstream workflow
+steps depend on them
 directly and should not silently lose them if upstream packaging
 changes.
 
@@ -42,16 +41,16 @@ changes.
   **Skore mode variant.** `skore.Project(...)` supports three
   mutually exclusive modes: `local` (artifacts on disk), `hub`
   (artifacts on Skore Hub), `mlflow` (artifacts in an MLflow
-  tracking server). The mode is a workspace-level decision owned by
-  `iterate-ml-experiment` § 0.5 (G-SKORE-MODE). The exact install
+  tracking server). The mode is a workspace-level user decision
+  (G-SKORE-MODE), recorded in JOURNAL.md Status. The exact install
   command for each mode lives in `python-stack-env` § "Tier 1
   install: skore variant per mode" — this skill only records *what*
   to install, not *how*. Default-on-no-preference: `local`.
 - [`ruff`](references/ruff.md) — single-tool lint + format, Tier 1
   (mandatory). Command, config, and `dev`-feature routing: see
-  `ml-conventions:references/shared-ml-conventions.md` (Ruff).
+  `references/ruff.md`.
 - [`pytest`](references/pytest.md) — test runner for the
-  smoke-test gate enforced by `evaluate-ml-pipeline` § Smoke. Every
+  smoke-test gate. Every
   approved experiment must have a
   passing `tests/smoke/test_NN_<short_name>.py` before its row
   in `JOURNAL.md` can flip to `done`; pytest is what runs that

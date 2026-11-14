@@ -93,7 +93,7 @@ Skills in this catalog are adapted from the following sources:
 | `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
-| `mattpocock/skills` | Skill-writing principles and reference vocabulary |
+| `mattpocock/skills` | Skill-writing principles plus productivity/engineering skills (`grill-me`, `grilling`, `research`, `domain-modeling`) |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
 | `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
 | `humanlayer/skills` | Visual-explanation skill (`show-me`: diagrams, code-shape sketches, HTML artifacts) |

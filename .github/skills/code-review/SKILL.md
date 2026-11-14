@@ -64,5 +64,5 @@ which beats the default review.
 
 ## Related skills
 
-- `systematic-debugging` — root cause before review fix.
+- Root-cause fixes precede any review re-run.
 - `refactor` — structural concerns flagged, not implemented.

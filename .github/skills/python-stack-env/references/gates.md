@@ -55,8 +55,8 @@ doesn't compose it. User sees "unresolved import" on valid code.
 
 ### `G-AGENT-FEATURE` — install ipython + pyright
 
-**Fires when**: an agent-only consumer (`evaluate-ml-pipeline § Audit` for audit
-files, or `ml-eda` for `data/eda.py`) needs `ipython` /
+**Fires when**: an agent-only consumer (audit or EDA cell scripts
+run through the cell runner) needs `ipython` /
 `pyright` and the manifest doesn't expose them. Can fire as early as
 **bootstrap** (the G-EDA run path).
 
@@ -81,6 +81,6 @@ Read `Workspace decisions` first:
 If a row is recorded, **do not re-ask** — cite
 `JOURNAL.md Status (Workspace decisions, recorded YYYY-MM-DD)` as
 evidence. If `journal/JOURNAL.md` doesn't exist yet, gates fire
-fresh and answers land in `Workspace decisions` once
-`iterate-ml-experiment` writes the JOURNAL.
+fresh and answers land in `Workspace decisions` once the JOURNAL
+is created.
 

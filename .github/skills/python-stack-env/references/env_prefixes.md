@@ -1,8 +1,8 @@
 # Env-prefix placeholder reference
 
 Single source of truth for the two run-prefix placeholders that
-consumer skills (python-api, ml-eda, evaluate-ml-pipeline,
-iterate-ml-experiment, ml-conventions) use in their procedure steps:
+consumer skills (python-api, and any audit/EDA cell scripts) use in
+their procedure steps:
 
 - **`<env-prefix>`** — the prefix that runs a command in the project's
   *default* env. Used for general script execution (the experiment
@@ -61,10 +61,10 @@ agent = ["ipython", "pyright"]
 |---|---|
 | `python-api` § "Resolve the version" (default env) | `uv run python scratch/<ts>_version_skore.py` |
 | `python-api` § "Shape 1 probe" (needs `IPython` cache write helper) | `uv run --group agent python scratch/<ts>_lookup_skore_evaluate.py` |
-| `ml-eda` pre-flight (G-AGENT-FEATURE smoke) | `uv run --group agent ipython -c "print(0)"` |
-| `evaluate-ml-pipeline` § Audit (`<agent-env-prefix>`) | `uv run --group agent python ml-eda:scripts/run_cells.py audit/01_baseline.py` |
-| `iterate-ml-experiment` G-RUN **run now** (default env, just `python experiments/...py`) | `uv run python experiments/01_baseline.py` |
-| `iterate-ml-experiment` § 4 audit (needs ipython for cell runner) | `uv run --group agent python ml-eda:scripts/run_cells.py audit/01_baseline.py` |
+| G-AGENT-FEATURE smoke test | `uv run --group agent ipython -c "print(0)"` |
+| Audit cell script (`<agent-env-prefix>`) | `uv run --group agent python <scripts-dir>/run_cells.py audit/01_baseline.py` |
+| G-RUN **run now** (default env, just `python experiments/...py`) | `uv run python experiments/01_baseline.py` |
+| Audit run (needs ipython for cell runner) | `uv run --group agent python <scripts-dir>/run_cells.py audit/01_baseline.py` |
 | `python-api` `ruff format .` after a write (dev group) | `uv run --group dev ruff format .` |
 
 If the project does **not** set `default-groups`, then `uv run` on

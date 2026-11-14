@@ -20,8 +20,7 @@ installed version via a Shape 1 probe before writing the call.
 - **`skrub.X(...)` / `skrub.y(...)` graph roots** — deprecated in
   favour of `skrub.var(name, value).skb.mark_as_X()` /
   `mark_as_y()`. The sugar bakes the marker at the source and
-  forbids the late-marker pattern (see `build-ml-pipeline` Stop
-  conditions).
+  forbids the late-marker pattern.
 
 ## skore
 
