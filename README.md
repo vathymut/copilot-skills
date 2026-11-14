@@ -33,7 +33,7 @@ For Windows setup, instructions wiring, and troubleshooting, see [docs/install.m
 
 ## Catalog
 
-For the complete list of 19 skills, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md).
+For the complete list of 18 skills, upstream sources, and how they were adapted, see [docs/catalog.md](./docs/catalog.md).
 
 For how the catalog is organized and how the two tools consume it differently, see [docs/architecture.md](./docs/architecture.md).
 

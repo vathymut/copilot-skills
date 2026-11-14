@@ -1,6 +1,6 @@
 # Skill provenance
 
-Provenance record for each skill in `.github/skills/` (19 skills). This manifest pins the best-known upstream source, adaptation status, and review notes.
+Provenance record for each skill in `.github/skills/` (18 skills). This manifest pins the best-known upstream source, adaptation status, and review notes.
 
 **Status legend**
 - **verified** — upstream repo/path compared directly in a review pass.
@@ -19,7 +19,6 @@ Last updated: 2026-11-13
 | `frontend-design` | `anthropics/skills` | `skills/frontend-design/SKILL.md` (last changed 2026-09-03, PR #1713) | verified/adapted | 2026-11-13 | Keep fork (local structure/scope guards preserved). 2026-11-13 backport: AI-cliché calibration list + two-pass plan→review→critique process + typographic/motion specifics from PR #1713. |
 | `frontend-slides` | `zarazhangrui/frontend-slides` | `SKILL.md` (last changed 2026-05-26) | verified/adapted | 2026-11-13 | Condensed fork. 2026-11-13 backport: Mode C modification rules, preview authenticity (NON-NEGOTIABLE), preview mix, bold-template selection, custom-wildcard rules. Stale upstream `themes/` + `theme-showcase.pdf` retired (upstream dropped them). |
 | `git-workflow` | three-way merge: `github/awesome-copilot` (`commit-message-storyteller`), `obra/superpowers` (`using-git-worktrees`, `finishing-a-development-branch`), plus local fixup/autosquash content | `references/conventional-commits-guide.md`, `references/worktree.md`, `references/finish-branch.md` | verified/adapted | 2026-11-13 | Minor drift acceptable: upstream worktree/finishing refinements post-2026-07 (e.g. "capture WORKTREE_PATH now") not yet absorbed. Local adds a 4th finish option ("Discard"). |
-| `grill-me` | `mattpocock/skills` | `skills/productivity/grill-me/SKILL.md` (last changed 2026-08-15; verbatim restore in git `66cd88e`) | verified | 2026-11-13 | Verbatim copy incl. `agents/openai.yaml`. (Previously misattributed to obra/superpowers.) |
 | `grilling` | `mattpocock/skills` | `skills/productivity/grilling/SKILL.md` (last changed 2026-10-29) | verified/adapted | 2026-11-13 | 2026-11-13: synced upstream additions ("yes" accepts recommended answer; sub-agent fresh context window). (Previously misattributed to obra/superpowers.) |
 | `internal-writing` | three-way merge: `anthropics/skills` (`internal-comms`, examples byte-identical), `github/awesome-copilot` (`meeting-minutes`, `performance-review-writer`) | `skills/internal-comms/`, `skills/meeting-minutes/`, `skills/performance-review-writer/` | verified/adapted | 2026-11-13 | All three upstreams predate the 2026-07 consolidation and haven't moved; `brag-sheet` (awesome-copilot, 2026-04-29) is a plausible extra influence on the review branch. |
 | `ml-paper-writing` | `Orchestra-Research/AI-Research-SKILLs` | `20-ml-paper-writing/ml-paper-writing/` (upstream unchanged since 2026-04-10) | verified/adapted | 2026-11-13 | Condensed to a router; `citation-workflow.md` and `writing-guide.md` remain byte-identical to upstream; `paper-structure.md` and `conference-quick-ref.md` are local extractions. |

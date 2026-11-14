@@ -7,7 +7,7 @@ Skills are sourced from upstream repositories and then edited, consolidated, or 
 ## How to read this catalog
 
 - **Leaf skills** do the actual work. Many are triggered automatically by OpenCode or Copilot based on your request.
-- **User-invoked / routing skills** can be invoked directly and may dispatch to a more specific workflow or reference (for example `grill-me` → `grilling`, and branch-routing inside `data-access`, `git-workflow`, `internal-writing`, `ui-screenshots`).
+- **User-invoked / routing skills** can be invoked directly and may dispatch to a more specific workflow or reference (for example branch-routing inside `data-access`, `git-workflow`, `internal-writing`, `ui-screenshots`).
 
 ## Code Quality & Security
 
@@ -27,7 +27,6 @@ Skills are sourced from upstream repositories and then edited, consolidated, or 
 | Skill | What it does |
 |---|---|
 | `domain-modeling` | Builds and sharpens a project's domain model, ubiquitous language, and architectural decisions (ADRs) |
-| `grill-me` | User-invoked entry point that sharpens a plan via the `grilling` interview |
 | `grilling` | Relentlessly interviews the user round-by-round to stress-test a plan or decision |
 
 ## Documentation & Specs
@@ -93,14 +92,14 @@ Skills in this catalog are adapted from the following sources:
 | `probabl-ai/skills` | ML experimentation and PyData workflow skills |
 | `vercel/next.js` | Frontend and full-stack patterns |
 | `duckdb/duckdb-skills` | DuckDB-powered data skills |
-| `mattpocock/skills` | Skill-writing principles plus productivity/engineering skills (`grill-me`, `grilling`, `research`, `domain-modeling`) |
+| `mattpocock/skills` | Skill-writing principles plus productivity/engineering skills (`grilling`, `research`, `domain-modeling`) |
 | `zarazhangrui/frontend-slides` | HTML presentation creation and PPT conversion |
 | `caylent/tufte-data-viz` | Edward Tufte's data visualization principles for clean charts |
 | `humanlayer/skills` | Visual-explanation skill (`show-me`: diagrams, code-shape sketches, HTML artifacts) |
 
 ## Counts
 
-- **19 skills** in `.github/skills/`
+- **18 skills** in `.github/skills/`
 
 To update these counts, run:
 
